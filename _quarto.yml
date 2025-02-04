@@ -43,7 +43,7 @@ format:
       - text: GitHub Repository
         href: https://github.com/digital-wellbeing/gaming-reduction-backend
         icon: github
-bibliography: references.bib
+# bibliography: references.bib
 publish:
   gh-pages:
     branch: main
