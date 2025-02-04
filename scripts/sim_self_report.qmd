@@ -1,0 +1,192 @@
+---
+title: "Generate Synthetic Data"
+output: html_document
+execute-dir: project
+---
+
+## Introduction
+
+This document demonstrates a complete workflow for generating synthetic data, introducing dropout, and fitting models (a GAM or MLM) to the data. The main focus is on the `sim_study` function, which orchestrates the data simulation, dropout process, and model fitting. The code is presented in separate chunks, each serving a specific purpose, with explanatory text interspersed.
+
+First we load packages with `pacman`, which is fully compatible with `renv`.
+```{r}
+#| label: load-libraries
+
+library(pacman)
+
+p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot)
+
+```
+
+### Simulation, Dropout, and Fitting Functions
+
+Here we define:
+
+- `sim_data`: Generates synthetic data with random intercepts/slopes and AR(1) errors.
+- `sim_dropout`: Introduces missingness and dropout in the dataset.
+- `fit_gam`: Fits a GAM with an AR(1) correlation structure.
+- `fit_mlm`: Fits a multi-level linear model (random intercept per subject).
+- `sim_study`: Ties everything together—generates data, applies dropout, then fits the chosen model and returns a tidy summary.
+
+```{r}
+#| label: sim-functions
+
+sim_data <- function(n = 1000,
+                     n_days = 28,
+                     b = 0.01,
+                     
+                     # AR(1) parameters
+                     phi = 0.7,     # Autocorrelation coefficient
+                     sigma = .6)     # Residual SD
+{
+  dat <- tibble(
+    id = 1:n,
+    age = sample(18:36, n, replace = TRUE),
+    gender = sample(c("man","woman","non-binary"), n, prob = c(.45, .45, .1), replace = TRUE),
+    condition = factor(sample(c("control", "intervention"), n, replace = TRUE)),
+    experimental_condition = ifelse(condition == "intervention", 1, 0),
+    intercept = rnorm(n, 0, .5),
+    slope = rnorm(n, 0, .02)
+  ) |> 
+    # expand to 28 waves per id
+    crossing(
+      day = 1:n_days
+    ) |> 
+    mutate(
+      intervention_period = (day > 7 & day < 22)
+    ) |> 
+    group_by(id) |> 
+    mutate(
+      # Generate AR(1) errors for each participant
+      e = as.numeric(arima.sim(n = n_days, 
+                               model = list(ar = phi), 
+                               sd = sigma)),
+      # Add random effect + fixed effect + AR(1) error
+      wellbeing = 
+        intercept + 
+        ((b + slope) * (day - 7)) * experimental_condition * intervention_period + 
+        .01*age +
+        -.05*gender %in% c("women","non-binary") +
+        e
+    ) |> 
+    ungroup()
+
+}
+
+sim_dropout <- function(dat) {
+  
+  dropout <- dat |> 
+    mutate(
+      missing = sample(c(TRUE, FALSE), n(), replace = TRUE, prob = c(.10, .90)),
+      dropout = sample(c(TRUE, FALSE), n(), replace = TRUE, prob = c(.01, .99))
+    ) |>
+    mutate(
+      missing = ifelse(cumsum(dropout) > 0, TRUE, missing),
+      .by = id
+    ) |>
+    arrange(as.integer(id), day) |> 
+    mutate(wellbeing = ifelse(missing, NA, wellbeing))
+  dropout
+}
+
+
+fit_gam <- function(dat) {
+  
+  gam(wellbeing ~ condition:intervention_period + 
+        s(day, by = condition) +
+        s(id, bs = "re"),
+      data = dat,
+      # method = "REML",
+      correlation = corAR1(form = ~ day | id))
+}
+
+fit_mlm <- function(dat) {
+  lmer(wellbeing ~ condition*intervention_period + (1|id), data = dat)
+}
+
+sim_study <- function(model_function = fit_gam,
+                      n = 1000,
+                      n_days = 28,
+                      b = 0.01,
+                      
+                      # AR(1) parameters
+                      phi = 0.7,     # Autocorrelation coefficient
+                      sigma = .6) {
+  dat <- sim_data() |> 
+    sim_dropout()
+  model_function(dat) |> 
+    broom::tidy(parametric = TRUE)
+}
+
+```
+
+
+### Test Data Creation & Descriptively Plot
+Below, we create a sample dataset using sim_data() and examine it with basic plots. The first is a smoothed trend over days for each condition; the second is a line plot of average wellbeing per day, grouped by condition.
+
+```{r}
+#| label: test-plot-descriptive
+
+dat <- sim_data()
+
+# loess
+ggplot(dat, aes(y = wellbeing, x = day, color = condition)) +
+  geom_smooth() + 
+  theme_minimal()
+
+# line plot
+dat |> 
+  group_by(condition, day) |> 
+  summarise(wellbeing = mean(wellbeing)) |> 
+  ggplot(aes(y = wellbeing, x = day, color = condition)) +
+  geom_line() + 
+  theme_minimal()
+
+```
+
+### Test Fitting a Model
+
+We fit our GAM (`fit_gam`) to the newly simulated data, then demonstrate a simple way to visualize model predictions using `plot_predictions` from the marginaleffects package.
+
+```{r}
+#| label: test-fit
+
+fit <- fit_gam(dat)
+
+# modify this to plot over days
+plot_predictions(fit, condition = c("day", "condition"))
+```
+
+# Power analysis: Repeated Simulation Studies
+
+To assess power/sensitivity, we run multiple simulations (controlled by `n_sims`) and gather the parameter estimates for a particular term (here, "conditionintervention:intervention_periodTRUE"). Each iteration calls `sim_study`, which does the data generation, dropout, and fitting.
+
+```{r}
+#| label: sim-studies
+
+n_sims <- 100
+
+results <- map_dfr(
+  1:n_sims, 
+  ~ sim_study(model_function = fit_gam,
+              n = 1000,
+              n_days = 28,
+              b = 0.01,
+              phi = 0.7,
+              sigma = .6),
+  .progress = TRUE
+  ) |> 
+  filter(term == "conditionintervention:intervention_periodTRUE") |> 
+  mutate(
+    conf.low = estimate - 1.96 * std.error,
+    conf.high = estimate + 1.96 * std.error
+  )
+
+results |>
+  forestplot(mean = estimate,
+             lower = conf.low,
+             upper = conf.high,
+             labeltext = term)
+
+```
+
