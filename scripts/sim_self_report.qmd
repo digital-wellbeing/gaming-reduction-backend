@@ -14,7 +14,15 @@ First we load packages with `pacman`, which is fully compatible with `renv`.
 
 library(pacman)
 
-p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot)
+p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme)
+
+theme_set(theme_minimal())
+theme_update(
+  strip.background = element_rect(fill = "black"),
+  strip.text = element_text(color = "white", size = 10),
+  panel.grid.minor = element_blank(),
+  panel.border = element_rect(colour = "black", fill = NA, linewidth = 1),
+)
 
 ```
 
@@ -36,18 +44,28 @@ Here we define:
 #' This function simulates synthetic panel data for `n` participants over `n_days` time points,
 #' with an intervention effect, random intercepts and slopes, and AR(1)-correlated residuals.
 #'
-#' @param n Number of participants. Default is 1000.
+#' @param n Number of participants. Default is 100.
 #' @param n_days Number of time points per participant. Default is 28.
-#' @param b Fixed effect for the intervention slope. Default is 0.01.
+#' @param b Fixed effect for the intervention slope. Default is 0.1.
 #' @param phi AR(1) autocorrelation coefficient. Default is 0.7.
 #' @param sigma AR(1) residual standard deviation. Default is 0.6.
-sim_data <- function(n = 1000,
+sim_data <- function(n = 100,
                      n_days = 28,
-                     b = 0.01,
+                     
+                     # effect parameters
+                     b = 3.7, # effect in unstandardized units
+                     mu = 78.5, # grand mean of the outcome
+                     
+                     
+                     # random effects parameters
+                     tau_int = 9.7,   # Random intercept SD (between-person variance)
+                     tau_slope = .05,  # Random slope SD 
+                     within_person_sd = 11.8, # Within-person SD
                      
                      # AR(1) parameters
                      phi = 0.7,     # Autocorrelation coefficient
-                     sigma = .6)     # Residual SD
+                     effect_shape = "grow",
+                     k = .5)     
 {
   dat <- tibble(
     id = 1:n,
@@ -55,27 +73,34 @@ sim_data <- function(n = 1000,
     gender = sample(c("man","woman","non-binary"), n, prob = c(.45, .45, .1), replace = TRUE),
     condition = factor(sample(c("control", "intervention"), n, replace = TRUE)),
     experimental_condition = ifelse(condition == "intervention", 1, 0),
-    intercept = rnorm(n, 0, .5),
-    slope = rnorm(n, 0, .02)
+    intercept = rnorm(n, 0, tau_int),
+    slope = rnorm(n, 0, tau_slope)
   ) |> 
     # expand to 28 waves per id
     crossing(
       day = 1:n_days
     ) |> 
     mutate(
-      intervention_period = (day > 7 & day < 22)
+      intervention_period = as.numeric(day > 7 & day < 22),
+      effect_time = case_when(
+        effect_shape == "plateau" ~ if_else(intervention_period == 1, (b + slope) * (1-exp(-k * (day - 7))), 0),
+        effect_shape == "grow" ~ if_else(intervention_period == 1, (day - 7) * ((b + slope)/7), 0),
+        TRUE ~ NA_real_
+      )
     ) |> 
     group_by(id) |> 
     mutate(
+      sigma = within_person_sd * sqrt(1-phi^2),
       # Generate AR(1) errors for each participant
       e = as.numeric(arima.sim(n = n_days, 
                                model = list(ar = phi), 
                                sd = sigma)),
       # Add random effect + fixed effect + AR(1) error
       wellbeing = 
+        mu + 
         intercept + 
-        ((b + slope) * (day - 7)) * experimental_condition * intervention_period + 
-        .01*age +
+        effect_time * experimental_condition * intervention_period + 
+        .01*(age-18) +
         -.05*gender %in% c("women","non-binary") +
         e
     ) |> 
@@ -120,11 +145,11 @@ sim_dropout <- function(dat) {
 #'
 fit_gam <- function(dat) {
   
-  gam(wellbeing ~ condition:intervention_period + 
-        s(day, by = condition) +
-        s(id, bs = "re"),
+  gam(wellbeing ~ 
+        condition:intervention_period + age + gender +
+        s(id, bs = "re") + 
+        s(day, by = condition, bs = "tp"), 
       data = dat,
-      # method = "REML",
       correlation = corAR1(form = ~ day | id))
 }
 
@@ -137,7 +162,31 @@ fit_gam <- function(dat) {
 #' @return An object of class \code{lmerMod}, which is the fitted MLM model.
 #'
 fit_mlm <- function(dat) {
-  lmer(wellbeing ~ condition*intervention_period + (1|id), data = dat)
+  # lmer(wellbeing ~ condition*intervention_period + age + gender + (1|id), data = dat)
+  lme(
+    fixed = wellbeing ~ condition*intervention_period + age + gender,
+    random = ~ 1|id,  # or use a more flexible structure if needed
+    correlation = corAR1(form = ~ day | id),
+    method = "ML",
+    data = dat |> filter(!is.na(wellbeing))
+  )
+}
+
+fit_mlm2 <- function(dat) {
+  tmp <- dat |> 
+    group_by(id) |> 
+    # take the mean of days 1-7 
+    mutate(baseline = mean(wellbeing[day < 8], na.rm = TRUE)) |> 
+    filter(intervention_period == 1) |> 
+    filter(!is.na(wellbeing))
+  
+  lme(
+    fixed = wellbeing ~ baseline + condition + age + gender,
+    random = ~ 1 + condition|id,
+    correlation = corAR1(form = ~ day | id),
+    method = "ML",
+    data = tmp |> filter(!is.na(wellbeing))
+  )
 }
 
 #' Simulation Study Orchestrator
@@ -154,15 +203,9 @@ fit_mlm <- function(dat) {
 #'
 #' @return A data frame (tibble) of model estimates from \code{broom::tidy(parametric = TRUE)}.
 #'
-sim_study <- function(model_function = fit_gam,
-                      n = 1000,
-                      n_days = 28,
-                      b = 0.01,
-                      
-                      # AR(1) parameters
-                      phi = 0.7,     # Autocorrelation coefficient
-                      sigma = .6) {
-  dat <- sim_data() |> 
+sim_study <- function(model_function = fit_gam, ...) {
+  args <- list(...)
+  dat <- do.call(sim_data, args) |> 
     sim_dropout()
   model_function(dat) |> 
     broom::tidy(parametric = TRUE)
@@ -177,12 +220,14 @@ Below, we create a sample dataset using sim_data() and examine it with basic plo
 ```{r}
 #| label: test-plot-descriptive
 
-dat <- sim_data()
+dat <- sim_data(effect_shape = "plateau")
 
-# loess
-ggplot(dat, aes(y = wellbeing, x = day, color = condition)) +
-  geom_smooth() + 
-  theme_minimal()
+(sds <- dat |> 
+  group_by(id) |> 
+  summarise(mean_value = mean(wellbeing, na.rm = TRUE),
+            sd_within  = sd(wellbeing, na.rm = TRUE)) |>
+  summarise(between_sd   = sd(mean_value, na.rm = TRUE),
+            avg_within_sd = mean(sd_within, na.rm = TRUE)))
 
 # line plot
 dat |> 
@@ -190,7 +235,14 @@ dat |>
   summarise(wellbeing = mean(wellbeing)) |> 
   ggplot(aes(y = wellbeing, x = day, color = condition)) +
   geom_line() + 
+  theme_minimal() +
+  scale_y_continuous(limits = c(60, 100))
+
+# loess
+ggplot(dat, aes(y = wellbeing, x = day, color = condition)) +
+  geom_smooth() + 
   theme_minimal()
+
 
 ```
 
@@ -201,10 +253,24 @@ We fit our GAM (`fit_gam`) to the newly simulated data, then demonstrate a simpl
 ```{r}
 #| label: test-fit
 
-fit <- fit_gam(dat)
+dat <- sim_data() |> 
+  sim_dropout()
 
-# modify this to plot over days
-plot_predictions(fit, condition = c("day", "condition"))
+dat2 <- dat |> 
+  group_by(id) |> 
+  # take the mean of days 1-7 
+  mutate(baseline = mean(wellbeing[day < 8], na.rm = TRUE)) |> 
+  filter(intervention_period == 1)
+
+mlm <- fit_mlm(dat)
+summary(mlm)
+
+mlm2 <- fit_mlm2(dat)
+summary(mlm2)
+
+gam <- fit_gam(dat)
+plot_predictions(gam, condition = c("day", "condition"))
+
 ```
 
 # Power analysis: Repeated Simulation Studies
@@ -214,29 +280,121 @@ To assess power/sensitivity, we run multiple simulations (controlled by `n_sims`
 ```{r}
 #| label: sim-studies
 
-n_sims <- 100
+n_sims <- 500
 
-results <- map_dfr(
-  1:n_sims, 
-  ~ sim_study(model_function = fit_gam,
-              n = 1000,
-              n_days = 28,
-              b = 0.01,
-              phi = 0.7,
-              sigma = .6),
-  .progress = TRUE
-  ) |> 
-  filter(term == "conditionintervention:intervention_periodTRUE") |> 
-  mutate(
-    conf.low = estimate - 1.96 * std.error,
-    conf.high = estimate + 1.96 * std.error
+specs <- expand_grid(
+  model = c("fit_gam", "fit_mlm", "fit_mlm2"),  # model names as strings
+  b = c(1.2, 2.4, 3.6, 4.8, 6),
+  effect_shape = c("grow", "plateau")
+) |> 
+  (\(d) { d$row_id <- pmap_chr(d, ~ paste0(names(list(...)), "=", c(...), collapse = "_")); d })() |> 
+  mutate(i = row_number())
+
+results <- specs |> 
+  rowwise() |> 
+  mutate(sim_results = list({
+    message("Processing spec row: ", i)
+    map_dfr(1:n_sims, function(sim) {
+      tryCatch({
+        sim_study(
+          model_function = get(model),  # retrieve the function from its name
+          n = 100,
+          n_days = 28,
+          # effect parameters
+          b = b, # effect in unstandardized units
+          mu = 78.5, # grand mean of the outcome
+          effect_shape = effect_shape,
+          k = .5,
+          # random effects parameters
+          tau_int = 9.7,   # Random intercept SD (between-person variance)
+          tau_slope = .8,  # Random slope SD 
+          within_person_sd = 11.8, # Within-person SD
+          # AR(1) parameters
+          phi = 0.7     # Autocorrelation coefficient
+        ) |> 
+          filter(term == "conditionintervention:intervention_period" | 
+                   (model == "fit_mlm2" & term == "conditionintervention")) |> 
+          mutate(
+            conf.low = estimate - 1.96 * std.error,
+            conf.high = estimate + 1.96 * std.error,
+            sim = sim
+          )
+      }, error = function(e) {
+        message("Simulation ", sim, " failed: ", e$message)
+        tibble(
+          term = NA_character_,
+          estimate = NA_real_,
+          std.error = NA_real_,
+        )
+      })
+    }, .progress = TRUE)
+  })) |> 
+  ungroup() |> 
+  unnest(sim_results)
+
+sim_summary <- results |> 
+  group_by(row_id) %>%
+  summarise(
+    model = first(model),
+    b = first(b),
+    effect_shape = first(effect_shape),
+    mean_effect = mean(estimate, na.rm = TRUE),
+    mean_se = mean(std.error, na.rm = TRUE),
+    mean_conf.low = mean(conf.low, na.rm = TRUE),
+    mean_conf.high = mean(conf.high, na.rm = TRUE),
+    power = sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))
   )
 
-results |>
-  forestplot(mean = estimate,
-             lower = conf.low,
-             upper = conf.high,
-             labeltext = term)
+
+```
+
+```{r}
+#| label: visualize-power
+
+# Estimated effect vs. true effect (b)
+ggplot(sim_summary, aes(x = b, y = mean_effect, color = model)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = mean_conf.low, ymax = mean_conf.high), width = 0.1) +
+  facet_wrap(~ effect_shape) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray") +
+  labs(x = "True Effect (unstandardized b)", y = "Estimated Effect",
+       title = "Estimated vs. True Effects by Model and Effect Shape") +
+  scale_x_continuous(breaks = c(1.2, 2.4, 3.6, 4.8, 6),
+                     sec.axis = sec_axis(~ . / 12, name = "Standardized Effect (b/12)"))
+
+# Power vs. true effect (b)
+ggplot(sim_summary, aes(x = b, y = power, color = model)) +
+  geom_line(size = 1) +
+  geom_point(size = 3) +
+  facet_wrap(~ effect_shape) +
+  labs(x = "True Effect (unstandardized b)", y = "Power",
+       title = "Power by Model and Effect Shape") +
+  scale_x_continuous(breaks = c(1.2, 2.4, 3.6, 4.8, 6),
+                     sec.axis = sec_axis(~ . / 12, name = "Standardized Effect (b/12)"))
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1))
+
+# results |>
+#   forestplot(mean = estimate,
+#              lower = conf.low,
+#              upper = conf.high,
+#              labeltext = term)
+
+```
+
+
+# Alternative GAM specifications
+
+```{r}
+#| label: alternative-gams
+
+# fit2 <- gam(wellbeing ~ condition*intervention_period + s(day, id, bs = "fs", m = 1), method = "REML", data = dat)
+# 
+# fit3 <- gamm4(wellbeing ~ condition*intervention_period + id + s(day, by = condition),
+#              family = gaussian(),
+#              random = ~(1|id),
+#              data = dat)
+# 
+# ggpredict(fit, c("day","condition")) %>% plot()
 
 ```
 
