@@ -14,7 +14,7 @@ First we load packages with `pacman`, which is fully compatible with `renv`.
 
 library(pacman)
 
-p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme)
+p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr)
 
 theme_set(theme_minimal())
 theme_update(
@@ -153,6 +153,16 @@ fit_gam <- function(dat) {
       correlation = corAR1(form = ~ day | id))
 }
 
+fit_gam_no_main <- function(dat) {
+  
+  gam(wellbeing ~ 
+        age + gender +
+        s(id, bs = "re") + 
+        s(day, by = condition, bs = "tp"), 
+      data = dat,
+      correlation = corCAR1(form = ~ day | id))
+}
+
 #' Fit a Multi-Level Model (MLM)
 #'
 #' Fits a linear mixed-effects model (LME) with random intercept for each ID using \code{lme4::lmer}.
@@ -166,13 +176,14 @@ fit_mlm <- function(dat) {
   lme(
     fixed = wellbeing ~ condition*intervention_period + age + gender,
     random = ~ 1|id,  # or use a more flexible structure if needed
-    correlation = corAR1(form = ~ day | id),
+    correlation = corCAR1(form = ~ day | id),
     method = "ML",
     data = dat |> filter(!is.na(wellbeing))
   )
 }
 
-fit_mlm2 <- function(dat) {
+fit_mlm_simple <- function(dat) {
+  
   tmp <- dat |> 
     group_by(id) |> 
     # take the mean of days 1-7 
@@ -183,10 +194,73 @@ fit_mlm2 <- function(dat) {
   lme(
     fixed = wellbeing ~ baseline + condition + age + gender,
     random = ~ 1 + condition|id,
-    correlation = corAR1(form = ~ day | id),
+    correlation = corCAR1(form = ~ day | id),
     method = "ML",
     data = tmp |> filter(!is.na(wellbeing))
   )
+}
+
+fit_gls <- function(dat) {
+  
+  gls(
+    wellbeing ~ condition * intervention_period + age + gender, 
+    correlation = corCAR1(form = ~ day | id),
+    data = dat |> filter(!is.na(wellbeing))
+  )
+}
+
+fit_gls_simple <- function(dat) {
+  
+  tmp <- dat |> 
+    group_by(id) |> 
+    # take the mean of days 1-7 
+    mutate(baseline = mean(wellbeing[day < 8], na.rm = TRUE)) |> 
+    filter(intervention_period == 1) |> 
+    filter(!is.na(wellbeing))
+  
+  gls(
+    wellbeing ~ condition + baseline + age + gender, 
+    correlation = corAR1(form = ~ day | id),
+    data = tmp
+  )
+}
+
+fit_gls_spline <- function(dat) {
+  gls(
+    wellbeing ~ ns(day, df = 4) * intervention_period * condition,,  
+    correlation = corCAR1(form = ~ day | id),
+    data = dat
+  )
+}
+
+
+# Helper function to extract the focal effect for GLS models
+extract_marginal_effect <- function(mod, dat, focal_term = "conditionintervention") {
+  # Here we assume your GLS model is specified with condition*intervention_period
+  # and you want the effect of condition (e.g., intervention vs. control) during intervention.
+  # We create a reference grid that fixes intervention_period at 1.
+  rg <- ref_grid(mod, data = dat, at = list(intervention_period = 1))
+  
+  # Obtain estimated marginal means for each condition.
+  emm <- emmeans(rg, ~ condition)
+  
+  # Compute the pairwise contrast (e.g., intervention - control)
+  # Adjust names as needed. The contrast below returns a one-row summary.
+  contr <- contrast(emm, method = list("intervention - control" = c(-1, 1)), adjust = "none")
+  contr_sum <- summary(contr, infer = TRUE)
+  
+  # Construct a one-row data frame with consistent column names.
+  # If you have more than one contrast, you might need to filter for the one of interest.
+  df <- data.frame(
+    term = focal_term,
+    estimate = contr_sum$estimate,
+    std.error = contr_sum$SE,
+    conf.low = contr_sum$lower.CL,
+    conf.high = contr_sum$upper.CL,
+    row.names = NULL
+  )
+  
+  return(df)
 }
 
 #' Simulation Study Orchestrator
@@ -203,12 +277,36 @@ fit_mlm2 <- function(dat) {
 #'
 #' @return A data frame (tibble) of model estimates from \code{broom::tidy(parametric = TRUE)}.
 #'
-sim_study <- function(model_function = fit_gam, ...) {
+
+# Updated simulation orchestrator that handles GLS models separately.
+sim_study <- function(model = "fit_gam", ...) {
   args <- list(...)
-  dat <- do.call(sim_data, args) |> 
-    sim_dropout()
-  model_function(dat) |> 
-    broom::tidy(parametric = TRUE)
+  dat <- do.call(sim_data, args)
+  model_function <- get(model)
+  
+  mod <- model_function(dat)
+  
+  # Check if the model is a GLS model.
+  # This could be based on class(mod) or the model_function name.
+  if (model %in% c("fit_gam_no_main","fit_gls_spline")) {
+    # Extract the effect using our helper function.
+    result <- suppressMessages(extract_marginal_effect(mod, 
+                                      dat, 
+                                      focal_term = "conditionintervention"))
+  } else {
+    # For models that work with broom, extract the focal parameter.
+    # Adjust the filtering term as needed.
+    result <- broom::tidy(mod, parametric = TRUE) %>%
+      filter(
+        term == "conditionintervention:intervention_period" | 
+          (model %in% c("fit_mlm_simple","fit_gls_simple") & term == "conditionintervention")
+      ) |> 
+      mutate(
+        conf.low = estimate - 1.96 * std.error,
+        conf.high = estimate + 1.96 * std.error
+      )
+  }
+  result
 }
 
 ```
@@ -252,25 +350,46 @@ We fit our GAM (`fit_gam`) to the newly simulated data, then demonstrate a simpl
 
 ```{r}
 #| label: test-fit
+#| eval: false
 
-dat <- sim_data() |> 
-  sim_dropout()
+dat <- sim_data()
 
-dat2 <- dat |> 
-  group_by(id) |> 
-  # take the mean of days 1-7 
-  mutate(baseline = mean(wellbeing[day < 8], na.rm = TRUE)) |> 
-  filter(intervention_period == 1)
+fit_mlm(dat) |> summary()
+fit_mlm_simple(dat) |> summary()
+fit_gls(dat) |> summary()
+fit_gls_simple(dat) |> summary()
+fit_gls_spline(dat) |> extract_marginal_effect()
+fit_gam(dat) |> summary()
+fit_gam_no_main(dat) |> extract_marginal_effect()
 
-mlm <- fit_mlm(dat)
-summary(mlm)
+sim_study(model = "fit_gam_no_main")
+sim_study(model = "fit_gls_spline")
 
-mlm2 <- fit_mlm2(dat)
-summary(mlm2)
+# test marginal effects - first day-level contrasts
+emm_day <- emmeans(
+  fit_gls_spline(dat), 
+  pairwise ~ condition | day, 
+  at = list(day = 8:21), 
+  condition = c("control", "intervention"), 
+  data = dat |> mutate(condition = factor(condition, levels = c("intervention", "control")))
+)
 
-gam <- fit_gam(dat)
-plot_predictions(gam, condition = c("day", "condition"))
+summary(emm_day$contrasts, infer = TRUE, level = .95, by = NULL, adjust = "none")
 
+# and then integrated over the 14 day intervention period
+rg <- ref_grid(fit_gls_spline(dat),
+               at = list(intervention_period = 1),
+               cov.reduce = list(day = mean),
+               data = dat |> mutate(condition = factor(condition, levels = c("control","intervention"))))
+
+emm <- emmeans(rg, ~ condition)
+(contrast_result <- contrast(emm, method = list("intervention - control" = c(-1, 1)), adjust = "none"))
+
+
+means <- summary(emm)$emmean
+names(means) <- summary(emm)$condition
+diff_manual <- means["intervention"] - means["control"]
+diff_manual
 ```
 
 # Power analysis: Repeated Simulation Studies
@@ -280,10 +399,12 @@ To assess power/sensitivity, we run multiple simulations (controlled by `n_sims`
 ```{r}
 #| label: sim-studies
 
+plan(multisession, workers = parallel::detectCores()-2)
+
 n_sims <- 500
 
 specs <- expand_grid(
-  model = c("fit_gam", "fit_mlm", "fit_mlm2"),  # model names as strings
+  model = c("fit_gam", "fit_gam_no_main", "fit_mlm", "fit_mlm_simple", "fit_gls", "fit_gls_simple", "fit_gls_spline"),  # model names as strings
   b = c(1.2, 2.4, 3.6, 4.8, 6),
   effect_shape = c("grow", "plateau")
 ) |> 
@@ -294,10 +415,19 @@ results <- specs |>
   rowwise() |> 
   mutate(sim_results = list({
     message("Processing spec row: ", i)
-    map_dfr(1:n_sims, function(sim) {
+    future_map_dfr(1:n_sims, function(sim) {
+      library(tidyverse)
+      library(lme4)
+      library(mgcv)
+      library(broom)
+      library(nlme)
+      library(emmeans)
+      library(splines)
+      library(broom.mixed)
+
       tryCatch({
         sim_study(
-          model_function = get(model),  # retrieve the function from its name
+          model = model,  # retrieve the function from its name
           n = 100,
           n_days = 28,
           # effect parameters
@@ -312,28 +442,34 @@ results <- specs |>
           # AR(1) parameters
           phi = 0.7     # Autocorrelation coefficient
         ) |> 
-          filter(term == "conditionintervention:intervention_period" | 
-                   (model == "fit_mlm2" & term == "conditionintervention")) |> 
-          mutate(
-            conf.low = estimate - 1.96 * std.error,
-            conf.high = estimate + 1.96 * std.error,
-            sim = sim
-          )
+          mutate(sim = sim)
       }, error = function(e) {
         message("Simulation ", sim, " failed: ", e$message)
         tibble(
           term = NA_character_,
           estimate = NA_real_,
           std.error = NA_real_,
+          conf.low = NA_real_,
+          conf.high = NA_real_,
+          sim = sim
         )
       })
-    }, .progress = TRUE)
+    }, 
+    .progress = TRUE,
+    .options = furrr_options(globals = c("specs","sim_study", "sim_data", 
+                                         "fit_gam", "fit_gam_no_main",
+                                         "fit_mlm", "fit_mlm_simple",
+                                         "fit_gls", "fit_gls_simple",
+                                         "fit_gls_spline", 
+                                         "extract_marginal_effect"),
+                             seed = TRUE)
+    )
   })) |> 
   ungroup() |> 
   unnest(sim_results)
 
 sim_summary <- results |> 
-  group_by(row_id) %>%
+  group_by(row_id) |> 
   summarise(
     model = first(model),
     b = first(b),
