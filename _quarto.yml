@@ -25,6 +25,7 @@ execute:
   message: false
   output: true
   echo: true
+  cache: true
 knitr:
   opts_chunk:
     root.dir: .
@@ -37,9 +38,9 @@ format:
     code-fold: true
     fontsize: 13pt
     other-links:
-      - text: Study FAQs
+      - text: Participant FAQs
         href: https://digital-wellbeing.github.io/oxford-gaming-study/
-        icon: file-pdf
+        icon: link
       - text: GitHub Repository
         href: https://github.com/digital-wellbeing/gaming-reduction-backend
         icon: github
