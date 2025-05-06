@@ -6,9 +6,6 @@ from twilio.rest import Client
 import json
 import requests
 import pandas as pd
-from QualtricsAPI.Setup import Credentials
-from QualtricsAPI.XM import XMDirectory
-from QualtricsAPI.XM import MailingList
 import random
 from string import Template
 from datetime import timedelta
