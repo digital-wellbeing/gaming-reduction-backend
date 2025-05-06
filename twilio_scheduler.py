@@ -298,7 +298,7 @@ def run_job():
     Pulls contacts, computes next-survey times, builds messages,
     sends them (unless DRY_RUN), and logs everything to CSV.
     """
-    client = Client(ACCOUNT_SID, AUTH_TOKEN)
+
     contacts = pull_contacts(IMMEDIATE_MODE=IMMEDIATE_MODE)
     if not contacts:
         print("No contacts found.")
@@ -329,6 +329,8 @@ def run_job():
     print(f"{len(rows)} messages logged{' (not sent)' if DRY_RUN else ''}.")
 
 if __name__ == "__main__":
+
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
     # Immediate mode send
     if IMMEDIATE_MODE:
