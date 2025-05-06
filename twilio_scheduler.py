@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 from datetime import datetime
 import schedule
@@ -13,9 +14,12 @@ from dotenv import load_dotenv
 load_dotenv()  # read .env into os.environ
 
 # Global variable: 
-IMMEDIATE_MODE = True # set to True to send one message immediately to the first contact, or False to run the scheduler at SURVEY_SCHEDULE_TIME daily.
+IMMEDIATE_MODE = True # set to True to send one message immediately to the first contact, or False to run the scheduler for all contacts.
 DRY_RUN = True # Global variable: set to True to not actually send messages, but to save them to a CSV instead.
-SURVEY_SCHEDULE_TIME = "18:00"  # Set the daily time for scheduling surveys (format HH:MM)
+SURVEY_SCHEDULE_TIME = "09:00"  # Set the daily time for scheduling surveys (format HH:MM)
+SCHEDULE_MODE       = "daily"        # "daily" or "interval"
+INTERVAL_MINUTES    = 10              # used only when SCHEDULE_MODE == "interval"
+
 
 # Load credentials and settings from env vars
 ACCOUNT_SID    = os.getenv('TWILIO_ACCOUNT_SID')
@@ -153,12 +157,13 @@ def send_message(template, phone, content_variables):
             content_variables=json.dumps(content_variables)
         )
         print(f"Message sent to {phone}: SID {message.sid}")
+        time.sleep(1)  # Avoid hitting Twilio's rate limit
         return message
     except Exception as e:
         print(f"Failed to send message to {phone}: {e}")
 
 def get_template_and_variables(contact):
-    name = contact.get('firstName', '')
+    name = contact.get('firstName')
     elapsed = contact.get('elapsed_days')
     # Example logic:
     # For day one, only the name is needed.
@@ -219,7 +224,7 @@ def schedule_next_survey(contact):
     """
     # Check if the survey period has expired
     if contact.get("elapsed_days") is None or contact.get("elapsed_days") >= 28:
-        print(f"Survey not scheduled for {contact.get("firstName")}: >28 days elapsed.")
+        print(f"Survey not scheduled for {contact.get('firstName')}: >28 days elapsed.")
         return None
 
     now = datetime.now()
@@ -232,22 +237,20 @@ def schedule_next_survey(contact):
 
     return scheduled_dt
 
-if __name__ == "__main__":
-
-    client = Client(ACCOUNT_SID, AUTH_TOKEN)
-
+def pull_contacts(IMMEDIATE_MODE=False): 
+    
+    # Pull contacts fresh before each scheduled run.
     contacts = list_all_contacts(
         api_token=os.getenv('QUALTRICS_API_TOKEN'),
         data_center=os.getenv('QUALTRICS_DATA_CENTER'),
         directory_id=os.getenv('QUALTRICS_DIRECTORY_ID'),
         mailing_list_id=os.getenv('QUALTRICS_CONTACT_LIST_ID')
     )
-    
     if not contacts:
         print("No contacts found.")
-        exit(1)
+        return
 
-    # Calculate elapsed days for each contact using their 'StartDate'
+    # Calculate elapsed days and schedule next survey for each contact.
     for contact in contacts:
         start_date = contact.get("StartDate")
         contact["CompletedCount"] = int(contact.get("CompletedCount"))
@@ -258,49 +261,89 @@ if __name__ == "__main__":
         contact["next_survey"] = schedule_next_survey(contact)
 
     if IMMEDIATE_MODE:
-        first_contact = next((c for c in contacts if c.get("extRef") == "12345678"), None) 
-        template, content_variables = get_template_and_variables(first_contact)
-        message = send_message(
-            template=template,
-            phone=first_contact.get("phone"),
-            content_variables=content_variables
-        )
+        # If in immediate mode, send a message to the first contact.
+        if contacts:
+            immediate_contact = next((c for c in contacts if c.get("extRef") == "12345678"), None)
+            immediate_contact["next_survey"] = datetime.now()
+            print("Immediate mode: sending message to first contact.")
+            contacts = [immediate_contact]
+            
+    print("Contacts pulled and processed: ", contacts)
+    return(contacts)
 
-    elif not IMMEDIATE_MODE:
-        if DRY_RUN:
-            print("Dry run mode enabled: Saving scheduled messages to CSV.")
-            scheduled_messages = []
-            for contact in contacts:
-                template_sid, content_variables = get_template_and_variables(contact)
-                # Find the corresponding template dictionary by matching the sid.
-                tmpl_dict = None
-                for tmpl in TEMPLATES.values():
-                    if tmpl["sid"] == template_sid:
-                        tmpl_dict = tmpl
-                        break
-                # Prepare the formatted text using the template's variable names.
-                if tmpl_dict:
-                    mapping = {}
-                    for idx, var_name in enumerate(tmpl_dict["variables"], start=1):
-                        mapping[var_name] = content_variables.get(str(idx), "")
-                    full_text = tmpl_dict["template_obj"].safe_substitute(mapping)
-                else:
-                    full_text = ""
-                scheduled_messages.append({
-                    "phone": contact['phone'],
-                    "name": contact.get("firstName", ""),
-                    "template": template_sid,
-                    "content_variables": json.dumps(content_variables),
-                    "formatted_text": full_text if contact.get("next_survey") else "",
-                    "scheduled_at": contact.get("next_survey").strftime("%Y-%m-%d %H:%M:%S") if contact.get("next_survey") else None,
-                })
-            file_exists = os.path.exists("scheduled_messages.csv")
-            df = pd.DataFrame(scheduled_messages)
-            df.to_csv("scheduled_messages.csv", mode='a', header=not file_exists, index=False)
-            print("Dry run: Scheduled messages appended to scheduled_messages.csv")
-        else:
-            print(f"Scheduler running; will send at {SURVEY_SCHEDULE_TIME} daily to contacts in {CONTACTS_PATH}.")
-            schedule.every().day.at(SURVEY_SCHEDULE_TIME).do(send_all_messages, contacts)
-            while True:
-                schedule.run_pending()
-                time.sleep(30)
+def add_message_text_to_contact(contact, template_sid, content_variables):
+    """
+    Computes the formatted message text for a contact and adds it to the contact dict
+    under the key 'formatted_text'.
+    """
+    # Find the corresponding template by matching the sid.
+    tmpl_dict = None
+    for tmpl in TEMPLATES.values():
+        if tmpl["sid"] == template_sid:
+            tmpl_dict = tmpl
+            break
+    # Prepare the formatted text using the template's variable names.
+    if tmpl_dict:
+        mapping = {}
+        for idx, var_name in enumerate(tmpl_dict["variables"], start=1):
+            mapping[var_name] = content_variables.get(str(idx), "")
+        full_text = tmpl_dict["template_obj"].safe_substitute(mapping)
+    else:
+        full_text = ""
+    contact["formatted_text"] = full_text if contact.get("next_survey") else ""
+    return contact
+
+def run_job():
+    """
+    Pulls contacts, computes next-survey times, builds messages,
+    sends them (unless DRY_RUN), and logs everything to CSV.
+    """
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
+    contacts = pull_contacts(IMMEDIATE_MODE=IMMEDIATE_MODE)
+    if not contacts:
+        print("No contacts found.")
+        return
+
+    now_iso = datetime.now().isoformat()
+    rows = []
+    for contact in contacts:
+        sid, vars_ = get_template_and_variables(contact)
+        add_message_text_to_contact(contact, sid, vars_)
+        rows.append({
+            "run_time": now_iso,
+            "phone": contact["phone"],
+            "template_sid": sid,
+            "content_variables": json.dumps(vars_),
+            "formatted_text": contact["formatted_text"],
+            "scheduled_time": contact["next_survey"].isoformat() if contact["next_survey"] else None,
+            "dry_run": DRY_RUN,
+        })
+
+        if not DRY_RUN:
+            send_message(sid, contact["phone"], vars_)
+
+    # append to CSV log
+    df = pd.DataFrame(rows)
+    file_exists = os.path.exists("scheduled_messages.csv")
+    df.to_csv("scheduled_messages.csv", mode='a', header=not file_exists, index=False)
+    print(f"{len(rows)} messages logged{' (not sent)' if DRY_RUN else ''}.")
+
+if __name__ == "__main__":
+
+    # Immediate mode send
+    if IMMEDIATE_MODE:
+        print("Immediate mode: sending one message now.")
+        run_job()
+
+        # choose your scheduling strategy
+    if SCHEDULE_MODE == "interval":
+        schedule.every(INTERVAL_MINUTES).minutes.do(run_job)
+        print(f"{datetime.now().isoformat()} - Scheduler running; will send survey every {INTERVAL_MINUTES} minutes.")
+    else:
+        schedule.every().day.at(SURVEY_SCHEDULE_TIME).do(run_job)
+        print(f"{datetime.now().isoformat()} - Scheduler running; will send survey at {SURVEY_SCHEDULE_TIME} daily.")
+
+    # Loop
+    while True:
+        schedule.run_pending()
+        time.sleep(60)  # check every 5 minutes
