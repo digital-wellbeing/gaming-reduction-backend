@@ -223,18 +223,16 @@ def schedule_next_survey(contact):
     Returns the scheduled datetime or None if 28 days have already elapsed.
     """
     # Check if the survey period has expired
-    if contact.get("elapsed_days") is None or contact.get("elapsed_days") >= 28:
-        print(f"Survey not scheduled for {contact.get('firstName')}: >28 days elapsed.")
+    if contact["elapsed_days"] >= 28:
+        print(f"Survey not scheduled for {contact.get('firstName')}: ≥28 days elapsed.")
         return None
 
     now = datetime.now()
     hour, minute = map(int, SURVEY_SCHEDULE_TIME.split(":"))
-    # Build scheduled datetime for today at the survey time
     scheduled_dt = datetime(now.year, now.month, now.day, hour, minute)
-    # If the scheduled time has already passed today, schedule for tomorrow
     if scheduled_dt <= now:
         scheduled_dt += timedelta(days=1)
-
+        
     return scheduled_dt
 
 def pull_contacts(IMMEDIATE_MODE=False): 
@@ -252,14 +250,21 @@ def pull_contacts(IMMEDIATE_MODE=False):
 
     # Calculate elapsed days and schedule next survey for each contact.
     for contact in contacts:
+        # 1) Robustly coerce CompletedCount → int, defaulting to 0
+        try:
+            contact["CompletedCount"] = int(contact.get("CompletedCount") or 0)
+        except (TypeError, ValueError):
+            contact["CompletedCount"] = 0
+
+        # 2) Compute elapsed_days: if we have a date, calc it; else treat as day 0
         start_date = contact.get("EnrollmentDate")
-        contact["CompletedCount"] = int(contact.get("CompletedCount"))
         if start_date:
             contact["elapsed_days"] = calculate_elapsed_days(start_date)
         else:
-            contact["elapsed_days"] = None
-        contact["next_survey"] = schedule_next_survey(contact)
+            contact["elapsed_days"] = 0
 
+        # 3) Always try to schedule—schedule_next_survey will only bail after 28 days
+        contact["next_survey"] = schedule_next_survey(contact)
     if IMMEDIATE_MODE:
         # If in immediate mode, send a message to the first contact.
         if contacts:
