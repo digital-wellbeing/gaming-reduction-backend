@@ -14,8 +14,8 @@ from dotenv import load_dotenv
 load_dotenv()  # read .env into os.environ
 
 # Global variable: 
-IMMEDIATE_MODE = True # set to True to send one message immediately to the first contact, or False to run the scheduler for all contacts.
-DRY_RUN = True # Global variable: set to True to not actually send messages, but to save them to a CSV instead.
+IMMEDIATE_MODE = False # set to True to send one message immediately to the first contact, or False to run the scheduler for all contacts.
+DRY_RUN = False # Global variable: set to True to not actually send messages, but to save them to a CSV instead.
 SURVEY_SCHEDULE_TIME = "12:00"  # Set the daily time for scheduling surveys (format HH:MM)
 SCHEDULE_MODE       = "daily"        # "daily" or "interval"
 INTERVAL_MINUTES    = 10              # used only when SCHEDULE_MODE == "interval"
@@ -29,7 +29,7 @@ TWILIO_NUMBER  = os.getenv('TWILIO_NUMBER')
 # Message templates from twilio
 TEMPLATES = {
     "DAY_ONE_INVITE": {
-        "sid": "HX9f4a98d498eb24f8361b887e3071c929",
+        "sid": "HXb8efe70e8306dea37d2a3a47e23165c0",
         "variables": ["name", "survey_schedule_time", "RANDOM_ID"],
         "text": "Hi $name! 👋 Welcome to the METL lab daily media use study – we're excited to have you on board! Starting today, you'll receive a short message daily at $survey_schedule_time with a link to your survey. It only takes 3–4 minutes to complete each day. Please try to fill it out whenever suits your routine best. You can contact us with any questions by simply replying to us in this chat."
     },
@@ -165,13 +165,14 @@ def send_message(template, phone, content_variables):
 def get_template_and_variables(contact):
     name = contact.get('firstName')
     elapsed = contact.get('elapsed_days')
-    # Example logic:
-    # For day one, only the name is needed.
+    
+    # For day one, we need name, survey schedule time, and a ID.
     if elapsed == 0:
         template = TEMPLATES["DAY_ONE_INVITE"]["sid"]
         content_variables = {
             "1": name,
-            "2": contact.get("extRef", "")
+            "2": SURVEY_SCHEDULE_TIME,
+            "3": contact.get("extRef", "")
         }
     # For early days, use basic invite: name and days since enrollment.
     else:
@@ -352,4 +353,4 @@ if __name__ == "__main__":
     # Loop
     while True:
         schedule.run_pending()
-        time.sleep(60)  # check every 5 minutes
+        time.sleep(60)  # check every 2 minutes
