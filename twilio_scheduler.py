@@ -16,7 +16,7 @@ load_dotenv()  # read .env into os.environ
 # Global variable: 
 IMMEDIATE_MODE = True # set to True to send one message immediately to the first contact, or False to run the scheduler for all contacts.
 DRY_RUN = True # Global variable: set to True to not actually send messages, but to save them to a CSV instead.
-SURVEY_SCHEDULE_TIME = "09:00"  # Set the daily time for scheduling surveys (format HH:MM)
+SURVEY_SCHEDULE_TIME = "12:00"  # Set the daily time for scheduling surveys (format HH:MM)
 SCHEDULE_MODE       = "daily"        # "daily" or "interval"
 INTERVAL_MINUTES    = 10              # used only when SCHEDULE_MODE == "interval"
 
@@ -101,7 +101,7 @@ def list_all_contacts(api_token, data_center, directory_id, mailing_list_id, pag
             ed = contact.get("embeddedData", {})
             # pull out your specific fields (or just keep ed if you want them all)
             contact["CompletedCount"] = ed.get("CompletedCount")
-            contact["StartDate"]      = ed.get("StartDate")
+            contact["EnrollmentDate"]      = ed.get("EnrollmentDate")
 
         all_contacts.extend(body["result"]["elements"])
 
@@ -127,7 +127,7 @@ def calculate_rewards(completed_count):
     bonus = (completed_count // 7) * 7
     return base_reward + bonus
 
-# Function to calculate elapsed days from StartDate (format YYYY-MM-DD) as returned in the Qualtrics fetcher.
+# Function to calculate elapsed days from EnrollmentDate (format YYYY-MM-DD) as returned in the Qualtrics fetcher.
 def calculate_elapsed_days(start_date_str):
     start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
     today = datetime.now().date()
@@ -219,7 +219,7 @@ def send_all_messages(contacts):
 def schedule_next_survey(contact):
     """
     Determine the next datetime for sending the survey based on SURVEY_SCHEDULE_TIME,
-    but only if fewer than 28 days have elapsed since the contact's StartDate.
+    but only if fewer than 28 days have elapsed since the contact's EnrollmentDate.
     Returns the scheduled datetime or None if 28 days have already elapsed.
     """
     # Check if the survey period has expired
@@ -252,7 +252,7 @@ def pull_contacts(IMMEDIATE_MODE=False):
 
     # Calculate elapsed days and schedule next survey for each contact.
     for contact in contacts:
-        start_date = contact.get("StartDate")
+        start_date = contact.get("EnrollmentDate")
         contact["CompletedCount"] = int(contact.get("CompletedCount"))
         if start_date:
             contact["elapsed_days"] = calculate_elapsed_days(start_date)
@@ -334,7 +334,6 @@ if __name__ == "__main__":
 
     # Immediate mode send
     if IMMEDIATE_MODE:
-        print("Immediate mode: sending one message now.")
         run_job()
 
         # choose your scheduling strategy
