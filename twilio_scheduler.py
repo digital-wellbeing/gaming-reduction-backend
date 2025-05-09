@@ -29,7 +29,7 @@ TWILIO_NUMBER  = os.getenv('TWILIO_NUMBER')
 # Message templates from twilio
 TEMPLATES = {
     "DAY_ONE_INVITE": {
-        "sid": "HXb8efe70e8306dea37d2a3a47e23165c0",
+        "sid": "HX04f99dd2b6a51504edcf176741dbaf0f",
         "variables": ["name", "survey_schedule_time", "RANDOM_ID"],
         "text": "Hi $name! 👋 Welcome to the METL lab daily media use study – we're excited to have you on board! Starting today, you'll receive a short message daily at $survey_schedule_time with a link to your survey. It only takes 3–4 minutes to complete each day. Please try to fill it out whenever suits your routine best. You can contact us with any questions by simply replying to us in this chat."
     },
@@ -131,7 +131,7 @@ def calculate_rewards(completed_count):
 def calculate_elapsed_days(start_date_str):
     start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
     today = datetime.now().date()
-    elapsed_days = (today - start_date).days
+    elapsed_days = (today - start_date).days + 1 # +1 to include today
     return elapsed_days
 
 def load_contacts(CONTACTS_PATH):
@@ -167,7 +167,7 @@ def get_template_and_variables(contact):
     elapsed = contact.get('elapsed_days')
     
     # For day one, we need name, survey schedule time, and a ID.
-    if elapsed == 0:
+    if elapsed == 1:
         template = TEMPLATES["DAY_ONE_INVITE"]["sid"]
         content_variables = {
             "1": name,
@@ -262,7 +262,7 @@ def pull_contacts(IMMEDIATE_MODE=False):
         if start_date:
             contact["elapsed_days"] = calculate_elapsed_days(start_date)
         else:
-            contact["elapsed_days"] = 0
+            contact["elapsed_days"] = 1
 
         # 3) Always try to schedule—schedule_next_survey will only bail after 28 days
         contact["next_survey"] = schedule_next_survey(contact)
