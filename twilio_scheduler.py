@@ -1,20 +1,20 @@
 import os
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import schedule
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
 import json
 import requests
 import pandas as pd
 import random
 from string import Template
-from datetime import timedelta
 from dotenv import load_dotenv
 load_dotenv()  # read .env into os.environ
 
 # Global variable: 
-IMMEDIATE_MODE = False # set to True to send one message immediately to the first contact, or False to run the scheduler for all contacts.
+IMMEDIATE_MODE = True # set to True to send one message immediately to the first contact, or False to run the scheduler for all contacts.
 DRY_RUN = False # Global variable: set to True to not actually send messages, but to save them to a CSV instead.
 SURVEY_SCHEDULE_TIME = "12:00"  # Set the daily time for scheduling surveys (format HH:MM)
 SCHEDULE_MODE       = "daily"        # "daily" or "interval"
@@ -25,6 +25,7 @@ INTERVAL_MINUTES    = 10              # used only when SCHEDULE_MODE == "interva
 ACCOUNT_SID    = os.getenv('TWILIO_ACCOUNT_SID')
 AUTH_TOKEN     = os.getenv('TWILIO_AUTH_TOKEN')
 TWILIO_NUMBER  = os.getenv('TWILIO_NUMBER')
+CONVERSATIONS_SERVICE_SID = os.getenv("TWILIO_CONVERSATIONS_SERVICE_SID")
 
 # Message templates from twilio
 TEMPLATES = {
@@ -122,6 +123,100 @@ def list_all_contacts(api_token, data_center, directory_id, mailing_list_id, pag
 
     return all_contacts
 
+def ensure_identity_participant(conv_sid, identity):
+    """
+    Make sure a Chat‐SDK identity (e.g. "user01") is on the conversation.
+    """
+    svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
+    print(f"[ensure_identity] Checking for identity '{identity}' in convo {conv_sid}")
+    participants = svc.conversations(conv_sid).participants.list()
+    existing = {p.identity for p in participants if p.identity}
+    if identity in existing:
+        print(f"[ensure_identity] Identity '{identity}' already present")
+        return
+    try:
+        svc.conversations(conv_sid).participants.create(identity=identity)
+        print(f"[ensure_identity] Added identity participant '{identity}'")
+    except TwilioRestException as e:
+        print(f"[ensure_identity] ERROR adding identity '{identity}' → {e.status}: {e.msg}")
+
+def get_or_create_conversation_for(contact_phone):
+    """
+    Fetch by unique_name or create new convo, then
+    add WA binding + ensure identity is present.
+    """
+    user_uri  = f"whatsapp:{contact_phone}"
+    proxy_uri = f"whatsapp:{TWILIO_NUMBER}"
+    svc       = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
+
+    # 1) Try fetch
+    try:
+        print(f"[get_or_create] Fetching convo with unique_name='{contact_phone}'")
+        conv = svc.conversations(contact_phone).fetch()
+        print(f"[get_or_create] Found convo SID={conv.sid}")
+    except TwilioRestException as e:
+        if e.status != 404:
+            print(f"[get_or_create] ERROR fetching convo → {e.status}: {e.msg}")
+            raise
+        # 404 → create new
+        print(f"[get_or_create] Not found, creating new convo for '{contact_phone}'")
+        conv = svc.conversations.create(
+            unique_name=contact_phone,
+            friendly_name=f"{contact_phone}"
+        )
+        print(f"[get_or_create] Created convo SID={conv.sid}")
+
+    # 2) Add WhatsApp participant (ignore if already exists)
+    try:
+        print(f"[get_or_create] Adding WA participant address={user_uri}")
+        svc.conversations(conv.sid).participants.create(
+            messaging_binding_address=user_uri,
+            messaging_binding_proxy_address=proxy_uri
+        )
+        print(f"[get_or_create] WA participant added")
+    except TwilioRestException as e:
+        print(f"[get_or_create] WA binding exists or failed → {e.status}: {e.msg}")
+    time.sleep(.1)
+    # 3) Ensure your identity is on the convo
+    ensure_identity_participant(conv.sid, "user01")
+
+    return conv.sid
+
+def is_session_open(
+    conversation_sid: str,
+    bot_identity: str = "user01",
+    lookback: int = 10
+) -> bool:
+    """
+    Returns True if, among the last `lookback` messages in the conversation,
+    the most recent one from someone other than `bot_identity` was sent
+    less than 24 hours ago.
+    """
+    svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
+    convo = svc.conversations(conversation_sid)
+
+    try:
+        recent = convo.messages.list(page_size=lookback, order="desc")
+    except TwilioRestException as e:
+        print(f"[is_session_open] ERROR fetching messages: {e.status} {e.msg}")
+        return False
+
+    # Find the first message not sent by the bot
+    for msg in recent:
+        if msg.author != bot_identity:
+            # Compare aware datetimes
+            now_utc = datetime.now(timezone.utc)
+            age = now_utc - msg.date_created
+            print(
+                f"[is_session_open] Last user msg at {msg.date_created.isoformat()}, "
+                f"age={age.total_seconds()/3600:.1f}h"
+            )
+            return age < timedelta(hours=24)
+
+    # No user message found in the recent window
+    print("[is_session_open] No recent user message found")
+    return False
+
 def calculate_rewards(completed_count):
     base_reward = completed_count
     bonus = (completed_count // 7) * 7
@@ -143,24 +238,54 @@ def load_contacts(CONTACTS_PATH):
         contacts = pd.read_csv(f, converters=converters).to_dict("records")
     return contacts
 
-def send_message(template, phone, content_variables):
+def send_message(template_sid, conversation_sid, content_variables, extRef, full_text):
     """
-    Sends a single message using the specified template, phone, and content variables.
-    Assumes that any iterative logic and content preparation (including days_since)
-    is handled elsewhere.
+    Sends either a session (body) message if the 24h window is open,
+    or a template (content_sid) otherwise. Flags attrs.system,
+    includes surveyUrl and participantId in attributes.
     """
+    print(f"[send_message] → Convo SID: {conversation_sid}")
+    print(f"               Template SID: {template_sid}")
+    print(f"               Content Vars: {content_variables}")
+
+    survey_url = (
+        f"https://oii.qualtrics.com/jfe/form/SV_9tSCJIEm6mf2ezA"
+        f"?RANDOM_ID={extRef}"
+    )
+    attrs = {
+        "system": True,
+        "surveyUrl": survey_url,
+        "participantId": extRef
+    }
+
+    svc  = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
+    convo = svc.conversations(conversation_sid)
+
+    use_session = is_session_open(conversation_sid)
+    print(f"[send_message] Using {'SESSION' if use_session else 'TEMPLATE'} message")
+
     try:
-        message = client.messages.create(
-            content_sid=template,
-            to=f"whatsapp:{phone}",
-            from_=f"whatsapp:{TWILIO_NUMBER}",
-            content_variables=json.dumps(content_variables)
-        )
-        print(f"Message sent to {phone}: SID {message.sid}")
-        time.sleep(1)  # Avoid hitting Twilio's rate limit
-        return message
-    except Exception as e:
-        print(f"Failed to send message to {phone}: {e}")
+        if use_session:
+            msg = convo.messages.create(
+                author="user01",
+                body = f"{full_text}\n\n{survey_url}",       # <— use the precomputed text
+                attributes=json.dumps(attrs)
+            )
+            print(f"[send_message] ✓ Sent SESSION message SID={msg.sid}")
+        else:
+            msg = convo.messages.create(
+                author="user01",
+                content_sid=template_sid,
+                content_variables=json.dumps(content_variables),
+                attributes=json.dumps(attrs)
+            )
+            print(f"[send_message] ✓ Sent TEMPLATE message SID={msg.sid}")
+
+        return msg
+
+    except TwilioRestException as e:
+        print(f"[send_message] ✗ Error sending message → {e.status}: {e.msg}")
+        raise
 
 def get_template_and_variables(contact):
     name = contact.get('firstName')
@@ -214,7 +339,8 @@ def send_all_messages(contacts):
         send_message(
             template=template,
             phone=phone,
-            content_variables=content_variables
+            content_variables=content_variables,
+            extRef=contact.get("extRef")
         )
 
 def schedule_next_survey(contact):
@@ -266,6 +392,7 @@ def pull_contacts(IMMEDIATE_MODE=False):
 
         # 3) Always try to schedule—schedule_next_survey will only bail after 28 days
         contact["next_survey"] = schedule_next_survey(contact)
+
     if IMMEDIATE_MODE:
         # If in immediate mode, send a message to the first contact.
         if contacts:
@@ -313,6 +440,7 @@ def run_job():
     now_iso = datetime.now().isoformat()
     rows = []
     for contact in contacts:
+        conv_sid = get_or_create_conversation_for(contact["phone"])
         sid, vars_ = get_template_and_variables(contact)
         add_message_text_to_contact(contact, sid, vars_)
         rows.append({
@@ -326,7 +454,13 @@ def run_job():
         })
 
         if not DRY_RUN:
-            send_message(sid, contact["phone"], vars_)
+            send_message(
+                template_sid=sid,
+                conversation_sid=conv_sid,
+                content_variables=vars_,
+                extRef=contact.get("extRef", ""),
+                full_text = contact["formatted_text"],  
+            )
 
     # append to CSV log
     df = pd.DataFrame(rows)
