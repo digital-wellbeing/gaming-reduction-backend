@@ -9,38 +9,49 @@ import json
 import requests
 import pandas as pd
 import random
+import re
 from string import Template
 from dotenv import load_dotenv
 load_dotenv()  # read .env into os.environ
 
-# Global variable: 
-IMMEDIATE_MODE = True # set to True to send one message immediately to the first contact, or False to run the scheduler for all contacts.
-DRY_RUN = False # Global variable: set to True to not actually send messages, but to save them to a CSV instead.
-SURVEY_SCHEDULE_TIME = "12:00"  # Set the daily time for scheduling surveys (format HH:MM)
-SCHEDULE_MODE       = "daily"        # "daily" or "interval"
-INTERVAL_MINUTES    = 10              # used only when SCHEDULE_MODE == "interval"
-
+# ─── CONFIGURATION ────────────────────────────────────────────────────
+IMMEDIATE_MODE        = False   # send only first contact if True
+DRY_RUN               = False    # if True, log but don’t actually send
+SURVEY_SCHEDULE_TIME  = "12:00" # HH:MM daily send time
+SCHEDULE_MODE         = "daily" # "daily" or "interval"
+INTERVAL_MINUTES      = 10      # if using interval mode
+# ───────────────────────────────────────────────────────────────────────
 
 # Load credentials and settings from env vars
 ACCOUNT_SID    = os.getenv('TWILIO_ACCOUNT_SID')
 AUTH_TOKEN     = os.getenv('TWILIO_AUTH_TOKEN')
 TWILIO_NUMBER  = os.getenv('TWILIO_NUMBER')
 CONVERSATIONS_SERVICE_SID = os.getenv("TWILIO_CONVERSATIONS_SERVICE_SID")
+client = None
+
+if not all([ACCOUNT_SID, AUTH_TOKEN, TWILIO_NUMBER, CONVERSATIONS_SERVICE_SID]):
+    missing = [n for n, v in [
+        ("TWILIO_ACCOUNT_SID", ACCOUNT_SID),
+        ("TWILIO_AUTH_TOKEN", AUTH_TOKEN),
+        ("TWILIO_NUMBER", TWILIO_NUMBER),
+        ("TWILIO_CONVERSATIONS_SERVICE_SID", CONVERSATIONS_SERVICE_SID)
+    ] if not v]
+    raise RuntimeError(f"Please set {', '.join(missing)} in your .env")
 
 # Message templates from twilio
 TEMPLATES = {
     "DAY_ONE_INVITE": {
-        "sid": "HX04f99dd2b6a51504edcf176741dbaf0f",
+        "sid": "HX6e5455d20963fa9c4ae177bb7f6786f7",
         "variables": ["name", "survey_schedule_time", "RANDOM_ID"],
         "text": "Hi $name! 👋 Welcome to the METL lab daily media use study – we're excited to have you on board! Starting today, you'll receive a short message daily at $survey_schedule_time with a link to your survey. It only takes 3–4 minutes to complete each day. Please try to fill it out whenever suits your routine best. You can contact us with any questions by simply replying to us in this chat."
     },
     "BASIC_INVITE": {
-        "sid": "HX45b9d150bb0e3791e5b477d8dc3db2aa",
+        "sid": "HX3a609e60d56b27858bf573111b9d6827",
         "variables": ["name", "days_since_enrollment", "RANDOM_ID"],
         "text": "Hi $name, daily survey #$days_since_enrollment is now ready to be completed using the link below!"
     },
     "REWARD_INVITE": {
-        "sid": "HX2751307dc93f95f5580e26661053e462",
+        "sid": "HX5aa71f2c62e59e67d89f560a0537a141",
         "variables": ["name", "rewards_to_date", "time_until_next_reward", "RANDOM_ID"],
         "text": "Hi $name, your daily survey is now available! You've earned £$rewards_to_date so far, and are just $time_until_next_reward days away from receiving your next £7 bonus. Thanks for your ongoing participation."
     }
@@ -49,12 +60,23 @@ TEMPLATES = {
 # Create Template objects for later formatting.
 for key, value in TEMPLATES.items():
     value["template_obj"] = Template(value["text"])
+    
+# Set up logging
+_logfile = open('scheduler.log', 'a')
 
-# Sanity check
-if not all([ACCOUNT_SID, AUTH_TOKEN, TWILIO_NUMBER]):
-    raise RuntimeError(
-        "Please set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN and TWILIO_NUMBER in your .env"
-    )
+class _Tee:
+    def __init__(self, *files):
+        self.files = files
+    def write(self, data):
+        for f in self.files:
+            f.write(data)
+    def flush(self):
+        for f in self.files:
+            f.flush()
+
+# replace stdout and stderr with our Tee
+sys.stdout = _Tee(sys.stdout, _logfile)
+sys.stderr = _Tee(sys.stderr, _logfile)
 
 #### Functions ####
 
@@ -128,15 +150,13 @@ def ensure_identity_participant(conv_sid, identity):
     Make sure a Chat‐SDK identity (e.g. "user01") is on the conversation.
     """
     svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
-    print(f"[ensure_identity] Checking for identity '{identity}' in convo {conv_sid}")
     participants = svc.conversations(conv_sid).participants.list()
     existing = {p.identity for p in participants if p.identity}
     if identity in existing:
-        print(f"[ensure_identity] Identity '{identity}' already present")
+        print(f"[ensure_identity] Identity '{identity}' present in convo {conv_sid}")
         return
     try:
         svc.conversations(conv_sid).participants.create(identity=identity)
-        print(f"[ensure_identity] Added identity participant '{identity}'")
     except TwilioRestException as e:
         print(f"[ensure_identity] ERROR adding identity '{identity}' → {e.status}: {e.msg}")
 
@@ -151,9 +171,8 @@ def get_or_create_conversation_for(contact_phone):
 
     # 1) Try fetch
     try:
-        print(f"[get_or_create] Fetching convo with unique_name='{contact_phone}'")
+        print(f"[get_or_create] Processing convo for '{contact_phone}'")
         conv = svc.conversations(contact_phone).fetch()
-        print(f"[get_or_create] Found convo SID={conv.sid}")
     except TwilioRestException as e:
         if e.status != 404:
             print(f"[get_or_create] ERROR fetching convo → {e.status}: {e.msg}")
@@ -168,12 +187,10 @@ def get_or_create_conversation_for(contact_phone):
 
     # 2) Add WhatsApp participant (ignore if already exists)
     try:
-        print(f"[get_or_create] Adding WA participant address={user_uri}")
         svc.conversations(conv.sid).participants.create(
             messaging_binding_address=user_uri,
             messaging_binding_proxy_address=proxy_uri
         )
-        print(f"[get_or_create] WA participant added")
     except TwilioRestException as e:
         print(f"[get_or_create] WA binding exists or failed → {e.status}: {e.msg}")
     time.sleep(.1)
@@ -222,21 +239,11 @@ def calculate_rewards(completed_count):
     bonus = (completed_count // 7) * 7
     return base_reward + bonus
 
-# Function to calculate elapsed days from EnrollmentDate (format YYYY-MM-DD) as returned in the Qualtrics fetcher.
 def calculate_elapsed_days(start_date_str):
     start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
     today = datetime.now().date()
-    elapsed_days = (today - start_date).days + 1 # +1 to include today
+    elapsed_days = (today - start_date).days 
     return elapsed_days
-
-def load_contacts(CONTACTS_PATH):
-    print(f"Loading contacts from {CONTACTS_PATH}...")
-    converters = {
-        "phone": lambda x: x.strip('"')
-    }
-    with open(CONTACTS_PATH, newline='', encoding='utf-8') as f:
-        contacts = pd.read_csv(f, converters=converters).to_dict("records")
-    return contacts
 
 def send_message(template_sid, conversation_sid, content_variables, extRef, full_text):
     """
@@ -323,37 +330,10 @@ def get_template_and_variables(contact):
             }
     return template, content_variables
 
-def send_all_messages(contacts):
-    for contact in contacts:
-        # Only send a message if next_survey is set (valid scheduling)
-        if not contact.get("next_survey"):
-            print("Skipping contact; study window is completed:", contact.get("extRef"))
-            continue
-
-        phone = contact.get('phone')
-        if not phone:
-            print("Skipping contact with missing phone:", contact)
-            continue
-
-        template, content_variables = get_template_and_variables(contact)
-        send_message(
-            template=template,
-            phone=phone,
-            content_variables=content_variables,
-            extRef=contact.get("extRef")
-        )
-
 def schedule_next_survey(contact):
     """
-    Determine the next datetime for sending the survey based on SURVEY_SCHEDULE_TIME,
-    but only if fewer than 28 days have elapsed since the contact's EnrollmentDate.
-    Returns the scheduled datetime or None if 28 days have already elapsed.
+    Schedules the next survey for a contact based on their elapsed days.
     """
-    # Check if the survey period has expired
-    if contact["elapsed_days"] >= 28:
-        print(f"Survey not scheduled for {contact.get('firstName')}: ≥28 days elapsed.")
-        return None
-
     now = datetime.now()
     hour, minute = map(int, SURVEY_SCHEDULE_TIME.split(":"))
     scheduled_dt = datetime(now.year, now.month, now.day, hour, minute)
@@ -390,8 +370,11 @@ def pull_contacts(IMMEDIATE_MODE=False):
         else:
             contact["elapsed_days"] = 1
 
-        # 3) Always try to schedule—schedule_next_survey will only bail after 28 days
-        contact["next_survey"] = schedule_next_survey(contact)
+        # 3) Only schedule days 1–27
+        if 1 <= contact["elapsed_days"] < 28:
+            contact["next_survey"] = schedule_next_survey(contact)
+        else:
+            contact["next_survey"] = None
 
     if IMMEDIATE_MODE:
         # If in immediate mode, send a message to the first contact.
@@ -431,6 +414,10 @@ def run_job():
     Pulls contacts, computes next-survey times, builds messages,
     sends them (unless DRY_RUN), and logs everything to CSV.
     """
+    global client
+    if client is None:
+        client = Client(ACCOUNT_SID, AUTH_TOKEN)
+        print(f"→ Twilio Client initialized (Account SID {ACCOUNT_SID})")
 
     contacts = pull_contacts(IMMEDIATE_MODE=IMMEDIATE_MODE)
     if not contacts:
@@ -439,38 +426,72 @@ def run_job():
 
     now_iso = datetime.now().isoformat()
     rows = []
+
     for contact in contacts:
-        conv_sid = get_or_create_conversation_for(contact["phone"])
-        sid, vars_ = get_template_and_variables(contact)
-        add_message_text_to_contact(contact, sid, vars_)
+        # 1) Skip if no schedule
+        if not contact.get("next_survey"):
+            print(f"Skipping extRef={contact.get('extRef')} (day {contact.get('elapsed_days')})")
+            continue
+
+        # 2) Validate phone
+        phone = (contact.get("phone") or "").strip()
+        if not phone:
+            print(f"Skipping missing phone for extRef={contact.get('extRef')}")
+            continue
+        if not re.match(r'^\+?\d+$', phone):
+            print(f"Skipping invalid phone '{phone}' for extRef={contact.get('extRef')}")
+            continue
+
+        # 3) Build/fetch convo & message vars
+        conv_sid = get_or_create_conversation_for(phone)
+        template_sid, vars_ = get_template_and_variables(contact)
+        add_message_text_to_contact(contact, template_sid, vars_)
+
+        # 4) Attempt send
+        status = "QUEUED"
+        error  = ""
+        if not DRY_RUN:
+            try:
+                send_message(
+                    template_sid=template_sid,
+                    conversation_sid=conv_sid,
+                    content_variables=vars_,
+                    extRef=contact.get("extRef", ""),
+                    full_text=contact["formatted_text"],
+                )
+            except TwilioRestException as e:
+                status = "FAILED"
+                error  = f"{e.status}: {e.msg}"
+                print(f"[run_job] ❌ Failed to send to {phone} → {error}")
+
+        # 5) Log the attempt
         rows.append({
-            "run_time": now_iso,
-            "phone": contact["phone"],
-            "template_sid": sid,
+            "run_time":        now_iso,
+            "phone":           phone,
+            "template_sid":    template_sid,
             "content_variables": json.dumps(vars_),
-            "formatted_text": contact["formatted_text"],
-            "scheduled_time": contact["next_survey"].isoformat() if contact["next_survey"] else None,
-            "dry_run": DRY_RUN,
+            "formatted_text":  contact["formatted_text"],
+            "scheduled_time":  contact["next_survey"].isoformat(),
+            "dry_run":         DRY_RUN,
+            "status":          status,
+            "error":           error,
         })
 
-        if not DRY_RUN:
-            send_message(
-                template_sid=sid,
-                conversation_sid=conv_sid,
-                content_variables=vars_,
-                extRef=contact.get("extRef", ""),
-                full_text = contact["formatted_text"],  
-            )
-
-    # append to CSV log
-    df = pd.DataFrame(rows)
-    file_exists = os.path.exists("scheduled_messages.csv")
-    df.to_csv("scheduled_messages.csv", mode='a', header=not file_exists, index=False)
-    print(f"{len(rows)} messages logged{' (not sent)' if DRY_RUN else ''}.")
+    # 6) Write CSV
+    if rows:
+        df = pd.DataFrame(rows)
+        file_exists = os.path.exists("scheduled_messages.csv")
+        df.to_csv(
+            "scheduled_messages.csv",
+            mode='a',
+            header=not file_exists,
+            index=False
+        )
+        print(f"{len(rows)} message(s) logged{' (not sent)' if DRY_RUN else ''}.")
+    else:
+        print("No messages to log.")
 
 if __name__ == "__main__":
-
-    client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
     # Immediate mode send
     if IMMEDIATE_MODE:
