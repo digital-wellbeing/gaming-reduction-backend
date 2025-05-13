@@ -52,3 +52,7 @@ rsconnect/
 
 /.quarto/
 docs/.DS_Store
+twilio_scheduler.py
+scheduler.log
+.gitignore
+delete_convos.py
