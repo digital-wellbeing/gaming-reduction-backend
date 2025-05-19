@@ -12,10 +12,11 @@ import random
 import re
 from string import Template
 from dotenv import load_dotenv
+import phonenumbers
 load_dotenv()  # read .env into os.environ
 
 # ─── CONFIGURATION ────────────────────────────────────────────────────
-IMMEDIATE_MODE        = False   # send only first contact if True
+IMMEDIATE_MODE        = True   # send only first contact if True
 DRY_RUN               = False    # if True, log but don’t actually send
 SURVEY_SCHEDULE_TIME  = "12:00" # HH:MM daily send time
 SCHEDULE_MODE         = "daily" # "daily" or "interval"
@@ -144,6 +145,32 @@ def list_all_contacts(api_token, data_center, directory_id, mailing_list_id, pag
             }
 
     return all_contacts
+
+def normalize_phone_number(raw_phone, default_region='GB'):
+    """
+    Take any human‐entered phone string and return a valid E.164 string,
+    or None if it can't be parsed/validated.
+    """
+    # Strip out everything except digits and '+'
+    cleaned = ''.join(ch for ch in raw_phone if ch.isdigit() or ch == '+')
+
+    try:
+        # If the user included a country code (“+”), parse without a region hint
+        if cleaned.startswith('+'):
+            num = phonenumbers.parse(cleaned, None)
+        else:
+            # No country code, assume default_region
+            num = phonenumbers.parse(cleaned, default_region)
+
+        # Only accept if it's a valid number
+        if not phonenumbers.is_valid_number(num):
+            return None
+
+        # Return in E.164 (“+447352000107”)
+        return phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.E164)
+
+    except phonenumbers.NumberParseException:
+        return None
 
 def ensure_identity_participant(conv_sid, identity):
     """
@@ -343,8 +370,11 @@ def schedule_next_survey(contact):
     return scheduled_dt
 
 def pull_contacts(IMMEDIATE_MODE=False): 
-    
-    # Pull contacts fresh before each scheduled run.
+    """
+    Pull contacts from Qualtrics, compute elapsed days (day 1 = EnrollmentDate + 1),
+    and schedule the next survey for days 1–27 only.
+    """
+    # 1) Fetch all contacts (with embedded EnrollmentDate & CompletedCount)
     contacts = list_all_contacts(
         api_token=os.getenv('QUALTRICS_API_TOKEN'),
         data_center=os.getenv('QUALTRICS_DATA_CENTER'),
@@ -355,37 +385,41 @@ def pull_contacts(IMMEDIATE_MODE=False):
         print("No contacts found.")
         return
 
-    # Calculate elapsed days and schedule next survey for each contact.
+    # 2) Compute elapsed_days & next_survey for each
     for contact in contacts:
-        # 1) Robustly coerce CompletedCount → int, defaulting to 0
+        # Robustly coerce CompletedCount → int
         try:
             contact["CompletedCount"] = int(contact.get("CompletedCount") or 0)
         except (TypeError, ValueError):
             contact["CompletedCount"] = 0
 
-        # 2) Compute elapsed_days: if we have a date, calc it; else treat as day 0
+        # Must have an EnrollmentDate in YYYY-MM-DD
         start_date = contact.get("EnrollmentDate")
-        if start_date:
-            contact["elapsed_days"] = calculate_elapsed_days(start_date)
-        else:
-            contact["elapsed_days"] = 1
+        if not start_date:
+            print(f"Skipping extRef={contact.get('extRef')} due to missing EnrollmentDate")
+            contact["elapsed_days"] = None
+            contact["next_survey"] = None
+            continue
 
-        # 3) Only schedule days 1–27
+        # Calculate how many days since enrollment; if today = enrollment + 1 → elapsed_days == 1
+        contact["elapsed_days"] = calculate_elapsed_days(start_date)
+
+        # Only schedule surveys for days 1 through 27
         if 1 <= contact["elapsed_days"] < 28:
             contact["next_survey"] = schedule_next_survey(contact)
         else:
             contact["next_survey"] = None
 
-    if IMMEDIATE_MODE:
-        # If in immediate mode, send a message to the first contact.
-        if contacts:
-            immediate_contact = next((c for c in contacts if c.get("extRef") == "12345678"), None)
-            immediate_contact["next_survey"] = datetime.now()
-            print("Immediate mode: sending message to first contact.")
-            contacts = [immediate_contact]
-            
-    print("Contacts pulled and processed: ", contacts)
-    return(contacts)
+    # 3) (Optional) Immediate-mode override for testing
+    if IMMEDIATE_MODE and contacts:
+        immediate = next((c for c in contacts if c.get("extRef") == "12345678"), None)
+        if immediate:
+            immediate["next_survey"] = datetime.now()
+            print("Immediate mode: forcing survey for", immediate.get("extRef"))
+            contacts = [immediate]
+
+    print("Contacts pulled and processed:", contacts)
+    return contacts
 
 def add_message_text_to_contact(contact, template_sid, content_variables):
     """
@@ -434,13 +468,13 @@ def run_job():
             continue
 
         # 2) Validate phone
-        phone = (contact.get("phone") or "").strip()
-        if not phone:
-            print(f"Skipping missing phone for extRef={contact.get('extRef')}")
+        phone_raw = (contact.get("phone") or "").strip()
+        normalized = normalize_phone_number(phone_raw)
+        if not normalized:
+            print(f"Skipping invalid phone '{phone_raw}' for extRef={contact.get('extRef')}")
             continue
-        if not re.match(r'^\+?\d+$', phone):
-            print(f"Skipping invalid phone '{phone}' for extRef={contact.get('extRef')}")
-            continue
+
+        phone = normalized  # replace with the cleaned, validated version
 
         # 3) Build/fetch convo & message vars
         conv_sid = get_or_create_conversation_for(phone)
