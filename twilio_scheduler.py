@@ -16,7 +16,7 @@ import phonenumbers
 load_dotenv()  # read .env into os.environ
 
 # ─── CONFIGURATION ────────────────────────────────────────────────────
-IMMEDIATE_MODE        = True   # send only first contact if True
+IMMEDIATE_MODE        = False   # send only first contact if True
 DRY_RUN               = False    # if True, log but don’t actually send
 SURVEY_SCHEDULE_TIME  = "12:00" # HH:MM daily send time
 SCHEDULE_MODE         = "daily" # "daily" or "interval"
@@ -478,8 +478,20 @@ def run_job():
 
         # 3) Build/fetch convo & message vars
         conv_sid = get_or_create_conversation_for(phone)
-        template_sid, vars_ = get_template_and_variables(contact)
-        add_message_text_to_contact(contact, template_sid, vars_)
+        # ——— OVERRIDE FOR US DAY-1 UTILITY INVITE ———
+        # If it's day 1, the number is US (+1…), and there is no open session,
+        # send the BASIC_INVITE (utility) instead of the Day 1 marketing template.
+        if contact.get("elapsed_days") == 1 \
+           and phone.startswith("+1") \
+           and not is_session_open(conv_sid):
+            template_sid = TEMPLATES["BASIC_INVITE"]["sid"]
+            vars_ = {
+                "1": contact.get("firstName",""),
+                "2": str(contact.get("elapsed_days", 1)),
+                "3": contact.get("extRef","")
+            }
+        else:
+            template_sid, vars_ = get_template_and_variables(contact)
 
         # 4) Attempt send
         status = "QUEUED"
