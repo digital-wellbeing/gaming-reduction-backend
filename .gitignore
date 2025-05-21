@@ -58,3 +58,4 @@ scheduler.log
 delete_convos.py
 check_convo.py
 test_single_message.py
+test_phone_region.py

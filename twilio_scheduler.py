@@ -11,12 +11,13 @@ import pandas as pd
 import random
 import re
 from string import Template
-from dotenv import load_dotenv
 import phonenumbers
+from phonenumbers import NumberParseException, region_code_for_number
+from dotenv import load_dotenv
 load_dotenv()  # read .env into os.environ
 
 # ─── CONFIGURATION ────────────────────────────────────────────────────
-IMMEDIATE_MODE        = False   # send only first contact if True
+IMMEDIATE_MODE        = False   # send one message now to only first contact if True
 DRY_RUN               = False    # if True, log but don’t actually send
 SURVEY_SCHEDULE_TIME  = "12:00" # HH:MM daily send time
 SCHEDULE_MODE         = "daily" # "daily" or "interval"
@@ -315,6 +316,8 @@ def send_message(template_sid, conversation_sid, content_variables, extRef, full
             )
             print(f"[send_message] ✓ Sent TEMPLATE message SID={msg.sid}")
 
+        time.sleep(1)
+        msg = convo.messages(msg.sid).fetch()
         return msg
 
     except TwilioRestException as e:
@@ -443,6 +446,58 @@ def add_message_text_to_contact(contact, template_sid, content_variables):
     contact["formatted_text"] = full_text if contact.get("next_survey") else ""
     return contact
 
+def check_delivery_status():
+    """
+    1) Load scheduled_messages.csv  
+    2) For each row still with status=='QUEUED', fetch its receipt  
+    3) Overwrite status, error_code, receipt_time  
+    4) Save CSV in place
+    """
+    svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
+    df = pd.read_csv('scheduled_messages.csv', dtype=str)
+    
+    # keep track of which rows we’ll update
+    updates = []
+    for idx, row in df[df['status']=='QUEUED'].iterrows():
+        conv_sid = row['conversation_sid']
+        msg_sid  = row['message_sid']
+        convo    = svc.conversations(conv_sid)
+        
+        receipts = convo.messages(msg_sid).delivery_receipts.list(limit=1)
+        if receipts:
+            r      = receipts[0]
+            status = r.status
+            error  = r.error_code
+            ts     = r.date_created.isoformat()
+        else:
+            status, error, ts = "unknown", None, None
+        
+        updates.append((idx, status, error, ts))
+    
+    # apply updates
+    for idx, status, error, ts in updates:
+        df.at[idx, 'status']       = status
+        df.at[idx, 'error']        = error
+        df.at[idx, 'receipt_time'] = ts
+    
+    df.to_csv('scheduled_messages.csv', index=False)
+    print(f"[{datetime.now().isoformat()}] Updated {len(updates)} delivery statuses.")
+
+def get_number_region(e164_phone: str) -> str | None:
+    """
+    Returns the ISO region code for a +E.164 phone number
+    (e.g. 'US', 'CA', 'GB', etc.), or None if it can't be parsed/validated.
+    """
+    try:
+        num = phonenumbers.parse(e164_phone, None)
+    except NumberParseException:
+        return None
+
+    if not phonenumbers.is_valid_number(num):
+        return None
+
+    return region_code_for_number(num)  # e.g. 'US', 'CA', etc.
+
 def run_job():
     """
     Pulls contacts, computes next-survey times, builds messages,
@@ -478,49 +533,54 @@ def run_job():
 
         # 3) Build/fetch convo & message vars
         conv_sid = get_or_create_conversation_for(phone)
-        # ——— OVERRIDE FOR US DAY-1 UTILITY INVITE ———
-        # If it's day 1, the number is US (+1…), and there is no open session,
+
+        # ——— OVERRIDE FOR US UTILITY INVITE ———
+        # If the number is US, and there is no open session,
         # send the BASIC_INVITE (utility) instead of the Day 1 marketing template.
-        if contact.get("elapsed_days") == 1 \
-           and phone.startswith("+1") \
-           and not is_session_open(conv_sid):
+        region = get_number_region(phone)
+        if region == "US" and not is_session_open(conv_sid):
+            print(f"[run_job] US contact, sending BASIC_INVITE")
             template_sid = TEMPLATES["BASIC_INVITE"]["sid"]
             vars_ = {
                 "1": contact.get("firstName",""),
                 "2": str(contact.get("elapsed_days", 1)),
                 "3": contact.get("extRef","")
             }
+            contact = add_message_text_to_contact(contact, template_sid, vars_)
         else:
             template_sid, vars_ = get_template_and_variables(contact)
+            contact = add_message_text_to_contact(contact, template_sid, vars_)
 
         # 4) Attempt send
         status = "QUEUED"
         error  = ""
         if not DRY_RUN:
             try:
-                send_message(
+                msg = send_message(
                     template_sid=template_sid,
                     conversation_sid=conv_sid,
                     content_variables=vars_,
                     extRef=contact.get("extRef", ""),
                     full_text=contact["formatted_text"],
                 )
+
             except TwilioRestException as e:
-                status = "FAILED"
                 error  = f"{e.status}: {e.msg}"
                 print(f"[run_job] ❌ Failed to send to {phone} → {error}")
 
         # 5) Log the attempt
         rows.append({
-            "run_time":        now_iso,
-            "phone":           phone,
-            "template_sid":    template_sid,
+            "run_time":         now_iso,
+            "phone":            phone,
+            "conversation_sid": conv_sid,
+            "message_sid":      "" if DRY_RUN else msg.sid,  # placeholder when dry-run, msg not available
+            "template_sid":     template_sid,
             "content_variables": json.dumps(vars_),
-            "formatted_text":  contact["formatted_text"],
-            "scheduled_time":  contact["next_survey"].isoformat(),
-            "dry_run":         DRY_RUN,
-            "status":          status,
-            "error":           error,
+            "formatted_text":   contact["formatted_text"],
+            "scheduled_time":   contact["next_survey"].isoformat(),
+            "dry_run":          DRY_RUN,
+            "status":           "QUEUED",  # placeholder
+            "error":            ""
         })
 
     # 6) Write CSV
@@ -539,9 +599,25 @@ def run_job():
 
 if __name__ == "__main__":
 
+    # Set up delay for checking delivery status
+    hh, mm = map(int, SURVEY_SCHEDULE_TIME.split(':'))
+    check_time = (datetime(2000,1,1,hh,mm) + timedelta(minutes=10)).time().strftime("%H:%M")
+
+    if not IMMEDIATE_MODE and not DRY_RUN:
+        resp = input(
+            "\n⚠️  You're about to send live messages to production. "
+            "Do you want to continue? (y/N): "
+        ).strip().lower()
+        if resp not in ("y", "yes"):
+            print("Aborting: no messages were sent.")
+            sys.exit(0)
+
     # Immediate mode send
     if IMMEDIATE_MODE:
         run_job()
+        print("Waiting 60 seconds before checking delivery status...")
+        time.sleep(60)
+        check_delivery_status()
 
         # choose your scheduling strategy
     if SCHEDULE_MODE == "interval":
@@ -549,9 +625,10 @@ if __name__ == "__main__":
         print(f"{datetime.now().isoformat()} - Scheduler running; will send survey every {INTERVAL_MINUTES} minutes.")
     else:
         schedule.every().day.at(SURVEY_SCHEDULE_TIME).do(run_job)
+        schedule.every().day.at(check_time).do(check_delivery_status)
         print(f"{datetime.now().isoformat()} - Scheduler running; will send survey at {SURVEY_SCHEDULE_TIME} daily.")
 
     # Loop
     while True:
         schedule.run_pending()
-        time.sleep(60)  # check every 2 minutes
+        time.sleep(60)  # check every minute
