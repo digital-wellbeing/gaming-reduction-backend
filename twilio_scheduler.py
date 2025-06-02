@@ -263,7 +263,7 @@ def is_session_open(
     return False
 
 def calculate_rewards(completed_count):
-    base_reward = completed_count
+    base_reward = completed_count + 10
     bonus = (completed_count // 7) * 7
     return base_reward + bonus
 
