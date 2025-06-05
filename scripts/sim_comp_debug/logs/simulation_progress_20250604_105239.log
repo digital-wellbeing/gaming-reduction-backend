@@ -1,0 +1,935 @@
+
+R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+- Project '~/Development/Projects/gaming-reduction-backend' loaded. [renv 1.1.4]
+> # Power estimation using SimEngine – cleaned version (no play_sd_prop, no corr_noise_sd)
+> 
+> # Install SimEngine if not already installed
+> if (!requireNamespace("SimEngine", quietly = TRUE)) {
++   install.packages("SimEngine")
++ }
+> 
+> # Load required packages
+> library(SimEngine)
+Loading required package: magrittr
+Welcome to SimEngine! Full package documentation can be found at:
+ https://avi-kenny.github.io/SimEngine
+> library(lme4)
+Loading required package: Matrix
+> library(lmerTest)
+
+Attaching package: ‘lmerTest’
+
+The following object is masked from ‘package:lme4’:
+
+    lmer
+
+The following object is masked from ‘package:stats’:
+
+    step
+
+> library(compositions)
+Welcome to compositions, a package for compositional data analysis.
+Find an intro with "? compositions"
+
+
+Attaching package: ‘compositions’
+
+The following object is masked from ‘package:Matrix’:
+
+    norm
+
+The following objects are masked from ‘package:stats’:
+
+    anova, cor, cov, dist, var
+
+The following object is masked from ‘package:graphics’:
+
+    segments
+
+The following objects are masked from ‘package:base’:
+
+    %*%, norm, scale, scale.default
+
+> library(MASS)
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:MASS’:
+
+    select
+
+The following objects are masked from ‘package:SimEngine’:
+
+    summarize, vars
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> 
+> # --------------------------------------------------------------------------------
+> # Main simulation wrapper ---------------------------------------------------------
+> # --------------------------------------------------------------------------------
+> 
+> est_power_simengine <- function(n_pg = 50,
++                                effect_min_values = c(30),
++                                s_between_values  = c(0.15),
++                                s_within_values   = c(0.25),
++                                baseline_days     = 7,
++                                intervention_days = 14,
++                                sims              = 500,
++                                cores             = 4) {
++ 
++   start_time <- Sys.time()
++   message("Setting up SimEngine simulation …")
++ 
++   # Create simulation object
++   sim <- new_sim()
++ 
++   # ------------------------------------------------------------------------------
++   # LEVELS (note: no play_sd_prop, no corr_noise_sd) ------------------------------
++   # ------------------------------------------------------------------------------
++   sim %<>% set_levels(
++     n_pg             = n_pg,
++     effect_min       = effect_min_values,
++     s_between        = s_between_values,
++     s_within         = s_within_values,
++     baseline_days    = baseline_days,
++     intervention_days= intervention_days
++   )
++ 
++   # ------------------------------------------------------------------------------
++   # Helper transformations (INSIDE function for parallel access) ------------------
++   # ------------------------------------------------------------------------------
++   
++   comp_to_ilr <- function(x_min) {
++     stopifnot(is.matrix(x_min), ncol(x_min) == 3)
++     bad_row <- !is.finite(rowSums(x_min)) | rowSums(x_min) <= 0
++     if (any(bad_row)) {
++       x_min[bad_row, ] <- matrix(rep(c(600, 480, 360), each = sum(bad_row)), ncol = 3, byrow = TRUE)
++     }
++     x_min[x_min <= 0 | !is.finite(x_min)] <- 1e-6
++     compositions::ilr(sweep(x_min, 1, rowSums(x_min), "/"))
++   }
++ 
++   ilr_to_minutes <- function(ilr_mat, total = 1440) {
++     stopifnot(is.matrix(ilr_mat), ncol(ilr_mat) == 2)
++     comp_obj <- compositions::ilrInv(ilr_mat)
++     prop <- as.matrix(as.data.frame(comp_obj))
++     bad <- apply(prop, 1, function(r) any(!is.finite(r) | r <= 0) ||
++                    !is.finite(sum(r)) || abs(sum(r) - 1) > 1e-8)
++     if (any(bad)) prop[bad, ] <- 1/3
++     round(prop * total, 1)
++   }
++ 
++   # ------------------------------------------------------------------------------
++   # Data‑generating function ------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   generate_data <- function(n_pg, effect_min, baseline_days, intervention_days,
++                             s_between, s_within, seed = NULL) {
++ 
++     if (!is.null(seed)) set.seed(seed)
++ 
++     N   <- n_pg * 2
++     grp <- rep(0:1, each = n_pg)              # 0 = Control, 1 = Intervention
++ 
++     # Mean daily compositions: (sedentary, sleep, physical)
++     base_comp   <- c(600, 480, 360)
++     active_comp <- c(600 - effect_min, 480, 360 + effect_min)
++ 
++     # Person‑level random effects in ILR space
++     b_ilr <- MASS::mvrnorm(N, mu = c(0, 0), Sigma = diag(s_between^2, 2))
++ 
++     # Helper: baseline mean playtime (10 – 40 % of sedentary)
++     draw_baseline_play <- function() {
++       p  <- rbeta(1, 2, 5) * 0.3 + 0.1       # right‑skew between 0.1–0.4
++       pm <- p * base_comp[1]
++       min(max(pm, 10), 240)                  # clamp to 10–240 min
++     }
++     personal_mean_play <- replicate(N, draw_baseline_play())
++ 
++     # Containers
++     all_ids <- all_periods <- all_days <- NULL
++     all_ilr <- matrix(, 0, 2)
++     playmin <- numeric()
++ 
++     for (i in seq_len(N)) {
++       for (period in c("baseline", "intervention")) {
++         ndays   <- if (period == "baseline") baseline_days else intervention_days
++         comp_mu <- if (period == "baseline" || grp[i] == 0) base_comp else active_comp
++ 
++         comp_ilr <- comp_to_ilr(matrix(rep(comp_mu, ndays), ncol = 3, byrow = TRUE))
++         comp_ilr <- sweep(comp_ilr, 2, b_ilr[i, ], "+")               # add person RE
++         day_ilr  <- comp_ilr + MASS::mvrnorm(ndays, mu = c(0, 0),
++                                              Sigma = diag(s_within^2, 2))
++ 
++         # Index bookkeeping
++         all_ids     <- c(all_ids, rep(i, ndays))
++         all_periods <- c(all_periods, rep(period, ndays))
++         all_days    <- c(all_days,
++                          if (period == "baseline") seq_len(baseline_days)
++                          else baseline_days + seq_len(intervention_days))
++         all_ilr     <- rbind(all_ilr, day_ilr)
++ 
++         # PLAYTIME: deterministic shift + 2 % day‑to‑day noise (constant)
++         base_mean <- personal_mean_play[i]
++         daily_sd  <- 0.02 * base_mean
++ 
++         if (period == "baseline") {
++           playday <- rnorm(ndays, base_mean, daily_sd)
++         } else {
++           if (grp[i] == 0) {
++             playday <- rnorm(ndays, base_mean, daily_sd)          # Control arm
++           } else {
++             playday <- pmax(0, rnorm(ndays, base_mean - effect_min, daily_sd))
++           }
++         }
++         playmin <- c(playmin, playday)
++       }
++     }
++ 
++     # Back‑transform ILR → minutes and assemble data frame
++     mins <- ilr_to_minutes(all_ilr)
++     colnames(mins) <- c("sedentary", "sleep", "physical")
++ 
++     dat <- data.frame(
++       id        = factor(all_ids),
++       group     = factor(grp[all_ids], labels = c("Control", "Intervention")),
++       period    = factor(all_periods, levels = c("baseline", "intervention")),
++       day       = all_days,
++       sedentary = mins[, 1],
++       sleep     = mins[, 2],
++       physical  = mins[, 3],
++       playtime  = playmin
++     )
++ 
++     dat <- dat %>%
++       group_by(id) %>%
++       mutate(
++         base_play_mean      = mean(playtime[period == "baseline"]),
++         playtime_reduction  = base_play_mean - playtime,
++         intervention_active = as.integer(group == "Intervention" & period == "intervention")
++       ) %>%
++       ungroup()
++ 
++     return(dat)
++   }
++ 
++   # ------------------------------------------------------------------------------
++   # Analysis function -------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   run_analysis <- function(data) {
++     data_ilr <- data
++     comp_matrix <- as.matrix(data[, c("sedentary", "sleep", "physical")])
++     ilr_coords  <- comp_to_ilr(comp_matrix)
++     data_ilr$ilr1 <- ilr_coords[, 1]
++ 
++     results <- list()
++ 
++     ## Between‑group effect during intervention ----------------------------------
++     md <- subset(data_ilr, period == "intervention")
++     mb <- try(lmer(ilr1 ~ group + (1 | id), data = md), silent = TRUE)
++     results$p_between <- if (!inherits(mb, "try-error")) anova(mb)["group", "Pr(>F)"] else NA
++ 
++     ## Within‑group effects -------------------------------------------------------
++     mc <- try(lmer(ilr1 ~ period + (1 | id), data = subset(data_ilr, group == "Control")), silent = TRUE)
++     results$p_control <- if (!inherits(mc, "try-error")) anova(mc)["period", "Pr(>F)"] else NA
++ 
++     mi <- try(lmer(ilr1 ~ period + (1 | id), data = subset(data_ilr, group == "Intervention")), silent = TRUE)
++     results$p_intervention <- if (!inherits(mi, "try-error")) anova(mi)["period", "Pr(>F)"] else NA
++ 
++     ## Interaction ----------------------------------------------------------------
++     mx <- try(lmer(ilr1 ~ group * period + (1 | id), data = data_ilr), silent = TRUE)
++     results$p_interaction <- if (!inherits(mx, "try-error")) anova(mx)["group:period", "Pr(>F)"] else NA
++ 
++     ## Per‑protocol contrast ------------------------------------------------------
++     mp <- try(lmer(ilr1 ~ intervention_active * playtime_reduction + (1 | id), data = data_ilr), silent = TRUE)
++     results$p_protocol <- if (!inherits(mp, "try-error")) anova(mp)["intervention_active:playtime_reduction", "Pr(>F)"] else NA
++ 
++     return(results)
++   }
++ 
++   # ------------------------------------------------------------------------------
++   # Simulation script ------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   sim %<>% set_script(function() {
++     set.seed(sample.int(1e7, 1))
++     
++     # Access simulation level variables correctly
++     data <- generate_data(
++       n_pg             = L$n_pg,
++       effect_min       = L$effect_min,
++       baseline_days    = L$baseline_days,
++       intervention_days= L$intervention_days,
++       s_between        = L$s_between,
++       s_within         = L$s_within
++     )
++     
++     # Run analysis and ensure proper error handling
++     result <- tryCatch({
++       run_analysis(data)
++     }, error = function(e) {
++       # Return NA values with proper names if analysis fails
++       list(
++         p_between = NA_real_, 
++         p_control = NA_real_, 
++         p_intervention = NA_real_,
++         p_interaction = NA_real_, 
++         p_protocol = NA_real_
++       )
++     })
++     
++     # Ensure result is a proper list with all required elements
++     if (!is.list(result)) {
++       result <- list(
++         p_between = NA_real_, 
++         p_control = NA_real_, 
++         p_intervention = NA_real_,
++         p_interaction = NA_real_, 
++         p_protocol = NA_real_
++       )
++     }
++     
++     # Ensure all required columns exist
++     required_names <- c("p_between", "p_control", "p_intervention", "p_interaction", "p_protocol")
++     for (name in required_names) {
++       if (!(name %in% names(result))) {
++         result[[name]] <- NA_real_
++       }
++     }
++     
++     return(result)
++   })
++ 
++   # ------------------------------------------------------------------------------
++   # Config & run -----------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   sim %<>% set_config(
++     num_sim      = sims,
++     parallel     = TRUE,   # Enable parallel processing
++     n_cores      = cores,  # Use specified cores
++     packages     = c("lme4", "lmerTest", "compositions", "MASS", "dplyr"),
++     progress_bar = TRUE
++   )
++ 
++   
++   # Add a test run to debug issues
++   message("Testing data generation and analysis functions...")
++   tryCatch({
++     test_data <- generate_data(
++       n_pg = 10,  # Small test
++       effect_min = 30,
++       baseline_days = 7,
++       intervention_days = 14,
++       s_between = 0.15,
++       s_within = 0.25
++     )
++     message("✓ Data generation successful")
++     message("Test data dimensions: ", nrow(test_data), " x ", ncol(test_data))
++     
++     test_results <- run_analysis(test_data)
++     message("✓ Analysis function successful")
++     message("Test results: ", paste(names(test_results), test_results, sep="=", collapse=", "))
++   }, error = function(e) {
++     message("❌ Test failed with error: ", e$message)
++     stop("Stopping due to test failure. Fix the issue before running full simulation.")
++   })
++ 
++   message("Running simulations …")
++   
++   sim %<>% run()
++ 
++   # ------------------------------------------------------------------------------
++   # Summarise power --------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   results <- sim$results
++   
++   # Add debugging information
++   message("Debug: Checking simulation results...")
++   message("Results object class: ", class(results))
++   message("Results is null: ", is.null(results))
++   if (!is.null(results)) {
++     message("Results dimensions: ", nrow(results), " x ", ncol(results))
++     message("Results column names: ", paste(names(results), collapse = ", "))
++   }
++   
++   # Add error handling for when all simulations fail
++   if (is.null(results) || (is.data.frame(results) && nrow(results) == 0)) {
++     stop("All simulations failed. Check your simulation parameters and functions.")
++   }
++   
++   # Check if required columns exist before processing
++   required_cols <- c("p_between", "p_control", "p_intervention", "p_interaction", "p_protocol")
++   missing_cols <- setdiff(required_cols, names(results))
++   if (length(missing_cols) > 0) {
++     stop(paste("Missing columns in results:", paste(missing_cols, collapse = ", ")))
++   }
++   
++   for (col in required_cols) {
++     results[[col]] <- as.numeric(as.character(results[[col]]))
++   }
++ 
++   power_df <- aggregate(
++     cbind(
++       power_between     = results$p_between     < 0.05,
++       power_control     = results$p_control     < 0.05,
++       power_intervention= results$p_intervention< 0.05,
++       power_interaction = results$p_interaction < 0.05,
++       power_protocol    = results$p_protocol    < 0.05,
++       valid_between     = !is.na(results$p_between),
++       valid_control     = !is.na(results$p_control), 
++       valid_intervention= !is.na(results$p_intervention),
++       valid_interaction = !is.na(results$p_interaction),
++       valid_protocol    = !is.na(results$p_protocol)
++     ),
++     by = list(
++       n_pg             = results$n_pg,
++       effect_min       = results$effect_min,
++       s_between        = results$s_between,
++       s_within         = results$s_within,
++       baseline_days    = results$baseline_days,
++       intervention_days= results$intervention_days
++     ),
++     FUN = mean, na.rm = TRUE
++   )
++ 
++   end_time <- Sys.time()
++   message(sprintf("Total elapsed time: %.2f mins", as.numeric(difftime(end_time, start_time, units = "mins"))))
++ 
++   list(power_summary = power_df, sim_object = sim)
++ }
+> 
+> # --------------------------------------------------------------------------------
+> # Example call -------------------------------------------------------------------
+> # --------------------------------------------------------------------------------
+> result <- est_power_simengine(
++   n_pg               = c(50),  # Multiple sample sizes
++   effect_min_values =  c(30, 60, 90, 120),          
++   s_between_values = seq(0.1, 0.3, by = 0.05),
++   s_within_values = seq(0.15, 0.35, by = 0.05),
++   baseline_days      = 7,
++   intervention_days  = 14,
++   sims               = 500, 
++   cores              = 16     
++ )
+Setting up SimEngine simulation …
+Testing data generation and analysis functions...
+✓ Data generation successful
+Test data dimensions: 420 x 11
+✓ Analysis function successful
+Test results: p_between=0.771294743151653, p_control=0.133968099080978, p_intervention=0.497405437353875, p_interaction=0.121279936361025, p_protocol=0.89248596531746
+Running simulations …
+Done. No errors or warnings detected.
+
+Debug: Checking simulation results...
+Results object class: data.frame
+Results is null: FALSE
+Results dimensions: 50000 x 15
+Results column names: sim_uid, level_id, rep_id, n_pg, effect_min, s_between, s_within, baseline_days, intervention_days, runtime, p_between, p_control, p_intervention, p_interaction, p_protocol
+Total elapsed time: 31.17 mins
+> # print(result$power_summary)
+> 
+> # Save results with descriptive name and timestamp
+> timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
+> filename <- paste0("scripts/sim_comp_debug/power_sim_results_", timestamp, ".RData")
+> save(result, file = filename)
+> 
+> # Print power summary
+> print(result$power_summary)
+    n_pg effect_min s_between s_within baseline_days intervention_days
+1     50         30      0.10     0.15             7                14
+2     50         60      0.10     0.15             7                14
+3     50         90      0.10     0.15             7                14
+4     50        120      0.10     0.15             7                14
+5     50         30      0.15     0.15             7                14
+6     50         60      0.15     0.15             7                14
+7     50         90      0.15     0.15             7                14
+8     50        120      0.15     0.15             7                14
+9     50         30      0.20     0.15             7                14
+10    50         60      0.20     0.15             7                14
+11    50         90      0.20     0.15             7                14
+12    50        120      0.20     0.15             7                14
+13    50         30      0.25     0.15             7                14
+14    50         60      0.25     0.15             7                14
+15    50         90      0.25     0.15             7                14
+16    50        120      0.25     0.15             7                14
+17    50         30      0.30     0.15             7                14
+18    50         60      0.30     0.15             7                14
+19    50         90      0.30     0.15             7                14
+20    50        120      0.30     0.15             7                14
+21    50         30      0.10     0.20             7                14
+22    50         60      0.10     0.20             7                14
+23    50         90      0.10     0.20             7                14
+24    50        120      0.10     0.20             7                14
+25    50         30      0.15     0.20             7                14
+26    50         60      0.15     0.20             7                14
+27    50         90      0.15     0.20             7                14
+28    50        120      0.15     0.20             7                14
+29    50         30      0.20     0.20             7                14
+30    50         60      0.20     0.20             7                14
+31    50         90      0.20     0.20             7                14
+32    50        120      0.20     0.20             7                14
+33    50         30      0.25     0.20             7                14
+34    50         60      0.25     0.20             7                14
+35    50         90      0.25     0.20             7                14
+36    50        120      0.25     0.20             7                14
+37    50         30      0.30     0.20             7                14
+38    50         60      0.30     0.20             7                14
+39    50         90      0.30     0.20             7                14
+40    50        120      0.30     0.20             7                14
+41    50         30      0.10     0.25             7                14
+42    50         60      0.10     0.25             7                14
+43    50         90      0.10     0.25             7                14
+44    50        120      0.10     0.25             7                14
+45    50         30      0.15     0.25             7                14
+46    50         60      0.15     0.25             7                14
+47    50         90      0.15     0.25             7                14
+48    50        120      0.15     0.25             7                14
+49    50         30      0.20     0.25             7                14
+50    50         60      0.20     0.25             7                14
+51    50         90      0.20     0.25             7                14
+52    50        120      0.20     0.25             7                14
+53    50         30      0.25     0.25             7                14
+54    50         60      0.25     0.25             7                14
+55    50         90      0.25     0.25             7                14
+56    50        120      0.25     0.25             7                14
+57    50         30      0.30     0.25             7                14
+58    50         60      0.30     0.25             7                14
+59    50         90      0.30     0.25             7                14
+60    50        120      0.30     0.25             7                14
+61    50         30      0.10     0.30             7                14
+62    50         60      0.10     0.30             7                14
+63    50         90      0.10     0.30             7                14
+64    50        120      0.10     0.30             7                14
+65    50         30      0.15     0.30             7                14
+66    50         60      0.15     0.30             7                14
+67    50         90      0.15     0.30             7                14
+68    50        120      0.15     0.30             7                14
+69    50         30      0.20     0.30             7                14
+70    50         60      0.20     0.30             7                14
+71    50         90      0.20     0.30             7                14
+72    50        120      0.20     0.30             7                14
+73    50         30      0.25     0.30             7                14
+74    50         60      0.25     0.30             7                14
+75    50         90      0.25     0.30             7                14
+76    50        120      0.25     0.30             7                14
+77    50         30      0.30     0.30             7                14
+78    50         60      0.30     0.30             7                14
+79    50         90      0.30     0.30             7                14
+80    50        120      0.30     0.30             7                14
+81    50         30      0.10     0.35             7                14
+82    50         60      0.10     0.35             7                14
+83    50         90      0.10     0.35             7                14
+84    50        120      0.10     0.35             7                14
+85    50         30      0.15     0.35             7                14
+86    50         60      0.15     0.35             7                14
+87    50         90      0.15     0.35             7                14
+88    50        120      0.15     0.35             7                14
+89    50         30      0.20     0.35             7                14
+90    50         60      0.20     0.35             7                14
+91    50         90      0.20     0.35             7                14
+92    50        120      0.20     0.35             7                14
+93    50         30      0.25     0.35             7                14
+94    50         60      0.25     0.35             7                14
+95    50         90      0.25     0.35             7                14
+96    50        120      0.25     0.35             7                14
+97    50         30      0.30     0.35             7                14
+98    50         60      0.30     0.35             7                14
+99    50         90      0.30     0.35             7                14
+100   50        120      0.30     0.35             7                14
+    power_between power_control power_intervention power_interaction
+1          0.3920         0.048              0.960             0.764
+2          0.9180         0.042              1.000             1.000
+3          0.9960         0.060              1.000             1.000
+4          1.0000         0.042              1.000             1.000
+5          0.2380         0.054              0.958             0.732
+6          0.6500         0.046              1.000             1.000
+7          0.9480         0.050              1.000             1.000
+8          0.9940         0.044              1.000             1.000
+9          0.1460         0.044              0.958             0.754
+10         0.4100         0.044              1.000             1.000
+11         0.7660         0.054              1.000             1.000
+12         0.9640         0.046              1.000             1.000
+13         0.1080         0.060              0.972             0.770
+14         0.2980         0.044              1.000             1.000
+15         0.6080         0.040              1.000             1.000
+16         0.8780         0.052              1.000             1.000
+17         0.0940         0.058              0.964             0.720
+18         0.2220         0.052              1.000             1.000
+19         0.4120         0.060              1.000             1.000
+20         0.7040         0.038              1.000             1.000
+21         0.3720         0.046              0.790             0.514
+22         0.9000         0.050              1.000             0.984
+23         1.0000         0.062              1.000             1.000
+24         1.0000         0.050              1.000             1.000
+25         0.1720         0.042              0.790             0.538
+26         0.6440         0.058              1.000             0.976
+27         0.9360         0.054              1.000             1.000
+28         0.9960         0.056              1.000             1.000
+29         0.1460         0.048              0.806             0.516
+30         0.4700         0.036              1.000             0.982
+31         0.7360         0.040              1.000             1.000
+32         0.9780         0.058              1.000             1.000
+33         0.0860         0.054              0.820             0.532
+34         0.3120         0.048              1.000             0.988
+35         0.6280         0.066              1.000             1.000
+36         0.8540         0.074              1.000             1.000
+37         0.1000         0.030              0.806             0.548
+38         0.1920         0.040              0.998             0.962
+39         0.4500         0.070              1.000             1.000
+40         0.7500         0.046              1.000             1.000
+41         0.3360         0.056              0.576             0.356
+42         0.8620         0.060              0.992             0.872
+43         0.9960         0.044              1.000             0.998
+44         1.0000         0.040              1.000             1.000
+45         0.2080         0.056              0.600             0.360
+46         0.6020         0.044              0.996             0.914
+47         0.9140         0.046              1.000             0.996
+48         0.9900         0.060              1.000             1.000
+49         0.1540         0.040              0.566             0.364
+50         0.4220         0.042              0.994             0.904
+51         0.7560         0.048              1.000             1.000
+52         0.9620         0.050              1.000             1.000
+53         0.1280         0.068              0.588             0.330
+54         0.3020         0.044              0.990             0.902
+55         0.6180         0.040              1.000             0.996
+56         0.8720         0.058              1.000             1.000
+57         0.0880         0.052              0.610             0.364
+58         0.2200         0.060              0.998             0.908
+59         0.4800         0.050              1.000             0.998
+60         0.7120         0.064              1.000             1.000
+61         0.2920         0.046              0.444             0.242
+62         0.7800         0.038              0.976             0.766
+63         0.9920         0.038              1.000             0.994
+64         1.0000         0.052              1.000             1.000
+65         0.1600         0.044              0.444             0.230
+66         0.6280         0.058              0.964             0.774
+67         0.8960         0.046              1.000             0.986
+68         0.9960         0.066              1.000             1.000
+69         0.1180         0.058              0.438             0.252
+70         0.3740         0.044              0.968             0.722
+71         0.7500         0.062              1.000             0.986
+72         0.9680         0.044              1.000             1.000
+73         0.1000         0.066              0.438             0.260
+74         0.2360         0.044              0.968             0.756
+75         0.5840         0.054              1.000             0.986
+76         0.8320         0.034              1.000             1.000
+77         0.0880         0.042              0.468             0.244
+78         0.2120         0.036              0.962             0.760
+79         0.4480         0.046              1.000             0.974
+80         0.6925         0.030              1.000             1.000
+81         1.0000         0.000              1.000             0.000
+82         1.0000         0.000              0.000             1.000
+83         1.0000         1.000              1.000             0.000
+84         1.0000         0.000              1.000             1.000
+85         1.0000         1.000              0.000             1.000
+86         1.0000         0.000              1.000             1.000
+87         1.0000         0.000              1.000             1.000
+88         1.0000         0.000              1.000             1.000
+89         0.0000         0.000              0.000             0.000
+90         1.0000         0.000              1.000             1.000
+91         1.0000         0.000              1.000             1.000
+92         1.0000         0.000              1.000             1.000
+93         0.0000         0.000              0.000             0.000
+94         1.0000         1.000              1.000             1.000
+95         1.0000         0.000              1.000             1.000
+96         1.0000         0.000              1.000             1.000
+97         0.0000         0.000              0.000             0.000
+98         0.0000         0.000              1.000             1.000
+99         0.0000         0.000              1.000             1.000
+100        0.0000         0.000              1.000             1.000
+    power_protocol valid_between valid_control valid_intervention
+1           0.0340         1.000         1.000              1.000
+2           0.0400         1.000         1.000              1.000
+3           0.0700         1.000         1.000              1.000
+4           0.0480         1.000         1.000              1.000
+5           0.0400         1.000         1.000              1.000
+6           0.0460         1.000         1.000              1.000
+7           0.0440         1.000         1.000              1.000
+8           0.0660         1.000         1.000              1.000
+9           0.0720         1.000         1.000              1.000
+10          0.0340         1.000         1.000              1.000
+11          0.0480         1.000         1.000              1.000
+12          0.0680         1.000         1.000              1.000
+13          0.0440         1.000         1.000              1.000
+14          0.0420         1.000         1.000              1.000
+15          0.0360         1.000         1.000              1.000
+16          0.0320         1.000         1.000              1.000
+17          0.0560         1.000         1.000              1.000
+18          0.0720         1.000         1.000              1.000
+19          0.0560         1.000         1.000              1.000
+20          0.0660         1.000         1.000              1.000
+21          0.0460         1.000         1.000              1.000
+22          0.0520         1.000         1.000              1.000
+23          0.0360         1.000         1.000              1.000
+24          0.0540         1.000         1.000              1.000
+25          0.0520         1.000         1.000              1.000
+26          0.0640         1.000         1.000              1.000
+27          0.0620         1.000         1.000              1.000
+28          0.0600         1.000         1.000              1.000
+29          0.0540         1.000         1.000              1.000
+30          0.0620         1.000         1.000              1.000
+31          0.0360         1.000         1.000              1.000
+32          0.0440         1.000         1.000              1.000
+33          0.0500         1.000         1.000              1.000
+34          0.0580         1.000         1.000              1.000
+35          0.0480         1.000         1.000              1.000
+36          0.0440         1.000         1.000              1.000
+37          0.0500         1.000         1.000              1.000
+38          0.0460         1.000         1.000              1.000
+39          0.0460         1.000         1.000              1.000
+40          0.0420         1.000         1.000              1.000
+41          0.0620         1.000         1.000              1.000
+42          0.0340         1.000         1.000              1.000
+43          0.0440         1.000         1.000              1.000
+44          0.0460         1.000         1.000              1.000
+45          0.0380         1.000         1.000              1.000
+46          0.0540         1.000         1.000              1.000
+47          0.0600         1.000         1.000              1.000
+48          0.0580         1.000         1.000              1.000
+49          0.0520         1.000         1.000              1.000
+50          0.0420         1.000         1.000              1.000
+51          0.0420         1.000         1.000              1.000
+52          0.0500         1.000         1.000              1.000
+53          0.0500         1.000         1.000              1.000
+54          0.0560         1.000         1.000              1.000
+55          0.0600         1.000         1.000              1.000
+56          0.0500         1.000         1.000              1.000
+57          0.0500         1.000         1.000              1.000
+58          0.0480         1.000         1.000              1.000
+59          0.0560         1.000         1.000              1.000
+60          0.0460         1.000         1.000              1.000
+61          0.0440         1.000         1.000              1.000
+62          0.0780         1.000         1.000              1.000
+63          0.0400         1.000         1.000              1.000
+64          0.0480         1.000         1.000              1.000
+65          0.0500         1.000         1.000              1.000
+66          0.0560         1.000         1.000              1.000
+67          0.0540         1.000         1.000              1.000
+68          0.0560         1.000         1.000              1.000
+69          0.0460         1.000         1.000              1.000
+70          0.0460         1.000         1.000              1.000
+71          0.0700         1.000         1.000              1.000
+72          0.0460         1.000         1.000              1.000
+73          0.0560         1.000         1.000              1.000
+74          0.0580         1.000         1.000              1.000
+75          0.0700         1.000         1.000              1.000
+76          0.0560         1.000         1.000              1.000
+77          0.0540         1.000         1.000              1.000
+78          0.0340         1.000         1.000              1.000
+79          0.0340         1.000         1.000              1.000
+80          0.0625         0.800         0.800              0.800
+81          0.0000         0.002         0.002              0.002
+82          0.0000         0.002         0.002              0.002
+83          0.0000         0.002         0.002              0.002
+84          0.0000         0.002         0.002              0.002
+85          0.0000         0.002         0.002              0.002
+86          0.0000         0.002         0.002              0.002
+87          0.0000         0.002         0.002              0.002
+88          0.0000         0.002         0.002              0.002
+89          0.0000         0.002         0.002              0.002
+90          0.0000         0.002         0.002              0.002
+91          0.0000         0.002         0.002              0.002
+92          0.0000         0.002         0.002              0.002
+93          0.0000         0.002         0.002              0.002
+94          0.0000         0.002         0.002              0.002
+95          0.0000         0.002         0.002              0.002
+96          0.0000         0.002         0.002              0.002
+97          0.0000         0.002         0.002              0.002
+98          0.0000         0.002         0.002              0.002
+99          0.0000         0.002         0.002              0.002
+100         0.0000         0.002         0.002              0.002
+    valid_interaction valid_protocol
+1               1.000          1.000
+2               1.000          1.000
+3               1.000          1.000
+4               1.000          1.000
+5               1.000          1.000
+6               1.000          1.000
+7               1.000          1.000
+8               1.000          1.000
+9               1.000          1.000
+10              1.000          1.000
+11              1.000          1.000
+12              1.000          1.000
+13              1.000          1.000
+14              1.000          1.000
+15              1.000          1.000
+16              1.000          1.000
+17              1.000          1.000
+18              1.000          1.000
+19              1.000          1.000
+20              1.000          1.000
+21              1.000          1.000
+22              1.000          1.000
+23              1.000          1.000
+24              1.000          1.000
+25              1.000          1.000
+26              1.000          1.000
+27              1.000          1.000
+28              1.000          1.000
+29              1.000          1.000
+30              1.000          1.000
+31              1.000          1.000
+32              1.000          1.000
+33              1.000          1.000
+34              1.000          1.000
+35              1.000          1.000
+36              1.000          1.000
+37              1.000          1.000
+38              1.000          1.000
+39              1.000          1.000
+40              1.000          1.000
+41              1.000          1.000
+42              1.000          1.000
+43              1.000          1.000
+44              1.000          1.000
+45              1.000          1.000
+46              1.000          1.000
+47              1.000          1.000
+48              1.000          1.000
+49              1.000          1.000
+50              1.000          1.000
+51              1.000          1.000
+52              1.000          1.000
+53              1.000          1.000
+54              1.000          1.000
+55              1.000          1.000
+56              1.000          1.000
+57              1.000          1.000
+58              1.000          1.000
+59              1.000          1.000
+60              1.000          1.000
+61              1.000          1.000
+62              1.000          1.000
+63              1.000          1.000
+64              1.000          1.000
+65              1.000          1.000
+66              1.000          1.000
+67              1.000          1.000
+68              1.000          1.000
+69              1.000          1.000
+70              1.000          1.000
+71              1.000          1.000
+72              1.000          1.000
+73              1.000          1.000
+74              1.000          1.000
+75              1.000          1.000
+76              1.000          1.000
+77              1.000          1.000
+78              1.000          1.000
+79              1.000          1.000
+80              0.800          0.800
+81              0.002          0.002
+82              0.002          0.002
+83              0.002          0.002
+84              0.002          0.002
+85              0.002          0.002
+86              0.002          0.002
+87              0.002          0.002
+88              0.002          0.002
+89              0.002          0.002
+90              0.002          0.002
+91              0.002          0.002
+92              0.002          0.002
+93              0.002          0.002
+94              0.002          0.002
+95              0.002          0.002
+96              0.002          0.002
+97              0.002          0.002
+98              0.002          0.002
+99              0.002          0.002
+100             0.002          0.002
+> 
+> # Print save location
+> message("Results saved to: ", filename)
+Results saved to: scripts/sim_comp_debug/power_sim_results_20250604_112352.RData
+> 
+> # POWER SUMMARY ANALYSIS
+> message("\n" , paste(rep("=", 60), collapse=""))
+
+============================================================
+> message("POWER SUMMARY - TOP PERFORMING SETTINGS")
+POWER SUMMARY - TOP PERFORMING SETTINGS
+> message(paste(rep("=", 60), collapse=""))
+============================================================
+> 
+> power_data <- result$power_summary
+> 
+> # Summary for power_interaction
+> message("\n🎯 INTERACTION EFFECT POWER SUMMARY:")
+
+🎯 INTERACTION EFFECT POWER SUMMARY:
+> message("-----------------------------------")
+-----------------------------------
+> 
+> # Find maximum power for interaction
+> max_interaction_power <- max(power_data$power_interaction, na.rm = TRUE)
+> best_interaction <- power_data[which.max(power_data$power_interaction), ]
+> 
+> message(sprintf("Maximum Interaction Power: %.3f", max_interaction_power))
+Maximum Interaction Power: 1.000
+> message("Best settings:")
+Best settings:
+> message(sprintf("  • Sample size per group (n_pg): %d", best_interaction$n_pg))
+  • Sample size per group (n_pg): 50
+> message(sprintf("  • Effect size (effect_min): %d minutes", best_interaction$effect_min))
+  • Effect size (effect_min): 60 minutes
+> message(sprintf("  • Between-subject SD (s_between): %.3f", best_interaction$s_between))
+  • Between-subject SD (s_between): 0.100
+> message(sprintf("  • Within-subject SD (s_within): %.3f", best_interaction$s_within))
+  • Within-subject SD (s_within): 0.150
+> 
+> # Show top 3 settings for interaction
+> message("\nTop 3 settings for interaction power:")
+
+Top 3 settings for interaction power:
+> top_interaction <- power_data[order(power_data$power_interaction, decreasing = TRUE)[1:min(3, nrow(power_data))], ]
+> for(i in 1:nrow(top_interaction)) {
++   row <- top_interaction[i, ]
++   message(sprintf("%d. Power=%.3f | n_pg=%d | effect=%d | s_between=%.3f | s_within=%.3f", 
++                   i, row$power_interaction, row$n_pg, row$effect_min, row$s_between, row$s_within))
++ }
+1. Power=1.000 | n_pg=50 | effect=60 | s_between=0.100 | s_within=0.150
+2. Power=1.000 | n_pg=50 | effect=90 | s_between=0.100 | s_within=0.150
+3. Power=1.000 | n_pg=50 | effect=120 | s_between=0.100 | s_within=0.150
+> 
+> # Summary for power_protocol  
+> message("\n🎯 PROTOCOL EFFECT POWER SUMMARY:")
+
+🎯 PROTOCOL EFFECT POWER SUMMARY:
+> message("--------------------------------")
+--------------------------------
+> 
+> # Find maximum power for protocol
+> max_protocol_power <- max(power_data$power_protocol, na.rm = TRUE)
+> best_protocol <- power_data[which.max(power_data$power_protocol), ]
+> 
+> message(sprintf("Maximum Pro = TRUE)
++ best_interaction <- power_data[which.max(power_data$power_interaction), ]
++ 
++ message(sprintf("Maximum Interaction Power: %.3f", max_interaction_power))
+Error: unexpected symbol in:
+"
+message(sprintf("Maximum"
+Execution halted

@@ -1,0 +1,511 @@
+
+R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+- Project '~/Development/Projects/gaming-reduction-backend' loaded. [renv 1.1.4]
+- The project is out-of-sync -- use `renv::status()` for details.
+> # Power estimation using SimEngine – cleaned version (no play_sd_prop, no corr_noise_sd)
+> 
+> # Install SimEngine if not already installed
+> if (!requireNamespace("SimEngine", quietly = TRUE)) {
++   install.packages("SimEngine")
++ }
+> 
+> # Load required packages
+> library(SimEngine)
+Loading required package: magrittr
+Welcome to SimEngine! Full package documentation can be found at:
+ https://avi-kenny.github.io/SimEngine
+> library(lme4)
+Loading required package: Matrix
+> library(lmerTest)
+
+Attaching package: ‘lmerTest’
+
+The following object is masked from ‘package:lme4’:
+
+    lmer
+
+The following object is masked from ‘package:stats’:
+
+    step
+
+> library(compositions)
+Welcome to compositions, a package for compositional data analysis.
+Find an intro with "? compositions"
+
+
+Attaching package: ‘compositions’
+
+The following object is masked from ‘package:Matrix’:
+
+    norm
+
+The following objects are masked from ‘package:stats’:
+
+    anova, cor, cov, dist, var
+
+The following object is masked from ‘package:graphics’:
+
+    segments
+
+The following objects are masked from ‘package:base’:
+
+    %*%, norm, scale, scale.default
+
+> library(MASS)
+> library(dplyr)
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:MASS’:
+
+    select
+
+The following objects are masked from ‘package:SimEngine’:
+
+    summarize, vars
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> 
+> # --------------------------------------------------------------------------------
+> # Command line argument parsing ---------------------------------------------------
+> # --------------------------------------------------------------------------------
+> # Parse command line arguments for flexible parameter adjustment
+> args <- commandArgs(trailingOnly = TRUE)
+> 
+> # Default values
+> default_sims <- 10
+> default_cores <- 16
+> 
+> # Parse arguments: --sims=VALUE --cores=VALUE
+> sims_param <- default_sims
+> cores_param <- default_cores
+> 
+> if (length(args) > 0) {
++   for (arg in args) {
++     if (grepl("^--sims=", arg)) {
++       sims_param <- as.numeric(sub("^--sims=", "", arg))
++       if (is.na(sims_param) || sims_param <= 0) {
++         warning("Invalid sims parameter, using default: ", default_sims)
++         sims_param <- default_sims
++       }
++     } else if (grepl("^--cores=", arg)) {
++       cores_param <- as.numeric(sub("^--cores=", "", arg))
++       if (is.na(cores_param) || cores_param <= 0) {
++         warning("Invalid cores parameter, using default: ", default_cores)
++         cores_param <- default_cores
++       }
++     }
++   }
++ }
+> 
+> # Log the parameters being used
+> message("=== SIMULATION PARAMETERS ===")
+=== SIMULATION PARAMETERS ===
+> message("Number of simulations: ", sims_param)
+Number of simulations: 500
+> message("Number of cores: ", cores_param)
+Number of cores: 16
+> message("==============================")
+==============================
+> 
+> # --------------------------------------------------------------------------------
+> # Main simulation wrapper ---------------------------------------------------------
+> # --------------------------------------------------------------------------------
+> 
+> est_power_simengine <- function(n_pg = 50,
++                                effect_min_values = c(30),
++                                s_between_values  = c(0.15),
++                                s_within_values   = c(0.25),
++                                baseline_days     = 7,
++                                intervention_days = 14,
++                                sims              = 500,
++                                cores             = 4) {
++ 
++   start_time <- Sys.time()
++   message("Setting up SimEngine simulation …")
++ 
++   # Create simulation object
++   sim <- new_sim()
++ 
++   # ------------------------------------------------------------------------------
++   # LEVELS (note: no play_sd_prop, no corr_noise_sd) ------------------------------
++   # ------------------------------------------------------------------------------
++   sim %<>% set_levels(
++     n_pg             = n_pg,
++     effect_min       = effect_min_values,
++     s_between        = s_between_values,
++     s_within         = s_within_values,
++     baseline_days    = baseline_days,
++     intervention_days= intervention_days
++   )
++ 
++   # ------------------------------------------------------------------------------
++   # Helper transformations (INSIDE function for parallel access) ------------------
++   # ------------------------------------------------------------------------------
++   
++   comp_to_ilr <- function(x_min) {
++     stopifnot(is.matrix(x_min), ncol(x_min) == 3)
++     bad_row <- !is.finite(rowSums(x_min)) | rowSums(x_min) <= 0
++     if (any(bad_row)) {
++       x_min[bad_row, ] <- matrix(rep(c(600, 480, 360), each = sum(bad_row)), ncol = 3, byrow = TRUE)
++     }
++     x_min[x_min <= 0 | !is.finite(x_min)] <- 1e-6
++     compositions::ilr(sweep(x_min, 1, rowSums(x_min), "/"))
++   }
++ 
++   ilr_to_minutes <- function(ilr_mat, total = 1440) {
++     stopifnot(is.matrix(ilr_mat), ncol(ilr_mat) == 2)
++     comp_obj <- compositions::ilrInv(ilr_mat)
++     prop <- as.matrix(as.data.frame(comp_obj))
++     bad <- apply(prop, 1, function(r) any(!is.finite(r) | r <= 0) ||
++                    !is.finite(sum(r)) || abs(sum(r) - 1) > 1e-8)
++     if (any(bad)) prop[bad, ] <- 1/3
++     round(prop * total, 1)
++   }
++ 
++   # ------------------------------------------------------------------------------
++   # Data‑generating function ------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   generate_data <- function(n_pg, effect_min, baseline_days, intervention_days,
++                             s_between, s_within, seed = NULL) {
++ 
++     if (!is.null(seed)) set.seed(seed)
++ 
++     N   <- n_pg * 2
++     grp <- rep(0:1, each = n_pg)              # 0 = Control, 1 = Intervention
++ 
++     # Mean daily compositions: (sedentary, sleep, physical)
++     base_comp   <- c(600, 480, 360)
++     active_comp <- c(600 - effect_min, 480, 360 + effect_min)
++ 
++     # Person‑level random effects in ILR space
++     b_ilr <- MASS::mvrnorm(N, mu = c(0, 0), Sigma = diag(s_between^2, 2))
++ 
++     # Person-specific playtime proportion of sedentary time (10-40%)
++     personal_play_prop <- sapply(1:N, function(i) {
++       p <- rbeta(1, 2, 5) * 0.3 + 0.1  # right-skew between 0.1-0.4
++       return(p)
++     })
++ 
++     # Containers
++     all_ids <- all_periods <- all_days <- NULL
++     all_ilr <- matrix(, 0, 2)
++     all_sedentary <- numeric()  # Store actual sedentary minutes
++ 
++     for (i in seq_len(N)) {
++       for (period in c("baseline", "intervention")) {
++         ndays   <- if (period == "baseline") baseline_days else intervention_days
++         comp_mu <- if (period == "baseline" || grp[i] == 0) base_comp else active_comp
++ 
++         comp_ilr <- comp_to_ilr(matrix(rep(comp_mu, ndays), ncol = 3, byrow = TRUE))
++         comp_ilr <- sweep(comp_ilr, 2, b_ilr[i, ], "+")               # add person RE
++         day_ilr  <- comp_ilr + MASS::mvrnorm(ndays, mu = c(0, 0),
++                                              Sigma = diag(s_within^2, 2))
++ 
++         # Index bookkeeping
++         all_ids     <- c(all_ids, rep(i, ndays))
++         all_periods <- c(all_periods, rep(period, ndays))
++         all_days    <- c(all_days,
++                          if (period == "baseline") seq_len(baseline_days)
++                          else baseline_days + seq_len(intervention_days))
++         all_ilr     <- rbind(all_ilr, day_ilr)
++         
++         # Store sedentary minutes for this person-period (will be calculated after ILR transformation)
++         # We'll calculate playtime after we have the actual sedentary minutes
++       }
++     }
++ 
++     # Back‑transform ILR → minutes and calculate playtime based on actual sedentary behavior
++     mins <- ilr_to_minutes(all_ilr)
++     colnames(mins) <- c("sedentary", "sleep", "physical")
++     
++     # Now generate playtime based on actual sedentary minutes
++     playmin <- numeric(length(all_ids))
++     
++     for (i in seq_along(all_ids)) {
++       person_id <- all_ids[i]
++       period <- all_periods[i]
++       actual_sedentary <- mins[i, "sedentary"]
++       
++       # Base playtime as proportion of actual sedentary time
++       base_playtime <- personal_play_prop[person_id] * actual_sedentary
++       
++       # Add small amount of day-to-day noise (2% of base playtime)
++       daily_sd <- 0.02 * base_playtime
++       noisy_playtime <- rnorm(1, base_playtime, daily_sd)
++       
++       # Apply intervention effect for intervention group during intervention period
++       if (period == "intervention" && grp[person_id] == 1) {
++         # Reduce playtime by effect_min, but ensure it doesn't go below 0
++         # The reduction is additive (in minutes) to maintain the intended effect size
++         intervention_playtime <- pmax(0, noisy_playtime - effect_min)
++         playmin[i] <- intervention_playtime
++       } else {
++         # Control group or baseline period: just use the playtime based on actual sedentary
++         playmin[i] <- pmax(0, noisy_playtime)  # Ensure non-negative
++       }
++     }
++ 
++     # Assemble data frame
++     dat <- data.frame(
++       id        = factor(all_ids),
++       group     = factor(grp[all_ids], labels = c("Control", "Abstinence")),
++       period    = factor(all_periods, levels = c("baseline", "intervention")),
++       day       = all_days,
++       sedentary = mins[, 1],
++       sleep     = mins[, 2],
++       physical  = mins[, 3],
++       playtime  = playmin
++     )
++ 
++     dat <- dat %>%
++       group_by(id) %>%
++       mutate(
++         base_play_mean      = mean(playtime[period == "baseline"]),
++         playtime_reduction  = base_play_mean - playtime,
++         intervention_active = as.integer(group == "Abstinence" & period == "intervention")
++       ) %>%
++       ungroup()
++ 
++     return(dat)
++   }
++ 
++   # ------------------------------------------------------------------------------
++   # Analysis function -------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   run_analysis <- function(data) {
++     data_ilr <- data
++     comp_matrix <- as.matrix(data[, c("sedentary", "sleep", "physical")])
++     ilr_coords  <- comp_to_ilr(comp_matrix)
++     data_ilr$ilr1 <- ilr_coords[, 1]
++ 
++     results <- list()
++ 
++     ## Between‑group effect during intervention ----------------------------------
++     md <- subset(data_ilr, period == "intervention")
++     mb <- try(lmer(ilr1 ~ group + (1 | id), data = md), silent = TRUE)
++     results$p_between <- if (!inherits(mb, "try-error")) anova(mb)["group", "Pr(>F)"] else NA
++ 
++     ## Within‑group effects -------------------------------------------------------
++     mc <- try(lmer(ilr1 ~ period + (1 | id), data = subset(data_ilr, group == "Control")), silent = TRUE)
++     results$p_control <- if (!inherits(mc, "try-error")) anova(mc)["period", "Pr(>F)"] else NA
++ 
++     mi <- try(lmer(ilr1 ~ period + (1 | id), data = subset(data_ilr, group == "Abstinence")), silent = TRUE)
++     results$p_intervention <- if (!inherits(mi, "try-error")) anova(mi)["period", "Pr(>F)"] else NA
++ 
++     ## Interaction ----------------------------------------------------------------
++     mx <- try(lmer(ilr1 ~ group * period + (1 | id), data = data_ilr), silent = TRUE)
++     results$p_interaction <- if (!inherits(mx, "try-error")) anova(mx)["group:period", "Pr(>F)"] else NA
++ 
++     ## Per‑protocol contrast ------------------------------------------------------
++     mp <- try(lmer(ilr1 ~ intervention_active * playtime_reduction + (1 | id), data = data_ilr), silent = TRUE)
++     results$p_protocol <- if (!inherits(mp, "try-error")) anova(mp)["intervention_active:playtime_reduction", "Pr(>F)"] else NA
++ 
++     return(results)
++   }
++ 
++   # ------------------------------------------------------------------------------
++   # Simulation script ------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   sim %<>% set_script(function() {
++     set.seed(sample.int(1e7, 1))
++     
++     # Access simulation level variables correctly
++     data <- generate_data(
++       n_pg             = L$n_pg,
++       effect_min       = L$effect_min,
++       baseline_days    = L$baseline_days,
++       intervention_days= L$intervention_days,
++       s_between        = L$s_between,
++       s_within         = L$s_within
++     )
++     
++     # Run analysis and ensure proper error handling
++     result <- tryCatch({
++       run_analysis(data)
++     }, error = function(e) {
++       # Return NA values with proper names if analysis fails
++       list(
++         p_between = NA_real_, 
++         p_control = NA_real_, 
++         p_intervention = NA_real_,
++         p_interaction = NA_real_, 
++         p_protocol = NA_real_
++       )
++     })
++     
++     # Ensure result is a proper list with all required elements
++     if (!is.list(result)) {
++       result <- list(
++         p_between = NA_real_, 
++         p_control = NA_real_, 
++         p_intervention = NA_real_,
++         p_interaction = NA_real_, 
++         p_protocol = NA_real_
++       )
++     }
++     
++     # Ensure all required columns exist
++     required_names <- c("p_between", "p_control", "p_intervention", "p_interaction", "p_protocol")
++     for (name in required_names) {
++       if (!(name %in% names(result))) {
++         result[[name]] <- NA_real_
++       }
++     }
++     
++     return(result)
++   })
++ 
++   # ------------------------------------------------------------------------------
++   # Config & run -----------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   sim %<>% set_config(
++     num_sim      = sims,
++     parallel     = TRUE,   # Enable parallel processing
++     n_cores      = cores,  # Use specified cores
++     packages     = c("lme4", "lmerTest", "compositions", "MASS", "dplyr"),
++     progress_bar = TRUE
++   )
++ 
++   
++   # # Add a test run to debug issues
++   # message("Testing data generation and analysis functions...")
++   # tryCatch({
++   #   test_data <- generate_data(
++   #     n_pg = 10,  # Small test
++   #     effect_min = 30,
++   #     baseline_days = 7,
++   #     intervention_days = 14,
++   #     s_between = 0.15,
++   #     s_within = 0.25
++   #   )
++   #   message("✓ Data generation successful")
++   #   message("Test data dimensions: ", nrow(test_data), " x ", ncol(test_data))
++     
++   #   test_results <- run_analysis(test_data)
++   #   message("✓ Analysis function successful")
++   #   message("Test results: ", paste(names(test_results), test_results, sep="=", collapse=", "))
++   # }, error = function(e) {
++   #   message("❌ Test failed with error: ", e$message)
++   #   stop("Stopping due to test failure. Fix the issue before running full simulation.")
++   # })
++ 
++   # message("Running simulations …")
++   
++   sim %<>% run()
++ 
++   # ------------------------------------------------------------------------------
++   # Summarise power --------------------------------------------------------------
++   # ------------------------------------------------------------------------------
++   results <- sim$results
++   
++   # Add debugging information
++   message("Debug: Checking simulation results...")
++   message("Results object class: ", class(results))
++   message("Results is null: ", is.null(results))
++   if (!is.null(results)) {
++     message("Results dimensions: ", nrow(results), " x ", ncol(results))
++     message("Results column names: ", paste(names(results), collapse = ", "))
++   }
++   
++   # Add error handling for when all simulations fail
++   if (is.null(results) || (is.data.frame(results) && nrow(results) == 0)) {
++     stop("All simulations failed. Check your simulation parameters and functions.")
++   }
++   
++   # Check if required columns exist before processing
++   required_cols <- c("p_between", "p_control", "p_intervention", "p_interaction", "p_protocol")
++   missing_cols <- setdiff(required_cols, names(results))
++   if (length(missing_cols) > 0) {
++     stop(paste("Missing columns in results:", paste(missing_cols, collapse = ", ")))
++   }
++   
++   for (col in required_cols) {
++     results[[col]] <- as.numeric(as.character(results[[col]]))
++   }
++ 
++   power_df <- aggregate(
++     cbind(
++       power_between     = results$p_between     < 0.05,
++       power_control     = results$p_control     < 0.05,
++       power_intervention= results$p_intervention< 0.05,
++       power_interaction = results$p_interaction < 0.05,
++       power_protocol    = results$p_protocol    < 0.05,
++       valid_between     = !is.na(results$p_between),
++       valid_control     = !is.na(results$p_control), 
++       valid_intervention= !is.na(results$p_intervention),
++       valid_interaction = !is.na(results$p_interaction),
++       valid_protocol    = !is.na(results$p_protocol)
++     ),
++     by = list(
++       n_pg             = results$n_pg,
++       effect_min       = results$effect_min,
++       s_between        = results$s_between,
++       s_within         = results$s_within,
++       baseline_days    = results$baseline_days,
++       intervention_days= results$intervention_days
++     ),
++     FUN = mean, na.rm = TRUE
++   )
++ 
++   end_time <- Sys.time()
++   message(sprintf("Total elapsed time: %.2f mins", as.numeric(difftime(end_time, start_time, units = "mins"))))
++ 
++   list(power_summary = power_df, sim_object = sim)
++ }
+> 
+> # --------------------------------------------------------------------------------
+> # Example call -------------------------------------------------------------------
+> # --------------------------------------------------------------------------------
+> result <- est_power_simengine(
++   n_pg               = c(50, 100, 200),  # Multiple sample sizes
++   effect_min_values =  c(30, 60, 90, 120),          
++   s_between_values = seq(0.1, 0.3, by = 0.05),
++   s_within_values = seq(0.15, 0.35, by = 0.05),
++   baseline_days      = 7,
++   intervention_days  = 14,
++   sims               = sims_param, 
++   cores              = cores_param     
++ )
+Setting up SimEngine simulation …
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+- The project is out-of-sync -- use `renv::status()` for details.
+Error in unserialize(node$con) : error reading from connection
+Calls: est_power_simengine ... FUN -> recvData -> recvData.SOCKnode -> unserialize
+Execution halted
