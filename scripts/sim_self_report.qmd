@@ -1,6 +1,6 @@
 ---
-title: "Generate Synthetic Data"
-output: html_document
+title: "Sleep Quality Analysis"
+format: html
 execute-dir: project
 ---
 

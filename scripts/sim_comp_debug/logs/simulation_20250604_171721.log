@@ -1,0 +1,12 @@
+[2025-06-04 17:17:21] Starting simulation in directory: /home/tamas.foldes/Development/Projects/gaming-reduction-backend
+[2025-06-04 17:17:21] R script: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/sim_engine_demo.R
+[2025-06-04 17:17:21] Simulation parameters: sims=500, cores=16
+[2025-06-04 17:17:21] Logs directory: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs
+[2025-06-04 17:17:21] Main log: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_20250604_171721.log
+[2025-06-04 17:17:21] Error log: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_error_20250604_171721.log
+[2025-06-04 17:17:21] Progress log: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_progress_20250604_171721.log
+[2025-06-04 17:17:21] Executing R script...
+[2025-06-04 17:18:23] Simulation script exiting, cleaning up...
+[2025-06-04 17:18:23] ❌ Simulation failed with exit code: 130
+[2025-06-04 17:18:23] Check the progress log for errors: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_progress_20250604_171721.log
+[2025-06-04 17:18:23] Simulation script exiting, cleaning up...

@@ -10,6 +10,8 @@ book:
   chapters:
     - index.qmd
     - scripts/sim_self_report.qmd
+    - scripts/sim_sleepquality_report.qmd 
+    - scripts/sim_comp_report.qmd
   search: true
   repo-url: https://digital-wellbeing.github.io/gaming-reduction-backend/
   downloads: [pdf]

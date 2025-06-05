@@ -1,0 +1,12 @@
+[2025-06-04 17:30:52] Starting simulation in directory: /home/tamas.foldes/Development/Projects/gaming-reduction-backend
+[2025-06-04 17:30:52] R script: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/sim_engine_demo.R
+[2025-06-04 17:30:52] Simulation parameters: sims=500, cores=16
+[2025-06-04 17:30:52] Logs directory: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs
+[2025-06-04 17:30:52] Main log: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_20250604_173052.log
+[2025-06-04 17:30:52] Error log: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_error_20250604_173052.log
+[2025-06-04 17:30:52] Progress log: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_progress_20250604_173052.log
+[2025-06-04 17:30:52] Executing R script...
+[2025-06-04 18:08:41] ✅ Simulation completed successfully!
+[2025-06-04 18:08:41] Check the progress log for detailed output: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/logs/simulation_progress_20250604_173052.log
+[2025-06-04 18:08:41] 📊 Results saved to: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/scripts/sim_comp_debug/power_sim_results_20250604_180839.RData
+[2025-06-04 18:08:41] Simulation script exiting, cleaning up...
