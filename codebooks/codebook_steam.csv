@@ -1,0 +1,11 @@
+﻿Variable,Description,Notes
+pid,A unique identifier assigned to each participant in the study.,
+day,"The day number relative to the start of the study (e.g., Day 1, Day 2).",
+date,The calendar date on which the gaming session occurred (format: YYYY-MM-DD).,
+hour,The hour of the day when the gaming session began (0-23).,
+genre,The genre(s) of the game played using IGDB categories.,"Possible genres are: Adventure, Arcade, Card & Board Game, Fighting, Hack and slash/Beat 'em up, MOBA, Music, Platform, Puzzle, Racing, Real Time Strategy (RTS), Role-playing (RPG), Shooter, Simulator, Sport, Strategy, Tactical, Turn-based strategy (TBS), Visual Novel"
+minutes,The number of minutes played of that game during the hour period in question.,
+AppID,A unique identifier assigned to each game on the Steam platform.,
+Name,The name of the game played during the session.,
+sessionStart,,
+sessionEnd,,

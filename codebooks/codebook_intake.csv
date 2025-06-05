@@ -1,0 +1,195 @@
+Variable,Item,Stem text,Source,Response Options
+RANDOM_ID,RANDOM_ID,NA,,Unique 10-digit numeric identifier
+age,What is your age (in years)?,NA,,18-99
+gender,Selected Choice,What gender do you identify as?,,Man; Woman; Non-binary; Prefer to specify; Prefer not to say
+location,"Do you live within a reasonable travel distance of the Oxford Internet Institute (OX1 3JS)?
+
+
+
+The study requires in-person attendance at the Oxford Internet Institute on two occasions.",NA,,Yes/No
+platforms_games_1,Steam,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_9,Non-Steam PC Gaming,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_2,Playstation,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_3,Xbox,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_4,Nintendo Switch,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_6,iOS,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_7,Android,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_5,Other,Please select all the platforms where you actively play games,,Yes/No
+platforms_games_8,I don't actively play video games on any platform,Please select all the platforms where you actively play games,,Yes/No
+selfreportPlay #1_1_1,Time,Approximately how much time do you spend playing games in an average week?,,Numeric entry
+selfreportPlay #1_1_2,Time,Approximately how much time do you spend playing games in an average week?,,Numeric entry
+playProp_1,Steam,"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+playProp_8,Non-Steam PC Gaming,"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+playProp_2,Xbox,"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+playProp_3,Playstation,"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+playProp_4,Nintendo,"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+playProp_5,iOS,"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+playProp_6,Android,"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+playProp_7,${q://QID23/ChoiceTextEntryValue/5},"Over the past 3 months, approximately what percentage of your total gaming has been on each of the following platforms?",,1-100 sliding scale
+platforms_SM_1,TikTok,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_2,Instagram,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_3,Snapchat,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_4,Facebook,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_5,Reddit,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_6,X (formerly Twitter),Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_7,Discord,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_8,Bluesky,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_9,Other,Please select all the platforms on which you actively use social media,,Yes/No
+platforms_SM_10,I don't actively use any social media platforms,Please select all the platforms on which you actively use social media,,Yes/No
+selfreportSM#1_1_1,Time,Approximately how much time do you spend on social media in an average week?,,Numeric entry
+selfreportSM#1_1_2,Time,Approximately how much time do you spend on social media in an average week?,,Numeric entry
+SMprop_1,TikTok,"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_2,Instagram,"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_3,Snapchat,"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_4,Facebook,"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_5,Reddit,"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_6,X (formerly Twitter),"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_8,Discord,"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_9,Bluesky,"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+SMprop_7,${q://QID31/ChoiceTextEntryValue/9},"Over the past 3 months, approximately what percentage of your total social media use has been on each of the following platforms?",,Open text response
+phoneType...70,Selected Choice,"What type of phone do you have?If you have more than one phone, please select the one you use most frequently in your daily life.",,Open text response
+isSuicidal,"Over the last 2 weeks, have you had thoughts that you would be better off dead, or thoughts of hurting yourself in some way?",NA,,Open text response
+hasPTSD,"Are you currently diagnosed with PTSD, Bipolar, Schizophrenia and/or Psychosis?",NA,,Open text response
+isWillingTrack,"Internet browser.""
+	
+	
+	If you spend 13 minutes watching dog videos on Instagram, we'll only see ""Mobile phone","The goal of our project is to understand people's media habits—and to do this accurately, we need your help by sharing your device usage data. We’ve designed this to be as non-intrusive and respectful of your privacy as possible.Importantly, we won't see what you’re doing within individual apps. For instance:		If you spend 98 seconds searching for cat memes online, we'll only know it as ""Mobile phone",,Yes/No
+isWillingIntervene,"Are you willing to make temporary changes to your media use for up to 2 weeks?
+
+
+As part of the study, you may be asked to make temporary adjustments to your media habits, such as:
+
+
+	
+	Using media at different times of day
+	
+	
+	Keeping a diary of your media use
+	
+	
+	Refraining from using certain types of digital media (e.g., a specific app like Instagram)
+	
+	
+	Shortening or lengthening your media use sessions
+	
+	
+	Other similar adjustments to your usual media behaviours
+	
+
+ 
+
+
+  ℹ️
+  
+    Don't worry — we won't ask you to change how you stay in touch with others. Communication tools like texting, calling, or WhatsApp are not part of these adjustments.
+  
+
+
+
+ 
+
+
+❗
+
+You will not be penalised, removed from the study, or have compensation withheld for not adhering to the behaviour changes, but you are expected to make a good-faith effort to comply.
+
+
+
+  
+    Questions? Click here.
+  
+  
+    If you have any questions, feel free to reach out to us at 
+    footprints-subs@oii.ox.ac.uk.",NA,,Yes/No
+isWillingWatch,"Are you willing to wear a fitness watch for the 4-week study period?
+
+      We will provide the watch, which is lightweight and waterproof. You will be asked to wear it at all times, including while sleeping.
+
+      
+        Questions? Click here.
+        
+          If you have any questions, feel free to reach out to us at 
+          footprints-subs@oii.ox.ac.uk.",NA,,Yes/No
+isWillingProlific,"Are you willing to either (1) receive and return the fitness watch via postal mail, or (2) to visit the Oxford Internet Institute (OX1 3JS) at the start and end of the study to pick up/drop off the device?",NA,,Yes/No
+scheduleTrack,"Are you able to participate in the study for a continuous 28-day period between today's date and October 15, 2025, such that:
+
+
+	
+	You will be physically located in the UK both at the start and at the end of your participation (i.e., on the first and last day of your 28-day participation window),
+	
+	
+	And you are able to receive and return a wearable watch (sent via post or in-person handover) during this time?
+	
+
+
+ Questions? Click here. 
+
+If you have any questions, feel free to reach out to us at footprints-subs@oii.ox.ac.uk.",NA,,Open text response
+maybeEligible,"Based on your responses, you are eligible for the study waitlist. Our study prioritises certain patterns of media use, and if spaces are still available, we will invite participants from the waitlist. 
+
+
+
+Are you willing to be placed on the waitlist and be contacted within the next 3 months if a space becomes available?",NA,,Open text response
+waitlistLinking,"To maximize your chance of being selected from the waitlist, we ask you to share some information from certain media platforms you use. This helps us verify that you are an active user on the platforms you have reported and gives you the chance to familiarise yourself with the data-sharing process, ensuring you are comfortable with it.
+
+
+
+Are you willing to share media usage data for a higher chance of being selected for the full study?
+
+❗
+
+The next page will provide further data privacy details for each relevant data type. Sharing basic usage will take no more than 5 minutes, and you may opt out at any time.
+
+
+
+  
+    Questions? Click here.
+  
+  
+    If you have any questions, feel free to reach out to us at 
+    footprints-subs@oii.ox.ac.uk.",NA,,Open text response
+isWillingAdvanced,"Having read the above information, are you willing to have your phone and media use confidentially tracked for 4 weeks as part of this study?",NA,,Yes/No
+QRinstructions,"We will now ask you to retrieve a link from your Nintendo account.
+
+This link contains a unique, anonymised identifier that confirms ownership of your account and enables us to request your gameplay data from Nintendo.
+
+The identifier is embedded in a QR code provided by Nintendo. To retrieve the link, please choose the method that works best for you: 
+How would you prefer to retrieve the link?",NA,,Open text response
+QRcodeUrl,Please paste the copied URL into the box:,NA,,Open text response
+switchFriendCode,"What is the friend code of the account you used to add our lab account as a friend?
+
+
+
+Friend codes take the format: SW-XXXX-XXXX-XXXX",NA,,Open text response
+nintendo_usesFamily,"To your knowledge, does anyone else (e.g., friends, children) regularly play games using your Nintendo account?",NA,,Open text response
+steamConfirmation,Selected Choice,"Have you completed the Gameplay.Science sign-up?        Questions? Click here.        If you have any questions, feel free to reach out to us at     footprints-subs@oii.ox.ac.uk.",,Open text response
+steam_usesFamily,"To your knowledge, does anyone else (e.g., friends, children) regularly play games using your Steam account?",NA,,Open text response
+xboxConfirmation,Selected Choice,Have you added our lab account as a friend on Xbox?,,Open text response
+xboxUsername,What is the Xbox username on the account you used to add OxfordMETL as a friend?,NA,,Open text response
+psConfirmation,Selected Choice,Have you added our lab account as a friend on the Playstation Network?,,Open text response
+psUsername,What is the Playstation username on the account you used to add oxford-METL as a friend?,NA,,Open text response
+phone,"What is your phone number? 
+
+
+
+We will use your phone number to send you survey links via WhatsApp, and to provide support throughout the study if you need to contact us.
+
+
+
+Please enter your number in the format: +XX1234567890 (including the country code and no spaces).",NA,,Open text response
+email,"What is your email address?
+
+
+
+We will use your email as a backup in case of any issues with your phone, and to send your study compensation. It will not be used for any other purposes nor stored beyond the duration of the study.",NA,,Open text response
+addrFirstLine,First line of address:,NA,,Open text response
+addrSecondLine,Second line of address:,NA,,Open text response
+addrCity,City:,NA,,Open text response
+addrPostCode,Post code:,NA,,Open text response
+actiwatch_return,"The actiwatch we will mail is the property of the University of Oxford and has to be returned after your participation in the study. 
+
+
+
+Please confirm that you will return the watch to us with the provided prepaid envelope (as applicable, depending on which mode you've chosen) promptly when the study ends.",NA,,Open text response
+eligiblePlatformProp,eligiblePlatformProp,NA,,Open text response
+eligibilityStatus,eligibilityStatus,NA,,Open text response

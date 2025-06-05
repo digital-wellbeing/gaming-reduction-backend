@@ -1,0 +1,11 @@
+﻿Variable,Description,Notes
+pid,A unique identifier assigned to each participant in the study.,
+day,"The day number relative to the start of the study (e.g., Day 1, Day 2).",
+date,The calendar date on which the gaming session occurred (format: YYYY-MM-DD).,
+session,A sequential identifier for each gaming session on a given day for the participant.,
+titleID,The name of the game played during the session.,
+sessionStart,The time of day when the gaming session began (format: HH:MM:SS).,
+duration,The length of the gaming session in minutes.,
+sessionEnd,,
+genre,The genre(s) of the game played using IGDB categories.,"Possible genres are: Adventure, Arcade, Card & Board Game, Fighting, Hack and slash/Beat 'em up, MOBA, Music, Platform, Puzzle, Racing, Real Time Strategy (RTS), Role-playing (RPG), Shooter, Simulator, Sport, Strategy, Tactical, Turn-based strategy (TBS), Visual Novel"
+platform,"The platform on which the game was played, for use in future merging (here: always Xbox).",

@@ -1,0 +1,12 @@
+﻿Variable,Description
+pid,A unique identifier assigned to each participant in the study.
+day,"The day number relative to the start of the study (e.g., Day 1, Day 2)."
+numDailyAppSessions,The total number of app sessions recorded on the given day.
+date,The calendar date on which the app sessions occurred (format: YYYY-MM-DD).
+session,A sequential identifier for each app session on the given day for the participant.
+app,The name of the app used during the session.
+sessionStart,The time of day when the app session began (format: HH:MM:SS).
+duration,The duration of the app session in minutes.
+sessionEnd,
+category,"The category of the app used during the session (e.g., Social, Productivity, Entertainment)."
+platform,
