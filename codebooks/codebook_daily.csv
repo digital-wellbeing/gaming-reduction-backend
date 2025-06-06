@@ -1,0 +1,115 @@
+Variable,Item,Stem text,Source,Response Options
+RANDOM_ID,RANDOM_ID,NA,,Unique 10-digit numeric identifier
+Day,Day,NA,,Open text response
+actiwatch_wear,Selected Choice,"Today, have you been wearing the Actiwatch on your non-dominant hand (the hand you use less often for daily activities, such as writing or brushing your teeth)",,Yes/No
+actiwatch_button_mor,Selected Choice,"After your final awakening this morning (the time you got up for the day), did you press the event marker button on the Actiwatch?",,Yes/No
+actiwatch_button_eve,Selected Choice,Did you press the Actiwatch event marker right before you intended to fall asleep last night?,,Yes/No
+actiwatch_led_mor,... did the red/amber light on the Actiwatch flash to confirm that the press was registered?,NA,,Yes/No
+actiwatch_led_eve,... did the red/amber light on the Actiwatch flash to confirm that the press was registered?,NA,,Yes/No
+activitywatch_app,"In the past week, did you open the ActivityWatch app at least once to make sure your phone kept the app active and prevented it from being put to sleep by the phone’s operating system?",NA,,Open text response
+activitywatch_pc,Selected Choice,"📌 Reminder: Install ActivityWatch for PC Activity TrackingJust a quick reminder to install ActivityWatch on your personal computer used for gaming, if you haven’t already.What is ActivityWatch?ActivityWatch is a privacy-respecting app that helps track how you spend time on your device — like which apps you use and how long you use them.Why It’s Useful for the StudyIt helps us understand your gaming habits in more detail. Your data stays on your device and is only shared when you choose to export it — every two weeks (we’ll remind you).Your Privacy Matters		Your data is not shared automatically			You stay in full control			You can stop or uninstall anytime	Get Started		Go to https://activitywatch.net			Download and install ActivityWatch for your PC			Keep it running in the background while you use your computer as usual",,Open text response
+employment,Selected Choice,What best describes your employment status over the last three months?,,Open text response
+eduLevel,What is the highest level of education you have completed?,NA,,Open text response
+ethnicity,What is your ethnicity?,NA,,"White; Mixed or multiple ethnic groups; Asian or Asian British; Black, African, Caribbean or Black British; Other ethnic group; Prefer not to say"
+politicalParty,Selected Choice,Which of the following best describes your political party affiliation?,,Labour Party / Co-operative Party; Conservative and Unionist Party; Liberal Democrats; Scottish National Party (SNP); Sinn Féin; Reform UK; Democratic Unionist Party (DUP); Green Party of England and Wales; Plaid Cymru; Other (please specify); No affiliation / Independent; Prefer not to say
+isWillingBMI,Are you willing to share your height and weight?,NA,,Yes/No
+weight,Approximately how much do you weigh in pounds?,NA,,Numeric entry
+height#1_1_1,Measurement,How tall are you?,,Numeric entry
+height#1_1_2,Measurement,How tall are you?,,Numeric entry
+neuroIdentify,"Do you identify as neurodivergent? (e.g., having autism, ADHD, dyslexia, dyspraxia, or another neurological condition)",NA,,Yes/No
+neuroDiagnoses,Have you received formal diagnoses of neurodiverse conditions  from a qualified healthcare professional?,NA,,Yes/No
+neuroIdenCondition_1,Autism Spectrum Disorder (ASD),Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_2,Attention Deficit Hyperactivity Disorder (ADHD),Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_3,Dyslexia,Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_4,Dyspraxia,Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_5,Dyscalculia,Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_6,Tourette Syndrome,Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_7,Obsessive-Compulsive Disorder (OCD),Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_8,Sensory Processing Disorder (SPD),Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_9,Nonverbal Learning Disorder (NVLD),Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_10,"Specific Learning Disability (e.g., in reading, writing, math)",Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_11,Other:,Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroIdenCondition_12,Prefer not to say,Which of the following neurodiverse conditions do you identify with? (Select all that apply),,Yes/No
+neuroDiagCondition_1,Autism Spectrum Disorder (ASD),Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_2,Attention Deficit Hyperactivity Disorder (ADHD),Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_3,Dyslexia,Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_4,Dyspraxia,Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_5,Dyscalculia,Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_6,Tourette Syndrome,Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_7,Obsessive-Compulsive Disorder (OCD),Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_8,Sensory Processing Disorder (SPD),Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_9,Nonverbal Learning Disorder (NVLD),Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_10,"Specific Learning Disability (e.g., in reading, writing, math)",Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_11,Other:,Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+neuroDiagCondition_12,Prefer not to say,Which of the following neurodiverse conditions have you been diagnosed with? (Select all that apply),,Yes/No
+maritalStatus,Selected Choice,What is your current marital status?,,"Single, never married; Married; In a domestic partnership or civil union; Separated; Divorced; Widowed; Other; Prefer not to say"
+interventionConfirm,"Do you understand what is asked of you, and are you prepared to make a good faith effort to adhere to the restriction?",NA,,Yes/No
+interventionOverConf,"I understand that the period of video game abstention is now over, and I can freely resume my normal behaviour.",NA,,Yes/No
+pacs_1,Video games,"During the last 24 hours, how often have you thought about the following, or about how good the following would make you feel?",,Open text response
+pacs_2,Social media,"During the last 24 hours, how often have you thought about the following, or about how good the following would make you feel?",,Open text response
+played24hr,"In the last 24 hours, have you spent any time playing video games?",NA,,Yes/No
+sm24hr,"In the last 24 hours, have you spent any time using social media?",NA,,Yes/No
+relapseConfirm,"Remember, we've asked you to make a good faith effort to refrain from playing games for 2 weeks. It's okay if you're not 100% successful, but we do ask that you try your best. 
+
+
+
+Do you think you'll be able to refrain from playing games on future days?",NA,,Open text response
+sd_0,Selected Choice,Which best describes today for you?,,Regular work day; Regular day off; Weekend; Holiday; Vacation day; Other (please specify)
+CSD_1_1,What time did you get into bed?,Click to write the question text,Consensus Sleep Diary (https://doi.org/10.5665/sleep.1642),HH:MM
+CSD_2_1,What time did you try to go to sleep?,Click to write the question text,Consensus Sleep Diary (https://doi.org/10.5665/sleep.1642),HH:MM
+CSD_3_1,What time was your final awakening?,Click to write the question text,Consensus Sleep Diary (https://doi.org/10.5665/sleep.1642),HH:MM
+CSD_4_1,What time did you get out of bed for the day?,Click to write the question text,Consensus Sleep Diary (https://doi.org/10.5665/sleep.1642),HH:MM
+KSD_1,How did you sleep?,"On a scale from 1 (worst) to 5 (best), please rate each of the following statements about your sleep last night by selecting the number that best matches your experience.",Karolinska Sleep Diary (https://doi.org/10.2466/pms.1994.79.1.287),1 (worst); 2; 3; 4; 5 (worst)
+KSD_2,How calm was your sleep?,"On a scale from 1 (worst) to 5 (best), please rate each of the following statements about your sleep last night by selecting the number that best matches your experience.",Karolinska Sleep Diary (https://doi.org/10.2466/pms.1994.79.1.287),1 (worst); 2; 3; 4; 5 (worst)
+KSD_3,How easy was it for you to fall asleep?,"On a scale from 1 (worst) to 5 (best), please rate each of the following statements about your sleep last night by selecting the number that best matches your experience.",Karolinska Sleep Diary (https://doi.org/10.2466/pms.1994.79.1.287),1 (worst); 2; 3; 4; 5 (worst)
+KSD_4,Did you sleep throughout the time you had allotted for sleep?,"On a scale from 1 (worst) to 5 (best), please rate each of the following statements about your sleep last night by selecting the number that best matches your experience.",Karolinska Sleep Diary (https://doi.org/10.2466/pms.1994.79.1.287),1 (worst); 2; 3; 4; 5 (worst)
+KSD_5,How refreshed did you feel after awakening?,"On a scale from 1 (worst) to 5 (best), please rate each of the following statements about your sleep last night by selecting the number that best matches your experience.",Karolinska Sleep Diary (https://doi.org/10.2466/pms.1994.79.1.287),1 (worst); 2; 3; 4; 5 (worst)
+lifeSat_1,I was satisfied with my life in the last 24 hours.,NA,"Cantril Self-anchoring Scale (Cantril, 1965)",0-100 sliding scale
+hadStress,Did anything happen to you in the last 24 hours that most people would consider stressful?,NA,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+stressEvents_1,Argument or disagreement,What kind of stressful event(s) occurred? Select all that apply.,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+stressEvents_2,Work or school issue,What kind of stressful event(s) occurred? Select all that apply.,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+stressEvents_3,Home issue,What kind of stressful event(s) occurred? Select all that apply.,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+stressEvents_4,Discrimination,What kind of stressful event(s) occurred? Select all that apply.,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+stressEvents_5,Issue affecting a friend or relative,What kind of stressful event(s) occurred? Select all that apply.,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+stressEvents_7,Health issue,What kind of stressful event(s) occurred? Select all that apply.,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+stressEvents_6,Other,What kind of stressful event(s) occurred? Select all that apply.,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Yes/No
+howStressful_1,Argument or disagreement,How stressful was this stressful event?,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Not at all; not very; somewhat; very
+howStressful_2,Work or school issue,How stressful was this stressful event?,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Not at all; not very; somewhat; very
+howStressful_3,Home issue,How stressful was this stressful event?,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Not at all; not very; somewhat; very
+howStressful_4,Discrimination,How stressful was this stressful event?,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Not at all; not very; somewhat; very
+howStressful_5,Issue affecting a friend or relative,How stressful was this stressful event?,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Not at all; not very; somewhat; very
+howStressful_6,Health issue,How stressful was this stressful event?,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Not at all; not very; somewhat; very
+howStressful_7,Other,How stressful was this stressful event?,Daily Inventory of Stressful Events (https://doi.org/10.1177/1073191102091006),Not at all; not very; somewhat; very
+bpnsfs_1,I was able to do things that I really want and value in life.,In the last 24 hours...,Basic Psychological Need Satisfaction and Frustration Scale - Daily Edition (https://doi.org/10.1080/15295192.2018.1444131),1 Strongly Disagree; 2; 3; 4 Neither Agree nor Disagree; 5; 6; 7 Strongly Agree
+bpnsfs_2,I felt forced to do many things I wouldn’t choose to do.,In the last 24 hours...,Basic Psychological Need Satisfaction and Frustration Scale - Daily Edition (https://doi.org/10.1080/15295192.2018.1444131),1 Strongly Disagree; 2; 3; 4 Neither Agree nor Disagree; 5; 6; 7 Strongly Agree
+bpnsfs_3,I could do things well and achieve my goals.,In the last 24 hours...,Basic Psychological Need Satisfaction and Frustration Scale - Daily Edition (https://doi.org/10.1080/15295192.2018.1444131),1 Strongly Disagree; 2; 3; 4 Neither Agree nor Disagree; 5; 6; 7 Strongly Agree
+bpnsfs_4,I felt insecure about my abilities.,In the last 24 hours...,Basic Psychological Need Satisfaction and Frustration Scale - Daily Edition (https://doi.org/10.1080/15295192.2018.1444131),1 Strongly Disagree; 2; 3; 4 Neither Agree nor Disagree; 5; 6; 7 Strongly Agree
+bpnsfs_5,I felt close and connected with other people who are important to me.,In the last 24 hours...,Basic Psychological Need Satisfaction and Frustration Scale - Daily Edition (https://doi.org/10.1080/15295192.2018.1444131),1 Strongly Disagree; 2; 3; 4 Neither Agree nor Disagree; 5; 6; 7 Strongly Agree
+bpnsfs_6,I felt excluded from the group I want to belong to.,In the last 24 hours...,Basic Psychological Need Satisfaction and Frustration Scale - Daily Edition (https://doi.org/10.1080/15295192.2018.1444131),1 Strongly Disagree; 2; 3; 4 Neither Agree nor Disagree; 5; 6; 7 Strongly Agree
+boredom_1,How bored are you right now?,NA,,Open text response
+affectiveValence_1,How are you feeling right now?,NA,,Open text response
+wemwbs_1,I’ve been feeling optimistic about the future,Below are some statements about feelings and thoughts.Please select the answer that best describes your experience of each over the last 2 weeks.,Warwick-Edinburgh Mental Wellbeing Scale (https://doi.org/10.1186/1477-7525-5-63),1 - None of the time; 2 - Rarely; 3 - Some of the time; 4 - Often; 5 - All of the time
+wemwbs_2,I’ve been feeling relaxed,Below are some statements about feelings and thoughts.Please select the answer that best describes your experience of each over the last 2 weeks.,Warwick-Edinburgh Mental Wellbeing Scale (https://doi.org/10.1186/1477-7525-5-63),1 - None of the time; 2 - Rarely; 3 - Some of the time; 4 - Often; 5 - All of the time
+wemwbs_3,I’ve been thinking clearly,Below are some statements about feelings and thoughts.Please select the answer that best describes your experience of each over the last 2 weeks.,Warwick-Edinburgh Mental Wellbeing Scale (https://doi.org/10.1186/1477-7525-5-63),1 - None of the time; 2 - Rarely; 3 - Some of the time; 4 - Often; 5 - All of the time
+wemwbs_4,I’ve been feeling close to other people,Below are some statements about feelings and thoughts.Please select the answer that best describes your experience of each over the last 2 weeks.,Warwick-Edinburgh Mental Wellbeing Scale (https://doi.org/10.1186/1477-7525-5-63),1 - None of the time; 2 - Rarely; 3 - Some of the time; 4 - Often; 5 - All of the time
+wemwbs_5,I’ve been able to make up my own mind about things,Below are some statements about feelings and thoughts.Please select the answer that best describes your experience of each over the last 2 weeks.,Warwick-Edinburgh Mental Wellbeing Scale (https://doi.org/10.1186/1477-7525-5-63),1 - None of the time; 2 - Rarely; 3 - Some of the time; 4 - Often; 5 - All of the time
+wemwbs_6,I’ve been feeling useful,Below are some statements about feelings and thoughts.Please select the answer that best describes your experience of each over the last 2 weeks.,Warwick-Edinburgh Mental Wellbeing Scale (https://doi.org/10.1186/1477-7525-5-63),1 - None of the time; 2 - Rarely; 3 - Some of the time; 4 - Often; 5 - All of the time
+wemwbs_7,I’ve been dealing with problems well,Below are some statements about feelings and thoughts.Please select the answer that best describes your experience of each over the last 2 weeks.,Warwick-Edinburgh Mental Wellbeing Scale (https://doi.org/10.1186/1477-7525-5-63),1 - None of the time; 2 - Rarely; 3 - Some of the time; 4 - Often; 5 - All of the time
+androidSubmissionID1,"📩 Please paste your Submission ID below — this helps us confirm your upload was successful.
+Your data helps us better understand how people use digital platforms — thank you!",NA,,File upload
+androidSubmissionID2,"📩 Please paste your Submission ID below — this helps us confirm your upload was successful.
+Your data helps us better understand how people use digital platforms — thank you!",NA,,File upload
+androidSubmissionID3,"📩 Please paste your Submission ID below — this helps us confirm your upload was successful.
+Your data helps us better understand how people use digital platforms — thank you!",NA,,File upload
+iosScreenshot1_Id,Id,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice1].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot1_Name,Name,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice1].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot1_Size,Size,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice1].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot1_Type,Type,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice1].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot2_Id,Id,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice2]. 						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot2_Name,Name,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice2]. 						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot2_Size,Size,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice2]. 						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot2_Type,Type,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice2]. 						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot3_Id,Id,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice3].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot3_Name,Name,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice3].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot3_Size,Size,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice3].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload
+iosScreenshot3_Type,Type,Please upload your daily Screen Time screenshot for device: [Field-iosLinkedDevice3].  						Key features: 							Daily view (not weekly)				App view (not category)				Yesterday (not today)				Scrolled to capture the most used apps,,File upload

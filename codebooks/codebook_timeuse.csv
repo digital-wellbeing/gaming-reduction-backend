@@ -1,0 +1,14 @@
+﻿Category,Response Format,Example app
+Sleep,Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+Video Gaming,Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+"Other Digital Media Use
+(incl. TV, Internet, Social Media, Smartphone, etc.)",Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+"Personal Care (incl. Eating, Washing, Resting, Religious Activities, etc.)",Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+"Household and Family Care
+(incl. Domestic Work, Shopping, DIY, etc.)",Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+Work and Employment,Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+Education,Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+Exercise and Sports,Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+"Offline Leisure & Social Life (incl. Social and Cultural Activities, Hobbies, Recreation, etc.)",Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+Travel and Transportation,Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed
+Other not listed (enter),Start and End Time (HH:MM),https://mini-tud.netlify.app/index.html?instructions=completed

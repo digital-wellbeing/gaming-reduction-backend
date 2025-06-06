@@ -1,0 +1,6 @@
+﻿Variable,Description
+pid,A unique identifier assigned to each participant in the study.
+day,The day number relative to the start of the study.
+date,The date of the day in question (format: YYYY-MM-DD).
+app,"Name of app within the ""Games category"" used by participant that day"
+playtime,Minutes of use of the app in question on day
