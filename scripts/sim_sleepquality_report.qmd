@@ -1,10 +1,14 @@
 ---
-title: "Generate Synthetic Data"
+title: "H2 - Effect of Abstention on Sleep Quality"
 output: html_document
 execute-dir: project
+format: 
+  html:
+    toc: true
+    code-fold: true
+author: "Tamás Földes"
+date: today
 ---
-
-
 
 ## Introduction
 

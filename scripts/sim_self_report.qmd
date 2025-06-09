@@ -1,12 +1,14 @@
 ---
-title: "Sleep Quality Analysis"
+title: "H3 - Effect of Abstention on Wellbeing"
 format: html
 execute-dir: project
+author: "Nick Ballou"
+date: today
 ---
 
 ## Introduction
 
-This document demonstrates a complete workflow for generating synthetic data, introducing dropout, and fitting models (a GAM or MLM) to the data. The main focus is on the `sim_study` function, which orchestrates the data simulation, dropout process, and model fitting.
+This section demonstrates a complete workflow for generating synthetic data, introducing dropout, and fitting models (a GAM or MLM) to the data. The main focus is on the `sim_study` function, which orchestrates the data simulation, dropout process, and model fitting.
 
 As an overview, we compare the following possible models for estimating the effect of gaming reduction, for both H3a (the intention-to-treat effect) and H3b (the per-protocol effect; i.e., the effect of actual gaming reduction relative to one's own baseline). The models we compare are:
 
@@ -464,7 +466,7 @@ names(means) <- summary(emm)$condition
 Another quick test of our `fit_mlm_reduction` model, to make sure the alternative simulation whereby the effect of the intervention is mediated by a reduction in playtime is also functioning properly.
 
 ```{r}
-#| label: test-fit-h3b
+#| label: test-fit-h3b-pp
 #| eval: false
 #| code-summary: "Show code (test fit h3b)"
 

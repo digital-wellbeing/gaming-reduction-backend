@@ -1,10 +1,10 @@
 ---
-title: "Simulation-based Power Analysis for Two-arm RCT with Compositional Outcomes"
+title: "H1 - Effect of Abstention on Sendentary Activity"
 format: 
   html:
     toc: true
     code-fold: true
-author: "Tamas"
+author: "Tamas Földes"
 date: today
 ---
 
@@ -16,9 +16,13 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 This document demonstrates a simulation-based power analysis for a two-arm parallel randomized controlled trial (RCT) with compositional outcomes. The simulation models 24-hour time use data consisting of three components: sleep, sedentary time, and physical activity, which sum to 1440 minutes (24 hours). The analysis includes visualization of power curves and effect sizes to help determine optimal sample sizes and assess the sensitivity of the study design to different parameters.
 
-## Required Packages
+### Required Packages
 
 ```{r packages}
+#| label: packages
+#| code-summary: "Show code (libraries)"
+#| output: false
+
 # Install required packages if not already installed
 req <- c("tidyverse", "lme4", "compositions", "ggtern", "progress", "phyloseq", "patchwork", "lmerTest", "foreach", "doSNOW", "doParallel")
 need <- req[!req %in% installed.packages()[, "Package"]]
@@ -47,7 +51,7 @@ if (length(need_suggested)) install.packages(need_suggested)
 invisible(lapply(c(req, "microViz"), library, character.only = TRUE))
 ```
 
-## Helper Functions
+### Helper Functions
 
 These functions convert between compositional data and isometric log-ratio (ilr) coordinates.
 
@@ -75,7 +79,7 @@ ilr_to_minutes <- function(ilr_mat, total = 1440) {
 }
 ```
 
-## Simulation Engine
+### Simulation Engine
 
 ```{r sim_engine, eval=FALSE}
 # Power estimation using SimEngine – cleaned version (no play_sd_prop, no corr_noise_sd)
@@ -679,7 +683,7 @@ if(all(all_high_validity == total_rows)) {
 message("\n" , paste(rep("=", 60), collapse=""))
 ```
 
-## Simulate study
+### Simulate study
 
 ```{r sample_study}
 # Source the generate_data function (assuming it's in the sim_engine_demo.R file)
@@ -1013,7 +1017,7 @@ knitr::kable(
 )
 ```
 
-# Power analysis 
+## Power analysis 
 
 ```{r power_analysis_extended, eval=TRUE}
 # Load the results from the SimEngine power analysis

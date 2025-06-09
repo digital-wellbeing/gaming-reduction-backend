@@ -1,5 +1,5 @@
 ---
-title: "Welcome"
+title: "Simulation-based Power Analysis for Two-arm RCT with Linear and Compositional Outcomes"
 ---
 
 This site describes the data simulation, preprocessing, and analysis code for our RCT on gaming effects. 
