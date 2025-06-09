@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Nick Ballou">
+<meta name="dcterms.date" content="2025-06-09">
 
-<title>Gaming Reduction Experiment - 2&nbsp; Sleep Quality Analysis</title>
+<title>Gaming Reduction Experiment - 4&nbsp; H3 - Effect of Abstention on Wellbeing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../scripts/sim_sleepquality_report.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../scripts/sim_sleepquality_report.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -123,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../scripts/sim_self_report.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sleep Quality Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../scripts/sim_self_report.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">H3 - Effect of Abstention on Wellbeing</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -156,25 +157,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../scripts/sim_self_report.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sleep Quality Analysis</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../scripts/sim_sleepquality_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Generate Synthetic Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Simulation-based Power Analysis for Two-arm RCT with Linear and Compositional Outcomes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../scripts/sim_comp_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Simulation-based Power Analysis for Two-arm RCT with Compositional Outcomes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">H1 - Effect of Abstention on Sendentary Activity</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../scripts/sim_sleepquality_report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">H2 - Effect of Abstention on Sleep Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../scripts/sim_self_report.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">H3 - Effect of Abstention on Wellbeing</span></span></a>
   </div>
 </li>
     </ul>
@@ -187,20 +188,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">2.1</span> Introduction</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">4.1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#take-aways" id="toc-take-aways" class="nav-link" data-scroll-target="#take-aways"><span class="header-section-number">2.1.1</span> Take-aways</a></li>
-  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries"><span class="header-section-number">2.1.2</span> Load Libraries</a></li>
-  <li><a href="#simulation-dropout-and-fitting-functions" id="toc-simulation-dropout-and-fitting-functions" class="nav-link" data-scroll-target="#simulation-dropout-and-fitting-functions"><span class="header-section-number">2.1.3</span> Simulation, Dropout, and Fitting Functions</a></li>
+  <li><a href="#take-aways" id="toc-take-aways" class="nav-link" data-scroll-target="#take-aways"><span class="header-section-number">4.1.1</span> Take-aways</a></li>
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries"><span class="header-section-number">4.1.2</span> Load Libraries</a></li>
+  <li><a href="#simulation-dropout-and-fitting-functions" id="toc-simulation-dropout-and-fitting-functions" class="nav-link" data-scroll-target="#simulation-dropout-and-fitting-functions"><span class="header-section-number">4.1.3</span> Simulation, Dropout, and Fitting Functions</a></li>
   </ul></li>
-  <li><a href="#test-and-plot-one-simulated-study" id="toc-test-and-plot-one-simulated-study" class="nav-link" data-scroll-target="#test-and-plot-one-simulated-study"><span class="header-section-number">2.2</span> Test and Plot One Simulated Study</a>
+  <li><a href="#test-and-plot-one-simulated-study" id="toc-test-and-plot-one-simulated-study" class="nav-link" data-scroll-target="#test-and-plot-one-simulated-study"><span class="header-section-number">4.2</span> Test and Plot One Simulated Study</a>
   <ul class="collapse">
-  <li><a href="#test-fit-h3a---intention-to-treat" id="toc-test-fit-h3a---intention-to-treat" class="nav-link" data-scroll-target="#test-fit-h3a---intention-to-treat"><span class="header-section-number">2.2.1</span> Test Fit (H3a - intention to treat)</a></li>
-  <li><a href="#test-fit-h3b---per-protocol" id="toc-test-fit-h3b---per-protocol" class="nav-link" data-scroll-target="#test-fit-h3b---per-protocol"><span class="header-section-number">2.2.2</span> Test Fit (H3b - per-protocol)</a></li>
+  <li><a href="#test-fit-h3a---intention-to-treat" id="toc-test-fit-h3a---intention-to-treat" class="nav-link" data-scroll-target="#test-fit-h3a---intention-to-treat"><span class="header-section-number">4.2.1</span> Test Fit (H3a - intention to treat)</a></li>
+  <li><a href="#test-fit-h3b---per-protocol" id="toc-test-fit-h3b---per-protocol" class="nav-link" data-scroll-target="#test-fit-h3b---per-protocol"><span class="header-section-number">4.2.2</span> Test Fit (H3b - per-protocol)</a></li>
   </ul></li>
-  <li><a href="#simulated-h3a-power-analysis" id="toc-simulated-h3a-power-analysis" class="nav-link" data-scroll-target="#simulated-h3a-power-analysis"><span class="header-section-number">2.3</span> Simulated H3a power analysis</a></li>
-  <li><a href="#simulated-h3b-power-analysis" id="toc-simulated-h3b-power-analysis" class="nav-link" data-scroll-target="#simulated-h3b-power-analysis"><span class="header-section-number">2.4</span> Simulated H3b power analysis</a></li>
-  <li><a href="#planned-sensitivity-analyses" id="toc-planned-sensitivity-analyses" class="nav-link" data-scroll-target="#planned-sensitivity-analyses"><span class="header-section-number">2.5</span> Planned Sensitivity Analyses</a></li>
+  <li><a href="#simulated-h3a-power-analysis" id="toc-simulated-h3a-power-analysis" class="nav-link" data-scroll-target="#simulated-h3a-power-analysis"><span class="header-section-number">4.3</span> Simulated H3a power analysis</a></li>
+  <li><a href="#simulated-h3b-power-analysis" id="toc-simulated-h3b-power-analysis" class="nav-link" data-scroll-target="#simulated-h3b-power-analysis"><span class="header-section-number">4.4</span> Simulated H3b power analysis</a></li>
+  <li><a href="#planned-sensitivity-analyses" id="toc-planned-sensitivity-analyses" class="nav-link" data-scroll-target="#planned-sensitivity-analyses"><span class="header-section-number">4.5</span> Planned Sensitivity Analyses</a></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://digital-wellbeing.github.io/oxford-gaming-study/"><i class="bi bi-link"></i>Participant FAQs</a></li><li><a href="https://github.com/digital-wellbeing/gaming-reduction-backend"><i class="bi bi-github"></i>GitHub Repository</a></li></ul></div></nav>
     </div>
@@ -209,14 +210,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sleep Quality Analysis</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">H3 - Effect of Abstention on Wellbeing</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta column-body">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nick Ballou </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 9, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -226,9 +239,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2.1</span> Introduction</h2>
-<p>This document demonstrates a complete workflow for generating synthetic data, introducing dropout, and fitting models (a GAM or MLM) to the data. The main focus is on the <code>sim_study</code> function, which orchestrates the data simulation, dropout process, and model fitting.</p>
+<section id="introduction" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h2>
+<p>This section demonstrates a complete workflow for generating synthetic data, introducing dropout, and fitting models (a GAM or MLM) to the data. The main focus is on the <code>sim_study</code> function, which orchestrates the data simulation, dropout process, and model fitting.</p>
 <p>As an overview, we compare the following possible models for estimating the effect of gaming reduction, for both H3a (the intention-to-treat effect) and H3b (the per-protocol effect; i.e., the effect of actual gaming reduction relative to one’s own baseline). The models we compare are:</p>
 <table class="table">
 <caption>ITT = Intention-to-treat; PP = per-protocol</caption>
@@ -297,13 +310,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<section id="take-aways" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="take-aways"><span class="header-section-number">2.1.1</span> Take-aways</h3>
+<section id="take-aways" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="take-aways"><span class="header-section-number">4.1.1</span> Take-aways</h3>
 <p>Our simulations show that several models perform well at parameter recovery for the ITT effect, but that the GAM model has the highest power for small effects—the type of effects we believe we are most likely to observed—and for non-linear trajectories over the 14 day period (e.g., an effect that slowly accumulates over a couple of days and then plateaus, or a temporary withdrawal followed by a later improvement). The GAM has approximately 50% power for a standardized effect of .2, and 80% power for a standardized effect of .3, but this varies based the shape of that effect over time.</p>
 <p>The MLM Reduction model performs very well, and has &gt;95% power for standardized effects of approximately .2 or greater.</p>
 </section>
-<section id="load-libraries" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="load-libraries"><span class="header-section-number">2.1.2</span> Load Libraries</h3>
+<section id="load-libraries" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="load-libraries"><span class="header-section-number">4.1.2</span> Load Libraries</h3>
 <p>First we load packages with <code>pacman</code>, which is fully compatible with <code>renv</code>.</p>
 <div class="cell">
 <details class="code-fold">
@@ -326,8 +339,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="simulation-dropout-and-fitting-functions" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="simulation-dropout-and-fitting-functions"><span class="header-section-number">2.1.3</span> Simulation, Dropout, and Fitting Functions</h3>
+<section id="simulation-dropout-and-fitting-functions" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="simulation-dropout-and-fitting-functions"><span class="header-section-number">4.1.3</span> Simulation, Dropout, and Fitting Functions</h3>
 <p>Here we define:</p>
 <ul>
 <li><code>sim_data</code>: Generates synthetic data with random intercepts/slopes and AR(1) errors.</li>
@@ -647,8 +660,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="test-and-plot-one-simulated-study" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="test-and-plot-one-simulated-study"><span class="header-section-number">2.2</span> Test and Plot One Simulated Study</h2>
+<section id="test-and-plot-one-simulated-study" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="test-and-plot-one-simulated-study"><span class="header-section-number">4.2</span> Test and Plot One Simulated Study</h2>
 <p>Below, we create a sample dataset using <code>sim_data()</code> and examine it with a line plots by day. We can also see whether the simulated SDs for wellbeing align with the target values in the simulation—luckily, they do.</p>
 <div class="cell">
 <details class="code-fold">
@@ -679,8 +692,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<section id="test-fit-h3a---intention-to-treat" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="test-fit-h3a---intention-to-treat"><span class="header-section-number">2.2.1</span> Test Fit (H3a - intention to treat)</h3>
+<section id="test-fit-h3a---intention-to-treat" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="test-fit-h3a---intention-to-treat"><span class="header-section-number">4.2.1</span> Test Fit (H3a - intention to treat)</h3>
 <p>We fit various models to the newly simulated data to make sure each appears to be working properly, and also test the full <code>sim_study</code> pipeline.</p>
 <div class="cell">
 <details class="code-fold">
@@ -729,8 +742,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="test-fit-h3b---per-protocol" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="test-fit-h3b---per-protocol"><span class="header-section-number">2.2.2</span> Test Fit (H3b - per-protocol)</h3>
+<section id="test-fit-h3b---per-protocol" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="test-fit-h3b---per-protocol"><span class="header-section-number">4.2.2</span> Test Fit (H3b - per-protocol)</h3>
 <p>Another quick test of our <code>fit_mlm_reduction</code> model, to make sure the alternative simulation whereby the effect of the intervention is mediated by a reduction in playtime is also functioning properly.</p>
 <div class="cell">
 <details class="code-fold">
@@ -742,8 +755,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="simulated-h3a-power-analysis" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="simulated-h3a-power-analysis"><span class="header-section-number">2.3</span> Simulated H3a power analysis</h2>
+<section id="simulated-h3a-power-analysis" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="simulated-h3a-power-analysis"><span class="header-section-number">4.3</span> Simulated H3a power analysis</h2>
 <p>To assess power/sensitivity, we run multiple simulations (controlled by <code>n_sims</code>) and gather the parameter estimates for a particular term (e.g., <code>conditionintervention:intervention_periodTRUE</code>, or for our marginalized effect <code>conditionintervention</code>). Each iteration calls <code>sim_study</code>, which does the data generation, dropout, and fitting.</p>
 <p>As this is quite slow, we both use parallel processing with <code>furrr</code> cache the results.</p>
 <div class="cell">
@@ -890,8 +903,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="simulated-h3b-power-analysis" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="simulated-h3b-power-analysis"><span class="header-section-number">2.4</span> Simulated H3b power analysis</h2>
+<section id="simulated-h3b-power-analysis" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="simulated-h3b-power-analysis"><span class="header-section-number">4.4</span> Simulated H3b power analysis</h2>
 <p>Same thing as above, but now looking at power for our per-protocol model.</p>
 <div class="cell">
 <details class="code-fold">
@@ -1023,8 +1036,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="planned-sensitivity-analyses" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="planned-sensitivity-analyses"><span class="header-section-number">2.5</span> Planned Sensitivity Analyses</h2>
+<section id="planned-sensitivity-analyses" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="planned-sensitivity-analyses"><span class="header-section-number">4.5</span> Planned Sensitivity Analyses</h2>
 <p>We have preregistered several sensitivity analyses to test the robustness of any effects we find. These include:</p>
 <ul>
 <li><em>Day 21 only:</em> We will estimate the effect of the intervention on day 21 only, to see what the difference between groups is at the end of the intervention period</li>
@@ -1569,14 +1582,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link  aria-label=" &lt;span="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></span>
+      <a href="../scripts/sim_sleepquality_report.html" class="pagination-link  aria-label=" &lt;span="" -="" effect="" of="" abstention="" on="" sleep="" quality&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">H2 - Effect of Abstention on Sleep Quality</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../scripts/sim_sleepquality_report.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Generate Synthetic Data</span>">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Generate Synthetic Data</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.25">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Digital Wellbeing Lab">
-<meta name="dcterms.date" content="2025-03-01">
+<meta name="dcterms.date" content="2025-06-06">
 
-<title>Generate Synthetic Data</title>
+<title>Gaming Reduction Experiment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,21 +32,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./scripts/sim_self_report.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<link href="./scripts/sim_comp_report.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-fe31d7bd2deb2a321418d01dba375a64.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f22e6b1ee40b1f8b08691e31e3ed3812.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-fe31d7bd2deb2a321418d01dba375a64.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-62394a134fb2c86b7932238ec4c4d7ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-9bdbdd4fd3c4ad511c920e18b6a60a5b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-62394a134fb2c86b7932238ec4c4d7ad.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -81,211 +78,22 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
-<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    window.setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      window.setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    window.hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(darkModeDefault) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const darkModeDefault = false;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !window.hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-    };
-    // Switch to dark mode if need be
-    if (window.hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Simulation-based Power Analysis for Two-arm RCT with Linear and Compositional Outcomes</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -315,19 +123,25 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Welcome</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./scripts/sim_self_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Generate Synthetic Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Simulation-based Power Analysis for Two-arm RCT with Linear and Compositional Outcomes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./scripts/sim_comp_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Simulation-based Power Analysis for Two-arm RCT with Compositional Outcomes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">H1 - Effect of Abstention on Sendentary Activity</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/sim_sleepquality_report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">H2 - Effect of Abstention on Sleep Quality</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scripts/sim_self_report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">H3 - Effect of Abstention on Wellbeing</span></span></a>
   </div>
 </li>
     </ul>
@@ -336,49 +150,14 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">0.1</span> Introduction</a>
-  <ul class="collapse">
-  <li><a href="#take-aways" id="toc-take-aways" class="nav-link" data-scroll-target="#take-aways"><span class="header-section-number">0.1.1</span> Take-aways</a></li>
-  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries"><span class="header-section-number">0.1.2</span> Load Libraries</a></li>
-  <li><a href="#simulation-dropout-and-fitting-functions" id="toc-simulation-dropout-and-fitting-functions" class="nav-link" data-scroll-target="#simulation-dropout-and-fitting-functions"><span class="header-section-number">0.1.3</span> Simulation, Dropout, and Fitting Functions</a></li>
-  </ul></li>
-  <li><a href="#test-and-plot-one-simulated-study" id="toc-test-and-plot-one-simulated-study" class="nav-link" data-scroll-target="#test-and-plot-one-simulated-study"><span class="header-section-number">0.2</span> Test and Plot One Simulated Study</a>
-  <ul class="collapse">
-  <li><a href="#test-fit-h2a---intention-to-treat" id="toc-test-fit-h2a---intention-to-treat" class="nav-link" data-scroll-target="#test-fit-h2a---intention-to-treat"><span class="header-section-number">0.2.1</span> Test Fit (h2a - intention to treat)</a></li>
-  <li><a href="#test-fit-h2b---per-protocol" id="toc-test-fit-h2b---per-protocol" class="nav-link" data-scroll-target="#test-fit-h2b---per-protocol"><span class="header-section-number">0.2.2</span> Test Fit (h2b - per-protocol)</a></li>
-  </ul></li>
-  <li><a href="#simulated-h2a-power-analysis" id="toc-simulated-h2a-power-analysis" class="nav-link" data-scroll-target="#simulated-h2a-power-analysis"><span class="header-section-number">0.3</span> Simulated h2a power analysis</a></li>
-  <li><a href="#load-tictoc-for-timing-if-not-already-loaded" id="toc-load-tictoc-for-timing-if-not-already-loaded" class="nav-link" data-scroll-target="#load-tictoc-for-timing-if-not-already-loaded"><span class="header-section-number">1</span> Load tictoc for timing if not already loaded</a></li>
-  <li><a href="#start-timing" id="toc-start-timing" class="nav-link" data-scroll-target="#start-timing"><span class="header-section-number">2</span> Start timing</a></li>
-  <li><a href="#create-all-spec-simulation-combinations-for-better-parallelization" id="toc-create-all-spec-simulation-combinations-for-better-parallelization" class="nav-link" data-scroll-target="#create-all-spec-simulation-combinations-for-better-parallelization"><span class="header-section-number">3</span> Create all spec-simulation combinations for better parallelization</a></li>
-  <li><a href="#run-all-simulations-in-parallel" id="toc-run-all-simulations-in-parallel" class="nav-link" data-scroll-target="#run-all-simulations-in-parallel"><span class="header-section-number">4</span> Run all simulations in parallel</a></li>
-  <li><a href="#stop-timing-and-display-results" id="toc-stop-timing-and-display-results" class="nav-link" data-scroll-target="#stop-timing-and-display-results"><span class="header-section-number">5</span> Stop timing and display results</a></li>
-  <li><a href="#also-print-some-summary-statistics-about-the-simulation" id="toc-also-print-some-summary-statistics-about-the-simulation" class="nav-link" data-scroll-target="#also-print-some-summary-statistics-about-the-simulation"><span class="header-section-number">6</span> Also print some summary statistics about the simulation</a>
-  <ul class="collapse">
-  <li><a href="#simulated-h2b-power-analysis" id="toc-simulated-h2b-power-analysis" class="nav-link" data-scroll-target="#simulated-h2b-power-analysis"><span class="header-section-number">6.1</span> Simulated h2b power analysis</a></li>
-  </ul></li>
-  <li><a href="#start-timing-1" id="toc-start-timing-1" class="nav-link" data-scroll-target="#start-timing-1"><span class="header-section-number">7</span> Start timing</a></li>
-  <li><a href="#create-all-spec-simulation-combinations-for-better-parallelization-1" id="toc-create-all-spec-simulation-combinations-for-better-parallelization-1" class="nav-link" data-scroll-target="#create-all-spec-simulation-combinations-for-better-parallelization-1"><span class="header-section-number">8</span> Create all spec-simulation combinations for better parallelization</a></li>
-  <li><a href="#run-all-simulations-in-parallel-1" id="toc-run-all-simulations-in-parallel-1" class="nav-link" data-scroll-target="#run-all-simulations-in-parallel-1"><span class="header-section-number">9</span> Run all simulations in parallel</a></li>
-  <li><a href="#stop-timing-and-display-results-1" id="toc-stop-timing-and-display-results-1" class="nav-link" data-scroll-target="#stop-timing-and-display-results-1"><span class="header-section-number">10</span> Stop timing and display results</a></li>
-  <li><a href="#also-print-some-summary-statistics-about-the-simulation-1" id="toc-also-print-some-summary-statistics-about-the-simulation-1" class="nav-link" data-scroll-target="#also-print-some-summary-statistics-about-the-simulation-1"><span class="header-section-number">11</span> Also print some summary statistics about the simulation</a>
-  <ul class="collapse">
-  <li><a href="#planned-sensitivity-analyses" id="toc-planned-sensitivity-analyses" class="nav-link" data-scroll-target="#planned-sensitivity-analyses"><span class="header-section-number">11.1</span> Planned Sensitivity Analyses</a></li>
-  </ul></li>
-  </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://digital-wellbeing.github.io/oxford-gaming-study/"><i class="bi bi-link"></i>Participant FAQs</a></li><li><a href="https://github.com/digital-wellbeing/gaming-reduction-backend"><i class="bi bi-github"></i>GitHub Repository</a></li></ul></div></nav>
-    </div>
+        
+    <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://digital-wellbeing.github.io/oxford-gaming-study/"><i class="bi bi-link"></i>Participant FAQs</a></li><li><a href="https://github.com/digital-wellbeing/gaming-reduction-backend"><i class="bi bi-github"></i>GitHub Repository</a></li></ul></div></div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Generate Synthetic Data</h1>
+<h1 class="title">Gaming Reduction Experiment</h1>
 </div>
 
 
@@ -395,7 +174,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 1, 2025</p>
+      <p class="date">June 6, 2025</p>
     </div>
   </div>
   
@@ -410,956 +189,353 @@ window.Quarto = {
 <p>This site describes the data simulation, preprocessing, and analysis code for our RCT on gaming effects.</p>
 
 
-<section id="introduction" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">0.1</span> Introduction</h2>
-<p>This document demonstrates a complete workflow for generating synthetic data, introducing dropout, and fitting models (a GAM or MLM) to the data. The main focus is on the <code>sim_study</code> function, which orchestrates the data simulation, dropout process, and model fitting.</p>
-<p>As an overview, we compare the following possible models for estimating the effect of gaming reduction, for both H2a (the intention-to-treat effect) and H2b (the per-protocol effect; i.e., the effect of actual gaming reduction relative to one’s own baseline). The models we compare are:</p>
-<table class="caption-top table">
-<caption>ITT = Intention-to-treat; PP = per-protocol</caption>
-<colgroup>
-<col style="width: 16%">
-<col style="width: 30%">
-<col style="width: 16%">
-<col style="width: 36%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Model Name</th>
-<th>Syntax</th>
-<th>Target Effect</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>GAM</td>
-<td><code>gam(sleep_quality ~ condition:intervention_period + age + gender + s(id, bs = "re") + s(day, by = condition, bs = "tp"), correlation = corAR1(form = ~ day | id))</code></td>
-<td>ITT</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>GAM with no main effect</td>
-<td><code>gam(sleep_quality ~         age + gender +         s(id, bs = "re") +         s(day, by = condition, bs = "tp"),       data = dat,       correlation = corCAR1(form = ~ day | id))</code></td>
-<td>ITT</td>
-<td>Here we do not estimate a parameter for the effect of the intervention directly; rather, we simply fit separate curves to each condition and calculate the average marginal effect using {emmeans}</td>
-</tr>
-<tr class="odd">
-<td>MLM</td>
-<td><code>lme(     fixed = sleep_quality ~ condition*intervention_period + age + gender,     random = ~ 1|id,     correlation = corCAR1(form = ~ day | id),     method = "ML"   )</code></td>
-<td>ITT</td>
-<td>Multiple versions of this model failed when including random slopes; we therefore dropped these</td>
-</tr>
-<tr class="even">
-<td>MLM Simple</td>
-<td><code>lme(     fixed = sleep_quality ~ baseline + condition + age + gender,     random = ~ 1 + condition|id,     correlation = corCAR1(form = ~ day | id),     method = "ML",   )</code></td>
-<td>ITT</td>
-<td>Here we do not model the baseline (pre-intervention period) itself—we model only the 14-day period when the intervention is active, using average sleep_quality during baseline as a covariate</td>
-</tr>
-<tr class="odd">
-<td>GLS (generalized least squares)</td>
-<td><code>gls(     sleep_quality ~ condition * intervention_period + age + gender,     correlation = corCAR1(form = ~ day | id),   )</code></td>
-<td>ITT</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>GLS Simple</td>
-<td><code>gls(     sleep_quality ~ condition + baseline + age + gender,     correlation = corAR1(form = ~ day | id),   )</code></td>
-<td>ITT</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>GLS Splines</td>
-<td><code>gls(     sleep_quality ~ ns(day, df = 4) * intervention_period * condition,     correlation = corCAR1(form = ~ day | id),     data = dat   )</code></td>
-<td>ITT</td>
-<td>In this version, we fit a GLS but allow non-linearity in the trajectory of sleep_quality using splines</td>
-</tr>
-<tr class="even">
-<td>MLM Reduction</td>
-<td><code>lme(     fixed = sleep_quality ~ intervention_active*reduction + age + gender,     random = ~ 1 + intervention_active*reduction | id,     correlation = corCAR1(form = ~ day | id)   )</code></td>
-<td>PP</td>
-<td>Here we test our intended model for the per-protocol effect; <code>reduction</code> is the number of hours played relative to that person’s mean playtime at baseline</td>
-</tr>
-</tbody>
-</table>
-<section id="take-aways" class="level3" data-number="0.1.1">
-<h3 data-number="0.1.1" class="anchored" data-anchor-id="take-aways"><span class="header-section-number">0.1.1</span> Take-aways</h3>
-<p>Our simulations show that several models perform well at parameter recovery for the ITT effect, but that the GAM model has the highest power for small effects—the type of effects we believe we are most likely to observed—and for non-linear trajectories over the 14 day period (e.g., an effect that slowly accumulates over a couple of days and then plateaus, or a temporary withdrawal followed by a later improvement). The GAM has approximately 50% power for a standardized effect of .2, and 80% power for a standardized effect of .3, but this varies based the shape of that effect over time.</p>
-<p>The MLM Reduction model performs very well, and has &gt;95% power for standardized effects of approximately .2 or greater.</p>
-</section>
-<section id="load-libraries" class="level3" data-number="0.1.2">
-<h3 data-number="0.1.2" class="anchored" data-anchor-id="load-libraries"><span class="header-section-number">0.1.2</span> Load Libraries</h3>
-<p>First we load packages with <code>pacman</code>, which is fully compatible with <code>renv</code>.</p>
-<pre class="{r}"><code>#| label: load-libraries
-#| code-summary: "Show code (load libraries)"
-
-library(pacman)
-
-p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr, extraDistr)
-
-plan(multisession, workers = parallel::detectCores()-2)
-
-# Diagnostic information about parallel setup
-message("=== PARALLEL PROCESSING SETUP ===")
-message("Total CPU cores detected: ", parallel::detectCores())
-message("Number of workers allocated: ", nbrOfWorkers())
-message("Future plan: ", paste(class(plan()), collapse = ", "))
-message("===================================")
-
-theme_set(theme_minimal())
-theme_update(
-  strip.background = element_rect(fill = "black"),
-  strip.text = element_text(color = "white", size = 10),
-  panel.grid.minor = element_blank(),
-  panel.border = element_rect(colour = "black", fill = NA, linewidth = 1),
-)
-
-options(scipen = 999)</code></pre>
-</section>
-<section id="simulation-dropout-and-fitting-functions" class="level3" data-number="0.1.3">
-<h3 data-number="0.1.3" class="anchored" data-anchor-id="simulation-dropout-and-fitting-functions"><span class="header-section-number">0.1.3</span> Simulation, Dropout, and Fitting Functions</h3>
-<p>Here we define:</p>
-<ul>
-<li><code>sim_data</code>: Generates synthetic data with random intercepts/slopes and AR(1) errors.</li>
-<li><code>sim_dropout</code>: Introduces missingness and dropout in the dataset.</li>
-<li><code>fit_*</code>: Fits a statistical model to the simulated data (see table above)</li>
-<li><code>sim_study</code>: Ties everything together—generates data, applies dropout, then fits the chosen model and returns a tidy summary.</li>
-</ul>
-<pre class="{r}"><code>#| label: sim-functions
-#| code-summary: "Show code (sim functions)"
-
-#' Generate Synthetic Data
-#'
-#' This function simulates synthetic panel data for `n` participants over `n_days` time points,
-#' with an intervention effect, random intercepts and slopes, and AR(1)-correlated residuals.
-#'
-#' @param n Number of participants. Default is 100.
-#' @param n_days Number of time points per participant.
-#' @param b Fixed effect of condition (if mediated == FALSE) or a 1-hour reduction in playtime.
-#' @param phi AR(1) autocorrelation coefficient.
-#' @param sigma AR(1) residual standard deviation.
-
-sim_data &lt;- function(n = 100,
-                     n_days = 28,
-                     
-                     # effect parameters
-                     b = 0.8, # effect in unstandardized units (scaled for 5-25 range)
-                     mu = 15, # grand mean of the outcome (center of 5-25 range)
-                     
-                     
-                     # random effects parameters
-                     tau_int = 2.5,   # Random intercept SD (between-person variance)
-                     tau_slope = .05,  # Random slope SD 
-                     within_person_sd = 2.0, # Within-person SD (scaled for 5-25 range)
-                     
-                     # AR(1) parameters
-                     phi = 0.8,     # Autocorrelation coefficient
-                     effect_shape = "grow",
-                     k = .5, # affects how quickly the plateau effect plateaus
-                     
-                     mediated = FALSE,
-                     
-                     # playtime parameters
-                     playtime_grand_mean = 1,   # Average baseline playtime in hours
-                     playtime_grand_sd = .5,   # SD for baseline playtime in log units (log-normal distribution)
-                     daily_play_sd = 0.5      # Daily noise in playtime
-                     # compliance_mean = 0.7,    # Average reduction (in hours) for intervention group during intervention period
-)     
-{
-  dat &lt;- tibble(
-    id = 1:n,
-    age = sample(18:36, n, replace = TRUE),
-    gender = sample(c("man","woman","non-binary"), n, prob = c(.45, .45, .1), replace = TRUE),
-    condition = factor(sample(c("control", "intervention"), n, replace = TRUE)),
-    experimental_condition = ifelse(condition == "intervention", 1, 0),
-    intercept_sq = rnorm(n, 0, tau_int), # Renamed from intercept_wb
-    slope_sq = rnorm(n, 0, tau_slope), # Renamed from slope_wb
-    intercept_play = rlnorm(n, log(playtime_grand_mean), playtime_grand_sd),
-  ) |&gt; 
-    # expand to 28 waves per id
-    crossing(
-      day = 1:n_days
-    ) |&gt; 
-    mutate(
-      intervention_period = as.numeric(day &gt; 7 &amp; day &lt; 22),
-      intervention_active = intervention_period &amp; condition == "intervention",
-      compliance = ifelse(intervention_active, rkumar(n*n_days, a = .05, b = .1), 0),
-      
-      # In the baseline period, play is just the subject's baseline plus some day-to-day noise
-      # During the intervention, experimental subjects reduce play by their compliance amount
-      playtime = (1 - compliance) * rlnorm(n, log(intercept_play), daily_play_sd),
-      effect_time = case_when(
-        effect_shape == "plateau" ~ if_else(intervention_period == 1, (b + slope_sq) * (1-exp(-k * (day - 7))), 0), # Renamed from slope_wb
-        effect_shape == "grow" ~ if_else(intervention_period == 1, (day - 7) * ((b + slope_sq)/7), 0), # Renamed from slope_wb
-        TRUE ~ NA_real_
-      ),
-    ) |&gt; 
-    group_by(id) |&gt; 
-    mutate(
-      
-      baseline_playtime = mean(playtime[day &lt;= 7]),
-      reduction = baseline_playtime - playtime, # The mediator: reduction in play relative to the baseline average
-      sigma = within_person_sd * sqrt(1-phi^2),
-      # Generate AR(1) errors for each participant
-      e = as.numeric(arima.sim(n = n_days, 
-                               model = list(ar = phi), 
-                               sd = sigma)),
-      # Add random effect + fixed effect + AR(1) error
-      sleep_quality_raw = case_when( # Renamed from wellbeing
-        mediated == TRUE ~ mu + 
-                            intercept_sq + # Renamed from intercept_wb
-                            effect_time * reduction + 
-                            .01*(age-18) +
-                            -.05*(gender %in% c("women","non-binary")) + 
-                            e,
-        mediated == FALSE ~ mu + 
-                            intercept_sq + # Renamed from intercept_wb
-                            effect_time * experimental_condition * intervention_period + 
-                            .01*(age-18) +
-                            -.05*(gender %in% c("women","non-binary")) + 
-                            e
-      ),
-      # Constrain to 5-25 range and round to integers
-      sleep_quality = round(pmax(5, pmin(25, sleep_quality_raw)))
-    ) |&gt; 
-    ungroup() |&gt; 
-    mutate(across(where(is.numeric), ~ round(., 3)))
-  
-  dat
-
-}</code></pre>
-<pre class="{r}"><code>#| label: sim-data-example
-#| code-summary: "Show code (sim data example)"
-
-sim_data(n = 10, n_days = 10, effect_shape = "grow")
-
-
-#' Simulate Dropout
-#'
-#' Introduces missingness and dropout into a dataset by randomly assigning records as missing
-#' or dropped out. Once a participant is dropped out, all subsequent records become missing.
-#'
-#' @param dat A tibble generated by \code{sim_data()}.
-#'
-#' @return A tibble of the same structure as \code{dat}, but with some \code{sleep_quality} values set to NA. # Renamed from wellbeing
-#'
-sim_dropout &lt;- function(dat) {
-  
-  dropout &lt;- dat |&gt; 
-    mutate(
-      missing = sample(c(TRUE, FALSE), n(), replace = TRUE, prob = c(.10, .90)),
-      dropout = sample(c(TRUE, FALSE), n(), replace = TRUE, prob = c(.01, .99))
-    ) |&gt;
-    mutate(
-      missing = ifelse(cumsum(dropout) &gt; 0, TRUE, missing),
-      .by = id
-    ) |&gt;
-    arrange(as.integer(id), day) |&gt; 
-    mutate(sleep_quality = ifelse(missing, NA, sleep_quality)) # Renamed from wellbeing
-  dropout
-}
-</code></pre>
-<pre class="{r}"><code>#| label: fit-functions
-#| code-summary: "Show code (fit functions)"
-
-#' Fit a Generalized Additive Model (GAM)
-#'
-#' Fits a GAM model to the provided dataset using \code{mgcv::gam}, including an AR(1)
-#' correlation structure and random intercept for each ID.
-#'
-#' @param dat A tibble of repeated-measures data (e.g., from \code{sim_data()} and \code{sim_dropout()}).
-#'
-#' @return An object of class \code{gam}, which is the fitted GAM model.
-#'
-fit_gam &lt;- function(dat) {
-  
-  gam(sleep_quality ~ # Renamed from wellbeing
-        condition:intervention_period + age + gender +
-        s(id, bs = "re") + 
-        s(day, by = condition, bs = "tp"), 
-      data = dat,
-      correlation = corAR1(form = ~ day | id))
-}
-
-fit_gam_no_main &lt;- function(dat) {
-  
-  gam(sleep_quality ~ # Renamed from wellbeing
-        age + gender +
-        s(id, bs = "re") + 
-        s(day, by = condition, bs = "tp"), 
-      data = dat,
-      correlation = corCAR1(form = ~ day | id))
-}
-
-#' Fit a Multi-Level Model (MLM)
-#'
-#' Fits a linear mixed-effects model (LME) with random intercept for each ID using \code{lme4::lmer}.
-#'
-#' @param dat A tibble of repeated-measures data (e.g., from \code{sim_data()} and \code{sim_dropout()}).
-#'
-#' @return An object of class \code{lmerMod}, which is the fitted MLM model.
-#'
-fit_mlm &lt;- function(dat) {
-  # lmer(sleep_quality ~ condition*intervention_period + age + gender + (1|id), data = dat) # Renamed from wellbeing
-  lme(
-    fixed = sleep_quality ~ condition*intervention_period + age + gender, # Renamed from wellbeing
-    random = ~ 1|id,  # or use a more flexible structure if needed
-    correlation = corCAR1(form = ~ day | id),
-    method = "ML",
-    data = dat |&gt; filter(!is.na(sleep_quality)) # Renamed from wellbeing
-  )
-}
-
-fit_mlm_simple &lt;- function(dat) {
-  
-  tmp &lt;- dat |&gt; 
-    group_by(id) |&gt; 
-    # take the mean of days 1-7 
-    mutate(baseline = mean(sleep_quality[day &lt; 8], na.rm = TRUE)) |&gt; # Renamed from wellbeing
-    filter(intervention_period == 1) |&gt; 
-    filter(!is.na(sleep_quality)) # Renamed from wellbeing
-  
-  lme(
-    fixed = sleep_quality ~ baseline + condition + age + gender, # Renamed from wellbeing
-    random = ~ 1|id,  # Only random intercept since condition is between-subjects
-    correlation = corCAR1(form = ~ day | id),
-    method = "ML",
-    data = tmp |&gt; filter(!is.na(sleep_quality)) # Renamed from wellbeing
-  )
-}
-
-fit_gls &lt;- function(dat) {
-  
-  gls(
-    sleep_quality ~ condition * intervention_period + age + gender, # Renamed from wellbeing
-    correlation = corCAR1(form = ~ day | id),
-    data = dat |&gt; filter(!is.na(sleep_quality)) # Renamed from wellbeing
-  )
-}
-
-fit_gls_simple &lt;- function(dat) {
-  
-  tmp &lt;- dat |&gt; 
-    group_by(id) |&gt; 
-    # take the mean of days 1-7 
-    mutate(baseline = mean(sleep_quality[day &lt; 8], na.rm = TRUE)) |&gt; # Renamed from wellbeing
-    filter(intervention_period == 1) |&gt; 
-    filter(!is.na(sleep_quality)) # Renamed from wellbeing
-  
-  gls(
-    sleep_quality ~ condition + baseline + age + gender, # Renamed from wellbeing
-    correlation = corAR1(form = ~ day | id),
-    data = tmp
-  )
-}
-
-fit_gls_spline &lt;- function(dat) {
-  gls(
-    sleep_quality ~ ns(day, df = 4) * intervention_period * condition, # Renamed from wellbeing, corrected comma
-    correlation = corCAR1(form = ~ day | id),
-    data = dat
-  )
-}
-
-fit_mlm_reduction &lt;- function(dat) {
-  lme(
-    fixed = sleep_quality ~ intervention_active*reduction + age + gender, # Renamed from wellbeing
-    random = ~ 1 | id,  # Simplified to random intercept only
-    correlation = corCAR1(form = ~ day | id),
-    data = dat
-  )
-}
-
-# Helper function to extract the focal effect for GLS models
-extract_marginal_effect &lt;- function(mod, dat, focal_term = "conditionintervention") {
-  # Here we assume your GLS model is specified with condition*intervention_period
-  # and you want the effect of condition (e.g., intervention vs. control) during intervention.
-  # We create a reference grid that fixes intervention_period at 1.
-  rg &lt;- ref_grid(mod, data = dat, at = list(intervention_period = 1))
-  
-  # Obtain estimated marginal means for each condition.
-  emm &lt;- emmeans(rg, ~ condition)
-  
-  # Compute the pairwise contrast (e.g., intervention - control)
-  # Adjust names as needed. The contrast below returns a one-row summary.
-  contr &lt;- emmeans::contrast(emm, method = list("intervention - control" = c(-1, 1)), adjust = "none")
-  contr_sum &lt;- summary(contr, infer = TRUE)
-  
-  # Construct a one-row data frame with consistent column names.
-  # If you have more than one contrast, you might need to filter for the one of interest.
-  df &lt;- data.frame(
-    term = focal_term,
-    estimate = contr_sum$estimate,
-    std.error = contr_sum$SE,
-    conf.low = contr_sum$lower.CL,
-    conf.high = contr_sum$upper.CL,
-    row.names = NULL
-  )
-  
-  return(df)
-}</code></pre>
-<pre class="{r}"><code>#' Simulation Study Orchestrator
-#'
-#' A higher-level function that ties together data simulation, dropout, and model fitting,
-#' returning a tidy summary of the fitted model parameters.
-#'
-#' @param model_function A function to fit the model. Defaults to \code{fit_gam}.
-#' @param n Number of participants passed to \code{sim_data()}. Default is 1000.
-#' @param n_days Number of time points per participant passed to \code{sim_data()}. Default is 28.
-#' @param b Fixed effect for the intervention slope passed to \code{sim_data()}. Default is 0.01.
-#' @param phi AR(1) autocorrelation coefficient passed to \code{sim_data()}. Default is 0.7.
-#' @param sigma AR(1) residual standard deviation passed to \code{sim_data()}. Default is 0.6.
-#'
-#' @return A data frame (tibble) of model estimates from \code{broom::tidy(parametric = TRUE)}.
-#'
-
-# Updated simulation orchestrator that handles GLS models separately.
-sim_study &lt;- function(model = "fit_gam", focal_term = "intervention_activeTRUE:reduction", ...) {
-  args &lt;- list(...)
-  dat &lt;- do.call(sim_data, args)
-  model_function &lt;- get(model)
-  
-  mod &lt;- model_function(dat)
-  
-  if (model %in% c("fit_gam_no_main","fit_gls_spline")) {
-    # Extract the effect using our helper function.
-    result &lt;- suppressMessages(extract_marginal_effect(mod, 
-                                                       dat, 
-                                                       focal_term = focal_term))
-  } else {
-    # For models that work with broom, extract the focal parameter.
-    # Adjust the filtering term as needed.
-    result &lt;- broom::tidy(mod, parametric = TRUE) |&gt;
-      filter(term == focal_term) |&gt; 
-      # filter(
-      #   term == "conditionintervention:intervention_period" | 
-      #     (model %in% c("fit_mlm_simple","fit_gls_simple") &amp; term == "conditionintervention")
-      # ) |&gt; 
-      mutate(
-        conf.low = estimate - 1.96 * std.error,
-        conf.high = estimate + 1.96 * std.error
-      )
-  }
-  result
-}</code></pre>
-</section>
-</section>
-<section id="test-and-plot-one-simulated-study" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="test-and-plot-one-simulated-study"><span class="header-section-number">0.2</span> Test and Plot One Simulated Study</h2>
-<p>Below, we create a sample dataset using <code>sim_data()</code> and examine it with a line plots by day. We can also see whether the simulated SDs for wellbeing align with the target values in the simulation—luckily, they do.</p>
-<pre class="{r}"><code>#| label: test-plot-descriptive
-#| code-summary: "Show code (descriptive plotting)"
-
-dat &lt;- sim_data(effect_shape = "plateau", mediated = TRUE)
-
-sds &lt;- dat |&gt; 
-  group_by(id) |&gt; 
-  summarise(mean_value = mean(sleep_quality, na.rm = TRUE), # Renamed from wellbeing
-            sd_within  = sd(sleep_quality, na.rm = TRUE)) |&gt; # Renamed from wellbeing
-  summarise(between_sd   = sd(mean_value, na.rm = TRUE),
-            avg_within_sd = mean(sd_within, na.rm = TRUE))
-
-# plot sleep_quality by group
-dat |&gt; 
-  group_by(condition, day) |&gt; 
-  summarise(sleep_quality = mean(sleep_quality)) |&gt; # Renamed from wellbeing
-  ggplot(aes(y = sleep_quality, x = day, color = condition)) + # Renamed from wellbeing
-  geom_line() + 
-  theme_minimal()
-</code></pre>
-<section id="test-fit-h2a---intention-to-treat" class="level3" data-number="0.2.1">
-<h3 data-number="0.2.1" class="anchored" data-anchor-id="test-fit-h2a---intention-to-treat"><span class="header-section-number">0.2.1</span> Test Fit (h2a - intention to treat)</h3>
-<p>We fit various models to the newly simulated data to make sure each appears to be working properly, and also test the full <code>sim_study</code> pipeline.</p>
-<pre class="{r}"><code>#| label: test-fit-h2a
-#| eval: false
-#| code-summary: "Show code (test fit h2a)"
-
-dat &lt;- sim_data(mediated = FALSE)
-
-fit_mlm(dat) |&gt; summary()
-fit_mlm_simple(dat) |&gt; summary()
-fit_gls(dat) |&gt; summary()
-fit_gls_simple(dat) |&gt; summary()
-fit_gls_spline(dat) |&gt; extract_marginal_effect()
-fit_gam(dat) |&gt; summary()
-fit_gam_no_main(dat) |&gt; extract_marginal_effect()
-
-sim_study(model = "fit_gam_no_main")
-sim_study(model = "fit_gls_spline")
-</code></pre>
-<p>Since some models (e.g., <code>fit_gam_no_main</code>) do not have a parameter that represents the average difference-in-difference between groups during the intervention period, we need to calculate this ourselves by marginalize across the 14-day intervention period.</p>
-<pre class="{r}"><code>#| label: test-emmeans
-#| eval: false
-#| code-summary: "Show code (test emmeans)"
-
-emm_day &lt;- emmeans(
-  fit_gls_spline(dat), 
-  pairwise ~ condition | day, 
-  at = list(day = 8:21), 
-  condition = c("control", "intervention"), 
-  data = dat |&gt; mutate(condition = factor(condition, levels = c("intervention", "control")))
-)
-
-summary(emm_day$contrasts, infer = TRUE, level = .95, by = NULL, adjust = "none")
-
-# and then integrated over the 14 day intervention period
-rg &lt;- ref_grid(fit_gls_spline(dat),
-               at = list(intervention_period = 1),
-               cov.reduce = list(day = mean),
-               data = dat |&gt; mutate(condition = factor(condition, levels = c("control","intervention"))))
-
-emm &lt;- emmeans(rg, ~ condition)
-(contrast_result &lt;- contrast(emm, method = list("intervention - control" = c(-1, 1)), adjust = "none"))
-
-
-means &lt;- summary(emm)$emmean
-names(means) &lt;- summary(emm)$condition
-(diff_manual &lt;- means["intervention"] - means["control"])</code></pre>
-</section>
-<section id="test-fit-h2b---per-protocol" class="level3" data-number="0.2.2">
-<h3 data-number="0.2.2" class="anchored" data-anchor-id="test-fit-h2b---per-protocol"><span class="header-section-number">0.2.2</span> Test Fit (h2b - per-protocol)</h3>
-<p>Another quick test of our <code>fit_mlm_reduction</code> model, to make sure the alternative simulation whereby the effect of the intervention is mediated by a reduction in playtime is also functioning properly.</p>
-<pre class="{r}"><code>#| label: test-fit-h2b
-#| eval: false
-#| code-summary: "Show code (test fit h2b)"
-
-dat &lt;- sim_data(mediated = TRUE)
-
-fit_mlm_reduction(dat) |&gt; summary()
-</code></pre>
-</section>
-</section>
-<section id="simulated-h2a-power-analysis" class="level2" data-number="0.3">
-<h2 data-number="0.3" class="anchored" data-anchor-id="simulated-h2a-power-analysis"><span class="header-section-number">0.3</span> Simulated h2a power analysis</h2>
-<p>To assess power/sensitivity, we run multiple simulations (controlled by <code>n_sims</code>) and gather the parameter estimates for a particular term (e.g., <code>conditionintervention:intervention_periodTRUE</code>, or for our marginalized effect <code>conditionintervention</code>). Each iteration calls <code>sim_study</code>, which does the data generation, dropout, and fitting.</p>
-<p>As this is quite slow, we both use parallel processing with <code>furrr</code> cache the results.</p>
-<p>```{r, cache = TRUE} #| label: sim-study-h2a #| code-summary: “Show code (simulate power h2a)”</p>
-</section>
-<section id="load-tictoc-for-timing-if-not-already-loaded" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Load tictoc for timing if not already loaded</h1>
-<p>if (!require(tictoc, quietly = TRUE)) { install.packages(“tictoc”) library(tictoc) }</p>
-</section>
-<section id="start-timing" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Start timing</h1>
-<p>tic(“H2a simulation total time”)</p>
-<p>n_sims &lt;- 500</p>
-<p>specs_h2a &lt;- expand_grid( model = c(“fit_gam”, “fit_gam_no_main”, “fit_mlm”, “fit_mlm_simple”, “fit_gls”, “fit_gls_simple”, “fit_gls_spline”), # model names as strings b = c(0.3, 0.6, 0.9, 1.2, 1.5), # scaled for 5-25 range effect_shape = c(“grow”, “plateau”) ) |&gt; mutate( focal_term = case_when( model %in% c(“fit_mlm_simple”,“fit_gls_simple”, “fit_gam_no_main”) ~ “conditionintervention”, model %in% c(“fit_gam”, “fit_mlm”, “fit_gls”, “fit_gls_spline”) ~ “conditionintervention:intervention_period”, TRUE ~ “conditionintervention:intervention_period” ) ) |&gt; (function(d) { d$row_id &lt;- pmap_chr(d, ~ paste0(names(list(…)), “=”, c(…), collapse = “_“)); d })() |&gt; mutate(i = row_number())</p>
-</section>
-<section id="create-all-spec-simulation-combinations-for-better-parallelization" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Create all spec-simulation combinations for better parallelization</h1>
-<p>all_jobs_h2a &lt;- specs_h2a |&gt; crossing(sim = 1:n_sims) |&gt; mutate(job_id = row_number())</p>
-<p>message(“Running”, nrow(all_jobs_h2a), ” simulations across “, nbrOfWorkers(),” cores…“)</p>
-</section>
-<section id="run-all-simulations-in-parallel" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Run all simulations in parallel</h1>
-<p>results_h2a &lt;- future_map_dfr(1:nrow(all_jobs_h2a), function(job_idx) { # Load required libraries in each worker library(tidyverse) library(lme4) library(mgcv) library(broom) library(nlme) library(emmeans) library(splines) library(broom.mixed) library(extraDistr)</p>
-<p># Get job parameters job &lt;- all_jobs_h2a[job_idx, ]</p>
-<p>tryCatch({ result &lt;- sim_study( model = job<span class="math inline">\(model,
-      focal_term = job\)</span>focal_term, n = 100, n_days = 28, # effect parameters b = job<span class="math inline">\(b,
-      mu = 15,
-      effect_shape = job\)</span>effect_shape, k = .5, # random effects parameters tau_int = 2.5, tau_slope = .8, within_person_sd = 2.5, # AR(1) parameters phi = 0.7 ) |&gt; mutate( sim = job<span class="math inline">\(sim,
-        row_id = job\)</span>row_id, model = job<span class="math inline">\(model,
-        b = job\)</span>b, effect_shape = job$effect_shape )</p>
-<pre><code>return(result)</code></pre>
-<p>}, error = function(e) { message(“Job”, job_idx, ” (spec row: “, job<span class="math inline">\(i, ", sim: ", job\)</span>sim,”) failed: “, e<span class="math inline">\(message)
-    tibble(
-      term = NA_character_,
-      estimate = NA_real_,
-      std.error = NA_real_,
-      conf.low = NA_real_,
-      conf.high = NA_real_,
-      sim = job\)</span>sim, row_id = job<span class="math inline">\(row_id,
-      model = job\)</span>model, b = job<span class="math inline">\(b,
-      effect_shape = job\)</span>effect_shape ) }) }, .progress = TRUE, .options = furrr_options( globals = c(”all_jobs_h2a”, “sim_study”, “sim_data”, “fit_gam”, “fit_gam_no_main”, “fit_mlm”, “fit_mlm_simple”, “fit_gls”, “fit_gls_simple”, “fit_gls_spline”, “extract_marginal_effect”), seed = TRUE ))</p>
-<p>sim_summary_h2a &lt;- results_h2a |&gt; group_by(row_id) |&gt; summarise( model = first(model), b = first(b), effect_shape = first(effect_shape), mean_effect = mean(estimate, na.rm = TRUE), mean_se = mean(std.error, na.rm = TRUE), mean_conf.low = mean(conf.low, na.rm = TRUE), mean_conf.high = mean(conf.high, na.rm = TRUE), power = sum(conf.low &gt; 0, na.rm = TRUE) / sum(!is.na(conf.low)) )</p>
-</section>
-<section id="stop-timing-and-display-results" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Stop timing and display results</h1>
-<p>toc()</p>
-</section>
-<section id="also-print-some-summary-statistics-about-the-simulation" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Also print some summary statistics about the simulation</h1>
-<p>message(“=== SIMULATION SUMMARY ===”) message(“Total number of jobs:”, nrow(all_jobs_h2a)) message(“Number of successful results:”, sum(!is.na(results_h2a<span class="math inline">\(estimate)))
-message("Number of failed jobs: ", sum(is.na(results_h2a\)</span>estimate))) message(“Success rate:”, round(100 * sum(!is.na(results_h2a$estimate)) / nrow(results_h2a), 1), “%”) message(“============================”)</p>
-<pre><code>
-```{r}
-#| label: visualize-power-h2a
-#| code-summary: "Show code (visualize power h2a)"
-
-# Estimated effect vs. true effect (b)
-ggplot(sim_summary_h2a, aes(x = b, y = mean_effect, color = model, alpha = model == "fit_gam")) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = mean_conf.low, ymax = mean_conf.high), width = 0.1) +
-  facet_wrap(~ effect_shape) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray") +
-  scale_alpha_manual(values = c("TRUE" = 1.0, "FALSE" = 0.2), guide = "none") +
-  labs(x = "True Effect (unstandardized b)", y = "Estimated Effect",
-       title = "Estimated vs. True Effects by Model and Effect Shape") +
-  scale_x_continuous(breaks = c(0.3, 0.6, 0.9, 1.2, 1.5),
-                     sec.axis = sec_axis(~ . / 3, name = "Standardized Effect (b/3)"))
-
-# ggsave("figures/estimated_vs_true_effects.png", width = 10, height = 6, dpi = 300)
-
-# Power vs. true effect (b)
-ggplot(sim_summary_h2a, aes(x = b, y = power, color = model, alpha = model == "fit_gam")) +
-  geom_line(size = 1) +
-  geom_point(size = 3) +
-  facet_wrap(~ effect_shape) +
-  scale_alpha_manual(values = c("TRUE" = 1.0, "FALSE" = 0.2), guide = "none") +
-  labs(x = "True Effect (unstandardized b)", y = "Power",
-       title = "Power by Model and Effect Shape") +
-  scale_x_continuous(breaks = c(0.3, 0.6, 0.9, 1.2, 1.5),
-                     sec.axis = sec_axis(~ . / 3, name = "Standardized Effect (b/3)")) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1))
-
-# ggsave("figures/power_by_model_and_effect_shape.png", width = 10, height = 6, dpi = 300)
-
-# results |&gt;
-#   forestplot(mean = estimate,
-#              lower = conf.low,
-#              upper = conf.high,
-#              labeltext = term)
-</code></pre>
-<section id="simulated-h2b-power-analysis" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="simulated-h2b-power-analysis"><span class="header-section-number">6.1</span> Simulated h2b power analysis</h2>
-<p>Same thing as above, but now looking at power for our per-protocol model.</p>
-<p>```{r, cache = TRUE} #| label: sim-study-h2b #| code-summary: “Show code (sim study h2b)”</p>
-</section>
-</section>
-<section id="start-timing-1" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Start timing</h1>
-<p>tic(“H2b simulation total time”)</p>
-<p>n_sims &lt;- 500</p>
-<p>specs_h2b &lt;- expand_grid( model = c(“fit_mlm_reduction”), # model names as strings b = c(0.5, 1.0, 1.5, 2.0, 2.5), # these seem reasonable for the mediated model effect_shape = c(“grow”, “plateau”) ) |&gt; # calculate the mean of the Kumaraswamy distribution - the expected effect size of the mediated version is b * average compliance mutate( focal_term = case_when( model == “fit_mlm_reduction” ~ “intervention_activeTRUE:reduction” ), expected_effect = b * .1*beta(1 + 1/.05, .1), ) |&gt; ((d) { d$row_id &lt;- pmap_chr(d, ~ paste0(names(list(…)), “=”, c(…), collapse = “_“)); d })() |&gt; mutate(i = row_number())</p>
-</section>
-<section id="create-all-spec-simulation-combinations-for-better-parallelization-1" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Create all spec-simulation combinations for better parallelization</h1>
-<p>all_jobs_h2b &lt;- specs_h2b |&gt; crossing(sim = 1:n_sims) |&gt; mutate(job_id = row_number())</p>
-<p>message(“Running”, nrow(all_jobs_h2b), ” simulations across “, nbrOfWorkers(),” cores…“)</p>
-</section>
-<section id="run-all-simulations-in-parallel-1" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Run all simulations in parallel</h1>
-<p>results_h2b &lt;- future_map_dfr(1:nrow(all_jobs_h2b), function(job_idx) { # Load required libraries in each worker library(tidyverse) library(nlme) library(broom.mixed) library(extraDistr) library(rms)</p>
-<p># Get job parameters job &lt;- all_jobs_h2b[job_idx, ]</p>
-<p>tryCatch({ result &lt;- sim_study( model = job<span class="math inline">\(model,
-      focal_term = job\)</span>focal_term, n = 100, n_days = 28, # effect parameters b = job<span class="math inline">\(b,
-      mu = 15,
-      effect_shape = job\)</span>effect_shape, k = .5, # random effects parameters tau_int = 2.5, tau_slope = .8, within_person_sd = 2.0, # AR(1) parameters phi = 0.7, mediated = TRUE ) |&gt; mutate( sim = job<span class="math inline">\(sim,
-        row_id = job\)</span>row_id, model = job<span class="math inline">\(model,
-        b = job\)</span>b, expected_effect = job<span class="math inline">\(expected_effect,
-        effect_shape = job\)</span>effect_shape )</p>
-<pre><code>return(result)</code></pre>
-<p>}, error = function(e) { message(“Job”, job_idx, ” (spec row: “, job<span class="math inline">\(i, ", sim: ", job\)</span>sim,”) failed: “, e<span class="math inline">\(message)
-    tibble(
-      term = NA_character_,
-      estimate = NA_real_,
-      std.error = NA_real_,
-      conf.low = NA_real_,
-      conf.high = NA_real_,
-      sim = job\)</span>sim, row_id = job<span class="math inline">\(row_id,
-      model = job\)</span>model, b = job<span class="math inline">\(b,
-      expected_effect = job\)</span>expected_effect, effect_shape = job$effect_shape ) }) }, .progress = TRUE, .options = furrr_options( globals = c(”all_jobs_h2b”, “sim_study”, “sim_data”, “fit_mlm_reduction”), seed = TRUE ))</p>
-<p>sim_summary_h2b &lt;- results_h2b |&gt; group_by(row_id) |&gt; summarise( model = first(model), b = first(b), expected_effect = first(expected_effect), effect_shape = first(effect_shape), mean_effect = mean(estimate, na.rm = TRUE), mean_se = mean(std.error, na.rm = TRUE), mean_conf.low = mean(conf.low, na.rm = TRUE), mean_conf.high = mean(conf.high, na.rm = TRUE), power = sum(conf.low &gt; 0, na.rm = TRUE) / sum(!is.na(conf.low)) )</p>
-</section>
-<section id="stop-timing-and-display-results-1" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Stop timing and display results</h1>
-<p>toc()</p>
-</section>
-<section id="also-print-some-summary-statistics-about-the-simulation-1" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Also print some summary statistics about the simulation</h1>
-<p>message(“=== H2B SIMULATION SUMMARY ===”) message(“Total number of jobs:”, nrow(all_jobs_h2b)) message(“Number of successful results:”, sum(!is.na(results_h2b<span class="math inline">\(estimate)))
-message("Number of failed jobs: ", sum(is.na(results_h2b\)</span>estimate))) message(“Success rate:”, round(100 * sum(!is.na(results_h2b$estimate)) / nrow(results_h2b), 1), “%”) message(“===============================”)</p>
-<pre><code>
-```{r}
-#| label: visualize-power-h2b
-#| code-summary: "Show code (visualize power h2b)"
-
-# Estimated effect vs. true effect (b)
-ggplot(sim_summary_h2b, aes(x = expected_effect, y = mean_effect, color = model)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = mean_conf.low, ymax = mean_conf.high), width = 0.1) +
-  facet_wrap(~ effect_shape) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray") +
-  labs(x = "True Effect (expected effect)", y = "Estimated Effect",
-       title = "Estimated vs. True Effects by Model and Effect Shape") +
-  scale_x_continuous(breaks = c(0.05, 0.1, 0.15, 0.2, 0.25),
-                     sec.axis = sec_axis(~ . / 3, name = "Standardized Effect"))
-
-# ggsave("figures/estimated_vs_true_effects_h2b.png", width = 10, height = 6, dpi = 300)
-
-# Power vs. true effect (b)
-ggplot(sim_summary_h2b, aes(x = expected_effect, y = power, color = model)) +
-  geom_line(size = 1) +
-  geom_point(size = 3) +
-  facet_wrap(~ effect_shape) +
-  labs(x = "True Effect (expected effect)", y = "Power",
-       title = "Power by Model and Effect Shape") +
-  scale_x_continuous(breaks = c(0.05, 0.1, 0.15, 0.2, 0.25),
-                     sec.axis = sec_axis(~ . / 3, name = "Standardized Effect")) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1))
-
-# ggsave("figures/power_by_model_and_effect_shape_h2b.png", width = 10, height = 6, dpi = 300)  </code></pre>
-<section id="planned-sensitivity-analyses" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="planned-sensitivity-analyses"><span class="header-section-number">11.1</span> Planned Sensitivity Analyses</h2>
-<p>We have preregistered several sensitivity analyses to test the robustness of any effects we find. These include:</p>
-<ul>
-<li><em>Day 21 only:</em> We will estimate the effect of the intervention on day 21 only, to see what the difference between groups is at the end of the intervention period</li>
-<li><em>Marginal means:</em> In h2a, we will use the <code>emmeans</code> package to calculate marginal means for each condition and produce a single parameter by integrating across the 14-day period</li>
-<li><em>Multilevel model:</em> We will fit the MLM as defined in Table 1 above, as the second-highest performing model in the simulations (having higher power for linear effects, but lower for non-linear)</li>
-</ul>
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    window.setColorSchemeToggle(window.hasAlternateSentinel())
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
         }
       }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
       return false;
     }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
       }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
     }
-    const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
     });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
     }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
           }
         }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
         }
-      });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
+        return container.innerHTML
       } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
-        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
       }
     }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
           }
         } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
+          // See if we can fetch this
+          fetch(url.split('#')[0])
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
+            const note = htmlDoc.getElementById(id);
             if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
+              const html = processXRef(id, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1367,167 +543,191 @@ ggplot(sim_summary_h2b, aes(x = expected_effect, y = power, color = model)) +
             instance.show();
           });
         }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
       } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
       }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
     }
-  });
-  </script>
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./scripts/sim_self_report.html" class="pagination-link" aria-label="Generate Synthetic Data">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Generate Synthetic Data</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./scripts/sim_comp_report.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>H1 - Effect of Abstention on Sendentary Activity</span>">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">H1 - Effect of Abstention on Sendentary Activity</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

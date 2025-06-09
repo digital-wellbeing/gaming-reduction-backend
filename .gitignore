@@ -54,8 +54,8 @@ rsconnect/
 docs/.DS_Store
 twilio_scheduler.py
 scheduler.log
-.gitignore
 delete_convos.py
 check_convo.py
 test_single_message.py
 test_phone_region.py
+quarto_render.log
