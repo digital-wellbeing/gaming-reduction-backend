@@ -6,11 +6,11 @@ project:
 book:
   title: "Gaming Reduction Experiment"
   author: "Digital Wellbeing Lab"
-  date: "2025-03-01"
+  date: "2025-06-06"
   chapters:
     - index.qmd
     - scripts/sim_self_report.qmd
-    - scripts/sim_sleepquality_report.qmd 
+    - scripts/sim_sleepquality_report.qmd
     - scripts/sim_comp_report.qmd
   search: true
   repo-url: https://digital-wellbeing.github.io/gaming-reduction-backend/
