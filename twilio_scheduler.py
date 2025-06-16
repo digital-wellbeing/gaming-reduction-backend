@@ -56,7 +56,12 @@ TEMPLATES = {
         "sid": "HX5aa71f2c62e59e67d89f560a0537a141",
         "variables": ["name", "rewards_to_date", "time_until_next_reward", "RANDOM_ID"],
         "text": "Hi $name, your daily survey is now available! You've earned £$rewards_to_date so far, and are just $time_until_next_reward days away from receiving your next £7 bonus. Thanks for your ongoing participation."
-    }
+    },
+    "DAY_29_COMPLETION": {
+        "sid": "HXb0712089caf89c1872fcc7d03a107d9e",
+        "variables": ["name", "RANDOM_ID"],
+        "text": "Hi $name, the study period has now ended. Thank you for your participation! Please follow the instructions at the link below to return your Actiwatch, complete the final steps, and receive your compensation:"
+    },
 }
 
 # Create Template objects for later formatting.
@@ -336,6 +341,12 @@ def get_template_and_variables(contact):
             "2": SURVEY_SCHEDULE_TIME,
             "3": contact.get("extRef", "")
         }
+    elif elapsed == 29:
+        template = TEMPLATES["DAY_29_COMPLETION"]["sid"]
+        content_variables = {
+            "1": name,
+            "2": contact.get("extRef", "")
+        }
     # For early days, use basic invite: name and days since enrollment.
     else:
         invitation_type = random.choice(["basic", "reward"])
@@ -407,8 +418,8 @@ def pull_contacts(IMMEDIATE_MODE=False):
         # Calculate how many days since enrollment; if today = enrollment + 1 → elapsed_days == 1
         contact["elapsed_days"] = calculate_elapsed_days(start_date)
 
-        # Only schedule surveys for days 1 through 27
-        if 1 <= contact["elapsed_days"] < 28:
+        # Only schedule surveys for days 1 through 29
+        if 1 <= contact["elapsed_days"] <= 29:
             contact["next_survey"] = schedule_next_survey(contact)
         else:
             contact["next_survey"] = None
