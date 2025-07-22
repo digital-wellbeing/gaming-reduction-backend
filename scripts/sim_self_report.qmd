@@ -74,12 +74,12 @@ Here we define:
 #' This function simulates synthetic panel data for `n` participants over `n_days` time points,
 #' with an intervention effect, random intercepts and slopes, and AR(1)-correlated residuals.
 #'
-#' @param n Number of participants. Default is 100.
+#' @param n Number of participants. Default is 80.
 #' @param n_days Number of time points per participant.
 #' @param b Fixed effect of condition (if mediated == FALSE) or a 1-hour reduction in playtime.
 #' @param phi AR(1) autocorrelation coefficient.
 #' @param sigma AR(1) residual standard deviation.
-sim_data <- function(n = 100,
+sim_data <- function(n = 80,
                      n_days = 28,
                      
                      # effect parameters
@@ -522,7 +522,7 @@ results_h3a <- specs_h3a |>
         sim_study(
           model = model,  # retrieve the function from its name
           focal_term = focal_term,
-          n = 100,
+          n = 80,
           n_days = 28,
           # effect parameters
           b = b, # effect in unstandardized units
@@ -652,7 +652,7 @@ results_h3b <- specs_h3b |>
         sim_study(
           model = model,  # retrieve the function from its name
           focal_term = focal_term,
-          n = 100,
+          n = 80,
           n_days = 28,
           # effect parameters
           b = b, # effect in unstandardized units
