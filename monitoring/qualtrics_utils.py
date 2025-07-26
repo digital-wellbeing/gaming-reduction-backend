@@ -40,7 +40,8 @@ class QualtricsAPI:
     
     def get_survey_responses(self, survey_id: str, format: str = 'json', 
                            start_date: Optional[str] = None, 
-                           end_date: Optional[str] = None) -> Dict[str, Any]:
+                           end_date: Optional[str] = None,
+                           use_labels: bool = True) -> Dict[str, Any]:
         """
         Get survey responses for a specific survey.
         
@@ -56,6 +57,10 @@ class QualtricsAPI:
         export_data = {
             'format': format
         }
+        
+        # Add useLabels parameter for CSV exports to get informative column names
+        if format == 'csv' and use_labels:
+            export_data['useLabels'] = True
         
         if start_date:
             export_data['startDate'] = start_date
@@ -113,6 +118,12 @@ class QualtricsAPI:
                 json_filename = [name for name in zip_file.namelist() if name.endswith('.json')][0]
                 with zip_file.open(json_filename) as json_file:
                     return json.load(json_file)
+        elif format == 'csv':
+            # Extract CSV from ZIP
+            with zipfile.ZipFile(io.BytesIO(file_response.content)) as zip_file:
+                csv_filename = [name for name in zip_file.namelist() if name.endswith('.csv')][0]
+                with zip_file.open(csv_filename) as csv_file:
+                    return csv_file.read()
         else:
             return file_response.content
     
@@ -140,14 +151,17 @@ class QualtricsAPI:
         for response in responses:
             row = {}
             row['response_id'] = response['responseId']
-            row['recorded_date'] = response['recordedDate']
-            row['response_type'] = response['responseType']
-            row['progress'] = response['progress']
-            row['duration'] = response['duration']
-            row['finished'] = response['finished']
             
-            # Add question responses
-            for question_id, answer in response['values'].items():
+            # Get values from the 'values' dictionary
+            values = response.get('values', {})
+            row['recorded_date'] = values.get('recordedDate', '')
+            row['progress'] = values.get('progress', '')
+            row['duration'] = values.get('duration', '')
+            row['finished'] = values.get('finished', '')
+            row['status'] = values.get('status', '')
+            
+            # Add all question responses from values
+            for question_id, answer in values.items():
                 row[question_id] = answer
             
             df_data.append(row)
@@ -318,3 +332,353 @@ def get_participant_progress(participant_id: str = None) -> pd.DataFrame:
         progress_data.append(progress)
     
     return pd.DataFrame(progress_data)
+
+
+def save_diary_responses_to_csv(start_date: Optional[str] = None, 
+                               end_date: Optional[str] = None,
+                               filename: Optional[str] = None,
+                               use_labels: bool = True,
+                               include_test: bool = False) -> str:
+    """
+    Save diary survey responses to CSV in .tmp directory.
+    
+    Args:
+        start_date: Start date filter (YYYY-MM-DD)
+        end_date: End date filter (YYYY-MM-DD)
+        filename: Optional custom filename (without path or extension)
+        use_labels: Whether to use question labels as column names (default: True)
+        include_test: Include first 14 rows (normally skipped as test responses)
+        
+    Returns:
+        Full path to the saved CSV file
+    """
+    client = get_qualtrics_client()
+    
+    # Get responses as CSV directly to get proper column names
+    csv_data = client.get_survey_responses(client.survey_diary_id, 
+                                          format='csv', 
+                                          start_date=start_date, 
+                                          end_date=end_date,
+                                          use_labels=use_labels)
+    
+    # Convert CSV data to DataFrame
+    import pandas as pd
+    import io
+    
+    # Handle bytes or string data
+    if isinstance(csv_data, bytes):
+        csv_string = csv_data.decode('utf-8', errors='ignore')
+    else:
+        csv_string = csv_data
+    
+    df = pd.read_csv(io.StringIO(csv_string))
+    
+    if not include_test:
+        # Skip first 14 rows (test responses)
+        if len(df) > 14:
+            df = df.iloc[14:].reset_index(drop=True)
+    
+    # Generate timestamp for filename if not provided
+    if filename is None:
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'diary_responses_{timestamp}'
+    
+    # Ensure .tmp directory exists
+    tmp_dir = os.path.join(os.path.dirname(__file__), '..', '.tmp')
+    os.makedirs(tmp_dir, exist_ok=True)
+    
+    # Save to CSV
+    output_path = os.path.join(tmp_dir, f'{filename}.csv')
+    df.to_csv(output_path, index=False)
+    
+    # Report file size
+    if os.path.exists(output_path):
+        file_size = os.path.getsize(output_path)
+        file_size_mb = file_size / (1024 * 1024)
+        print(f"File size: {file_size_mb:.2f} MB ({file_size:,} bytes)")
+    
+    return output_path
+
+
+def save_recent_diary_responses(hours: int = 24,
+                               filename: Optional[str] = None,
+                               use_labels: bool = True) -> str:
+    """
+    Save recent diary survey responses to CSV in .tmp directory.
+    
+    Args:
+        hours: Number of hours to look back
+        filename: Optional custom filename (without path or extension)  
+        use_labels: Whether to use question labels as column names (default: True)
+        
+    Returns:
+        Full path to the saved CSV file
+    """
+    end_date = datetime.now()
+    start_date = end_date - timedelta(hours=hours)
+    
+    return save_diary_responses_to_csv(
+        start_date=start_date.strftime('%Y-%m-%d'),
+        end_date=end_date.strftime('%Y-%m-%d'),
+        filename=filename,
+        use_labels=use_labels
+    )
+
+
+def save_exit_responses_to_csv(start_date: Optional[str] = None, 
+                              end_date: Optional[str] = None,
+                              filename: Optional[str] = None,
+                              use_labels: bool = True,
+                              include_test: bool = False) -> str:
+    """
+    Save exit survey responses to CSV in .tmp directory.
+    
+    Args:
+        start_date: Start date filter (YYYY-MM-DD)
+        end_date: End date filter (YYYY-MM-DD)
+        filename: Optional custom filename (without path or extension)
+        use_labels: Whether to use question labels as column names (default: True)
+        include_test: Include first 14 rows (normally skipped as test responses)
+        
+    Returns:
+        Full path to the saved CSV file
+    """
+    client = get_qualtrics_client()
+    
+    # Get responses as CSV directly to get proper column names
+    csv_data = client.get_survey_responses(client.survey_exit_id, 
+                                          format='csv', 
+                                          start_date=start_date, 
+                                          end_date=end_date,
+                                          use_labels=use_labels)
+    
+    # Convert CSV data to DataFrame
+    import pandas as pd
+    import io
+    
+    # Handle bytes or string data
+    if isinstance(csv_data, bytes):
+        csv_string = csv_data.decode('utf-8', errors='ignore')
+    else:
+        csv_string = csv_data
+    
+    df = pd.read_csv(io.StringIO(csv_string))
+    
+    if not include_test:
+        # Skip first 14 rows (test responses)
+        if len(df) > 14:
+            df = df.iloc[14:].reset_index(drop=True)
+    
+    # Generate timestamp for filename if not provided
+    if filename is None:
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'exit_responses_{timestamp}'
+    
+    # Ensure .tmp directory exists
+    tmp_dir = os.path.join(os.path.dirname(__file__), '..', '.tmp')
+    os.makedirs(tmp_dir, exist_ok=True)
+    
+    # Save to CSV
+    output_path = os.path.join(tmp_dir, f'{filename}.csv')
+    df.to_csv(output_path, index=False)
+    
+    # Report file size
+    if os.path.exists(output_path):
+        file_size = os.path.getsize(output_path)
+        file_size_mb = file_size / (1024 * 1024)
+        print(f"File size: {file_size_mb:.2f} MB ({file_size:,} bytes)")
+    
+    return output_path
+
+
+def save_recent_exit_responses(hours: int = 24,
+                              filename: Optional[str] = None,
+                              use_labels: bool = True) -> str:
+    """
+    Save recent exit survey responses to CSV in .tmp directory.
+    
+    Args:
+        hours: Number of hours to look back
+        filename: Optional custom filename (without path or extension)  
+        use_labels: Whether to use question labels as column names (default: True)
+        
+    Returns:
+        Full path to the saved CSV file
+    """
+    end_date = datetime.now()
+    start_date = end_date - timedelta(hours=hours)
+    
+    return save_exit_responses_to_csv(
+        start_date=start_date.strftime('%Y-%m-%d'),
+        end_date=end_date.strftime('%Y-%m-%d'),
+        filename=filename,
+        use_labels=use_labels
+    )
+
+
+def save_contact_list_to_csv(filename: Optional[str] = None) -> str:
+    """
+    Save contact list data with embedded data to CSV in .tmp directory.
+    Uses Qualtrics Mailing List API to fetch contacts and their embedded data.
+    
+    Args:
+        filename: Optional custom filename (without path or extension)
+        
+    Returns:
+        Full path to the saved CSV file
+    """
+    client = get_qualtrics_client()
+    
+    # Get mailing list ID from environment variable
+    contact_whitelist_url = os.getenv('CONTACT_WHITELIST_ID')
+    if not contact_whitelist_url:
+        raise ValueError("CONTACT_WHITELIST_ID environment variable not set")
+    
+    # Extract mailing list ID from the URL
+    # Expected format: https://fra1.qualtrics.com/API/v3/directories/POOL_1CevzhtAVOaprpj/contacts/CG_3Q0i0cyiZlbt2EZ
+    # We need to extract the mailing list ID (CG_3Q0i0cyiZlbt2EZ)
+    if '/contacts/' in contact_whitelist_url:
+        mailing_list_id = contact_whitelist_url.split('/contacts/')[-1]
+    else:
+        raise ValueError("Invalid CONTACT_WHITELIST_ID format. Expected URL with /contacts/ path")
+    
+    print(f"Using mailing list ID: {mailing_list_id}")
+    
+    # Fetch contacts from Qualtrics Mailing List API
+    contacts_data = []
+    next_page = f"{client.base_url}/mailinglists/{mailing_list_id}/contacts"
+    
+    while next_page:
+        try:
+            response = requests.get(next_page, headers=client.headers)
+            if response.status_code != 200:
+                print(f"API Error: {response.status_code}")
+                print(f"Response: {response.text}")
+                break
+            response.raise_for_status()
+            data = response.json()
+            
+            # Get basic contact info
+            contacts = data['result']['elements']
+            
+            # For each contact, get detailed info including embedded data
+            for contact in contacts:
+                contact_id = contact.get('contactId', contact.get('id', ''))
+                
+                # Get detailed contact info with embedded data
+                detail_response = requests.get(
+                    f"{client.base_url}/mailinglists/{mailing_list_id}/contacts/{contact_id}",
+                    headers=client.headers
+                )
+                detail_response.raise_for_status()
+                contact_detail = detail_response.json()['result']
+                
+                # Extract contact info and embedded data
+                contact_record = {
+                    'contactId': contact_id,
+                    'firstName': contact_detail.get('firstName', ''),
+                    'lastName': contact_detail.get('lastName', ''),
+                    'email': contact_detail.get('email', ''),
+                    'phone': contact_detail.get('phone', ''),
+                    'extRef': contact_detail.get('extRef', ''),
+                    'language': contact_detail.get('language', ''),
+                    'unsubscribed': contact_detail.get('unsubscribed', False)
+                }
+                
+                # Add embedded data fields
+                embedded_data = contact_detail.get('embeddedData', {})
+                for key, value in embedded_data.items():
+                    contact_record[key] = value
+                
+                contacts_data.append(contact_record)
+            
+            # Get next page URL if available
+            next_page = data['result'].get('nextPage')
+            
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching contacts: {e}")
+            break
+    
+    import pandas as pd
+    df = pd.DataFrame(contacts_data)
+    
+    # Generate timestamp for filename if not provided
+    if filename is None:
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = f'contact_list_{timestamp}'
+    
+    # Ensure .tmp directory exists
+    tmp_dir = os.path.join(os.path.dirname(__file__), '..', '.tmp')
+    os.makedirs(tmp_dir, exist_ok=True)
+    
+    # Save to CSV
+    output_path = os.path.join(tmp_dir, f'{filename}.csv')
+    df.to_csv(output_path, index=False)
+    
+    # Report file size
+    if os.path.exists(output_path):
+        file_size = os.path.getsize(output_path)
+        file_size_mb = file_size / (1024 * 1024)
+        print(f"Exported {len(df)} contacts to {output_path}")
+        print(f"File size: {file_size_mb:.2f} MB ({file_size:,} bytes)")
+    return output_path
+
+
+def list_directories() -> List[Dict[str, Any]]:
+    """
+    List all directories in the Qualtrics organization.
+    Useful for finding the directory ID to use for contacts.
+    
+    Returns:
+        List of directory information
+    """
+    client = get_qualtrics_client()
+    
+    response = requests.get(f"{client.base_url}/directories", headers=client.headers)
+    response.raise_for_status()
+    
+    directories = response.json()['result']['elements']
+    
+    print("Available Directories:")
+    for directory in directories:
+        print(f"  Directory data: {directory}")
+        directory_id = directory.get('id', directory.get('directoryId', 'N/A'))
+        print(f"  Directory ID: {directory_id}")
+        print(f"  Name: {directory.get('name', 'N/A')}")
+        print(f"  Type: {directory.get('type', 'N/A')}")
+        print(f"  Contact Count: {directory.get('contactCount', 'N/A')}")
+        print("  ---")
+    
+    return directories
+
+
+def list_mailing_lists() -> List[Dict[str, Any]]:
+    """
+    List all mailing lists in the Qualtrics organization.
+    Useful for finding the correct mailing list ID.
+    
+    Returns:
+        List of mailing list information
+    """
+    client = get_qualtrics_client()
+    
+    try:
+        response = requests.get(f"{client.base_url}/mailinglists", headers=client.headers)
+        response.raise_for_status()
+        
+        mailing_lists = response.json()['result']['elements']
+        
+        print("Available Mailing Lists:")
+        for ml in mailing_lists:
+            print(f"  Mailing List data: {ml}")
+            ml_id = ml.get('id', ml.get('mailingListId', 'N/A'))
+            print(f"  Mailing List ID: {ml_id}")
+            print(f"  Name: {ml.get('name', 'N/A')}")
+            print(f"  Contact Count: {ml.get('contactCount', 'N/A')}")
+            print("  ---")
+        
+        return mailing_lists
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Error listing mailing lists: {e}")
+        return []
