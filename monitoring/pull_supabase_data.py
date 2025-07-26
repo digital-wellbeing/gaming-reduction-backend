@@ -72,7 +72,8 @@ def pull_uploads_data():
             print(f"✓ Data successfully exported to {output_file}")
             if output_file.exists():
                 file_size = output_file.stat().st_size
-                print(f"File size: {file_size} bytes")
+                file_size_mb = file_size / (1024 * 1024)
+                print(f"File size: {file_size_mb:.2f} MB ({file_size:,} bytes)")
         else:
             print(f"✗ Error executing psql command:")
             print(f"STDERR: {result.stderr}")

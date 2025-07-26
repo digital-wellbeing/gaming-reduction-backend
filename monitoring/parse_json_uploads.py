@@ -134,7 +134,14 @@ def write_csv_file(filename: str, records: List[Dict[str, Any]]) -> None:
         writer.writeheader()
         writer.writerows(records)
     
-    print(f"Written {len(records)} records to {filename}")
+    # Report file size
+    if os.path.exists(filename):
+        file_size = os.path.getsize(filename)
+        file_size_mb = file_size / (1024 * 1024)
+        print(f"Written {len(records)} records to {filename}")
+        print(f"File size: {file_size_mb:.2f} MB ({file_size:,} bytes)")
+    else:
+        print(f"Written {len(records)} records to {filename}")
 
 
 def main():
