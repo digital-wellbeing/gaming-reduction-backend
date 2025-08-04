@@ -161,13 +161,15 @@ def parse_supabase_data(input_file: Path, output_dir: Path) -> Tuple[Optional[Pa
                     # Process ScreenUnlocks data
                     if 'ScreenUnlocks' in json_data and json_data['ScreenUnlocks']:
                         for unlock_record in json_data['ScreenUnlocks']:
-                            screen_unlock = create_screen_unlocks_record(base_record, unlock_record, platform)
+                            screen_unlock = create_screen_unlocks_record(base_record, unlock_record)
+                            screen_unlock['platform'] = platform
                             screen_unlocks_records.append(screen_unlock)
                     
                     # Process AppUsage data
                     if 'AppUsage' in json_data and json_data['AppUsage']:
                         for app_record in json_data['AppUsage']:
-                            app_usage = create_app_usage_record(base_record, app_record, platform)
+                            app_usage = create_app_usage_record(base_record, app_record)
+                            app_usage['platform'] = platform
                             app_usage_records.append(app_usage)
                     
                     processed_count += 1
@@ -839,7 +841,7 @@ def main():
                 diary_export_cmd = [
                     "python", "monitoring/diary_export.py", 
                     "--lifetime",
-                    "--filename", "diary_responses_lifetime.csv"
+                    "--filename", "diary_responses_lifetime"
                 ]
                 
                 diary_result = subprocess.run(diary_export_cmd, capture_output=True, text=True)
