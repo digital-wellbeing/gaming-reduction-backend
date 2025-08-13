@@ -549,7 +549,7 @@ def run_job():
         # If the number is US, and there is no open session,
         # send the BASIC_INVITE (utility) instead of the Day 1 marketing template.
         region = get_number_region(phone)
-        if region == "US" and not is_session_open(conv_sid):
+        if region == "US" or region == "VN" and not is_session_open(conv_sid):
             print(f"[run_job] US contact, sending BASIC_INVITE")
             template_sid = TEMPLATES["BASIC_INVITE"]["sid"]
             vars_ = {
