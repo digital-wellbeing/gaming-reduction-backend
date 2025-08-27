@@ -8,9 +8,9 @@ from twilio.base.exceptions import TwilioRestException
 import json
 import requests
 import pandas as pd
-import random
 import re
 from string import Template
+import random, threading
 import phonenumbers
 from phonenumbers import NumberParseException, region_code_for_number
 from dotenv import load_dotenv
@@ -19,10 +19,19 @@ load_dotenv()  # read .env into os.environ
 # ─── CONFIGURATION ────────────────────────────────────────────────────
 IMMEDIATE_MODE        = False   # send one message now to only first contact if True
 DRY_RUN               = False    # if True, log but don’t actually send
-SURVEY_SCHEDULE_TIME  = "12:00" # HH:MM daily send time
+SURVEY_SCHEDULE_TIME  = "14:10" # HH:MM daily send time
 SCHEDULE_MODE         = "daily" # "daily" or "interval"
 INTERVAL_MINUTES      = 10      # if using interval mode
 # ───────────────────────────────────────────────────────────────────────
+
+# Backoff
+MAX_TWILIO_RETRIES = 5
+BACKOFF_BASE_SEC   = 0.5
+BACKOFF_JITTER_SEC = 0.25
+CALLS_PER_SEC      = 5.0  # ~5 rps to stay well under limits
+_last_call_ts = 0.0
+_rate_lock = threading.Lock()
+
 
 # Load credentials and settings from env vars
 ACCOUNT_SID    = os.getenv('TWILIO_ACCOUNT_SID')
@@ -85,7 +94,40 @@ class _Tee:
 sys.stdout = _Tee(sys.stdout, _logfile)
 sys.stderr = _Tee(sys.stderr, _logfile)
 
+
+def _rate_limit():
+    global _last_call_ts
+    with _rate_lock:
+        interval = 1.0 / CALLS_PER_SEC
+        now = time.monotonic()
+        wait = interval - (now - _last_call_ts)
+        if wait > 0:
+            time.sleep(wait)
+        _last_call_ts = time.monotonic()
+
+def twilio_call(fn, *args, **kwargs):
+    """Rate-limit + retry on 429/5xx with exponential backoff + jitter."""
+    last_exc = None
+    for attempt in range(MAX_TWILIO_RETRIES):
+        try:
+            _rate_limit()
+            return fn(*args, **kwargs)
+        except TwilioRestException as e:
+            last_exc = e
+            if e.status in (429, 500, 502, 503, 504):
+                sleep_s = BACKOFF_BASE_SEC * (2 ** attempt) + random.uniform(0, BACKOFF_JITTER_SEC)
+                print(f"[twilio_call] {e.status}: {e.msg} — retrying in {sleep_s:.2f}s "
+                      f"(attempt {attempt+1}/{MAX_TWILIO_RETRIES})")
+                time.sleep(sleep_s)
+                continue
+            raise
+    # exhausted retries
+    raise last_exc
+
 #### Functions ####
+
+def _is_valid_im_sid(s: str) -> bool:
+    return isinstance(s, str) and s.startswith("IM") and len(s) > 10
 
 def list_all_contacts(api_token, data_center, directory_id, mailing_list_id, page_size=1000):
     """
@@ -179,58 +221,73 @@ def normalize_phone_number(raw_phone, default_region='GB'):
         return None
 
 def ensure_identity_participant(conv_sid, identity):
-    """
-    Make sure a Chat‐SDK identity (e.g. "user01") is on the conversation.
-    """
     svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
-    participants = svc.conversations(conv_sid).participants.list()
+    participants = twilio_call(svc.conversations(conv_sid).participants.list)
     existing = {p.identity for p in participants if p.identity}
-    if identity in existing:
-        print(f"[ensure_identity] Identity '{identity}' present in convo {conv_sid}")
-        return
-    try:
-        svc.conversations(conv_sid).participants.create(identity=identity)
-    except TwilioRestException as e:
-        print(f"[ensure_identity] ERROR adding identity '{identity}' → {e.status}: {e.msg}")
+    if identity not in existing:
+        try:
+            twilio_call(svc.conversations(conv_sid).participants.create, identity=identity)
+        except TwilioRestException as e:
+            print(f"[ensure_identity] ERROR adding '{identity}' → {e.status}: {e.msg}")
 
 def get_or_create_conversation_for(contact_phone):
     """
-    Fetch by unique_name or create new convo, then
-    add WA binding + ensure identity is present.
+    Reuse the conversation that already owns the WA address if possible,
+    else fetch/create by unique_name. Always ensure user01 is present.
     """
     user_uri  = f"whatsapp:{contact_phone}"
     proxy_uri = f"whatsapp:{TWILIO_NUMBER}"
     svc       = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
 
-    # 1) Try fetch
+    # 0) Prefer existing owner via ParticipantConversations (cheaper than fetch by unique_name)
     try:
-        print(f"[get_or_create] Processing convo for '{contact_phone}'")
-        conv = svc.conversations(contact_phone).fetch()
-    except TwilioRestException as e:
-        if e.status != 404:
-            print(f"[get_or_create] ERROR fetching convo → {e.status}: {e.msg}")
-            raise
-        # 404 → create new
-        print(f"[get_or_create] Not found, creating new convo for '{contact_phone}'")
-        conv = svc.conversations.create(
-            unique_name=contact_phone,
-            friendly_name=f"{contact_phone}"
+        pcs = twilio_call(
+            client.conversations.v1.participant_conversations.list,
+            address=user_uri, limit=50
         )
-        print(f"[get_or_create] Created convo SID={conv.sid}")
+        conv_sid = None
+        for pc in pcs:
+            # Keep one that belongs to THIS Service
+            try:
+                twilio_call(svc.conversations(pc.conversation_sid).fetch)
+                conv_sid = pc.conversation_sid
+                print(f"[get_or_create] Reusing existing convo {conv_sid} for {user_uri}")
+                break
+            except TwilioRestException:
+                pass
+    except TwilioRestException as e:
+        print(f"[get_or_create] participant_conversations lookup failed → {e.status}: {e.msg}")
+        conv_sid = None
 
-    # 2) Add WhatsApp participant (ignore if already exists)
+    # 1) If none found, fetch-or-create by unique_name
+    if not conv_sid:
+        try:
+            print(f"[get_or_create] Processing convo for '{contact_phone}'")
+            conv = twilio_call(svc.conversations(contact_phone).fetch)
+        except TwilioRestException as e:
+            if e.status != 404:
+                print(f"[get_or_create] ERROR fetching convo → {e.status}: {e.msg}")
+                raise
+            print(f"[get_or_create] Not found, creating new convo for '{contact_phone}'")
+            conv = twilio_call(svc.conversations.create, unique_name=contact_phone, friendly_name=contact_phone)
+            print(f"[get_or_create] Created convo SID={conv.sid}")
+        conv_sid = conv.sid
+
+    # 2) Add WA participant (ignore 409 duplicate)
     try:
-        svc.conversations(conv.sid).participants.create(
+        twilio_call(
+            svc.conversations(conv_sid).participants.create,
             messaging_binding_address=user_uri,
             messaging_binding_proxy_address=proxy_uri
         )
     except TwilioRestException as e:
-        print(f"[get_or_create] WA binding exists or failed → {e.status}: {e.msg}")
-    time.sleep(.1)
-    # 3) Ensure your identity is on the convo
-    ensure_identity_participant(conv.sid, "user01")
+        if e.status != 409:
+            print(f"[get_or_create] WA binding error → {e.status}: {e.msg}")
+            raise
 
-    return conv.sid
+    # 3) Ensure GUI author identity is present
+    ensure_identity_participant(conv_sid, "user01")
+    return conv_sid
 
 def is_session_open(
     conversation_sid: str,
@@ -244,9 +301,8 @@ def is_session_open(
     """
     svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
     convo = svc.conversations(conversation_sid)
-
     try:
-        recent = convo.messages.list(page_size=lookback, order="desc")
+        recent = twilio_call(convo.messages.list, page_size=lookback, order="desc")
     except TwilioRestException as e:
         print(f"[is_session_open] ERROR fetching messages: {e.status} {e.msg}")
         return False
@@ -278,7 +334,7 @@ def calculate_elapsed_days(start_date_str):
     elapsed_days = (today - start_date).days 
     return elapsed_days
 
-def send_message(template_sid, conversation_sid, content_variables, extRef, full_text):
+def send_message(template_sid, conversation_sid, content_variables, extRef, full_text, use_session: bool | None = None):
     """
     Sends either a session (body) message if the 24h window is open,
     or a template (content_sid) otherwise. Flags attrs.system,
@@ -298,33 +354,27 @@ def send_message(template_sid, conversation_sid, content_variables, extRef, full
         "participantId": extRef
     }
 
-    svc  = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
+    svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
     convo = svc.conversations(conversation_sid)
+    if use_session is None:
+        use_session = is_session_open(conversation_sid)
 
-    use_session = is_session_open(conversation_sid)
     print(f"[send_message] Using {'SESSION' if use_session else 'TEMPLATE'} message")
 
     try:
         if use_session:
-            msg = convo.messages.create(
-                author="user01",
-                body = f"{full_text}\n\n{survey_url}",       # <— use the precomputed text
-                attributes=json.dumps(attrs)
-            )
-            print(f"[send_message] ✓ Sent SESSION message SID={msg.sid}")
+            msg = twilio_call(convo.messages.create,
+                              author="user01", body=f"{full_text}\n\n{survey_url}",
+                              attributes=json.dumps(attrs))
         else:
-            msg = convo.messages.create(
-                author="user01",
-                content_sid=template_sid,
-                content_variables=json.dumps(content_variables),
-                attributes=json.dumps(attrs)
-            )
-            print(f"[send_message] ✓ Sent TEMPLATE message SID={msg.sid}")
-
-        time.sleep(1)
-        msg = convo.messages(msg.sid).fetch()
+            msg = twilio_call(convo.messages.create,
+                              author="user01",
+                              content_sid=template_sid,
+                              content_variables=json.dumps(content_variables),
+                              attributes=json.dumps(attrs))
+        # fetch delivery summary (optional)
+        msg = twilio_call(convo.messages(msg.sid).fetch)
         return msg
-
     except TwilioRestException as e:
         print(f"[send_message] ✗ Error sending message → {e.status}: {e.msg}")
         raise
@@ -464,17 +514,37 @@ def check_delivery_status():
     3) Overwrite status, error_code, receipt_time  
     4) Save CSV in place
     """
+    global client
+    if client is None:
+        client = Client(ACCOUNT_SID, AUTH_TOKEN)
+
     svc = client.conversations.v1.services(CONVERSATIONS_SERVICE_SID)
-    df = pd.read_csv('scheduled_messages.csv', dtype=str)
-    
-    # keep track of which rows we’ll update
+    df = pd.read_csv(
+        'scheduled_messages.csv',
+        dtype=str,
+        keep_default_na=False,  # <-- keep empty strings as ""
+        na_filter=False         # <-- don’t treat "" as NA
+    )
+
     updates = []
     for idx, row in df[df['status']=='QUEUED'].iterrows():
-        conv_sid = row['conversation_sid']
-        msg_sid  = row['message_sid']
-        convo    = svc.conversations(conv_sid)
+        msg_sid  = (row.get('message_sid') or "").strip()
+        if not _is_valid_im_sid(msg_sid):
+            # nothing to check; mark as unknown or skip
+            # Option 1: skip
+            #   continue
+            # Option 2: mark row so we don’t keep re-checking forever
+            df.at[idx, 'status'] = 'UNKNOWN_SID'
+            continue
         
-        receipts = convo.messages(msg_sid).delivery_receipts.list(limit=1)
+        conv_sid = row['conversation_sid']
+        convo    = svc.conversations(conv_sid)
+        try:
+            receipts = twilio_call(convo.messages(msg_sid).delivery_receipts.list, limit=1)
+        except TwilioRestException as e:
+            print(f"[check_delivery_status] receipt lookup failed → {e.status}: {e.msg}")
+            receipts = []
+
         if receipts:
             r      = receipts[0]
             status = r.status
@@ -482,15 +552,14 @@ def check_delivery_status():
             ts     = r.date_created.isoformat()
         else:
             status, error, ts = "unknown", None, None
-        
+
         updates.append((idx, status, error, ts))
-    
-    # apply updates
+
     for idx, status, error, ts in updates:
         df.at[idx, 'status']       = status
         df.at[idx, 'error']        = error
         df.at[idx, 'receipt_time'] = ts
-    
+
     df.to_csv('scheduled_messages.csv', index=False)
     print(f"[{datetime.now().isoformat()}] Updated {len(updates)} delivery statuses.")
 
@@ -549,8 +618,10 @@ def run_job():
         # If the number is US, and there is no open session,
         # send the BASIC_INVITE (utility) instead of the Day 1 marketing template.
         region = get_number_region(phone)
-        if region == "US" or region == "VN" and not is_session_open(conv_sid):
-            print(f"[run_job] US contact, sending BASIC_INVITE")
+        session_open = is_session_open(conv_sid)
+
+        if region in {"US", "VN"} and (not session_open):
+            print(f"[run_job] US/VN contact, sending BASIC_INVITE")
             template_sid = TEMPLATES["BASIC_INVITE"]["sid"]
             vars_ = {
                 "1": contact.get("firstName",""),
@@ -567,31 +638,36 @@ def run_job():
         error  = ""
         if not DRY_RUN:
             try:
+                time.sleep(random.uniform(0.05, 0.15))
                 msg = send_message(
                     template_sid=template_sid,
                     conversation_sid=conv_sid,
                     content_variables=vars_,
                     extRef=contact.get("extRef", ""),
                     full_text=contact["formatted_text"],
+                    use_session = session_open
                 )
 
             except TwilioRestException as e:
                 error  = f"{e.status}: {e.msg}"
+                status = "FAILED"
                 print(f"[run_job] ❌ Failed to send to {phone} → {error}")
+        else:
+            status = "DRY_RUN"
 
         # 5) Log the attempt
         rows.append({
             "run_time":         now_iso,
             "phone":            phone,
             "conversation_sid": conv_sid,
-            "message_sid":      "" if DRY_RUN else msg.sid,  # placeholder when dry-run, msg not available
+            "message_sid":      "" if (DRY_RUN or not msg) else msg.sid,  # placeholder when dry-run, msg not available
             "template_sid":     template_sid,
             "content_variables": json.dumps(vars_),
             "formatted_text":   contact["formatted_text"],
             "scheduled_time":   contact["next_survey"].isoformat(),
             "dry_run":          DRY_RUN,
-            "status":           "QUEUED",  # placeholder
-            "error":            ""
+            "status":           status, 
+            "error":            error
         })
 
     # 6) Write CSV
