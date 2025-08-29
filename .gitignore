@@ -65,3 +65,5 @@ quarto_render.log
 !README.md
 credentials/
 .claude/
+# temp data
+.tmp/
