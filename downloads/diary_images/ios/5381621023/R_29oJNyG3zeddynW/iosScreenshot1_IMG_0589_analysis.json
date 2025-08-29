@@ -1,0 +1,81 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "23:25",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "2h 17m",
+      "time_spent_minutes": 137
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "25m",
+      "time_spent_minutes": 25
+    },
+    {
+      "app_name": "karafun.co.uk",
+      "time_spent": "25m",
+      "time_spent_minutes": 25
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Trainline",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "thecapeofgoodhopeoxford.c...",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "MTG",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "first direct",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/5381621023/R_29oJNyG3zeddynW/iosScreenshot1_IMG_0589.png",
+    "analysis_timestamp": "2025-08-29T12:42:20.981202",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot1_IMG_0589.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-09",
+  "screenshot_timestamp": "00:02",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 12m",
+      "time_spent_minutes": 132
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 44m",
+      "time_spent_minutes": 104
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 27m",
+      "time_spent_minutes": 87
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "59m",
+      "time_spent_minutes": 59
+    },
+    {
+      "app_name": "theatrclwyd.com",
+      "time_spent": "31m",
+      "time_spent_minutes": 31
+    },
+    {
+      "app_name": "faithinactionba.org",
+      "time_spent": "31m",
+      "time_spent_minutes": 31
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/6090743748/R_2wnpJFs4a0YyLcG/iosScreenshot1_IMG_4150.png",
+    "analysis_timestamp": "2025-08-29T13:40:55.221724",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

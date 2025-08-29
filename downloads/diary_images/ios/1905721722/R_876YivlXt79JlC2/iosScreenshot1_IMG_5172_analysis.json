@@ -1,0 +1,91 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "14:17",
+  "apps": [
+    {
+      "app_name": "Telegram",
+      "time_spent": "53m",
+      "time_spent_minutes": 53
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Microsoft Outlook",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "SAP Cloud for Customer",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Google Photos",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "McDonald's",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Clock",
+      "time_spent": "52s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_876YivlXt79JlC2/iosScreenshot1_IMG_5172.png",
+    "analysis_timestamp": "2025-08-29T12:46:48.744000",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5172.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

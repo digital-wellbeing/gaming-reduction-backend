@@ -1,0 +1,91 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "12:07",
+  "apps": [
+    {
+      "app_name": "Telegram",
+      "time_spent": "2h 50m",
+      "time_spent_minutes": 170
+    },
+    {
+      "app_name": "Twitch",
+      "time_spent": "1h 35m",
+      "time_spent_minutes": 95
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "27m",
+      "time_spent_minutes": 27
+    },
+    {
+      "app_name": "Calendar",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Microsoft Outlook",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Screenshots",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "assets.balluff.com",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for a single day.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2lSwMO5OMeC6pSd/iosScreenshot1_IMG_5217.png",
+    "analysis_timestamp": "2025-08-29T12:49:21.106336",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5217.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

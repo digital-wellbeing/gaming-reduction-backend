@@ -1,0 +1,74 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 1.0,
+  "date_of_screenshot": "2024-07-15",
+  "screenshot_timestamp": "23:22",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "1h 12m",
+      "time_spent_minutes": 72
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 8m",
+      "time_spent_minutes": 68
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "40m",
+      "time_spent_minutes": 40
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "leagueoflegends.com",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "first direct",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "apply.santander.co.uk",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for yesterday, July 15th.",
+  "_metadata": {
+    "source_image": "downloads/diary_images/ios/5381621023/R_2dFVrbzF4BKdvK2/iosScreenshot1_IMG_0613.png",
+    "analysis_timestamp": "2025-08-29T12:24:41.462481",
+    "model_used": "gemini-1.5-flash"
+  }
+}

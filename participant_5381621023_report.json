@@ -1,0 +1,38 @@
+{
+  "summary": {
+    "total_participants": 1,
+    "total_images": 9,
+    "successful_participants": 1,
+    "failed_participants": 0,
+    "total_successful_images": 9,
+    "total_failed_images": 0,
+    "total_images_with_warnings": 9,
+    "total_processing_time_seconds": 83.82392001152039,
+    "success_rate": 100.0,
+    "report_timestamp": "2025-08-29T12:45:38.057063"
+  },
+  "participants": [
+    {
+      "participant_id": "5381621023",
+      "total_images": 9,
+      "processed_images": 9,
+      "successful_images": 9,
+      "failed_images": 0,
+      "images_with_warnings": 9,
+      "processing_time_seconds": 83.82357025146484,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_2sVuWt6JML6BLwZ",
+        "R_28Pp4A0JZ8Nqul3",
+        "R_2CPaHtSXMuu5eMp",
+        "R_8dixsR4Grl8oCV2",
+        "R_2PpgqffakYuXBsy",
+        "R_8nVYRYSi0RxMadz",
+        "R_2h2ARXOoHV0kaGZ",
+        "R_8vdRkGir4JK6MGl",
+        "R_8fpoiZvxNoo0BMu"
+      ],
+      "error_details": []
+    }
+  ]
+}

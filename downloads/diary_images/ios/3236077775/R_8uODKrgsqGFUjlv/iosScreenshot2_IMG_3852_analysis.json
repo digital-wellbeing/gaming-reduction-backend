@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-29",
+  "screenshot_timestamp": "13:41",
+  "apps": [
+    {
+      "app_name": "com.lumivero.nvivo-15",
+      "time_spent": "1h 55m",
+      "time_spent_minutes": 115
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "1h 50m",
+      "time_spent_minutes": 110
+    },
+    {
+      "app_name": "Zoom Workplace",
+      "time_spent": "1h 35m",
+      "time_spent_minutes": 95
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "1h 32m",
+      "time_spent_minutes": 92
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "1h 31m",
+      "time_spent_minutes": 91
+    },
+    {
+      "app_name": "Word",
+      "time_spent": "1h 26m",
+      "time_spent_minutes": 86
+    },
+    {
+      "app_name": "com.apple.QuickTimePlayerX",
+      "time_spent": "1h 25m",
+      "time_spent_minutes": 85
+    },
+    {
+      "app_name": "com.cisco.secureclient.gui",
+      "time_spent": "1h 25m",
+      "time_spent_minutes": 85
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 3m",
+      "time_spent_minutes": 63
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "com.apple.finder",
+      "time_spent": "25s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Calendar",
+      "time_spent": "10s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing usage for different apps on a MacBook Air.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/3236077775/R_8uODKrgsqGFUjlv/iosScreenshot2_IMG_3852.png",
+    "analysis_timestamp": "2025-08-29T13:32:31.481729",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

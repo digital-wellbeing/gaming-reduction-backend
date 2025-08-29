@@ -1,0 +1,91 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "22:18",
+  "apps": [
+    {
+      "app_name": "Coin Master",
+      "time_spent": "1h 20m",
+      "time_spent_minutes": 80
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 13m",
+      "time_spent_minutes": 73
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "41m",
+      "time_spent_minutes": 41
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "NHS App",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "SAP Cloud for Customer",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Lloyds",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for all devices, showing app usage. Date is shown as 'Yesterday, 20 June'.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8sqOOC3ngrJoysh/iosScreenshot1_IMG_5143.png",
+    "analysis_timestamp": "2025-08-29T12:47:06.444421",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5143.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

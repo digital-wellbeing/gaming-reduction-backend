@@ -1,0 +1,30 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-16",
+  "screenshot_timestamp": "12:53",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "8s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for a connected Macbook Air",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/3236077775/R_2etJmhz7J5iCJs5/iosScreenshot2_IMG_3628.png",
+    "analysis_timestamp": "2025-08-29T13:31:54.243326",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

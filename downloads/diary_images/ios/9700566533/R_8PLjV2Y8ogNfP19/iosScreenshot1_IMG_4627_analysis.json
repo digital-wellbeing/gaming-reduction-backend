@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-02",
+  "screenshot_timestamp": "15:11",
+  "apps": [
+    {
+      "app_name": "Snapchat",
+      "time_spent": "2h 40m",
+      "time_spent_minutes": 160
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 49m",
+      "time_spent_minutes": 109
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "1h 24m",
+      "time_spent_minutes": 84
+    },
+    {
+      "app_name": "Netflix",
+      "time_spent": "57m",
+      "time_spent_minutes": 57
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "53m",
+      "time_spent_minutes": 53
+    },
+    {
+      "app_name": "Blackjack",
+      "time_spent": "39m",
+      "time_spent_minutes": 39
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "36m",
+      "time_spent_minutes": 36
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "31m",
+      "time_spent_minutes": 31
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "27m",
+      "time_spent_minutes": 27
+    },
+    {
+      "app_name": "ChatGPT",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Block Blast!",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "X",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for app usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/9700566533/R_8PLjV2Y8ogNfP19/iosScreenshot1_IMG_4627.png",
+    "analysis_timestamp": "2025-08-29T13:51:26.895221",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,2862 @@
+{
+  "participant_id": "1905721722",
+  "report_timestamp": "2025-08-29T16:06:51.545381",
+  "device_types": {
+    "iphone": {
+      "daily_entries": [
+        {
+          "response_id": "R_8A3UOSAcm5jU3xT",
+          "response_folder": "R_8A3UOSAcm5jU3xT",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8A3UOSAcm5jU3xT/iosScreenshot1_IMG_5178.png",
+          "screenshot_date": "2024-06-28",
+          "screenshot_date_based_on_upload": "2025-06-28",
+          "screenshot_timestamp": "13:20",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "The Office: Somehow We Mana...",
+              "time_spent": "3h 31m",
+              "time_spent_minutes": 211
+            },
+            {
+              "app_name": "Mahjong Mingle",
+              "time_spent": "1h 20m",
+              "time_spent_minutes": 80
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "1h 15m",
+              "time_spent_minutes": 75
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "58m",
+              "time_spent_minutes": 58
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "48m",
+              "time_spent_minutes": 48
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Klarna",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Two Dots",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 536,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8sQlHHHa2f1LDMt",
+          "response_folder": "R_8sQlHHHa2f1LDMt",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8sQlHHHa2f1LDMt/iosScreenshot1_IMG_5178.png",
+          "screenshot_date": "2024-06-28",
+          "screenshot_date_based_on_upload": "2025-06-28",
+          "screenshot_timestamp": "13:20",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "The Office: Somehow We Mana...",
+              "time_spent": "3h 31m",
+              "time_spent_minutes": 211
+            },
+            {
+              "app_name": "Mahjong Mingle",
+              "time_spent": "1h 20m",
+              "time_spent_minutes": 80
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "1h 15m",
+              "time_spent_minutes": 75
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "58m",
+              "time_spent_minutes": 58
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "48m",
+              "time_spent_minutes": 48
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Klarna",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Two Dots",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 536,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2Mtcz7V0vZ1xxoT",
+          "response_folder": "R_2Mtcz7V0vZ1xxoT",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2Mtcz7V0vZ1xxoT/iosScreenshot1_IMG_5145.png",
+          "screenshot_date": "2025-06-21",
+          "screenshot_date_based_on_upload": "2025-06-22",
+          "screenshot_timestamp": "13:27",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "YouTube",
+              "time_spent": "1h 36m",
+              "time_spent_minutes": 96
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "55m",
+              "time_spent_minutes": 55
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Lidl Plus",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "NHS App",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": "unknown",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 232,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2wdl1V71rPV3lIZ",
+          "response_folder": "R_2wdl1V71rPV3lIZ",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2wdl1V71rPV3lIZ/iosScreenshot1_IMG_5182.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-30",
+          "screenshot_timestamp": "02:23",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "The Office: Somehow We Mana...",
+              "time_spent": "4h 6m",
+              "time_spent_minutes": 246
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 26m",
+              "time_spent_minutes": 86
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "38m",
+              "time_spent_minutes": 38
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Reminders",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "59s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "45s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 411,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5182.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_87UwAK3YfRqNYaM",
+          "response_folder": "R_87UwAK3YfRqNYaM",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_87UwAK3YfRqNYaM/iosScreenshot1_IMG_5182.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-29",
+          "screenshot_timestamp": "02:23",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "The Office: Somehow We Mana...",
+              "time_spent": "4h 6m",
+              "time_spent_minutes": 246
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 26m",
+              "time_spent_minutes": 86
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "38m",
+              "time_spent_minutes": 38
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Reminders",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "59s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "45s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 411,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5182.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2JAGUG8tWjoDXYR",
+          "response_folder": "R_2JAGUG8tWjoDXYR",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2JAGUG8tWjoDXYR/iosScreenshot1_IMG_5188.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-01",
+          "screenshot_timestamp": "12:01",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 12m",
+              "time_spent_minutes": 72
+            },
+            {
+              "app_name": "The Office: Somehow We Mana...",
+              "time_spent": "50m",
+              "time_spent_minutes": 50
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "SAP Cloud for Customer",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "59s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "58s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "50s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "MilelQ",
+              "time_spent": "45s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 172,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5188.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_863fkkYXGxqe5sC",
+          "response_folder": "R_863fkkYXGxqe5sC",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_863fkkYXGxqe5sC/iosScreenshot1_IMG_5285.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-16",
+          "screenshot_timestamp": "12:02",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Duolingo",
+              "time_spent": "47m",
+              "time_spent_minutes": 47
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "29m",
+              "time_spent_minutes": 29
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "51s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "25s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "19s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "10s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 128,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5285.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2s4FnXXxq0h7FCs",
+          "response_folder": "R_2s4FnXXxq0h7FCs",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2s4FnXXxq0h7FCs/iosScreenshot1_IMG_5266.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-11",
+          "screenshot_timestamp": "12:04",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Train Miner",
+              "time_spent": "1h 44m",
+              "time_spent_minutes": 104
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "1h 29m",
+              "time_spent_minutes": 89
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 20m",
+              "time_spent_minutes": 80
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Travel Town",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Rock N' Cash",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "PeopleHR",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 372,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5266.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2Le66IbjwY8bzxP",
+          "response_folder": "R_2Le66IbjwY8bzxP",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2Le66IbjwY8bzxP/iosScreenshot1_IMG_5243.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-08",
+          "screenshot_timestamp": "12:07",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "3h 35m",
+              "time_spent_minutes": 215
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "2h 15m",
+              "time_spent_minutes": 135
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "1h 22m",
+              "time_spent_minutes": 82
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1h",
+              "time_spent_minutes": 60
+            },
+            {
+              "app_name": "AnyDesk",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "SAP Cloud for Customer",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "0",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 592,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5243.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2lSwMO5OMeC6pSd",
+          "response_folder": "R_2lSwMO5OMeC6pSd",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2lSwMO5OMeC6pSd/iosScreenshot1_IMG_5217.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-03",
+          "screenshot_timestamp": "12:07",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "2h 50m",
+              "time_spent_minutes": 170
+            },
+            {
+              "app_name": "Twitch",
+              "time_spent": "1h 35m",
+              "time_spent_minutes": 95
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Screenshots",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "assets.balluff.com",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 346,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5217.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8OrS4IjaE4J64wL",
+          "response_folder": "R_8OrS4IjaE4J64wL",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8OrS4IjaE4J64wL/iosScreenshot1_IMG_5158.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-23",
+          "screenshot_timestamp": "12:08",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "3h 9m",
+              "time_spent_minutes": 189
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "NutsSortMaster",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Threads",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "MilelQ",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Wallet",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "SAP Cloud for Customer",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 337,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5158.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_83mMNpfxDDpmZup",
+          "response_folder": "R_83mMNpfxDDpmZup",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_83mMNpfxDDpmZup/iosScreenshot1_IMG_5222.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-05",
+          "screenshot_timestamp": "12:10",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Instagram",
+              "time_spent": "1h 28m",
+              "time_spent_minutes": 88
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "1h 4m",
+              "time_spent_minutes": 64
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Amazon",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "MilelQ",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "46s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "40s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "25s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "YouTube Mucio",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 263,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5222.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_21Fe6FNu2Aoo6mk",
+          "response_folder": "R_21Fe6FNu2Aoo6mk",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_21Fe6FNu2Aoo6mk/iosScreenshot1_IMG_5220.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-04",
+          "screenshot_timestamp": "12:15",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 25m",
+              "time_spent_minutes": 85
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "40m",
+              "time_spent_minutes": 40
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Files",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 223,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5220.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8cuMViFMgbdwAlh",
+          "response_folder": "R_8cuMViFMgbdwAlh",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8cuMViFMgbdwAlh/iosScreenshot1_IMG_5259.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-10",
+          "screenshot_timestamp": "12:18",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "YouTube",
+              "time_spent": "6h 21m",
+              "time_spent_minutes": 381
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "2h 31m",
+              "time_spent_minutes": 151
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "1h 6m",
+              "time_spent_minutes": 66
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "M365 Copilot",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "54s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "49s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Google Translate",
+              "time_spent": "47s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 646,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5259.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8dXGd1Eu13A7Ely",
+          "response_folder": "R_8dXGd1Eu13A7Ely",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8dXGd1Eu13A7Ely/iosScreenshot1_IMG_5291.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-17",
+          "screenshot_timestamp": "12:32",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Chrome",
+              "time_spent": "1h 48m",
+              "time_spent_minutes": 108
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 22m",
+              "time_spent_minutes": 82
+            },
+            {
+              "app_name": "Travel Town",
+              "time_spent": "51m",
+              "time_spent_minutes": 51
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Temu",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Wallet",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 426,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5291.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2gZYYREI3H3aqc2",
+          "response_folder": "R_2gZYYREI3H3aqc2",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2gZYYREI3H3aqc2/iosScreenshot1_IMG_5236.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-07",
+          "screenshot_timestamp": "12:45",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 48m",
+              "time_spent_minutes": 108
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "46m",
+              "time_spent_minutes": 46
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Health",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "assets.balluff.com",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 325,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5236.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8DIRGvkEcPaBVst",
+          "response_folder": "R_8DIRGvkEcPaBVst",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8DIRGvkEcPaBVst/iosScreenshot1_IMG_5274.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-14",
+          "screenshot_timestamp": "12:57",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Travel Town",
+              "time_spent": "1h 23m",
+              "time_spent_minutes": 83
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 18m",
+              "time_spent_minutes": 78
+            },
+            {
+              "app_name": "Train Miner",
+              "time_spent": "1h 9m",
+              "time_spent_minutes": 69
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "1h 1m",
+              "time_spent_minutes": 61
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "33m",
+              "time_spent_minutes": 33
+            },
+            {
+              "app_name": "Reminders",
+              "time_spent": "33m",
+              "time_spent_minutes": 33
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Microsoft Authenticator",
+              "time_spent": "42s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Amazon",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 395,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5274.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8PvtV2dyv37czME",
+          "response_folder": "R_8PvtV2dyv37czME",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8PvtV2dyv37czME/iosScreenshot1_IMG_5250.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-09",
+          "screenshot_timestamp": "13:06",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "2h 1m",
+              "time_spent_minutes": 121
+            },
+            {
+              "app_name": "Notes",
+              "time_spent": "38m",
+              "time_spent_minutes": 38
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "SAP Cloud for Customer",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 274,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5250.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2mqSBKKzxRf9Rhi",
+          "response_folder": "R_2mqSBKKzxRf9Rhi",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2mqSBKKzxRf9Rhi/iosScreenshot1_IMG_5145.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-22",
+          "screenshot_timestamp": "13:27",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "YouTube",
+              "time_spent": "1h 36m",
+              "time_spent_minutes": 96
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "55m",
+              "time_spent_minutes": 55
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Lidl Plus",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "NHS App",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 232,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5145.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8VfR0kTyCYYgE2C",
+          "response_folder": "R_8VfR0kTyCYYgE2C",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8VfR0kTyCYYgE2C/iosScreenshot1_IMG_5145.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-21",
+          "screenshot_timestamp": "13:27",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "YouTube",
+              "time_spent": "1h 36m",
+              "time_spent_minutes": 96
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "55m",
+              "time_spent_minutes": 55
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Lidl Plus",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "NHS App",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 232,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5145.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8WRX5PhTIs5IJot",
+          "response_folder": "R_8WRX5PhTIs5IJot",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8WRX5PhTIs5IJot/iosScreenshot1_IMG_5163.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-24",
+          "screenshot_timestamp": "13:27",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "2h 48m",
+              "time_spent_minutes": 168
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "1h 43m",
+              "time_spent_minutes": 103
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "1h 19m",
+              "time_spent_minutes": 79
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Color Block Jam",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Amazon",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "SAP Cloud for Customer",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 437,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5163.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2fklLasoP5LvxLN",
+          "response_folder": "R_2fklLasoP5LvxLN",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2fklLasoP5LvxLN/iosScreenshot1_IMG_5228.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-06",
+          "screenshot_timestamp": "13:32",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "33m",
+              "time_spent_minutes": 33
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "31m",
+              "time_spent_minutes": 31
+            },
+            {
+              "app_name": "NutsSortMaster",
+              "time_spent": "29m",
+              "time_spent_minutes": 29
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "59s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 185,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5228.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_27U4z0OudEjehMm",
+          "response_folder": "R_27U4z0OudEjehMm",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_27U4z0OudEjehMm/iosScreenshot1_IMG_5271.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-13",
+          "screenshot_timestamp": "13:36",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Travel Town",
+              "time_spent": "2h 58m",
+              "time_spent_minutes": 178
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "2h 18m",
+              "time_spent_minutes": 138
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 46m",
+              "time_spent_minutes": 106
+            },
+            {
+              "app_name": "Rock N' Cash",
+              "time_spent": "51m",
+              "time_spent_minutes": 51
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "48m",
+              "time_spent_minutes": 48
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "37m",
+              "time_spent_minutes": 37
+            },
+            {
+              "app_name": "Train Miner",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Amazon",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 653,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5271.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8gWxICTPEVww0tH",
+          "response_folder": "R_8gWxICTPEVww0tH",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8gWxICTPEVww0tH/iosScreenshot1_IMG_5268.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-12",
+          "screenshot_timestamp": "13:56",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Travel Town",
+              "time_spent": "3h 4m",
+              "time_spent_minutes": 184
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "GameOverlayUI",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Reminders",
+              "time_spent": "59s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "41s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "39s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 274,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5268.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_876YivlXt79JlC2",
+          "response_folder": "R_876YivlXt79JlC2",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_876YivlXt79JlC2/iosScreenshot1_IMG_5172.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-26",
+          "screenshot_timestamp": "14:17",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "53m",
+              "time_spent_minutes": 53
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "SAP Cloud for Customer",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Google Photos",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "McDonald's",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "52s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 176,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5172.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_21bVv3t0Hg1VTZy",
+          "response_folder": "R_21bVv3t0Hg1VTZy",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_21bVv3t0Hg1VTZy/iosScreenshot1_IMG_5177.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-27",
+          "screenshot_timestamp": "16:33",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "The Office: Somehow We Mana...",
+              "time_spent": "10h 13m",
+              "time_spent_minutes": 613
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "3h 6m",
+              "time_spent_minutes": 186
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "1h 10m",
+              "time_spent_minutes": 70
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "54m",
+              "time_spent_minutes": 54
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Two Dots",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "OurGroceries",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 1008,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5177.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2po0CI2f4fkStHW",
+          "response_folder": "R_2po0CI2f4fkStHW",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2po0CI2f4fkStHW/iosScreenshot1_photo_2025-06-26_17-47-41.jpg",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-25",
+          "screenshot_timestamp": "17:46",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Chrome",
+              "time_spent": "2h 9m",
+              "time_spent_minutes": 129
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 33m",
+              "time_spent_minutes": 93
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "1h 14m",
+              "time_spent_minutes": 74
+            },
+            {
+              "app_name": "Color Block Jam",
+              "time_spent": "1h 5m",
+              "time_spent_minutes": 65
+            },
+            {
+              "app_name": "Two Dots",
+              "time_spent": "43m",
+              "time_spent_minutes": 43
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "PeopleHR",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "myGP",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 459,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_photo_2025-06-26_17-47-41.jpg",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2pL8GjVYnN3VeBi",
+          "response_folder": "R_2pL8GjVYnN3VeBi",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2pL8GjVYnN3VeBi/iosScreenshot1_IMG_5207.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-02",
+          "screenshot_timestamp": "18:41",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 26m",
+              "time_spent_minutes": 86
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "YouTube Music",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Microsoft Outlook",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Twitch",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Lidl Plus",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "27s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "25s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "25s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 116,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5207.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2YSEhR4Mc9HXyhP",
+          "response_folder": "R_2YSEhR4Mc9HXyhP",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2YSEhR4Mc9HXyhP/iosScreenshot1_IMG_5277.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-15",
+          "screenshot_timestamp": "19:59",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Telegram",
+              "time_spent": "2h 34m",
+              "time_spent_minutes": 154
+            },
+            {
+              "app_name": "Travel Town",
+              "time_spent": "2h 24m",
+              "time_spent_minutes": 144
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "1h 37m",
+              "time_spent_minutes": 97
+            },
+            {
+              "app_name": "Coin Master",
+              "time_spent": "1h 12m",
+              "time_spent_minutes": 72
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "46m",
+              "time_spent_minutes": 46
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "40m",
+              "time_spent_minutes": 40
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "Solitaire",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "MilelQ",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Temu",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 612,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5277.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8sqOOC3ngrJoysh",
+          "response_folder": "R_8sqOOC3ngrJoysh",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_8sqOOC3ngrJoysh/iosScreenshot1_IMG_5143.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-06-20",
+          "screenshot_timestamp": "22:18",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Coin Master",
+              "time_spent": "1h 20m",
+              "time_spent_minutes": 80
+            },
+            {
+              "app_name": "Telegram",
+              "time_spent": "1h 13m",
+              "time_spent_minutes": 73
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "41m",
+              "time_spent_minutes": 41
+            },
+            {
+              "app_name": "Macadam",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "NHS App",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Chrome",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "SAP Cloud for Customer",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Duolingo",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 261,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5143.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        }
+      ],
+      "total_entries": 30,
+      "total_apps_detected": 420,
+      "unique_apps": [
+        "Amazon",
+        "AnyDesk",
+        "App Store",
+        "Authenticator",
+        "Calendar",
+        "Camera",
+        "Chrome",
+        "Clock",
+        "Coin Master",
+        "Color Block Jam",
+        "Duolingo",
+        "Files",
+        "GameOverlayUI",
+        "Google Maps",
+        "Google Photos",
+        "Google Translate",
+        "Health",
+        "Instagram",
+        "Klarna",
+        "Lidl Plus",
+        "Lloyds",
+        "M365 Copilot",
+        "Macadam",
+        "Mahjong Mingle",
+        "Mail",
+        "McDonald's",
+        "Messages",
+        "Microsoft Authenticator",
+        "Microsoft Outlook",
+        "MilelQ",
+        "NHS App",
+        "Notes",
+        "NutsSortMaster",
+        "OurGroceries",
+        "PeopleHR",
+        "Phone",
+        "Photos",
+        "Reminders",
+        "Rock N' Cash",
+        "SAP Cloud for Customer",
+        "Safari",
+        "Screenshots",
+        "Settings",
+        "Solitaire",
+        "Teams",
+        "Telegram",
+        "Temu",
+        "The Office: Somehow We Mana...",
+        "Threads",
+        "Train Miner",
+        "Travel Town",
+        "Twitch",
+        "Two Dots",
+        "User Authentication",
+        "Wallet",
+        "WhatsApp",
+        "YouTube",
+        "YouTube Mucio",
+        "YouTube Music",
+        "assets.balluff.com",
+        "myGP"
+      ],
+      "confidence_scores": [
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95
+      ],
+      "unique_apps_count": 61,
+      "average_confidence": 0.95,
+      "total_time_minutes": 11270
+    }
+  },
+  "total_daily_entries": 30,
+  "date_range": {
+    "earliest": "2024-06-28",
+    "latest": "2025-07-17"
+  },
+  "processing_summary": {
+    "total_json_files_found": 30,
+    "successfully_parsed": 30,
+    "parsing_errors": []
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "13:40",
+  "apps": [
+    {
+      "app_name": "Notion",
+      "time_spent": "53s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "1",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing usage of the Notion app. It includes usage data, pickups, and notifications for 'Yesterday, 1 August'.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/3236077775/R_8RNqDnvEwhpaMUx/iosScreenshot2_IMG_3889.png",
+    "analysis_timestamp": "2025-08-29T13:31:36.851033",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot2_IMG_3889.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

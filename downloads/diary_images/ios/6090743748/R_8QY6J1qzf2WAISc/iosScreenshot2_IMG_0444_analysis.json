@@ -1,0 +1,30 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-01",
+  "screenshot_timestamp": "22:51",
+  "apps": [
+    {
+      "app_name": "Settings",
+      "time_spent": "4s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "almostadoctor.co.uk",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for iPad.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/6090743748/R_8QY6J1qzf2WAISc/iosScreenshot2_IMG_0444.png",
+    "analysis_timestamp": "2025-08-29T13:46:11.919759",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

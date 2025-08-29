@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-13",
+  "screenshot_timestamp": "15:42",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "3h 42m",
+      "time_spent_minutes": 222
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "1h 53m",
+      "time_spent_minutes": 113
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "1h 10m",
+      "time_spent_minutes": 70
+    },
+    {
+      "app_name": "Monzo",
+      "time_spent": "43m",
+      "time_spent_minutes": 43
+    },
+    {
+      "app_name": "Threads",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Google Calendar",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "IMDb",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Weather",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/8357967109/R_2BhA03r8mN8HCCh/iosScreenshot1_IMG_8791.png",
+    "analysis_timestamp": "2025-08-29T13:48:56.513308",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

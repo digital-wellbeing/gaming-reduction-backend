@@ -1,0 +1,91 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "12:01",
+  "apps": [
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 12m",
+      "time_spent_minutes": 72
+    },
+    {
+      "app_name": "The Office: Somehow We Mana...",
+      "time_spent": "50m",
+      "time_spent_minutes": 50
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "SAP Cloud for Customer",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": "59s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "58s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "50s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "MilelQ",
+      "time_spent": "45s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Clock",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for 'All Devices'",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2JAGUG8tWjoDXYR/iosScreenshot1_IMG_5188.png",
+    "analysis_timestamp": "2025-08-29T12:47:52.613575",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5188.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

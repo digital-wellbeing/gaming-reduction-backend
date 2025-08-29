@@ -1,0 +1,91 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "02:23",
+  "apps": [
+    {
+      "app_name": "The Office: Somehow We Mana...",
+      "time_spent": "4h 6m",
+      "time_spent_minutes": 246
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 26m",
+      "time_spent_minutes": 86
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "38m",
+      "time_spent_minutes": 38
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Reminders",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "59s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "45s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_2wdl1V71rPV3lIZ/iosScreenshot1_IMG_5182.png",
+    "analysis_timestamp": "2025-08-29T12:48:09.781808",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5182.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

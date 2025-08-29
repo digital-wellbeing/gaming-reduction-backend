@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-28",
+  "screenshot_timestamp": "00:23",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 51m",
+      "time_spent_minutes": 171
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "2h 10m",
+      "time_spent_minutes": 130
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 13m",
+      "time_spent_minutes": 73
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "Bluesky",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for 'Yesterday, May 28'.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/6090743748/R_2IRfrgkaaFYPa7L/iosScreenshot2_IMG_3794.png",
+    "analysis_timestamp": "2025-08-29T13:41:54.505673",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

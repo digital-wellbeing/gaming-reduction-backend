@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-14",
+  "screenshot_timestamp": "14:41",
+  "apps": [
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "15s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.QuickTimePlayerX",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.finder",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for a MacBook Air.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/3236077775/R_81ayX0oAf4UOg91/iosScreenshot2_IMG_3613.png",
+    "analysis_timestamp": "2025-08-29T13:31:03.897736",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

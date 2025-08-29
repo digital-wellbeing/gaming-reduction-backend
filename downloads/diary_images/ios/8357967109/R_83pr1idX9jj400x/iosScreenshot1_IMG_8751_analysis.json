@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-02",
+  "screenshot_timestamp": "12:28",
+  "apps": [
+    {
+      "app_name": "Candy Crush Saga",
+      "time_spent": "3h 10m",
+      "time_spent_minutes": 190
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "2h 22m",
+      "time_spent_minutes": 142
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "1h 3m",
+      "time_spent_minutes": 63
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "50m",
+      "time_spent_minutes": 50
+    },
+    {
+      "app_name": "Monzo",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "Sky Vegas",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Wallet",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/8357967109/R_83pr1idX9jj400x/iosScreenshot1_IMG_8751.png",
+    "analysis_timestamp": "2025-08-29T13:48:36.958388",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,4 @@
+- source: app_usage_exploration.qmd
+  quarto-pub:
+    - id: d90efa4e-0ffd-43c3-924c-5b2ba03a52ae
+      url: https://sinandrei.quarto.pub/reduction-aw

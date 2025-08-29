@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-31",
+  "screenshot_timestamp": "12:06",
+  "apps": [
+    {
+      "app_name": "Snapchat",
+      "time_spent": "1h 42m",
+      "time_spent_minutes": 102
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 32m",
+      "time_spent_minutes": 92
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "37m",
+      "time_spent_minutes": 37
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Lloyds",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Trainline",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/9700566533/R_8rOhDuhhr31GgGz/iosScreenshot1_IMG_4607.png",
+    "analysis_timestamp": "2025-08-29T13:51:36.151530",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

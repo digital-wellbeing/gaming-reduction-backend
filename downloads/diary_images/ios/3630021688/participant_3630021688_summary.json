@@ -1,0 +1,94 @@
+{
+  "participant_id": "3630021688",
+  "report_timestamp": "2025-08-29T16:06:51.620652",
+  "device_types": {
+    "iphone": {
+      "daily_entries": [
+        {
+          "response_id": "R_5LnZDVYlloI8pZD",
+          "response_folder": "R_5LnZDVYlloI8pZD",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/3630021688/R_5LnZDVYlloI8pZD/iosScreenshot1_IMG_0536.png",
+          "screenshot_date": "2025-05-18",
+          "screenshot_date_based_on_upload": "2025-05-17",
+          "screenshot_timestamp": "08:02",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "YouTube",
+              "time_spent": "29m",
+              "time_spent_minutes": 29
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Spark",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "7s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "6s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 8,
+          "total_time_minutes": 53,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        }
+      ],
+      "total_entries": 1,
+      "total_apps_detected": 8,
+      "unique_apps": [
+        "Messages",
+        "Reddit",
+        "Safari",
+        "Settings",
+        "Spark",
+        "WhatsApp",
+        "YouTube",
+        "oii.qualtrics.com"
+      ],
+      "confidence_scores": [
+        0.95
+      ],
+      "unique_apps_count": 8,
+      "average_confidence": 0.95,
+      "total_time_minutes": 53
+    }
+  },
+  "total_daily_entries": 1,
+  "date_range": {
+    "earliest": "2025-05-17",
+    "latest": "2025-05-18"
+  },
+  "processing_summary": {
+    "total_json_files_found": 1,
+    "successfully_parsed": 1,
+    "parsing_errors": []
+  }
+}

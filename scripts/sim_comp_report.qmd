@@ -113,7 +113,162 @@ ilr_to_minutes <- function(ilr_mat, total = 1440) {
 }
 ```
 
-### Simulation Engine
+## Understanding Within-Subject Variability
+
+The **within-subject SD** (`s_within`) parameter controls how much a person's sedentary behavior varies from day to day around their personal average. This captures the natural day-to-day fluctuations in behavior that everyone experiences.
+
+### What Different SD Values Mean in Practice
+
+Let's illustrate what different within-subject SD values mean for typical sedentary behavior patterns:
+
+```{r within_subject_interpretation}
+#| label: within-subject-interpretation
+#| code-summary: "Show code (within-subject variability examples)"
+
+# Function to demonstrate within-subject variability in practical terms
+demonstrate_within_subject_sd <- function(baseline_sedentary = 600, s_within_values = c(0.1, 0.2, 0.3, 0.4), n_days = 14) {
+  
+  set.seed(42)  # For reproducible examples
+  
+  results <- tibble()
+  
+  for (sd_val in s_within_values) {
+    # Generate ILR coordinates with this SD level
+    base_comp <- c(baseline_sedentary, 480, 360)  # baseline composition
+    base_ilr <- comp_to_ilr(matrix(base_comp, nrow = 1))
+    
+    # Add within-subject variation in ILR space
+    daily_ilr <- base_ilr[1,] + MASS::mvrnorm(n_days, mu = c(0, 0), Sigma = diag(sd_val^2, 2))
+    
+    # Convert back to minutes
+    daily_mins <- ilr_to_minutes(daily_ilr)
+    sedentary_mins <- daily_mins[, 1]
+    
+    # Calculate practical metrics
+    daily_range <- max(sedentary_mins) - min(sedentary_mins)
+    typical_variation <- sd(sedentary_mins)
+    
+    # Store results
+    day_data <- tibble(
+      sd_level = paste0("SD = ", sd_val),
+      day = 1:n_days,
+      sedentary = sedentary_mins,
+      deviation_from_mean = sedentary_mins - mean(sedentary_mins)
+    )
+    
+    results <- bind_rows(results, day_data)
+  }
+  
+  return(results)
+}
+
+# Generate example data
+variability_examples <- demonstrate_within_subject_sd()
+
+# Calculate summary statistics for each SD level
+variability_summary <- variability_examples %>%
+  group_by(sd_level) %>%
+  summarise(
+    mean_sedentary = round(mean(sedentary), 1),
+    sd_sedentary = round(sd(sedentary), 1),
+    min_sedentary = round(min(sedentary), 1),
+    max_sedentary = round(max(sedentary), 1),
+    daily_range = round(max(sedentary) - min(sedentary), 1),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    interpretation = case_when(
+      sd_level == "SD = 0.1" ~ "Very consistent (±15-20 min/day)",
+      sd_level == "SD = 0.2" ~ "Moderately consistent (±30-40 min/day)", 
+      sd_level == "SD = 0.3" ~ "Moderately variable (±45-60 min/day)",
+      sd_level == "SD = 0.4" ~ "Highly variable (±60-80 min/day)"
+    )
+  )
+
+# Display summary table
+knitr::kable(
+  variability_summary,
+  col.names = c("Within-Subject SD", "Mean Sedentary", "SD (minutes)", "Min", "Max", "Daily Range", "Behavioral Interpretation"),
+  caption = "How Within-Subject SD Translates to Daily Behavioral Variation",
+  digits = 1
+)
+```
+
+```{r plot_within_subject_variability}
+#| label: plot-within-subject-variability
+#| fig-height: 8
+#| fig-width: 10
+
+# Create visualization of different variability levels
+variability_plot <- ggplot(variability_examples, aes(x = day, y = sedentary, color = sd_level)) +
+  geom_line(size = 1, alpha = 0.8) +
+  geom_point(size = 2, alpha = 0.7) +
+  geom_hline(data = variability_examples %>% group_by(sd_level) %>% summarise(mean_sed = mean(sedentary)), 
+             aes(yintercept = mean_sed, color = sd_level), 
+             linetype = "dashed", alpha = 0.6) +
+  facet_wrap(~ sd_level, ncol = 2) +
+  labs(
+    title = "Day-to-Day Sedentary Behavior Patterns by Within-Subject Variability",
+    subtitle = "Each panel shows 14 days of simulated sedentary time for different SD levels\nDashed lines show individual means",
+    x = "Day",
+    y = "Sedentary Time (minutes)",
+    color = "Variability Level"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",  # Remove legend since facets show the levels
+    strip.text = element_text(size = 12, face = "bold")
+  ) +
+  scale_color_viridis_d(option = "plasma") +
+  scale_y_continuous(breaks = seq(500, 700, 25))
+
+print(variability_plot)
+
+# Create a deviation plot to show how much each day deviates from personal mean
+deviation_plot <- ggplot(variability_examples, aes(x = day, y = deviation_from_mean, fill = sd_level)) +
+  geom_col(alpha = 0.7) +
+  geom_hline(yintercept = 0, color = "black", size = 1) +
+  facet_wrap(~ sd_level, ncol = 2) +
+  labs(
+    title = "Daily Deviations from Personal Average",
+    subtitle = "Positive values = more sedentary than usual; Negative values = less sedentary than usual",
+    x = "Day",
+    y = "Deviation from Personal Mean (minutes)",
+    fill = "Variability Level"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(size = 12, face = "bold")
+  ) +
+  scale_fill_viridis_d(option = "plasma") +
+  scale_y_continuous(breaks = seq(-80, 80, 20))
+
+print(deviation_plot)
+```
+
+### Real-World Context
+
+These variability levels correspond to different types of lifestyle patterns:
+
+- **SD = 0.1 (Very Consistent)**: Someone with a highly regular routine - same commute, same work schedule, consistent evening activities. Day-to-day sedentary time varies by only ±15-20 minutes.
+
+- **SD = 0.2 (Moderately Consistent)**: Typical working adult with some routine variation - occasional work-from-home days, some weekend differences, minor schedule changes. Varies by ±30-40 minutes daily.
+
+- **SD = 0.3 (Moderately Variable)**: More lifestyle variation - mix of office/remote work, irregular weekend activities, some social commitments affecting routine. Varies by ±45-60 minutes daily.
+
+- **SD = 0.4 (Highly Variable)**: Irregular schedule or lifestyle - shift work, freelancing, frequent travel, or major day-to-day routine differences. Can vary by ±60-80 minutes daily.
+
+### Impact on Study Power
+
+Higher within-subject variability **reduces** power because:
+1. **Noise obscures signal**: More day-to-day variation makes it harder to detect true intervention effects
+2. **Measurement precision**: Greater variability around each person's "true" behavior level adds noise
+3. **Effect detectability**: Small but real intervention effects can be masked by high natural variation
+
+This is why the power analysis shows that studies with participants who have very consistent routines (low SD) are more likely to detect intervention effects than studies with highly variable participants.
+
+## Simulation Engine
 
 ```{r sim_engine, eval=FALSE}
 # Power estimation using SimEngine – cleaned version (no play_sd_prop, no corr_noise_sd)
@@ -1247,7 +1402,7 @@ knitr::kable(
 
 ```{r power_analysis_extended, eval=TRUE}
 # Load the results from the SimEngine power analysis
-load("scripts/sim_comp_debug/power_sim_results_20250714_160955.RData")
+load("scripts/sim_comp_debug/power_sim_results_20250722_223508.RData")
 
 # Get the power summary data frame
 power_results_multi <- result$power_summary
@@ -1281,39 +1436,59 @@ power_results_long <- power_results_multi %>%
 
 # Create a faceted plot showing all power curves
 ggplot(power_results_long, 
-       aes(x = s_between, y = power, 
+       aes(x = s_within, y = power, 
            color = effect_min_factor,
-           alpha = factor(s_within),
-           group = interaction(effect_min_factor, s_within))) +
+           alpha = factor(s_between),
+           group = interaction(effect_min_factor, s_between))) +
   geom_line(size = 1.2) +
   geom_point(size = 1.5) +
   facet_wrap(~ power_type, ncol = 2) +
   labs(title = "Power Curves by Effect Size and Variability Parameters",
-       subtitle = "Each line represents a unique Effect Size × Within-subject SD combination",
-       x = "Between-subject SD", 
+       subtitle = "Each line represents a unique Effect Size × Between-subject SD combination",
+       x = "Within-subject SD", 
        y = "Statistical Power",
        color = "Effect Size",
-       alpha = "Within-subject SD") +
+       alpha = "Between-subject SD") +
   theme_minimal() +
   geom_hline(yintercept = 0.8, linetype = "dashed", color = "red", alpha = 0.7) +
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
+  scale_x_reverse() +
   scale_alpha_discrete(range = c(0.4, 1.0)) +
   theme(legend.position = "bottom") +
   guides(
     color = guide_legend(title = "Effect Size", nrow = 1, order = 1),
-    alpha = guide_legend(title = "Within-subject SD", nrow = 1, order = 2)
+    alpha = guide_legend(title = "Between-subject SD", nrow = 1, order = 2)
   )
 
-# Create a condensed comparison plot
-ggplot(power_results_long, 
-       aes(x = effect_min, y = power, 
+# Create a condensed comparison plot focusing on highest within-subject SD
+highest_s_within <- max(power_results_long$s_within)
+power_results_highest_sd <- power_results_long %>%
+  filter(s_within == highest_s_within)
+
+# Calculate summary statistics across between-subject SD values for ribbon
+power_summary_ribbon <- power_results_highest_sd %>%
+  group_by(effect_min, power_type) %>%
+  summarise(
+    mean_power = mean(power, na.rm = TRUE),
+    min_power = min(power, na.rm = TRUE),
+    max_power = max(power, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ggplot(power_summary_ribbon, 
+       aes(x = effect_min, y = mean_power, 
            color = power_type,
+           fill = power_type,
            linetype = power_type)) +
-  geom_smooth(se = FALSE) +
-  labs(title = "Comparison of Power by Effect Type",
+  geom_ribbon(aes(ymin = min_power, ymax = max_power), alpha = 0.2, color = NA) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  labs(title = paste("Comparison of Power by Effect Type (Highest Within-Subject SD =", highest_s_within, ")"),
+       subtitle = "Lines show mean power; ribbons show range across Between-subject SD values",
        x = "Effect Size (minutes)", 
        y = "Statistical Power",
        color = "Effect Type",
+       fill = "Effect Type",
        linetype = "Effect Type") +
   theme_minimal() +
   geom_hline(yintercept = 0.8, linetype = "dashed", color = "black") +
@@ -1321,13 +1496,13 @@ ggplot(power_results_long,
 
 
 power_protocol_change_heatmap <- power_results_multi %>%
-  ggplot(aes(x = s_between, y = s_within, fill = power_protocol_change)) +
+  ggplot(aes(x = s_within, y = s_between, fill = power_protocol_change)) +
   geom_tile() +
   facet_wrap(~ effect_min_factor) +
   scale_fill_viridis_c(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
   labs(title = "Power Heatmap for Per-Protocol Effect (Change Score)",
-       x = "Between-subject SD",
-       y = "Within-subject SD",
+       x = "Within-subject SD",
+       y = "Between-subject SD",
        fill = "Power") +
   theme_minimal() +
   theme(legend.position = "right")
@@ -1336,12 +1511,12 @@ power_protocol_change_heatmap <- power_results_multi %>%
 power_protocol_change_heatmap
 
 power_protocol_robust_heatmap <- power_results_multi %>%
-  ggplot(aes(x = s_between, y = s_within, fill = power_protocol_robust)) +
+  ggplot(aes(x = s_within, y = s_between, fill = power_protocol_robust)) +
   geom_tile() +
   facet_wrap(~ effect_min_factor) +
   scale_fill_viridis_c(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
   labs(title = "Power Heatmap for Per-Protocol Effect (Robust)",
-       x = "Between-subject SD",
+       x = "Within-subject SD",
        y = "Within-subject SD",
        fill = "Power") +
   theme_minimal() +
@@ -1353,13 +1528,13 @@ power_protocol_robust_heatmap
 # Create a heatmap visualization showing power for different parameter combinations
 # Focus on the interaction effect as it's typically the primary outcome
 power_interaction_heatmap <- power_results_multi %>%
-  ggplot(aes(x = s_between, y = s_within, fill = power_interaction)) +
+  ggplot(aes(x = s_within, y = s_between, fill = power_interaction)) +
   geom_tile() +
   facet_wrap(~ effect_min_factor) +
   scale_fill_viridis_c(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
   labs(title = "Power Heatmap for Intention to Treat Effect",
-       x = "Between-subject SD",
-       y = "Within-subject SD",
+       x = "Within-subject SD",
+       y = "Between-subject SD",
        fill = "Power") +
   theme_minimal() +
   theme(legend.position = "right")
@@ -1418,132 +1593,5 @@ The two per-protocol approaches test subtly different hypotheses:
 **Impact**: The robust approach's power is severely underestimated in these results. When correctly interpreted, it likely has similar or higher power than the change score approach, as it avoids potential regression-to-the-mean issues inherent in change scores.
 :::
 
-## Correcting Per-Protocol Power Calculations
-
-```{r correct-protocol-power}
-#| label: correct-protocol-power
-#| code-summary: "Correct the per-protocol robust power calculation"
-
-# The robust per-protocol model tests a different hypothesis than the change score model
-# and expects opposite coefficient signs. Let's recalculate the power correctly.
-
-if (exists("result") && !is.null(result$sim_object)) {
-  # Extract the raw simulation results
-  raw_results <- result$sim_object$results
-  
-  # Recalculate power with correct interpretation
-  corrected_power <- raw_results %>%
-    mutate(
-      # For change score approach: positive coefficient expected (more reduction → better)
-      power_protocol_change_corrected = p_protocol_change < 0.05,
-      
-      # For robust approach: need to check the actual coefficient direction
-      # Since we don't have the coefficient sign stored, we need to infer it
-      # In the robust model, negative coefficient means less playtime → better outcome
-      # We'll need to re-run a subset to check coefficient signs
-      power_protocol_robust_corrected = p_protocol_robust < 0.05  # Placeholder for now
-    ) %>%
-    group_by(n_pg, effect_min, s_between, s_within, baseline_days, intervention_days) %>%
-    summarise(
-      power_protocol_change = mean(power_protocol_change_corrected, na.rm = TRUE),
-      power_protocol_robust_original = mean(p_protocol_robust < 0.05, na.rm = TRUE),
-      .groups = "drop"
-    )
-  
-  message("=== PER-PROTOCOL POWER COMPARISON ===")
-  message("Note: The robust approach tests if lower playtime is associated with")
-  message("less sedentary behavior during intervention (expects NEGATIVE coefficient).")
-  message("")
-  message("Original power calculation (incorrect for robust):")
-  message(sprintf("  Change Score Approach - Mean Power: %.3f", 
-                  mean(corrected_power$power_protocol_change, na.rm = TRUE)))
-  message(sprintf("  Robust Approach - Mean Power: %.3f", 
-                  mean(corrected_power$power_protocol_robust_original, na.rm = TRUE)))
-  
-  # To properly correct this, we would need to either:
-  # 1. Store coefficient estimates in the simulation
-  # 2. Re-run a small subset to check coefficient directions
-  # 3. Modify the original simulation to check for negative coefficients
-  
-  message("\nIMPORTANT: The robust approach power is likely underestimated because")
-  message("it's checking for positive coefficients when negative ones are expected.")
-  message("The true power for the robust approach is likely much higher.")
-}
-
-# TO FIX THIS PROPERLY IN FUTURE SIMULATIONS:
-# 
-# Option 1: Modify the run_analysis function to store coefficient estimates:
-#   - Change the results to include: estimate_protocol_robust = coef(mp_robust)["intervention_active:playtime"]
-#   - Then check power as: sum(estimate_protocol_robust < 0 & p_protocol_robust < 0.05)
-#
-# Option 2: Modify the aggregation in est_power_simengine to handle sign differences:
-#   - Add a new column: power_protocol_robust = results$estimate_protocol_robust < 0 & results$p_protocol_robust < 0.05
-#
-# Option 3: Transform the playtime variable to make both models expect positive coefficients:
-#   - Create neg_playtime = -playtime in the data
-#   - Use neg_playtime in the robust model instead of playtime
-#   - Then both models would expect positive coefficients
-```
-
-```{r visualize-correction-impact}
-#| label: visualize-correction-impact
-#| code-summary: "Visualize the impact of correcting the robust approach power calculation"
-
-# Create a visual demonstration of the likely impact
-if (exists("power_results_multi")) {
-  # Create a comparison plot
-  comparison_data <- power_results_multi %>%
-    select(effect_min, s_between, s_within, power_protocol_change, power_protocol_robust) %>%
-    mutate(
-      # The robust approach likely has similar or higher power than change score
-      # when correctly interpreted (this is a conservative estimate)
-      power_protocol_robust_corrected = pmin(
-        power_protocol_change * 1.1,  # Assume at least 10% better
-        0.99  # Cap at 99% power
-      )
-    ) %>%
-    pivot_longer(
-      cols = c(power_protocol_change, power_protocol_robust, power_protocol_robust_corrected),
-      names_to = "approach",
-      values_to = "power"
-    ) %>%
-    mutate(
-      approach = factor(approach, 
-        levels = c("power_protocol_change", "power_protocol_robust", "power_protocol_robust_corrected"),
-        labels = c("Change Score", "Robust (Original)", "Robust (Corrected Estimate)")
-      )
-    )
-  
-  ggplot(comparison_data, aes(x = effect_min, y = power, color = approach, linetype = approach)) +
-    geom_smooth(method = "loess", se = FALSE, size = 1.2) +
-    labs(
-      title = "Impact of Correcting Per-Protocol Power Calculations",
-      subtitle = "The robust approach likely has much higher power when correctly interpreted",
-      x = "Effect Size (minutes)",
-      y = "Statistical Power",
-      color = "Approach",
-      linetype = "Approach"
-    ) +
-    scale_color_manual(values = c(
-      "Change Score" = "#2E8B57",
-      "Robust (Original)" = "#FF6347",
-      "Robust (Corrected Estimate)" = "#4169E1"
-    )) +
-    scale_linetype_manual(values = c(
-      "Change Score" = "solid",
-      "Robust (Original)" = "dashed",
-      "Robust (Corrected Estimate)" = "solid"
-    )) +
-    geom_hline(yintercept = 0.8, linetype = "dotted", color = "black", alpha = 0.5) +
-    theme_minimal() +
-    theme(legend.position = "bottom") +
-    annotate("text", x = 60, y = 0.15, 
-             label = "Robust approach appears\nto have very low power\n(incorrect interpretation)",
-             hjust = 0, color = "#FF6347", size = 3) +
-    annotate("text", x = 90, y = 0.85, 
-             label = "Likely true power\nfor robust approach",
-             hjust = 0, color = "#4169E1", size = 3)
-}
-```
 
 

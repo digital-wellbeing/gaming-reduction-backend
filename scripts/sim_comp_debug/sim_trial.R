@@ -1,8 +1,21 @@
 # Power estimation using SimEngine – cleaned version (no play_sd_prop, no corr_noise_sd)
 
+# CRITICAL: Set CRAN mirror FIRST for cluster environments
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
 # Install SimEngine if not already installed
 if (!requireNamespace("SimEngine", quietly = TRUE)) {
-  install.packages("SimEngine")
+  message("Installing SimEngine package...")
+  install.packages("SimEngine", dependencies = TRUE)
+}
+
+# Check and load required packages
+required_packages <- c("SimEngine", "lme4", "lmerTest", "compositions", "MASS", "dplyr", "extraDistr")
+missing_packages <- required_packages[!sapply(required_packages, requireNamespace, quietly = TRUE)]
+
+if (length(missing_packages) > 0) {
+  message("Installing missing packages: ", paste(missing_packages, collapse = ", "))
+  install.packages(missing_packages, dependencies = TRUE)
 }
 
 # Load required packages
@@ -23,10 +36,12 @@ args <- commandArgs(trailingOnly = TRUE)
 # Default values
 default_sims <- 1000
 default_cores <- 16
+default_output <- NULL  # Will use default timestamped filename if not specified
 
-# Parse arguments: --sims=VALUE --cores=VALUE
+# Parse arguments: --sims=VALUE --cores=VALUE --output=PATH
 sims_param <- default_sims
 cores_param <- default_cores
+output_param <- default_output
 
 if (length(args) > 0) {
   for (arg in args) {
@@ -42,6 +57,20 @@ if (length(args) > 0) {
         warning("Invalid cores parameter, using default: ", default_cores)
         cores_param <- default_cores
       }
+    } else if (grepl("^--output=", arg)) {
+      output_param <- sub("^--output=", "", arg)
+      # Validate output path
+      output_dir <- dirname(output_param)
+      if (!dir.exists(output_dir)) {
+        # Try to create the directory
+        tryCatch({
+          dir.create(output_dir, recursive = TRUE)
+          message("Created output directory: ", output_dir)
+        }, error = function(e) {
+          warning("Could not create output directory: ", output_dir, ". Error: ", e$message, ". Using default location.")
+          output_param <<- default_output
+        })
+      }
     }
   }
 }
@@ -50,8 +79,25 @@ if (length(args) > 0) {
 message("=== SIMULATION PARAMETERS ===")
 message("Number of simulations: ", sims_param)
 message("Number of cores: ", cores_param)
+message("Output location: ", ifelse(is.null(output_param), "default (timestamped)", output_param))
 message("==============================")
 
+# --------------------------------------------------------------------------------
+# UNDERSTANDING WITHIN-SUBJECT VARIABILITY (s_within) ---------------------------
+# --------------------------------------------------------------------------------
+# The s_within parameter controls day-to-day behavioral variability within individuals:
+#
+# s_within = 0.1  →  Very consistent routine (±15-20 min/day sedentary variation)
+#                    Example: Office worker with same commute, same schedule
+# s_within = 0.2  →  Moderately consistent (±30-40 min/day variation)  
+#                    Example: Typical adult with some weekend/routine differences
+# s_within = 0.3  →  Moderately variable (±45-60 min/day variation)
+#                    Example: Mix of office/remote work, irregular activities
+# s_within = 0.4  →  Highly variable (±60-80 min/day variation)
+#                    Example: Shift work, freelancing, frequent travel
+#
+# POWER IMPACT: Higher s_within = lower power (noise obscures intervention effects)
+#
 # --------------------------------------------------------------------------------
 # Main simulation wrapper ---------------------------------------------------------
 # --------------------------------------------------------------------------------
@@ -415,40 +461,78 @@ est_power_simengine <- function(n_pg = 40,
   # ------------------------------------------------------------------------------
   # Config & run -----------------------------------------------------------------
   # ------------------------------------------------------------------------------
-  sim %<>% set_config(
-    num_sim      = sims,
-    parallel     = TRUE,   # Enable parallel processing
-    n_cores      = cores,  # Use specified cores
-    packages     = c("lme4", "lmerTest", "compositions", "MASS", "dplyr", "extraDistr"),
-    progress_bar = TRUE
-  )
+  
+  # Try parallel first, fallback to sequential if it fails
+  parallel_success <- FALSE
+  tryCatch({
+    message("Attempting parallel execution with ", cores, " cores...")
+    sim %<>% set_config(
+      num_sim      = sims,
+      parallel     = TRUE,   # Enable parallel processing
+      n_cores      = cores,  # Use specified cores
+      packages     = c("lme4", "lmerTest", "compositions", "MASS", "dplyr", "extraDistr"),
+      progress_bar = TRUE
+    )
+    parallel_success <- TRUE
+  }, error = function(e) {
+    message("Parallel setup failed: ", e$message)
+    message("Falling back to sequential processing...")
+    sim %<>% set_config(
+      num_sim      = sims,
+      parallel     = FALSE,  # Disable parallel processing
+      packages     = c("lme4", "lmerTest", "compositions", "MASS", "dplyr", "extraDistr"),
+      progress_bar = TRUE
+    )
+  })
 
   
-  # # Add a test run to debug issues
-  # message("Testing data generation and analysis functions...")
-  # tryCatch({
-  #   test_data <- generate_data(
-  #     n_pg = 10,  # Small test
-  #     effect_min = 30,
-  #     baseline_days = 7,
-  #     intervention_days = 14,
-  #     s_between = 0.15,
-  #     s_within = 0.25
-  #   )
-  #   message("✓ Data generation successful")
-  #   message("Test data dimensions: ", nrow(test_data), " x ", ncol(test_data))
+  # Add a test run to debug issues
+  message("Testing data generation and analysis functions...")
+  tryCatch({
+    test_data <- generate_data(
+      n_pg = 10,  # Small test
+      effect_min = 30,
+      baseline_days = 7,
+      intervention_days = 14,
+      s_between = 0.15,
+      s_within = 0.25
+    )
+    message("✓ Data generation successful")
+    message("Test data dimensions: ", nrow(test_data), " x ", ncol(test_data))
     
-  #   test_results <- run_analysis(test_data)
-  #   message("✓ Analysis function successful")
-  #   message("Test results: ", paste(names(test_results), test_results, sep="=", collapse=", "))
-  # }, error = function(e) {
-  #   message("❌ Test failed with error: ", e$message)
-  #   stop("Stopping due to test failure. Fix the issue before running full simulation.")
-  # })
+    test_results <- run_analysis(test_data)
+    message("✓ Analysis function successful")
+    message("Test results: ", paste(names(test_results), test_results, sep="=", collapse=", "))
+  }, error = function(e) {
+    message("❌ Test failed with error: ", e$message)
+    stop("Stopping due to test failure. Fix the issue before running full simulation.")
+  })
 
-  # message("Running simulations …")
+  message("Running simulations…")
   
-  sim %<>% run()
+  # Wrap simulation run in error handling
+  sim_results <- tryCatch({
+    sim %<>% run()
+    sim
+  }, error = function(e) {
+    message("❌ Simulation failed with error: ", e$message)
+    if (parallel_success && grepl("connection|unserialize|node", e$message, ignore.case = TRUE)) {
+      message("🔄 This looks like a parallel processing issue. Retrying with sequential processing...")
+      sim %<>% set_config(
+        num_sim      = sims,
+        parallel     = FALSE,  # Disable parallel processing
+        packages     = c("lme4", "lmerTest", "compositions", "MASS", "dplyr", "extraDistr"),
+        progress_bar = TRUE
+      )
+      sim %<>% run()
+      return(sim)
+    } else {
+      stop("Simulation failed: ", e$message)
+    }
+  })
+  
+  # Update sim object
+  sim <- sim_results
 
   # ------------------------------------------------------------------------------
   # Summarise power --------------------------------------------------------------
@@ -517,9 +601,9 @@ est_power_simengine <- function(n_pg = 40,
 # --------------------------------------------------------------------------------
 result <- est_power_simengine(
   n_pg               = 40,  # 40 participants per group
-  effect_min_values =  c(30, 60, 90, 120),          
-  s_between_values = seq(0.1, 0.3, by = 0.05),
-  s_within_values = seq(0.1, 0.3, by = 0.05),
+  effect_min_values =  c(30, 60, 90),          
+  s_between_values = seq(0, 0.5, by = 0.25),
+  s_within_values = seq(0, 0.5, by = 0.1),
   baseline_days      = 7,
   intervention_days  = 14,
   sims               = sims_param, 
@@ -538,9 +622,20 @@ result <- est_power_simengine(
 # )
 # print(result$power_summary)
 
-# Save results with descriptive name and timestamp
-timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
-filename <- paste0("scripts/sim_comp_debug/power_sim_results_", timestamp, ".RData")
+# Save results with user-specified or default timestamped filename
+if (is.null(output_param)) {
+  # Use default timestamped filename
+  timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
+  filename <- paste0("scripts/sim_comp_debug/power_sim_results_", timestamp, ".RData")
+} else {
+  # Use user-specified filename
+  filename <- output_param
+  # Add .RData extension if not present
+  if (!grepl("\\.(RData|rda)$", filename, ignore.case = TRUE)) {
+    filename <- paste0(filename, ".RData")
+  }
+}
+
 save(result, file = filename)
 
 # Print power summary
@@ -646,7 +741,7 @@ message("DATA QUALITY ANALYSIS - VALIDITY RATES")
 message(paste(rep("=", 60), collapse=""))
 
 # Check validity rates for each contrast
-validity_threshold <- 0.95
+validity_threshold <- 0.90
 total_rows <- nrow(power_data)
 
 # Function to analyze validity for each contrast

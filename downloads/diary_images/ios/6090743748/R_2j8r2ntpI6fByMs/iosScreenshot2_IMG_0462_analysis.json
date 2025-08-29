@@ -1,0 +1,35 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-13",
+  "screenshot_timestamp": "12:02",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Dropout",
+      "time_spent": "27s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "9s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "8s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/6090743748/R_2j8r2ntpI6fByMs/iosScreenshot2_IMG_0462.png",
+    "analysis_timestamp": "2025-08-29T13:39:55.196430",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

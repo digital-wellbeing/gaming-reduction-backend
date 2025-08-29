@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-02",
+  "screenshot_timestamp": "14:37",
+  "apps": [
+    {
+      "app_name": "com.burbn.instagram",
+      "time_spent": "15 min",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 41m",
+      "time_spent_minutes": 161
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 28m",
+      "time_spent_minutes": 88
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 22m",
+      "time_spent_minutes": 82
+    },
+    {
+      "app_name": "com.reddit.Reddit",
+      "time_spent": "59m",
+      "time_spent_minutes": 59
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "49m",
+      "time_spent_minutes": 49
+    },
+    {
+      "app_name": "duckduckgo.com",
+      "time_spent": "42m",
+      "time_spent_minutes": 42
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/6090743748/R_8jvuYxCelLLbLxq/iosScreenshot1_IMG_3905.png",
+    "analysis_timestamp": "2025-08-29T13:41:37.747758",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

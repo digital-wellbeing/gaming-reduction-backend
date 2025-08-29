@@ -1,0 +1,91 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "13:36",
+  "apps": [
+    {
+      "app_name": "Travel Town",
+      "time_spent": "2h 58m",
+      "time_spent_minutes": 178
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "2h 18m",
+      "time_spent_minutes": 138
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 46m",
+      "time_spent_minutes": 106
+    },
+    {
+      "app_name": "Rock N' Cash",
+      "time_spent": "51m",
+      "time_spent_minutes": 51
+    },
+    {
+      "app_name": "Coin Master",
+      "time_spent": "48m",
+      "time_spent_minutes": 48
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": "37m",
+      "time_spent_minutes": 37
+    },
+    {
+      "app_name": "Train Miner",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/1905721722/R_27U4z0OudEjehMm/iosScreenshot1_IMG_5271.png",
+    "analysis_timestamp": "2025-08-29T12:49:47.679675",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot1_IMG_5271.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

@@ -544,17 +544,6 @@ message("Running ", nrow(all_jobs_h3a), " simulations across ", nbrOfWorkers(), 
 
 # Run all simulations in parallel
 results_h3a <- future_map_dfr(1:nrow(all_jobs_h3a), function(job_idx) {
-  # Load required libraries in each worker
-  library(tidyverse)
-  library(lme4)
-  library(mgcv)
-  library(broom)
-  library(nlme)
-  library(emmeans)
-  library(splines)
-  library(broom.mixed)
-  library(extraDistr)
-  
   # Get job parameters
   job <- all_jobs_h3a[job_idx, ]
   

@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-03",
+  "screenshot_timestamp": "18:51",
+  "apps": [
+    {
+      "app_name": "Snapchat",
+      "time_spent": "1h 54m",
+      "time_spent_minutes": 114
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 21m",
+      "time_spent_minutes": 81
+    },
+    {
+      "app_name": "Netflix",
+      "time_spent": "1h 2m",
+      "time_spent_minutes": 62
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 1m",
+      "time_spent_minutes": 61
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "BitLife",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Lloyds",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/9700566533/R_2erFwoOZxunXat6/iosScreenshot1_IMG_4637.png",
+    "analysis_timestamp": "2025-08-29T13:49:54.633431",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

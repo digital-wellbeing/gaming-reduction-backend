@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-10",
+  "screenshot_timestamp": "12:38",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "1h 7m",
+      "time_spent_minutes": 67
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "com.lumivero.nvivo-15",
+      "time_spent": "15s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.QuickTimePlayerX",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Word",
+      "time_spent": "0s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/3236077775/R_22ILlQQj7JgjPFr/iosScreenshot2_IMG_3534.png",
+    "analysis_timestamp": "2025-08-29T13:37:40.481793",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}
