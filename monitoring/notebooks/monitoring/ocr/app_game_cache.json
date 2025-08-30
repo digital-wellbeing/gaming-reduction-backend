@@ -1,0 +1,282 @@
+{
+  "activitywatch": {
+    "is_game": false,
+    "confidence": 9,
+    "reasoning": "ActivityWatch is a time-tracking application, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951141",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "trebuchet": {
+    "is_game": true,
+    "confidence": 7,
+    "reasoning": "Trebuchet could refer to a game involving the medieval siege engine. It is also a linux font. I am leaning towards game but not 100%",
+    "classification_timestamp": "2025-08-30T12:19:04.951153",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "olauncher": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Olauncher is an Android launcher application, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951155",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "firefox": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Firefox is a web browser, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951157",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "intentresolver": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "IntentResolver is an Android system component, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951158",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "whatsapp": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "WhatsApp is a messaging application, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951160",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "youtube": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "YouTube is a video sharing platform, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951161",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "syncthing-fork": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Syncthing-Fork is a file synchronization application, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951163",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "drive": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Drive is a cloud storage service, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951164",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "hinge": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Hinge is a dating app, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951165",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "teams": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Teams is a collaboration platform, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951167",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "outlook": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Outlook is an email client, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951169",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "photos": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Photos is a photo management application, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951172",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "proton mail": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Proton Mail is an email service focused on privacy, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951173",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "sheets": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Sheets is a spreadsheet application, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951175",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "tumblr": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Tumblr is a microblogging platform, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951176",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "digital wellbeing": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Digital Wellbeing is an app to help manage screen time, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951177",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "letterboxd": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Letterboxd is a social platform for movie lovers, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951179",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "clock": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Clock is a utility app for managing time, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951180",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "inoreader": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Inoreader is an RSS feed reader, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:04.951181",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "al jazeera": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "News application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990759",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "spotify": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Music streaming application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990772",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "settings": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "System settings application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990777",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "refreezer": {
+    "is_game": false,
+    "confidence": 8,
+    "reasoning": "Likely a utility app for managing applications or device performance, not a game.",
+    "classification_timestamp": "2025-08-30T12:19:09.990780",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "android system": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Core Android operating system component.",
+    "classification_timestamp": "2025-08-30T12:19:09.990783",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "maps": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Navigation and mapping application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990786",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "camera": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Camera application for taking pictures and videos.",
+    "classification_timestamp": "2025-08-30T12:19:09.990789",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "telegram": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Messaging application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990792",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "google play services": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Backend services for Android applications.",
+    "classification_timestamp": "2025-08-30T12:19:09.990795",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "docs": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Document creation and editing application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990797",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "my maps": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Custom map creation and viewing application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990800",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "google play store": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Application marketplace.",
+    "classification_timestamp": "2025-08-30T12:19:09.990803",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "phone": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Phone calling application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990805",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "discord": {
+    "is_game": false,
+    "confidence": 9,
+    "reasoning": "Communication platform, heavily used by gamers but is not itself a game.",
+    "classification_timestamp": "2025-08-30T12:19:09.990808",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "captive portal login": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "System app for connecting to Wi-Fi networks with captive portals.",
+    "classification_timestamp": "2025-08-30T12:19:09.990810",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "chrome": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Web browser.",
+    "classification_timestamp": "2025-08-30T12:19:09.990813",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "google wallet": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Digital wallet application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990817",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "onenote": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Note-taking application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990820",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "amazon shopping": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "E-commerce application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990823",
+    "model_used": "gemini-2.0-flash-exp"
+  },
+  "musicolet": {
+    "is_game": false,
+    "confidence": 10,
+    "reasoning": "Music player application.",
+    "classification_timestamp": "2025-08-30T12:19:09.990825",
+    "model_used": "gemini-2.0-flash-exp"
+  }
+}

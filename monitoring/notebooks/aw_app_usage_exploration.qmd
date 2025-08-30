@@ -1,5 +1,5 @@
 ---
-title: "App Usage Data Exploration by Study Day"
+title: "ActivityWatch App Usage Data Exploration by Study Day"
 author: "Gaming Reduction Study Analysis"
 format: 
   html:
@@ -32,11 +32,7 @@ editor: visual
 
 ## Overview
 
-This notebook explores app usage data from the gaming reduction study, focusing on data availability across study days (1-30) for each participant. The analysis uses enrollment dates to calculate study days and assess whether donated data exists for each day.
-
-### Data Refresh
-
-The notebook can automatically pull fresh data from Supabase before analysis: - **To refresh data**: Set `REFRESH_DATA <- TRUE` in the Data Loading section (default) - **To use existing files**: Set `REFRESH_DATA <- FALSE` to skip the refresh - The Python pipeline (`join_diary_activitywatch.py`) handles: - Pulling ActivityWatch data from Supabase - Fetching diary responses via Qualtrics API - Parsing and joining the data - Generating the three required CSV files
+This notebook explores ActivityWatch app usage data from the gaming reduction study, focusing on data availability across study days (1-28) for each participant. The analysis uses enrollment dates to calculate study days and assess whether donated data exists for each day, with particular emphasis on gaming app usage patterns after AI-powered app classification.
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -48,61 +44,127 @@ library(DT)
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
-## Data Loading
+## Data Refresh Pipeline
 
-```{r load-data}
+```{r data-refresh}
 # Set to FALSE to skip data refresh and use existing files
-REFRESH_DATA <- FALSE
+REFRESH_DATA <- TRUE
 
-if (REFRESH_DATA) {
-  # First, pull fresh data from Supabase using the Python pipeline
-  # This runs the full pipeline: pull ActivityWatch & diary data, parse it, and join with enrichment
-  cat("=== REFRESHING DATA FROM SUPABASE ===\n")
-  cat("Running Python pipeline to pull fresh data...\n")
+# Cache duration: refresh data if older than 1 hour
+CACHE_DURATION_HOURS <- 1
+
+# Define the output files to check for caching
+AW_DATA_FILE <- "../../.tmp/aw_app_usage.csv"
+AW_ENRICHED_FILE <- "../../.tmp/aw_app_usage_enriched.csv"
+PARTICIPANT_REPORT_FILE <- "../../.tmp/participant_report.csv"
+
+# Check if we need to refresh data based on file age
+should_refresh_data <- function(file_path, cache_hours = 1) {
+  if (!file.exists(file_path)) {
+    return(TRUE)
+  }
   
-  tryCatch({
-    pipeline_result <- system2(
-      "python3",
-      args = c("/home/tamas.foldes/Development/Projects/gaming-reduction-backend/monitoring/join_diary_activitywatch.py", "--output-dir", "../../.tmp"),
-      stdout = TRUE,
-      stderr = TRUE,
-      wait = TRUE
-    )
-    
-    # Check exit status
-    exit_status <- attr(pipeline_result, "status")
-    if (!is.null(exit_status) && exit_status != 0) {
-      cat("⚠️ Warning: Pipeline exited with non-zero status:", exit_status, "\n")
-      cat("Error output:\n")
-      cat(paste(pipeline_result, collapse = "\n"), "\n")
-      cat("\nAttempting to use existing files if available...\n")
-    } else {
-      # Show last few lines of successful output
-      if (length(pipeline_result) > 0) {
-        tail_output <- tail(pipeline_result, 5)
-        cat("✅ Pipeline completed successfully!\n")
-        cat("Last 5 lines of output:\n")
-        cat(paste(tail_output, collapse = "\n"), "\n")
-      }
-    }
-  }, error = function(e) {
-    cat("❌ Error running pipeline:", e$message, "\n")
-    cat("Attempting to use existing files if available...\n")
-  })
-  
-  cat("\n")
-} else {
-  cat("=== USING EXISTING DATA FILES ===\n")
-  cat("Skipping data refresh (REFRESH_DATA = FALSE)\n\n")
+  file_age_hours <- as.numeric(difftime(Sys.time(), file.mtime(file_path), units = "hours"))
+  return(file_age_hours > cache_hours)
 }
 
-# Check if files exist and show their timestamps
-files_to_check <- c(
-  "../../.tmp/joined_app_usage.csv",
-  "../../.tmp/participant_report.csv", 
-  "../../.tmp/exit_responses_lifetime.csv"
-)
+# Step 1: Refresh raw ActivityWatch data (this also generates participant_report.csv)
+if (REFRESH_DATA && (should_refresh_data(AW_DATA_FILE, CACHE_DURATION_HOURS) || should_refresh_data(PARTICIPANT_REPORT_FILE, CACHE_DURATION_HOURS))) {
+  cat("=== REFRESHING ACTIVITYWATCH DATA FROM SUPABASE ===\n")
+  cat("Step 1/2: Pulling ActivityWatch data from Supabase...\n")
+  
+  step1_result <- tryCatch({
+    cat("⏱️ This may take several minutes to pull data from Supabase and Qualtrics...\n")
+    system2(
+      "python3",
+      args = c("../../monitoring/join_diary_activitywatch.py", "--output-dir", "../../.tmp", "--verbose"),
+      stdout = TRUE,
+      stderr = TRUE,
+      wait = TRUE,
+      timeout = 1800  # 30 minutes timeout
+    )
+  }, error = function(e) {
+    cat("❌ Error in Step 1:", e$message, "\n")
+    return(NULL)
+  })
+  
+  if (!is.null(attr(step1_result, "status")) && attr(step1_result, "status") != 0) {
+    cat("⚠️ Warning: Step 1 exited with non-zero status:", attr(step1_result, "status"), "\n")
+    if (length(step1_result) > 0) {
+      cat("Last 20 lines of output:\n")
+      cat(paste(tail(step1_result, 20), collapse = "\n"), "\n\n")
+    }
+  } else if (!is.null(step1_result)) {
+    cat("✅ Step 1 completed successfully\n")
+    if (length(step1_result) > 5) {
+      cat("Last few lines of output:\n")
+      cat(paste(tail(step1_result, 5), collapse = "\n"), "\n\n")
+    }
+  } else {
+    cat("❌ Step 1 failed or timed out\n")
+  }
+} else if (REFRESH_DATA) {
+  if (file.exists(AW_DATA_FILE) && file.exists(PARTICIPANT_REPORT_FILE)) {
+    aw_age_hours <- as.numeric(difftime(Sys.time(), file.mtime(AW_DATA_FILE), units = "hours"))
+    report_age_hours <- as.numeric(difftime(Sys.time(), file.mtime(PARTICIPANT_REPORT_FILE), units = "hours"))
+    cat("=== USING CACHED ACTIVITYWATCH DATA ===\n")
+    cat(sprintf("AW data file is %.1f hours old, participant report is %.1f hours old (cache valid for %d hours)\n", 
+                aw_age_hours, report_age_hours, CACHE_DURATION_HOURS))
+    cat("Skipping refresh to save time.\n")
+  }
+} else {
+  cat("=== USING EXISTING ACTIVITYWATCH DATA ===\n")
+  cat("Skipping data refresh (REFRESH_DATA = FALSE)\n")
+}
 
+# Step 2: Enrich with gaming classification
+if (REFRESH_DATA && should_refresh_data(AW_ENRICHED_FILE, CACHE_DURATION_HOURS)) {
+  cat("\nStep 2/2: Enriching ActivityWatch data with game classification...\n")
+  
+  step2_result <- tryCatch({
+    cat("⏱️ This may take several minutes to classify gaming apps...\n")
+    system2(
+      "python3",
+      args = c("../../monitoring/ocr/app_game_classifier.py", AW_DATA_FILE, "--format", "activitywatch", "--output", AW_ENRICHED_FILE),
+      stdout = TRUE,
+      stderr = TRUE,
+      wait = TRUE,
+      timeout = 900  # 15 minutes timeout
+    )
+  }, error = function(e) {
+    cat("❌ Error in Step 2:", e$message, "\n")
+    return(NULL)
+  })
+  
+  if (!is.null(attr(step2_result, "status")) && attr(step2_result, "status") != 0) {
+    cat("⚠️ Warning: Step 2 exited with non-zero status:", attr(step2_result, "status"), "\n")
+    if (length(step2_result) > 0) {
+      cat("Last 15 lines of output:\n")
+      cat(paste(tail(step2_result, 15), collapse = "\n"), "\n\n")
+    }
+  } else if (!is.null(step2_result)) {
+    cat("✅ Step 2 completed successfully\n")
+    if (length(step2_result) > 3) {
+      cat("Last few lines of output:\n")
+      cat(paste(tail(step2_result, 3), collapse = "\n"), "\n\n")
+    }
+  } else {
+    cat("❌ Step 2 failed or timed out\n")
+  }
+  
+  cat("\n🎉 ActivityWatch data pipeline completed!\n\n")
+} else if (REFRESH_DATA && file.exists(AW_ENRICHED_FILE)) {
+  file_age_hours <- as.numeric(difftime(Sys.time(), file.mtime(AW_ENRICHED_FILE), units = "hours"))
+  cat(sprintf("\nEnriched data file is %.1f hours old (cache valid for %d hours)\n", file_age_hours, CACHE_DURATION_HOURS))
+  cat("Skipping enrichment to save time.\n\n")
+} else if (!file.exists(AW_ENRICHED_FILE) && file.exists(AW_DATA_FILE)) {
+  cat("\nEnriched file missing - running classification...\n")
+  system2("python3", args = c("../../monitoring/ocr/app_game_classifier.py", AW_DATA_FILE, "--format", "activitywatch", "--output", AW_ENRICHED_FILE))
+  cat("✅ Game classification completed\n\n")
+}
+
+# Check if files exist and show their info
+files_to_check <- c(AW_DATA_FILE, AW_ENRICHED_FILE, PARTICIPANT_REPORT_FILE)
 for (file in files_to_check) {
   if (file.exists(file)) {
     file_info <- file.info(file)
@@ -115,91 +177,160 @@ for (file in files_to_check) {
   }
 }
 cat("\n")
+```
 
-# Load the joined app usage data
-app_usage <- read_csv("../../.tmp/joined_app_usage.csv")
+## Data Loading
 
-# Load participant report with enrollment dates
-participant_report <- read_csv("../../.tmp/participant_report.csv")
+```{r load-data}
+# Load the enriched ActivityWatch app usage data (with game classification)
+if (file.exists(AW_ENRICHED_FILE)) {
+  aw_data <- read_csv(AW_ENRICHED_FILE)
+  cat("Using enriched ActivityWatch data with game classifications\n")
+} else {
+  aw_data <- read_csv(AW_DATA_FILE)
+  # Add default game classification columns if missing
+  if (!"ProbGame" %in% names(aw_data)) {
+    aw_data$ProbGame <- "No"
+  }
+  if (!"LLM_conf" %in% names(aw_data)) {
+    aw_data$LLM_conf <- 1
+  }
+  cat("Using raw ActivityWatch data (no game classifications available)\n")
+}
 
-# Load exit survey responses to identify participants who completed the study
-exit_responses <- read_csv("../../.tmp/exit_responses_lifetime.csv")
+# Load participant enrollment data
+participant_report <- read_csv(PARTICIPANT_REPORT_FILE)
+
+# Check if any participants are missing Condition data
+participants_missing_condition <- participant_report %>%
+  filter(is.na(Condition) | Condition == "")
+
+if (nrow(participants_missing_condition) > 0) {
+  cat("⚠️ WARNING: Found", nrow(participants_missing_condition), "participants without Condition data:\n")
+  print(participants_missing_condition$RANDOM_ID)
+  cat("\nConsider re-running with REFRESH_DATA <- TRUE to pull fresh contact list data.\n\n")
+}
 
 # Display data structure
-cat("App Usage Data Structure:\n")
-glimpse(app_usage)
+cat("ActivityWatch Data Structure:\n")
+glimpse(aw_data)
 
 cat("\nParticipant Report Structure:\n")
 glimpse(participant_report)
 
-# Display interactive table for participant report
-datatable(participant_report %>% 
-            select(RANDOM_ID, Condition, Platforms, phoneType, EnrollmentDate, 
-                   data_type, num_submission_ids, num_unique_donations, 
-                   total_donation_records, uniqueness_ratio, num_study_days_with_data),
-          caption = "Participant Report Structure - Interactive Table",
-          options = list(
-            pageLength = 10,
-            scrollX = TRUE,
-            columnDefs = list(
-              list(width = '100px', targets = 0),
-              list(width = '80px', targets = c(1, 3, 5))
-            )
-          ),
-          filter = 'top')
+cat("\nNumber of AW sessions:", nrow(aw_data), "\n")
+cat("Number of participants with enrollment dates:", n_distinct(participant_report$RANDOM_ID), "\n")
 
-# Display simple table with RANDOM_ID and submission IDs
-datatable(participant_report %>% 
-            select(RANDOM_ID, submission_ids_list),
-          caption = "Participant Submission IDs",
-          colnames = c("Participant ID", "Submission IDs"),
-          options = list(
-            pageLength = 15,
-            scrollX = TRUE,
-            columnDefs = list(
-              list(width = '150px', targets = 0),
-              list(width = '600px', targets = 1)
-            )
-          ),
-          filter = 'top')
-
-cat("\nExit Survey Data Structure:\n")
-glimpse(exit_responses)
+# Show condition distribution
+if ("Condition" %in% names(participant_report)) {
+  condition_counts <- participant_report %>%
+    count(Condition) %>%
+    mutate(Condition = ifelse(is.na(Condition) | Condition == "", "Missing", Condition))
+  
+  cat("\nCondition distribution in participant report:\n")
+  print(condition_counts)
+}
 ```
 
 ## Data Preparation
 
 ```{r data-prep}
-# Convert datetime columns and ensure consistent RANDOM_ID data types
-app_usage <- app_usage %>%
+# Process ActivityWatch data and join with enrollment information
+aw_processed <- aw_data %>%
   mutate(
+    submission_id = as.character(submission_id),
     session_datetime = ymd_hms(session_datetime),
-    created_at_datetime = ymd_hms(created_at_datetime),
     session_date = as.Date(session_datetime),
-    RANDOM_ID = as.character(RANDOM_ID)  # Ensure consistent data type
+    Duration = as.numeric(`Duration (min)`),
+    platform = tolower(trimws(platform)),  # Standardize platform
+    ProbGame = case_when(
+      ProbGame == "Yes" ~ TRUE,
+      ProbGame == "No" ~ FALSE,
+      TRUE ~ NA
+    )
   )
 
-# Process exit survey data to identify participants who completed the study
-exit_completed_participants <- exit_responses %>%
-  filter(!is.na(RANDOM_ID) & RANDOM_ID != "") %>%
+# Join with participant enrollment data using submission_id mapping
+# First, create a mapping from submission_id to RANDOM_ID
+submission_mapping <- participant_report %>%
+  select(RANDOM_ID, submission_ids_list) %>%
   mutate(RANDOM_ID = as.character(RANDOM_ID)) %>%
-  distinct(RANDOM_ID) %>%
-  mutate(completed_exit_survey = TRUE)
-
-# Parse enrollment dates from participant report and add completion status
-participant_report <- participant_report %>%
+  filter(!is.na(submission_ids_list) & submission_ids_list != "") %>%
   mutate(
-    RANDOM_ID = as.character(RANDOM_ID),  # Ensure consistent data type
-    EnrollmentDate = ymd(EnrollmentDate),
-    # Parse study_days_with_data from string representation of list
-    study_days_with_data = str_remove_all(study_days_with_data, "[\\[\\]]") %>%
-      str_split(", ") %>%
-      map(~ as.numeric(.x[.x != ""]))
+    # Clean the Python list format: remove brackets and quotes
+    cleaned_ids = str_replace_all(submission_ids_list, "[\\[\\]']", "")
   ) %>%
-  # Join with exit survey completion data
-  left_join(exit_completed_participants, by = "RANDOM_ID") %>%
+  separate_rows(cleaned_ids, sep = ", ") %>%
+  mutate(submission_id = trimws(cleaned_ids)) %>%
+  select(submission_id, RANDOM_ID) %>%
+  distinct()
+
+# Join ActivityWatch data with enrollment information
+aw_processed <- aw_processed %>%
+  left_join(submission_mapping, by = "submission_id") %>%
+  left_join(
+    participant_report %>% 
+      select(RANDOM_ID, EnrollmentDate, Condition) %>%
+      mutate(
+        RANDOM_ID = as.character(RANDOM_ID),
+        EnrollmentDate = ymd(EnrollmentDate)
+      ),
+    by = "RANDOM_ID"
+  ) %>%
+  filter(!is.na(EnrollmentDate)) %>%
   mutate(
-    completed_exit_survey = ifelse(is.na(completed_exit_survey), FALSE, completed_exit_survey),
+    # Calculate study day based on enrollment date
+    study_day = as.numeric(session_date - EnrollmentDate) + 1
+  ) %>%
+  filter(study_day >= 1 & study_day <= 28)  # Focus on 28-day study period
+
+# Platform summary
+platform_summary <- aw_processed %>%
+  group_by(platform) %>%
+  summarise(
+    participants = n_distinct(RANDOM_ID),
+    sessions = n(),
+    total_duration = sum(Duration, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(participants))
+
+cat("\nPlatform Summary:\n")
+print(platform_summary)
+
+cat("\nData after processing:\n")
+cat("Participants with enrollment dates:", n_distinct(aw_processed$RANDOM_ID), "\n")
+cat("Date range:", range(aw_processed$session_date, na.rm = TRUE), "\n")
+cat("Study day range:", range(aw_processed$study_day, na.rm = TRUE), "\n")
+cat("Available platforms:", paste(unique(aw_processed$platform), collapse = ", "), "\n")
+
+# Check join success
+participants_in_aw <- n_distinct(aw_processed$submission_id)
+participants_with_random_id <- n_distinct(aw_processed$RANDOM_ID[!is.na(aw_processed$RANDOM_ID)])
+cat("Submission IDs in AW data:", participants_in_aw, "\n")
+cat("Successfully mapped to RANDOM_IDs:", participants_with_random_id, "\n")
+```
+
+## Participant Overview
+
+```{r participant-overview}
+# Summary by participant with platform information
+participant_summary <- aw_processed %>%
+  group_by(RANDOM_ID, Condition, EnrollmentDate) %>%
+  summarise(
+    platforms = paste(sort(unique(platform)), collapse = ", "),
+    total_apps = n_distinct(App),
+    total_sessions = n(),
+    total_duration = sum(Duration, na.rm = TRUE),
+    gaming_apps = n_distinct(App[ProbGame == TRUE]),
+    gaming_sessions = sum(ProbGame == TRUE, na.rm = TRUE),
+    gaming_duration = sum(Duration[ProbGame == TRUE], na.rm = TRUE),
+    study_days_with_data = n_distinct(study_day),
+    first_day = min(study_day),
+    last_day = max(study_day),
+    .groups = "drop"
+  ) %>%
+  mutate(
     # Calculate study completion status
     report_generation_date = Sys.Date(),
     study_end_date = EnrollmentDate + days(27), # 28 days total (0-27)
@@ -207,117 +338,135 @@ participant_report <- participant_report %>%
     study_should_be_complete = days_since_enrollment >= 28,
     study_completion_status = case_when(
       !study_should_be_complete ~ "🟡 In Progress",
-      study_should_be_complete & num_study_days_with_data >= 20 ~ "✅ Complete",
-      days_since_enrollment > 30 & num_study_days_with_data < 20 ~ "🔴 Incomplete",
-      study_should_be_complete & completed_exit_survey & num_study_days_with_data < 20 ~ "🔴 Incomplete",
-      study_should_be_complete & !completed_exit_survey & num_study_days_with_data < 20 ~ "🟡 In Progress", 
+      study_should_be_complete & study_days_with_data >= 20 ~ "✅ Complete",
+      days_since_enrollment > 30 & study_days_with_data < 20 ~ "🔴 Incomplete",
       TRUE ~ "❓ Unknown"
     ),
-    # Status for sorting and filtering
     status_category = case_when(
       !study_should_be_complete ~ "in_progress",
-      study_should_be_complete & num_study_days_with_data >= 20 ~ "complete",
-      days_since_enrollment > 30 & num_study_days_with_data < 20 ~ "incomplete",
-      study_should_be_complete & completed_exit_survey & num_study_days_with_data < 20 ~ "incomplete",
-      study_should_be_complete & !completed_exit_survey & num_study_days_with_data < 20 ~ "in_progress",
+      study_should_be_complete & study_days_with_data >= 20 ~ "complete",
+      days_since_enrollment > 30 & study_days_with_data < 20 ~ "incomplete",
       TRUE ~ "unknown"
-    )
-  )
-
-# Process enrollment dates and calculate study days
-app_usage_with_enrollment <- app_usage %>%
-  mutate(
-    EnrollmentDate = ymd(EnrollmentDate),
-    # Calculate study day based on enrollment date  
-    study_day = as.numeric(session_date - EnrollmentDate) + 1
+    ),
+    gaming_percentage = round((gaming_duration / total_duration) * 100, 1)
   ) %>%
-  filter(!is.na(EnrollmentDate)) %>%
-  filter(study_day >= 1 & study_day <= 30)  # Focus on study period
-
-cat("Data after processing:\n")
-cat("Participants with enrollment dates:", n_distinct(app_usage_with_enrollment$RANDOM_ID), "\n")
-cat("Date range:", range(app_usage_with_enrollment$session_date, na.rm = TRUE), "\n")
-cat("Study day range:", range(app_usage_with_enrollment$study_day, na.rm = TRUE), "\n")
-```
-
-## Participant Overview
-
-```{r participant-overview}
-# Add platform information from app usage data
-participant_platform_info <- app_usage_with_enrollment %>%
-  group_by(RANDOM_ID) %>%
-  summarise(
-    platform_from_data = paste(unique(platform), collapse = ", "),
-    .groups = "drop"
-  )
-
-# Summary by participant with completion status and platform
-participant_summary <- participant_report %>%
-  left_join(participant_platform_info, by = "RANDOM_ID") %>%
-  select(RANDOM_ID, study_completion_status, status_category, Condition, 
-         platform_from_data, Platforms, completed_exit_survey,
-         EnrollmentDate, days_since_enrollment, study_end_date,
-         num_submission_ids, total_donation_records, 
-         num_study_days_with_data, study_days_with_data) %>%
-  arrange(status_category, platform_from_data, RANDOM_ID) %>% # Sort by status, platform, then ID
-  select(-status_category) # Remove the sorting column from display
+  arrange(status_category, RANDOM_ID)
 
 # Display interactive participant table
-datatable(participant_summary, 
-      caption = "Participant Summary with Study Completion Status and Platform",
-      colnames = c("Participant ID", "Status", "Condition", "Data Platform", "Study Platforms", 
-                   "Exit Survey", "Enrollment Date", "Days Since Enrollment", "Study End Date",
-                   "Submissions", "Total Records", "Days with Data", "Study Days List"),
+datatable(participant_summary %>% select(-status_category), 
+      caption = "ActivityWatch Participant Summary with Study Completion Status and Platforms",
+      colnames = c("Participant ID", "Condition", "Enrollment Date", "Platforms", "Total Apps", "Total Sessions", 
+                   "Total Duration (min)", "Gaming Apps", "Gaming Sessions", "Gaming Duration (min)",
+                   "Days with Data", "First Day", "Last Day", "Report Date", "Study End Date", 
+                   "Days Since Enrollment", "Should Complete", "Status", "Gaming %"),
       options = list(
         pageLength = 20,
         scrollX = TRUE,
-        columnDefs = list(list(width = '120px', targets = c(1, 3, 4, 5))),
-        order = list(list(1, 'asc'))
+        columnDefs = list(list(width = '120px', targets = c(0, 1, 16))),
+        order = list(list(16, 'asc'))
       ),
-      filter = 'top')
+      filter = 'top') %>%
+      formatRound(columns = c(5, 8, 17), digits = 1)
 
 # Summary of completion status
-status_summary <- participant_report %>%
+status_summary <- participant_summary %>%
   count(study_completion_status, status_category) %>%
   arrange(status_category)
 
-cat("\n=== STUDY COMPLETION STATUS SUMMARY ===\n")
+cat("\n=== ACTIVITYWATCH STUDY COMPLETION STATUS SUMMARY ===\n")
 for(i in 1:nrow(status_summary)) {
   cat(status_summary$study_completion_status[i], ":", status_summary$n[i], "participants\n")
 }
 ```
 
-## Data Availability by Study Day
+## Data Availability Matrix
 
-```{r data-availability}
-# Create a comprehensive data availability matrix
-study_day_availability <- app_usage_with_enrollment %>%
-  group_by(RANDOM_ID, study_day) %>%
+```{r data-availability-matrix}
+# Create comprehensive data availability matrix for ActivityWatch participants by platform
+study_day_availability <- aw_processed %>%
+  group_by(RANDOM_ID, platform, study_day) %>%
   summarise(
     has_data = TRUE,
-    num_records = n(),
     num_apps = n_distinct(App),
-    total_duration = sum(`Duration (min)`, na.rm = TRUE),
+    total_duration = sum(Duration, na.rm = TRUE),
+    gaming_duration = sum(ifelse(ProbGame == TRUE & !is.na(ProbGame), Duration, 0), na.rm = TRUE),
     .groups = "drop"
   )
 
-# Create complete grid of participant x study day combinations
-all_participants <- unique(app_usage_with_enrollment$RANDOM_ID)
-all_study_days <- 1:30
+# Debug: Check gaming duration calculation by platform
+cat("Gaming duration check by platform:\n")
+gaming_by_platform <- study_day_availability %>%
+  group_by(platform) %>%
+  summarise(
+    total_gaming_duration = sum(gaming_duration, na.rm = TRUE),
+    participants = n_distinct(RANDOM_ID),
+    .groups = "drop"
+  )
+print(gaming_by_platform)
 
-complete_grid <- expand_grid(
-  RANDOM_ID = all_participants,
-  study_day = all_study_days
-) %>%
-  left_join(study_day_availability, by = c("RANDOM_ID", "study_day")) %>%
-  mutate(has_data = ifelse(is.na(has_data), FALSE, has_data)) %>%
-  left_join(
-    participant_report %>% select(RANDOM_ID, Condition, EnrollmentDate, 
-                                study_completion_status, status_category),
-    by = "RANDOM_ID"
+# Let's also check the raw data by platform
+gaming_check_platform <- aw_processed %>%
+  filter(ProbGame == TRUE) %>%
+  group_by(platform) %>%
+  summarise(
+    total_gaming_sessions = n(),
+    total_gaming_duration = sum(Duration, na.rm = TRUE),
+    .groups = "drop"
+  )
+cat("Raw gaming data check by platform:\n")
+print(gaming_check_platform)
+
+# Create separate complete grids for each platform
+platform_types <- unique(aw_processed$platform)
+all_study_days <- 1:28
+
+# Create platform-specific grids
+platform_grids <- list()
+
+for(platform in platform_types) {
+  platform_participants <- unique(aw_processed$RANDOM_ID[aw_processed$platform == platform])
+  
+  platform_grid <- expand_grid(
+    RANDOM_ID = platform_participants,
+    study_day = all_study_days,
+    platform = platform
+  ) %>%
+    left_join(study_day_availability, by = c("RANDOM_ID", "platform", "study_day")) %>%
+    mutate(
+      has_data = ifelse(is.na(has_data), FALSE, has_data),
+      gaming_duration = ifelse(is.na(gaming_duration), 0, gaming_duration)
+    ) %>%
+    left_join(
+      participant_summary %>% select(RANDOM_ID, Condition, EnrollmentDate, 
+                                   study_completion_status, status_category),
+      by = "RANDOM_ID"
+    )
+  
+  platform_grids[[platform]] <- platform_grid
+  
+  cat(sprintf("Platform '%s': %d participants, %d total records\n", 
+              platform, length(platform_participants), nrow(platform_grid)))
+}
+
+# Combine all platform grids
+complete_grid <- bind_rows(platform_grids)
+
+# Debug: Check the join results
+cat("\nCombined grid dimensions:", nrow(complete_grid), "rows\n")
+cat("Participants with Condition data:", sum(!is.na(complete_grid$Condition)), "\n")
+cat("Unique participants in complete_grid:", n_distinct(complete_grid$RANDOM_ID), "\n")
+
+# Summary statistics by platform
+availability_summary_by_platform <- complete_grid %>%
+  group_by(platform, study_day) %>%
+  summarise(
+    participants_with_data = sum(has_data),
+    total_participants = n(),
+    percentage_with_data = (participants_with_data / total_participants) * 100,
+    .groups = "drop"
   )
 
-# Summary statistics
+# Overall summary (combined)
 availability_summary <- complete_grid %>%
   group_by(study_day) %>%
   summarise(
@@ -327,149 +476,86 @@ availability_summary <- complete_grid %>%
     .groups = "drop"
   )
 
-cat("Data Availability Summary:\n")
-datatable(availability_summary,
-          caption = "Data Availability Summary by Study Day",
-          colnames = c("Study Day", "Participants with Data", "Total Participants", "Percentage with Data"),
-          options = list(
-            pageLength = 15,
-            scrollX = TRUE,
-            order = list(list(0, 'asc'))
-          ),
-          filter = 'top') %>%
-  formatRound(columns = c(4), digits = 1)
-```
-
-## Visualization: Data Availability Heatmap
-
-```{r heatmap-setup}
-# Add platform information to complete_grid
-complete_grid_with_platform <- complete_grid %>%
-  left_join(
-    app_usage_with_enrollment %>% 
-      select(RANDOM_ID, platform) %>% 
-      distinct(),
-    by = "RANDOM_ID"
-  )
-
-# Get available platforms
-available_platforms <- unique(complete_grid_with_platform$platform)
-available_platforms <- available_platforms[!is.na(available_platforms)]
-
-cat("Available platforms for heatmaps:", paste(available_platforms, collapse = ", "), "\n")
-```
-
-### Android Platform Heatmap
-
-```{r heatmap-android}
-if ("Android" %in% available_platforms) {
-  # Create heatmap for Android platform only
-  android_participants <- complete_grid_with_platform %>%
-    filter(platform == "Android") %>%
-    pull(RANDOM_ID) %>%
-    unique()
+# Display platform-specific summaries
+for(platform in platform_types) {
+  platform_summary_data <- availability_summary_by_platform %>% filter(platform == platform)
   
-  heatmap_android <- complete_grid %>%
-    filter(RANDOM_ID %in% android_participants) %>%
-    # Add completion status colors to participant labels
-    mutate(
-      participant_label = paste0(RANDOM_ID, " (", str_extract(study_completion_status, "^[🟡✅🔴❓]"), ")")
-    ) %>%
-    # Sort by completion status for better visualization
-    arrange(status_category, RANDOM_ID) %>%
-    mutate(participant_label = factor(participant_label, levels = unique(participant_label))) %>%
-    ggplot(aes(x = study_day, y = participant_label, fill = has_data)) +
-    geom_tile(color = "white", size = 0.1) +
-    scale_fill_manual(
-      values = c("FALSE" = "#f7f7f7", "TRUE" = "#2166ac"),
-      labels = c("No Data", "Has Data"),
-      name = "Data Status"
-    ) +
-    scale_x_continuous(breaks = seq(1, 30, 2)) +
-    labs(
-      title = "App Usage Data Availability by Study Day - Android Platform",
-      x = "Study Day",
-      y = "Participant ID (Completion Status)",
-      caption = paste0("Blue = Data available, Gray = No data. Android platform participants only (", 
-                      length(android_participants), " participants).\nParticipants sorted by completion status: 🟡 In Progress, ✅ Complete, 🔴 Incomplete.\nIncomplete = >30 days since enrollment with <20 days data OR completed exit survey with <20 days data.")
-    ) +
-    theme_minimal() +
-    theme(
-      axis.text.y = element_text(size = 7),
-      axis.text.x = element_text(size = 10),
-      plot.title = element_text(size = 14, face = "bold"),
-      plot.subtitle = element_text(size = 11),
-      legend.position = "bottom"
-    )
+  cat(sprintf("\n=== %s DATA AVAILABILITY SUMMARY ===\n", toupper(platform)))
+  platform_table <- datatable(platform_summary_data %>% select(-platform),
+            caption = paste("Data Availability Summary by Study Day -", stringr::str_to_title(platform)),
+            colnames = c("Study Day", "Participants with Data", "Total Participants", "Percentage with Data"),
+            options = list(
+              pageLength = 10,
+              scrollX = TRUE,
+              order = list(list(0, 'asc'))
+            ),
+            filter = 'top') %>%
+    formatRound(columns = c(4), digits = 1)
   
-  print(heatmap_android)
-  cat("Android platform participants:", length(android_participants), "\n")
-} else {
-  cat("No Android platform data available for heatmap.\n")
+  print(platform_table)
 }
 ```
 
-### Other Platform Heatmap
+## Visualization: Data Availability Heatmaps by Platform
 
-```{r heatmap-other}
-if ("Other" %in% available_platforms) {
-  # Create heatmap for Other platform only
-  other_participants <- complete_grid_with_platform %>%
-    filter(platform == "Other") %>%
-    pull(RANDOM_ID) %>%
-    unique()
+```{r heatmap-visualization}
+# Create separate heatmaps for each platform
+for(platform in platform_types) {
+  platform_data <- complete_grid %>% filter(platform == platform)
+  platform_participants <- unique(platform_data$RANDOM_ID)
   
-  heatmap_other <- complete_grid %>%
-    filter(RANDOM_ID %in% other_participants) %>%
-    # Add completion status colors to participant labels
-    mutate(
-      participant_label = paste0(RANDOM_ID, " (", str_extract(study_completion_status, "^[🟡✅🔴❓]"), ")")
-    ) %>%
-    # Sort by completion status for better visualization
-    arrange(status_category, RANDOM_ID) %>%
-    mutate(participant_label = factor(participant_label, levels = unique(participant_label))) %>%
-    ggplot(aes(x = study_day, y = participant_label, fill = has_data)) +
-    geom_tile(color = "white", size = 0.1) +
-    scale_fill_manual(
-      values = c("FALSE" = "#f7f7f7", "TRUE" = "#2166ac"),
-      labels = c("No Data", "Has Data"),
-      name = "Data Status"
-    ) +
-    scale_x_continuous(breaks = seq(1, 30, 2)) +
-    labs(
-      title = "App Usage Data Availability by Study Day - Other Platform",
-      x = "Study Day",
-      y = "Participant ID (Completion Status)",
-      caption = paste0("Blue = Data available, Gray = No data. Other platform participants only (", 
-                      length(other_participants), " participants).\nParticipants sorted by completion status: 🟡 In Progress, ✅ Complete, 🔴 Incomplete.\nIncomplete = >30 days since enrollment with <20 days data OR completed exit survey with <20 days data.")
-    ) +
-    theme_minimal() +
-    theme(
-      axis.text.y = element_text(size = 7),
-      axis.text.x = element_text(size = 10),
-      plot.title = element_text(size = 14, face = "bold"),
-      plot.subtitle = element_text(size = 11),
-      legend.position = "bottom"
-    )
+  cat(sprintf("\n=== %s PLATFORM HEATMAP ===\n", toupper(platform)))
+  cat(sprintf("Participants: %d\n", length(platform_participants)))
   
-  print(heatmap_other)
-  cat("Other platform participants:", length(other_participants), "\n")
-} else {
-  cat("No Other platform data available for heatmap.\n")
+  if(nrow(platform_data) > 0) {
+    # Create heatmap for this platform
+    platform_heatmap <- platform_data %>%
+      # Add completion status colors to participant labels
+      mutate(
+        participant_label = paste0(RANDOM_ID, " (", str_extract(study_completion_status, "^[🟡✅🔴❓]"), ")")
+      ) %>%
+      # Sort by completion status for better visualization
+      arrange(status_category, RANDOM_ID) %>%
+      mutate(participant_label = factor(participant_label, levels = unique(participant_label))) %>%
+      ggplot(aes(x = study_day, y = participant_label, fill = has_data)) +
+      geom_tile(color = "white", size = 0.1) +
+      scale_fill_manual(
+        values = c("FALSE" = "#f7f7f7", "TRUE" = "#2166ac"),
+        labels = c("No Data", "Has Data"),
+        name = "Data Status"
+      ) +
+      scale_x_continuous(breaks = seq(1, 28, 2)) +
+      labs(
+        title = paste("App Usage Data Availability by Study Day -", stringr::str_to_title(platform)),
+        x = "Study Day",
+        y = "Participant ID (Completion Status)",
+        caption = paste0("Blue = Data available, Gray = No data. ", stringr::str_to_title(platform), " platform only (", 
+                        length(platform_participants), " participants).\nParticipants sorted by completion status: 🟡 In Progress, ✅ Complete, 🔴 Incomplete.")
+      ) +
+      theme_minimal() +
+      theme(
+        axis.text.y = element_text(size = 8),
+        axis.text.x = element_text(size = 10),
+        plot.title = element_text(size = 14, face = "bold"),
+        plot.subtitle = element_text(size = 11),
+        legend.position = "bottom"
+      )
+    
+    print(platform_heatmap)
+  } else {
+    cat("No data available for this platform.\n")
+  }
 }
-```
 
-### Combined Heatmap (All Platforms)
-
-```{r heatmap-combined}
-# Create combined heatmap of data availability with completion status (original version)
-heatmap_plot <- complete_grid %>%
+# Combined heatmap with platform faceting
+combined_heatmap <- complete_grid %>%
   # Add completion status colors to participant labels
   mutate(
-    participant_label = paste0(RANDOM_ID, " (", str_extract(study_completion_status, "^[🟡✅🔴❓]"), ")")
+    participant_label = paste0(RANDOM_ID, " (", str_extract(study_completion_status, "^[🟡✅🔴❓]"), ")"),
+    platform = stringr::str_to_title(platform)
   ) %>%
   # Sort by completion status for better visualization
-  arrange(status_category, RANDOM_ID) %>%
+  arrange(platform, status_category, RANDOM_ID) %>%
   mutate(participant_label = factor(participant_label, levels = unique(participant_label))) %>%
   ggplot(aes(x = study_day, y = participant_label, fill = has_data)) +
   geom_tile(color = "white", size = 0.1) +
@@ -478,23 +564,301 @@ heatmap_plot <- complete_grid %>%
     labels = c("No Data", "Has Data"),
     name = "Data Status"
   ) +
-  scale_x_continuous(breaks = seq(1, 30, 2)) +
+  scale_x_continuous(breaks = seq(1, 28, 4)) +
+  facet_wrap(~ platform, scales = "free_y", ncol = 1) +
   labs(
-    title = "App Usage Data Availability by Study Day - All Platforms",
+    title = "App Usage Data Availability by Study Day and Platform",
     x = "Study Day",
     y = "Participant ID (Completion Status)",
-    caption = "Blue = Data available, Gray = No data. All platforms combined. Participants sorted by completion status.\nEach row represents a participant with completion status: 🟡 In Progress, ✅ Complete, 🔴 Incomplete.\nIncomplete = >30 days since enrollment with <20 days data OR completed exit survey with <20 days data."
+    caption = "Blue = Data available, Gray = No data. Participants sorted by completion status within each platform."
   ) +
   theme_minimal() +
   theme(
     axis.text.y = element_text(size = 7),
     axis.text.x = element_text(size = 10),
     plot.title = element_text(size = 14, face = "bold"),
-    plot.subtitle = element_text(size = 11),
+    strip.text = element_text(size = 12, face = "bold"),
     legend.position = "bottom"
   )
 
-print(heatmap_plot)
+cat("\n=== COMBINED PLATFORM HEATMAP ===\n")
+print(combined_heatmap)
+```
+
+## Gaming Time Series Analysis
+
+```{r gaming-timeseries}
+# Calculate daily gaming duration for each participant by platform
+gaming_timeseries <- complete_grid %>%
+  mutate(
+    gaming_duration = ifelse(is.na(gaming_duration), 0, gaming_duration),
+    gaming_duration_min = gaming_duration  # Data is already in minutes
+  )
+
+# Only filter out participants without Condition data if they exist, otherwise keep all
+if(sum(is.na(gaming_timeseries$Condition)) < nrow(gaming_timeseries)) {
+  gaming_timeseries <- gaming_timeseries %>%
+    filter(!is.na(Condition))
+  cat("Filtered to participants with Condition data\n")
+} else {
+  cat("Warning: All participants missing Condition data - keeping all participants\n")
+}
+
+# Check gaming data by platform
+gaming_by_platform_summary <- gaming_timeseries %>%
+  group_by(platform) %>%
+  summarise(
+    total_gaming_time = sum(gaming_duration_min, na.rm = TRUE),
+    gaming_entries = sum(gaming_duration_min > 0, na.rm = TRUE),
+    participants = n_distinct(RANDOM_ID),
+    .groups = "drop"
+  )
+
+cat("Gaming time summary by platform:\n")
+print(gaming_by_platform_summary)
+
+# Overall gaming check
+total_gaming_time <- sum(gaming_timeseries$gaming_duration_min, na.rm = TRUE)
+cat("\nTotal gaming time across all participants and platforms:", total_gaming_time, "minutes\n")
+
+# Show sample of gaming data by platform
+for(platform in platform_types) {
+  platform_gaming <- gaming_timeseries %>%
+    filter(platform == platform & gaming_duration_min > 0) %>%
+    head(5)
+  
+  if(nrow(platform_gaming) > 0) {
+    cat(sprintf("\nSample %s gaming entries:\n", platform))
+    print(platform_gaming %>% select(RANDOM_ID, platform, study_day, gaming_duration_min, Condition))
+  }
+}
+
+# Only create plots if we have gaming data
+if(total_gaming_time > 0) {
+  # Create separate time series plots for each platform
+  for(platform in platform_types) {
+    platform_gaming_data <- gaming_timeseries %>% filter(platform == platform)
+    platform_gaming_time <- sum(platform_gaming_data$gaming_duration_min, na.rm = TRUE)
+    
+    cat(sprintf("\n=== %s GAMING TIME SERIES ===\n", toupper(platform)))
+    
+    if(platform_gaming_time > 0) {
+      # Find participants with gaming data for this platform
+      participants_with_gaming_platform <- platform_gaming_data %>%
+        group_by(RANDOM_ID) %>%
+        summarise(total_gaming = sum(gaming_duration_min, na.rm = TRUE)) %>%
+        filter(total_gaming > 0) %>%
+        pull(RANDOM_ID)
+      
+      cat(sprintf("Participants with %s gaming data: %d\n", platform, length(participants_with_gaming_platform)))
+      
+      if(length(participants_with_gaming_platform) > 0) {
+        # Prepare data for plotting
+        gaming_plot_data <- platform_gaming_data %>%
+          filter(RANDOM_ID %in% participants_with_gaming_platform) %>%
+          mutate(
+            plot_condition = ifelse(is.na(Condition), "Unknown", as.character(Condition)),
+            plot_color = case_when(
+              is.na(Condition) ~ RANDOM_ID,
+              TRUE ~ as.character(Condition)
+            )
+          )
+        
+        # Check for NA conditions
+        has_na_conditions <- any(is.na(gaming_plot_data$Condition))
+        
+        if(has_na_conditions) {
+          na_participants <- unique(gaming_plot_data$RANDOM_ID[is.na(gaming_plot_data$Condition)])
+          base_colors <- c("control" = "#d73027", "intervention" = "#1a9850")
+          
+          if(length(na_participants) > 0) {
+            na_colors <- rainbow(length(na_participants), start = 0.3, end = 0.8)
+            names(na_colors) <- na_participants
+            all_colors <- c(base_colors, na_colors)
+          } else {
+            all_colors <- base_colors
+          }
+          
+          platform_gaming_plot <- gaming_plot_data %>%
+            ggplot(aes(x = study_day, y = gaming_duration_min, color = plot_color)) +
+            geom_line(aes(group = RANDOM_ID), alpha = 0.7, size = 0.8) +
+            {if(any(!is.na(gaming_plot_data$Condition))) {
+              geom_smooth(data = gaming_plot_data %>% filter(!is.na(Condition)), 
+                         aes(color = Condition), method = "loess", se = TRUE, size = 1.5, alpha = 0.7)
+            }} +
+            scale_x_continuous(breaks = seq(1, 28, 2)) +
+            scale_color_manual(values = all_colors, name = "Condition/Participant") +
+            labs(
+              title = paste("Gaming Duration Time Series -", stringr::str_to_title(platform)),
+              x = "Study Day",
+              y = "Gaming Duration (minutes)",
+              caption = paste0("Individual trajectories for ", stringr::str_to_title(platform), " platform. Based on ", length(participants_with_gaming_platform), " participants.")
+            ) +
+            theme_minimal() +
+            theme(legend.position = "bottom")
+          
+        } else {
+          platform_gaming_plot <- gaming_plot_data %>%
+            ggplot(aes(x = study_day, y = gaming_duration_min, color = Condition)) +
+            geom_line(aes(group = RANDOM_ID), alpha = 0.3, size = 0.5) +
+            geom_smooth(method = "loess", se = TRUE, size = 1.5, alpha = 0.7) +
+            scale_x_continuous(breaks = seq(1, 28, 2)) +
+            scale_color_manual(values = c("control" = "#d73027", "intervention" = "#1a9850")) +
+            labs(
+              title = paste("Gaming Duration Time Series -", stringr::str_to_title(platform)),
+              x = "Study Day",
+              y = "Gaming Duration (minutes)",
+              color = "Condition",
+              caption = paste0("Individual trajectories (thin lines) with smoothed averages (thick lines) for ", stringr::str_to_title(platform), " platform.\nBased on ", length(participants_with_gaming_platform), " participants.")
+            ) +
+            theme_minimal() +
+            theme(legend.position = "bottom")
+        }
+        
+        print(platform_gaming_plot)
+      } else {
+        cat(sprintf("No participants found with %s gaming data.\n", platform))
+      }
+    } else {
+      cat(sprintf("No gaming time recorded for %s platform.\n", platform))
+    }
+  }
+  
+  # Combined plot with platform faceting
+  participants_with_gaming <- gaming_timeseries %>%
+    group_by(RANDOM_ID, platform) %>%
+    summarise(total_gaming = sum(gaming_duration_min, na.rm = TRUE), .groups = "drop") %>%
+    filter(total_gaming > 0)
+  
+  if(nrow(participants_with_gaming) > 0) {
+    cat("\n=== COMBINED GAMING TIME SERIES BY PLATFORM ===\n")
+    
+    combined_gaming_plot <- gaming_timeseries %>%
+      filter(paste(RANDOM_ID, platform) %in% paste(participants_with_gaming$RANDOM_ID, participants_with_gaming$platform)) %>%
+      mutate(platform = stringr::str_to_title(platform)) %>%
+      ggplot(aes(x = study_day, y = gaming_duration_min, color = Condition)) +
+      geom_line(aes(group = RANDOM_ID), alpha = 0.4, size = 0.5) +
+      geom_smooth(method = "loess", se = TRUE, size = 1.2, alpha = 0.7) +
+      scale_x_continuous(breaks = seq(1, 28, 4)) +
+      scale_color_manual(values = c("control" = "#d73027", "intervention" = "#1a9850")) +
+      facet_wrap(~ platform, scales = "free_y", ncol = 1) +
+      labs(
+        title = "Gaming Duration Time Series by Platform and Condition",
+        x = "Study Day",
+        y = "Gaming Duration (minutes)",
+        color = "Condition",
+        caption = "Individual participant trajectories with smoothed condition averages, separated by platform."
+      ) +
+      theme_minimal() +
+      theme(
+        legend.position = "bottom",
+        strip.text = element_text(size = 12, face = "bold")
+      )
+    
+    print(combined_gaming_plot)
+  }
+} else {
+  cat("No gaming data found. Skipping gaming time series plots.\n")
+}
+```
+
+## Gaming Apps Analysis
+
+```{r gaming-apps-analysis}
+# Identify and analyze gaming apps - showing ALL gaming apps with participant counts
+gaming_apps_summary <- aw_processed %>%
+  filter(ProbGame == TRUE) %>%
+  group_by(App) %>%
+  summarise(
+    participant_count = n_distinct(RANDOM_ID),
+    total_sessions = n(),
+    total_duration = sum(Duration, na.rm = TRUE),
+    unique_days = n_distinct(session_date),
+    avg_duration_per_session = mean(Duration, na.rm = TRUE),
+    avg_confidence = mean(LLM_conf, na.rm = TRUE),
+    platforms = paste(sort(unique(platform)), collapse = ", "),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(participant_count), desc(total_duration)) %>%
+  mutate(
+    total_duration_hours = round(total_duration / 60, 1),
+    avg_duration_per_session = round(avg_duration_per_session, 1),
+    avg_confidence = round(avg_confidence, 1)
+  )
+
+# Display stats
+if(nrow(gaming_apps_summary) > 0) {
+  cat("Total unique gaming apps identified:", nrow(gaming_apps_summary), "\n")
+  cat("Apps played by 1 participant:", sum(gaming_apps_summary$participant_count == 1), "\n")
+  cat("Apps played by 2+ participants:", sum(gaming_apps_summary$participant_count >= 2), "\n")
+  cat("Apps played by 5+ participants:", sum(gaming_apps_summary$participant_count >= 5), "\n\n")
+  
+  datatable(gaming_apps_summary,
+            caption = "All Gaming Apps Summary (with Participant Counts)",
+            colnames = c("App Name", "Participants", "Total Sessions", "Total Duration (min)", 
+                         "Days Used", "Avg Duration/Session (min)", "Avg LLM Confidence", 
+                         "Platforms", "Total Duration (hrs)"),
+            options = list(
+              pageLength = 20,
+              scrollX = TRUE,
+              columnDefs = list(list(width = '150px', targets = c(0))),
+              order = list(list(1, 'desc'), list(3, 'desc'))
+            ),
+            filter = 'top') %>%
+            formatRound(columns = c(3, 5, 6, 7, 9), digits = 1)
+} else {
+  cat("No gaming apps found.\n")
+}
+
+# Top gaming apps by participant
+top_gaming_by_participant <- aw_processed %>%
+  filter(ProbGame == TRUE) %>%
+  group_by(RANDOM_ID, App) %>%
+  summarise(
+    total_sessions = n(),
+    total_duration = sum(Duration, na.rm = TRUE),
+    days_used = n_distinct(session_date),
+    .groups = "drop"
+  ) %>%
+  group_by(RANDOM_ID) %>%
+  arrange(RANDOM_ID, desc(total_duration)) %>%
+  mutate(
+    app_rank = row_number(),
+    pct_of_total_gaming = round((total_duration / sum(total_duration)) * 100, 1)
+  ) %>%
+  filter(app_rank <= 5) %>%  # Top 5 gaming apps per participant
+  ungroup() %>%
+  left_join(
+    participant_summary %>% select(RANDOM_ID, Condition, study_completion_status),
+    by = "RANDOM_ID"
+  )
+
+# Show sample of top gaming apps by participant
+if(nrow(top_gaming_by_participant) > 0) {
+  cat("\nSample of participants' top gaming apps:\n")
+  sample_participants <- top_gaming_by_participant %>%
+    arrange(RANDOM_ID, app_rank)
+
+  current_participant <- ""
+  count <- 0
+  for(i in 1:min(nrow(sample_participants), 50)) {  # Show first 50 entries
+    row <- sample_participants[i,]
+    if (row$RANDOM_ID != current_participant) {
+      current_participant <- row$RANDOM_ID
+      count <- count + 1
+      if(count <= 10) {  # Show first 10 participants
+        cat(sprintf("\n%s (%s, %s):\n", row$RANDOM_ID, row$study_completion_status, row$Condition))
+      }
+    }
+    if(count <= 10) {
+      cat(sprintf("  %d. %s (%d sessions, %.1f min, %d days, %.1f%%)\n", 
+                  row$app_rank, row$App, row$total_sessions, row$total_duration, 
+                  row$days_used, row$pct_of_total_gaming))
+    }
+  }
+} else {
+  cat("No gaming apps found for individual participants.\n")
+}
 ```
 
 ## Data Availability Trends
@@ -505,13 +869,13 @@ availability_trend <- availability_summary %>%
   ggplot(aes(x = study_day, y = percentage_with_data)) +
   geom_line(color = "#2166ac", size = 1) +
   geom_point(color = "#2166ac", size = 2) +
-  scale_x_continuous(breaks = seq(1, 30, 2)) +
+  scale_x_continuous(breaks = seq(1, 28, 2)) +
   scale_y_continuous(limits = c(0, 100), labels = function(x) paste0(x, "%")) +
   labs(
-    title = "Percentage of Participants with App Usage Data by Study Day",
+    title = "Percentage of ActivityWatch Participants with App Usage Data by Study Day",
     x = "Study Day",
     y = "Percentage of Participants with Data",
-    caption = paste0("Based on ", length(all_participants), " participants")
+    caption = paste0("Based on ", n_distinct(aw_processed$RANDOM_ID), " ActivityWatch participants")
   ) +
   theme_minimal()
 
@@ -522,621 +886,6 @@ cat("\nData Availability Statistics:\n")
 cat("- Days with 100% participation:", sum(availability_summary$percentage_with_data == 100), "\n")
 cat("- Days with >50% participation:", sum(availability_summary$percentage_with_data > 50), "\n")
 cat("- Days with <25% participation:", sum(availability_summary$percentage_with_data < 25), "\n")
-```
-
-## Data Volume Analysis by Study Day
-
-```{r data-volume}
-# Analyze data volume (number of records) by study day and condition (Complete participants only)
-# First, identify participants with "Complete" status for volume analysis
-complete_participants <- participant_report %>%
-  filter(str_detect(study_completion_status, "✅ Complete")) %>%
-  pull(RANDOM_ID)
-
-cat("Using participants with Complete status:", length(complete_participants), "participants\n")
-
-# Filter study_day_availability for complete participants only
-study_day_availability_complete <- study_day_availability %>%
-  filter(RANDOM_ID %in% complete_participants)
-
-# Debug: Test the join step by step for complete participants
-temp_participant_data_complete <- participant_report %>% 
-  filter(RANDOM_ID %in% complete_participants) %>%
-  select(RANDOM_ID, Condition)
-
-cat("participant_report RANDOM_ID type:", class(temp_participant_data_complete$RANDOM_ID), "\n")
-cat("study_day_availability RANDOM_ID type:", class(study_day_availability_complete$RANDOM_ID), "\n")
-
-joined_data <- study_day_availability_complete %>%
-  left_join(temp_participant_data_complete, by = "RANDOM_ID")
-
-cat("Joined data columns:", paste(names(joined_data), collapse=", "), "\n")
-cat("Missing Condition values:", sum(is.na(joined_data$Condition)), "out of", nrow(joined_data), "\n")
-
-# Calculate both totals and individual participant stats for error bars
-volume_by_day_condition <- joined_data %>%
-  filter(!is.na(Condition)) %>%  # Filter out rows where Condition is missing
-  group_by(study_day, Condition) %>%
-  summarise(
-    total_records = sum(num_records, na.rm = TRUE),
-    avg_records_per_participant = mean(num_records, na.rm = TRUE),
-    median_records_per_participant = median(num_records, na.rm = TRUE),
-    se_records_per_participant = sd(num_records, na.rm = TRUE) / sqrt(n()),
-    participants_with_data = n(),
-    .groups = "drop"
-  ) %>%
-  mutate(
-    # Calculate error bars for total records (using SE of individual participants)
-    total_records_se = se_records_per_participant * sqrt(participants_with_data),
-    total_records_lower = total_records - total_records_se,
-    total_records_upper = total_records + total_records_se
-  )
-
-# Note: complete_participants already defined above (participants with >=15 days of data)
-
-# Create duration data following the EXACT same pattern as volume analysis
-study_day_duration <- app_usage_with_enrollment %>%
-  filter(RANDOM_ID %in% complete_participants) %>%  # Filter for complete participants only
-  group_by(RANDOM_ID, study_day) %>%
-  summarise(
-    daily_duration = sum(`Duration (min)`, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# Join with participant data to get Condition, following volume analysis pattern
-temp_participant_data_complete <- participant_report %>% 
-  filter(RANDOM_ID %in% complete_participants) %>%
-  select(RANDOM_ID, Condition)
-
-duration_joined_data <- study_day_duration %>%
-  left_join(temp_participant_data_complete, by = "RANDOM_ID")
-
-# Aggregate by study day and condition with error bars - EXACT same pattern as volume
-duration_by_day_condition_complete <- duration_joined_data %>%
-  filter(!is.na(Condition)) %>%  # Filter out rows where Condition is missing
-  group_by(study_day, Condition) %>%
-  summarise(
-    total_duration = sum(daily_duration, na.rm = TRUE),
-    avg_duration_per_participant = mean(daily_duration, na.rm = TRUE),
-    median_duration_per_participant = median(daily_duration, na.rm = TRUE),
-    se_duration_per_participant = sd(daily_duration, na.rm = TRUE) / sqrt(n()),
-    participants_with_data = n(),  # Use n() like volume, not n_distinct()
-    .groups = "drop"
-  ) %>%
-  mutate(
-    # Calculate error bars for total duration - same pattern as volume
-    total_duration_se = se_duration_per_participant * sqrt(participants_with_data),
-    total_duration_lower = pmax(0, total_duration - total_duration_se),  # Ensure non-negative
-    total_duration_upper = total_duration + total_duration_se
-  )
-
-# Both plots now have error bars showing daily variation between participants
-
-# Plot data volume trends by condition with error bars
-volume_plot <- volume_by_day_condition %>%
-  ggplot(aes(x = study_day, y = total_records, color = Condition)) +
-  geom_ribbon(aes(ymin = total_records_lower, ymax = total_records_upper, fill = Condition), 
-              alpha = 0.2, color = NA) +
-  geom_vline(xintercept = 7, linetype = "dashed", color = "gray50", alpha = 0.7) +
-  geom_vline(xintercept = 21, linetype = "dashed", color = "gray50", alpha = 0.7) +
-  geom_line(size = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq(1, 30, 2)) +
-  scale_color_manual(values = c("control" = "#d73027", "intervention" = "#1a9850")) +
-  scale_fill_manual(values = c("control" = "#d73027", "intervention" = "#1a9850"), guide = "none") +
-  labs(
-    title = "Total App Usage Records by Study Day and Condition (Complete Participants Only)",
-    x = "Study Day",
-    y = "Total Number of Records",
-    color = "Condition",
-    caption = paste0("Complete participants only (", length(complete_participants), " participants total). Error bars show ±1 SE.")
-  ) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-
-print(volume_plot)
-
-# Plot total duration trends by condition with error bars (Complete participants only)
-duration_plot_complete <- duration_by_day_condition_complete %>%
-  ggplot(aes(x = study_day, y = total_duration, color = Condition)) +
-  geom_ribbon(aes(ymin = total_duration_lower, ymax = total_duration_upper, fill = Condition), 
-              alpha = 0.2, color = NA) +
-  geom_vline(xintercept = 7, linetype = "dashed", color = "gray50", alpha = 0.7) +
-  geom_vline(xintercept = 21, linetype = "dashed", color = "gray50", alpha = 0.7) +
-  geom_line(size = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq(1, 30, 2)) +
-  scale_color_manual(values = c("control" = "#d73027", "intervention" = "#1a9850")) +
-  scale_fill_manual(values = c("control" = "#d73027", "intervention" = "#1a9850"), guide = "none") +
-  labs(
-    title = "Total App Duration by Study Day and Condition (Complete Participants Only)",
-    x = "Study Day",
-    y = "Total Duration (minutes)",
-    color = "Condition",
-    caption = paste0("Complete participants only (", length(complete_participants), " participants total). Error bars show ±1 SE.")
-  ) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-
-print(duration_plot_complete)
-
-# Interactive summary table - Volume data by condition (Complete participants only)
-datatable(volume_by_day_condition, 
-      caption = "Data Volume Summary by Study Day and Condition (Complete Participants Only)",
-      colnames = c("Study Day", "Condition", "Total Records", "Avg Records/Participant", 
-                   "Median Records/Participant", "SE Records/Participant", "Participants with Data", 
-                   "SE Total Records", "Lower CI", "Upper CI"),
-      options = list(
-        pageLength = 15,
-        scrollX = TRUE,
-        order = list(list(0, 'asc'), list(1, 'asc'))
-      ),
-      filter = 'top') %>%
-      formatRound(columns = c(4, 5), digits = 1)
-
-cat("\n")
-
-# Interactive summary table - Duration data by condition (Complete participants only)
-datatable(duration_by_day_condition_complete, 
-      caption = "Total Duration Summary by Study Day and Condition (Complete Participants Only)",
-      colnames = c("Study Day", "Condition", "Total Duration (min)", "Avg Duration/Participant", 
-                   "SE Duration/Participant", "Participants with Data", "SE Total Duration", 
-                   "Lower CI", "Upper CI"),
-      options = list(
-        pageLength = 15,
-        scrollX = TRUE,
-        order = list(list(0, 'asc'), list(1, 'asc'))
-      ),
-      filter = 'top') %>%
-      formatRound(columns = c(3), digits = 1)
-```
-
-## Condition-Specific Analysis
-
-```{r condition-analysis}
-# Analyze data availability by experimental condition
-condition_availability <- complete_grid %>%
-  group_by(Condition, study_day) %>%
-  summarise(
-    participants_with_data = sum(has_data),
-    total_participants = n(),
-    percentage_with_data = (participants_with_data / total_participants) * 100,
-    .groups = "drop"
-  )
-
-# Plot by condition
-condition_plot <- condition_availability %>%
-  ggplot(aes(x = study_day, y = percentage_with_data, color = Condition)) +
-  geom_line(size = 1) +
-  geom_point(size = 2) +
-  scale_x_continuous(breaks = seq(1, 30, 2)) +
-  scale_y_continuous(limits = c(0, 100), labels = function(x) paste0(x, "%")) +
-  scale_color_manual(values = c("control" = "#d73027", "intervention" = "#1a9850")) +
-  labs(
-    title = "Data Availability by Study Day and Experimental Condition",
-    x = "Study Day",
-    y = "Percentage of Participants with Data",
-    color = "Condition"
-  ) +
-  theme_minimal() +
-  theme(legend.position = "bottom")
-
-print(condition_plot)
-
-# Completion status by condition
-completion_by_condition <- participant_report %>%
-  count(Condition, study_completion_status) %>%
-  group_by(Condition) %>%
-  mutate(
-    total_in_condition = sum(n),
-    percentage = round((n / total_in_condition) * 100, 1)
-  ) %>%
-  ungroup()
-
-cat("\n=== COMPLETION STATUS BY CONDITION ===\n")
-for(condition in unique(completion_by_condition$Condition)) {
-  cat("\n", toupper(condition), "GROUP:\n")
-  condition_data <- completion_by_condition %>% filter(Condition == condition)
-  for(i in 1:nrow(condition_data)) {
-    cat("  ", condition_data$study_completion_status[i], ":", 
-        condition_data$n[i], "participants (", condition_data$percentage[i], "%)\n")
-  }
-}
-```
-
-## Participant Session Statistics
-
-```{r session-statistics-setup}
-# Calculate detailed session statistics for each participant by platform
-session_stats_by_platform <- app_usage_with_enrollment %>%
-  group_by(RANDOM_ID, platform, session_date) %>%
-  summarise(
-    daily_sessions = n(),
-    daily_duration = sum(`Duration (min)`, na.rm = TRUE),
-    daily_apps = n_distinct(App),
-    .groups = "drop"
-  ) %>%
-  group_by(RANDOM_ID, platform) %>%
-  summarise(
-    # Session count statistics
-    min_daily_sessions = min(daily_sessions),
-    max_daily_sessions = max(daily_sessions),
-    avg_daily_sessions = round(mean(daily_sessions), 1),
-    median_daily_sessions = median(daily_sessions),
-    
-    # Duration statistics  
-    min_daily_duration = round(min(daily_duration), 1),
-    max_daily_duration = round(max(daily_duration), 1),
-    avg_daily_duration = round(mean(daily_duration), 1),
-    median_daily_duration = round(median(daily_duration), 1),
-    
-    # App diversity statistics
-    min_daily_apps = min(daily_apps),
-    max_daily_apps = max(daily_apps),
-    avg_daily_apps = round(mean(daily_apps), 1),
-    median_daily_apps = median(daily_apps),
-    
-    # Overall statistics
-    total_days = n(),
-    total_sessions = sum(daily_sessions),
-    total_duration_hours = round(sum(daily_duration) / 60, 1),
-    
-    .groups = "drop"
-  ) %>%
-  # Add completion status information
-  left_join(
-    participant_report %>% select(RANDOM_ID, study_completion_status, Condition),
-    by = "RANDOM_ID"
-  ) %>%
-  # Sort by platform, completion status and session count
-  arrange(platform, study_completion_status, desc(avg_daily_sessions))
-
-# Get available platforms
-platforms <- unique(session_stats_by_platform$platform)
-```
-
-### Android
-
-```{r session-statistics-android}
-if ("Android" %in% platforms) {
-  platform_data_android <- session_stats_by_platform %>% filter(platform == "Android")
-  
-  datatable(platform_data_android %>% select(-platform), 
-        caption = "Detailed Session Statistics - Android Platform",
-        colnames = c(
-          "Participant ID", "Min Daily Sessions", "Max Daily Sessions", 
-          "Avg Daily Sessions", "Median Daily Sessions",
-          "Min Daily Duration (min)", "Max Daily Duration (min)",
-          "Avg Daily Duration (min)", "Median Daily Duration (min)",
-          "Min Daily Apps", "Max Daily Apps", "Avg Daily Apps", "Median Daily Apps",
-          "Total Days", "Total Sessions", "Total Duration (hrs)",
-          "Status", "Condition"
-        ),
-        options = list(
-          pageLength = 15,
-          scrollX = TRUE,
-          columnDefs = list(list(width = '100px', targets = c(0, 16, 17))),
-          order = list(list(3, 'desc'))
-        ),
-        filter = 'top') %>%
-        formatRound(columns = c(4, 6, 8, 10, 12, 16), digits = 1)
-} else {
-  cat("No Android platform data available.")
-}
-```
-
-### Other
-
-```{r session-statistics-other}
-if ("Other" %in% platforms) {
-  platform_data_other <- session_stats_by_platform %>% filter(platform == "Other")
-  
-  datatable(platform_data_other %>% select(-platform), 
-        caption = "Detailed Session Statistics - Other Platform",
-        colnames = c(
-          "Participant ID", "Min Daily Sessions", "Max Daily Sessions", 
-          "Avg Daily Sessions", "Median Daily Sessions",
-          "Min Daily Duration (min)", "Max Daily Duration (min)",
-          "Avg Daily Duration (min)", "Median Daily Duration (min)",
-          "Min Daily Apps", "Max Daily Apps", "Avg Daily Apps", "Median Daily Apps",
-          "Total Days", "Total Sessions", "Total Duration (hrs)",
-          "Status", "Condition"
-        ),
-        options = list(
-          pageLength = 15,
-          scrollX = TRUE,
-          columnDefs = list(list(width = '100px', targets = c(0, 16, 17))),
-          order = list(list(3, 'desc'))
-        ),
-        filter = 'top') %>%
-        formatRound(columns = c(4, 6, 8, 10, 12, 16), digits = 1)
-} else {
-  cat("No Other platform data available.")
-}
-
-# Handle any additional platforms dynamically
-other_platforms <- setdiff(platforms, c("Android", "Other"))
-if (length(other_platforms) > 0) {
-  for(platform_name in other_platforms) {
-    cat(sprintf("\n### %s\n\n", str_to_title(platform_name)))
-    
-    platform_data <- session_stats_by_platform %>% filter(platform == platform_name)
-    
-    datatable(platform_data %>% select(-platform), 
-          caption = paste("Detailed Session Statistics -", str_to_title(platform_name), "Platform"),
-          colnames = c(
-            "Participant ID", "Min Daily Sessions", "Max Daily Sessions", 
-            "Avg Daily Sessions", "Median Daily Sessions",
-            "Min Daily Duration (min)", "Max Daily Duration (min)",
-            "Avg Daily Duration (min)", "Median Daily Duration (min)",
-            "Min Daily Apps", "Max Daily Apps", "Avg Daily Apps", "Median Daily Apps",
-            "Total Days", "Total Sessions", "Total Duration (hrs)",
-            "Status", "Condition"
-          ),
-          options = list(
-            pageLength = 15,
-            scrollX = TRUE,
-            columnDefs = list(list(width = '100px', targets = c(0, 16, 17))),
-            order = list(list(3, 'desc'))
-          ),
-          filter = 'top') %>%
-          formatRound(columns = c(4, 6, 8, 10, 12, 16), digits = 1)
-  }
-}
-```
-
-### Summary by Platform and Condition
-
-```{r session-statistics-summary}
-# Summary statistics by platform and condition
-platform_condition_summary <- session_stats_by_platform %>%
-  group_by(platform, Condition) %>%
-  summarise(
-    participants = n(),
-    avg_sessions_per_day = round(mean(avg_daily_sessions), 1),
-    avg_duration_per_day = round(mean(avg_daily_duration), 1),
-    avg_apps_per_day = round(mean(avg_daily_apps), 1),
-    avg_total_hours = round(mean(total_duration_hours), 1),
-    .groups = "drop"
-  )
-
-datatable(platform_condition_summary,
-          caption = "Session Statistics Summary by Platform and Condition",
-          colnames = c("Platform", "Condition", "Participants", "Avg Sessions/Day", 
-                       "Avg Duration/Day", "Avg Apps/Day", "Avg Total Hours"),
-          options = list(
-            pageLength = 10,
-            scrollX = TRUE,
-            order = list(list(0, 'asc'), list(1, 'asc'))
-          ),
-          filter = 'top') %>%
-          formatRound(columns = c(4, 5, 6, 7), digits = 1)
-```
-
-## Top Apps Analysis by Participant
-
-```{r top-apps-analysis}
-# Calculate top apps for each participant by platform
-top_apps_by_participant_platform <- app_usage_with_enrollment %>%
-  group_by(RANDOM_ID, platform, App) %>%
-  summarise(
-    total_sessions = n(),
-    total_duration = sum(`Duration (min)`, na.rm = TRUE),
-    days_used = n_distinct(session_date),
-    avg_duration_per_session = round(mean(`Duration (min)`, na.rm = TRUE), 1),
-    .groups = "drop"
-  ) %>%
-  # Rank apps by total duration for each participant within each platform
-  group_by(RANDOM_ID, platform) %>%
-  arrange(RANDOM_ID, platform, desc(total_duration)) %>%
-  mutate(
-    app_rank = row_number(),
-    pct_of_total_duration = round((total_duration / sum(total_duration)) * 100, 1)
-  ) %>%
-  filter(app_rank <= 10) %>% # Top 10 apps only
-  ungroup()
-
-# Add participant completion status and platform info
-top_apps_with_status_platform <- top_apps_by_participant_platform %>%
-  left_join(
-    participant_report %>% select(RANDOM_ID, study_completion_status, Condition),
-    by = "RANDOM_ID"
-  )
-
-# Create interactive summary tables by platform
-platforms <- unique(top_apps_with_status_platform$platform)
-
-for(platform_name in platforms) {
-  platform_apps_data <- top_apps_with_status_platform %>%
-    filter(platform == platform_name)
-  
-  cat("\n=== TOP APPS SUMMARY:", toupper(platform_name), "PLATFORM ===\n")
-  cat("Total records:", nrow(platform_apps_data), "\n\n")
-  
-  # Show sample of top apps data in text format
-  if (nrow(platform_apps_data) > 0) {
-    # Group by participant and show their top 10 apps
-    sample_participants <- platform_apps_data %>%
-      filter(app_rank <= 10) %>%
-      arrange(RANDOM_ID, app_rank)
-    
-    if (nrow(sample_participants) > 0) {
-      cat("Sample of participants' top apps:\n")
-      current_participant <- ""
-      for(i in 1:min(nrow(sample_participants), 100)) { # Show first 100 entries (10 apps x ~10 participants)
-        row <- sample_participants[i,]
-        if (row$RANDOM_ID != current_participant) {
-          current_participant <- row$RANDOM_ID
-          cat(sprintf("\n%s (%s, %s):\n", row$RANDOM_ID, row$study_completion_status, row$Condition))
-        }
-        cat(sprintf("  %d. %s (%d sessions, %.1f min, %d days, %.1f%%)\n", 
-                    row$app_rank, row$App, row$total_sessions, row$total_duration, 
-                    row$days_used, row$pct_of_total_duration))
-      }
-      if (nrow(sample_participants) > 100) {
-        cat(sprintf("  ... and %d more entries\n", nrow(sample_participants) - 100))
-      }
-    }
-  }
-  cat("\n")
-}
-
-# Summary: Most popular apps across all participants by platform
-for(platform_name in platforms) {
-  platform_popular_apps <- top_apps_with_status_platform %>%
-    filter(platform == platform_name) %>%
-    group_by(App) %>%
-    summarise(
-      users_count = n_distinct(RANDOM_ID),
-      total_sessions_all = sum(total_sessions),
-      total_duration_all = sum(total_duration),
-      avg_rank = round(mean(app_rank), 1),
-      avg_pct_time = round(mean(pct_of_total_duration), 1),
-      .groups = "drop"
-    ) %>%
-    filter(users_count >= 2) %>% # Apps used by at least 2 participants
-    arrange(desc(users_count), desc(total_duration_all))
-  
-  # cat("\n=== MOST POPULAR APPS:", toupper(platform_name), "PLATFORM ===\n")
-  # cat("(Apps used by 2+ participants)\n\n")
-  
-  if (nrow(platform_popular_apps) > 0) {
-    # Convert duration from minutes to hours for better readability
-    platform_popular_apps_display <- platform_popular_apps %>%
-      mutate(total_duration_hours = round(total_duration_all / 60, 1))
-    
-    datatable(platform_popular_apps_display %>% 
-                select(App, users_count, total_sessions_all, total_duration_hours, 
-                       total_duration_all, avg_rank, avg_pct_time),
-          caption = paste("Most Popular Apps (Used by 2+ Participants) -", platform_name, "Platform"),
-          colnames = c("App Name", "Users", "Total Sessions", "Total Duration (hrs)", 
-                       "Total Duration (min)", "Avg Rank", "Avg % of User Time"),
-          options = list(
-            pageLength = 15,
-            scrollX = TRUE,
-            columnDefs = list(list(width = '150px', targets = c(0))),
-            order = list(list(1, 'desc'), list(3, 'desc'))
-          ),
-          filter = 'top') %>%
-          formatRound(columns = c(4, 5, 6, 7), digits = 1)
-  } else {
-    # cat("No apps used by 2+ participants found.\n")
-  }
-  # cat("\n")
-}
-```
-
-## Unique Apps Analysis
-
-```{r unique-apps-analysis}
-# Generate comprehensive unique apps table with usage statistics by platform
-unique_apps_by_platform <- app_usage_with_enrollment %>%
-  group_by(platform, App) %>%
-  summarise(
-    total_sessions = n(),
-    total_duration_min = sum(`Duration (min)`, na.rm = TRUE),
-    total_duration_hours = round(sum(`Duration (min)`, na.rm = TRUE) / 60, 1),
-    unique_users = n_distinct(RANDOM_ID),
-    unique_days = n_distinct(session_date),
-    avg_duration_per_session = round(mean(`Duration (min)`, na.rm = TRUE), 2),
-    avg_sessions_per_user = round(total_sessions / unique_users, 1),
-    avg_hours_per_user = round(total_duration_hours / unique_users, 1),
-    .groups = "drop"
-  )
-
-# Calculate percentages within each platform
-unique_apps_by_platform <- unique_apps_by_platform %>%
-  group_by(platform) %>%
-  mutate(
-    pct_of_total_sessions = round((total_sessions / sum(total_sessions)) * 100, 2),
-    pct_of_total_duration = round((total_duration_min / sum(total_duration_min)) * 100, 2)
-  ) %>%
-  ungroup() %>%
-  # Sort by platform, then by total sessions descending
-  arrange(platform, desc(total_sessions))
-
-# Display interactive tables by platform
-platforms <- unique(unique_apps_by_platform$platform)
-
-# Process Android platform
-android_apps <- unique_apps_by_platform %>% filter(platform == "Android")
-
-cat("\n=== UNIQUE APPS: ANDROID PLATFORM ===\n")
-cat("Total unique apps identified:", nrow(android_apps), "\n\n")
-```
-
-```{r android-comprehensive-table}
-# Android comprehensive table
-datatable(android_apps %>% select(-platform),
-      caption = "Complete List of Unique Apps - Android Platform",
-      colnames = c(
-        "App Name", "Total Sessions", "Total Duration (min)", "Total Duration (hrs)",
-        "Users", "Days Used", "Avg Duration/Session", "Avg Sessions/User", 
-        "Avg Hours/User", "% of Sessions", "% of Duration"
-      ),
-      options = list(
-        pageLength = 15,
-        scrollX = TRUE,
-        columnDefs = list(list(width = '120px', targets = c(0))),
-        order = list(list(1, 'desc'))
-      ),
-      filter = 'top') %>%
-      formatRound(columns = c(2, 3, 6, 7, 8, 9, 10), digits = c(0, 1, 2, 1, 1, 2, 2))
-```
-
-```{r android-summary}
-# Summary statistics for Android platform
-cat("\n=== UNIQUE APPS SUMMARY: ANDROID PLATFORM ===\n")
-cat("Total unique apps:", nrow(android_apps), "\n")
-cat("Apps used by only 1 user:", sum(android_apps$unique_users == 1), "\n")
-cat("Apps used by 2+ users:", sum(android_apps$unique_users >= 2), "\n")
-cat("Apps used by 5+ users:", sum(android_apps$unique_users >= 5), "\n")
-cat("Apps used by 10+ users:", sum(android_apps$unique_users >= 10), "\n\n")
-
-# Interactive tables showing all apps by different metrics
-cat("=== INTERACTIVE TABLES BY DIFFERENT METRICS: ANDROID ===\n\n")
-cat("**Apps Ranked by Total Sessions:**\n")
-```
-
-```{r other-platform-setup}
-# Process Other platform
-other_apps <- unique_apps_by_platform %>% filter(platform == "Other")
-
-cat("\n=== UNIQUE APPS: OTHER PLATFORM ===\n")
-cat("Total unique apps identified:", nrow(other_apps), "\n\n")
-```
-
-```{r other-comprehensive-table}
-# Other platform comprehensive table
-datatable(other_apps %>% select(-platform),
-      caption = "Complete List of Unique Apps - Other Platform",
-      colnames = c(
-        "App Name", "Total Sessions", "Total Duration (min)", "Total Duration (hrs)",
-        "Users", "Days Used", "Avg Duration/Session", "Avg Sessions/User", 
-        "Avg Hours/User", "% of Sessions", "% of Duration"
-      ),
-      options = list(
-        pageLength = 15,
-        scrollX = TRUE,
-        columnDefs = list(list(width = '120px', targets = c(0))),
-        order = list(list(1, 'desc'))
-      ),
-      filter = 'top') %>%
-      formatRound(columns = c(2, 3, 6, 7, 8, 9, 10), digits = c(0, 1, 2, 1, 1, 2, 2))
-```
-
-```{r other-summary}
-# Summary statistics for Other platform
-cat("\n=== UNIQUE APPS SUMMARY: OTHER PLATFORM ===\n")
-cat("Total unique apps:", nrow(other_apps), "\n")
-cat("Apps used by only 1 user:", sum(other_apps$unique_users == 1), "\n")
-cat("Apps used by 2+ users:", sum(other_apps$unique_users >= 2), "\n")
-cat("Apps used by 5+ users:", sum(other_apps$unique_users >= 5), "\n")
-cat("Apps used by 10+ users:", sum(other_apps$unique_users >= 10), "\n\n")
-
-# Interactive tables showing all apps by different metrics
-cat("=== INTERACTIVE TABLES BY DIFFERENT METRICS: OTHER ===\n\n")
-cat("**Apps Ranked by Total Sessions:**\n")
 ```
 
 ## Individual Participant Patterns
@@ -1150,11 +899,13 @@ participant_patterns <- complete_grid %>%
     consecutive_days = max(rle(has_data)$lengths[rle(has_data)$values == TRUE], na.rm = TRUE),
     first_day_with_data = min(study_day[has_data], na.rm = TRUE),
     last_day_with_data = max(study_day[has_data], na.rm = TRUE),
+    total_gaming_duration = sum(gaming_duration, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   mutate(
     consecutive_days = ifelse(is.infinite(consecutive_days), 0, consecutive_days),
-    data_span = last_day_with_data - first_day_with_data + 1
+    data_span = last_day_with_data - first_day_with_data + 1,
+    avg_gaming_per_day = round(total_gaming_duration / pmax(1, total_days_with_data), 1)
   ) %>%
   # Sort by completion status
   arrange(status_category, RANDOM_ID)
@@ -1167,15 +918,15 @@ pattern_summary <- participant_patterns %>%
     avg_days_with_data = mean(total_days_with_data, na.rm = TRUE),
     median_days_with_data = median(total_days_with_data, na.rm = TRUE),
     avg_consecutive_days = mean(consecutive_days, na.rm = TRUE),
-    avg_data_span = mean(data_span, na.rm = TRUE),
+    avg_gaming_duration = mean(total_gaming_duration, na.rm = TRUE),
     .groups = "drop"
   )
 
-cat("Participant Data Patterns by Condition:\n")
+cat("ActivityWatch Participant Data Patterns by Condition:\n")
 datatable(pattern_summary,
-          caption = "Participant Data Patterns Summary by Condition",
+          caption = "ActivityWatch Participant Data Patterns Summary by Condition",
           colnames = c("Condition", "Participants", "Avg Days with Data", "Median Days with Data", 
-                       "Avg Consecutive Days", "Avg Data Span"),
+                       "Avg Consecutive Days", "Avg Total Gaming Duration (min)"),
           options = list(
             pageLength = 10,
             scrollX = TRUE,
@@ -1186,7 +937,7 @@ datatable(pattern_summary,
 
 # Interactive detailed participant table
 datatable(participant_patterns, 
-      caption = "Individual Participant Data Patterns (Sorted by Completion Status)",
+      caption = "Individual ActivityWatch Participant Data Patterns (Sorted by Completion Status)",
       options = list(
         pageLength = 20,
         scrollX = TRUE,
@@ -1194,23 +945,27 @@ datatable(participant_patterns,
         order = list(list(2, 'asc'))
       ),
       filter = 'top') %>%
-      formatRound(columns = c(5, 6, 7, 8, 9), digits = 0)
+      formatRound(columns = c(5, 6, 7, 8, 9, 10, 11), digits = 1)
 ```
 
 ## Key Findings Summary
 
 ```{r summary}
 # Calculate key statistics
-total_participants <- length(all_participants)
+total_aw_participants <- n_distinct(aw_processed$RANDOM_ID)
 days_with_any_data <- sum(availability_summary$participants_with_data > 0)
 peak_participation_day <- availability_summary$study_day[which.max(availability_summary$percentage_with_data)]
 peak_participation_rate <- max(availability_summary$percentage_with_data)
 
 avg_days_per_participant <- mean(participant_patterns$total_days_with_data, na.rm = TRUE)
-participants_with_full_month <- sum(participant_patterns$total_days_with_data >= 28, na.rm = TRUE)
+participants_with_full_study <- sum(participant_patterns$total_days_with_data >= 20, na.rm = TRUE)
+
+# Gaming statistics
+total_gaming_apps <- n_distinct(aw_processed$App[aw_processed$ProbGame == TRUE])
+avg_gaming_duration <- mean(participant_patterns$total_gaming_duration, na.rm = TRUE)
 
 # Completion status counts
-completion_counts <- participant_report %>% count(study_completion_status)
+completion_counts <- participant_summary %>% count(study_completion_status)
 in_progress <- completion_counts$n[completion_counts$study_completion_status == "🟡 In Progress"]
 complete <- completion_counts$n[completion_counts$study_completion_status == "✅ Complete"]
 incomplete <- completion_counts$n[completion_counts$study_completion_status == "🔴 Incomplete"]
@@ -1220,11 +975,11 @@ in_progress <- ifelse(length(in_progress) == 0, 0, in_progress)
 complete <- ifelse(length(complete) == 0, 0, complete)
 incomplete <- ifelse(length(incomplete) == 0, 0, incomplete)
 
-cat("=== KEY FINDINGS ===\n\n")
+cat("=== ACTIVITYWATCH APP USAGE KEY FINDINGS ===\n\n")
 cat("Study Overview:\n")
-cat("- Total participants with app usage data:", total_participants, "\n")
+cat("- Total ActivityWatch participants with app usage data:", total_aw_participants, "\n")
 cat("- Report generated on:", as.character(Sys.Date()), "\n")
-cat("- Study days with any data:", days_with_any_data, "out of 30\n")
+cat("- Study days with any data:", days_with_any_data, "out of 28\n")
 cat("- Peak participation on day", peak_participation_day, "with", round(peak_participation_rate, 1), "% of participants\n\n")
 
 cat("Study Completion Status:\n")
@@ -1234,32 +989,70 @@ cat("- 🔴 Incomplete (≥28 days, <20 days of data):", incomplete, "participan
 
 cat("Data Coverage:\n")
 cat("- Average days with data per participant:", round(avg_days_per_participant, 1), "\n")
-cat("- Participants with data for ≥28 days:", participants_with_full_month, "out of", total_participants, "\n")
+cat("- Participants with data for ≥20 days:", participants_with_full_study, "out of", total_aw_participants, "\n")
 cat("- Overall data availability rate:", round(mean(availability_summary$percentage_with_data), 1), "%\n\n")
 
-cat("Condition Comparison:\n")
+cat("Gaming Analysis:\n")
+cat("- Unique gaming apps identified:", total_gaming_apps, "\n")
+cat("- Average total gaming duration per participant:", round(avg_gaming_duration, 1), "minutes\n")
+if(exists("gaming_apps_summary") && nrow(gaming_apps_summary) > 0) {
+  cat("- Gaming apps used by ≥2 participants:", nrow(gaming_apps_summary), "\n")
+}
+cat("\n")
+
+cat("Platform Comparison:\n")
+for(platform in platform_types) {
+  platform_participants <- gaming_by_platform_summary$participants[gaming_by_platform_summary$platform == platform]
+  platform_gaming <- gaming_by_platform_summary$total_gaming_time[gaming_by_platform_summary$platform == platform]
+  cat(sprintf("- %s platform: %d participants, %.0f min total gaming\n", 
+              stringr::str_to_title(platform), 
+              ifelse(length(platform_participants) > 0, platform_participants, 0),
+              ifelse(length(platform_gaming) > 0, platform_gaming, 0)))
+}
+
+cat("\nCondition Comparison:\n")
 control_avg <- pattern_summary$avg_days_with_data[pattern_summary$Condition == "control"]
 intervention_avg <- pattern_summary$avg_days_with_data[pattern_summary$Condition == "intervention"]
-cat("- Control group average days:", round(control_avg, 1), "\n")
-cat("- Intervention group average days:", round(intervention_avg, 1), "\n")
+control_gaming <- pattern_summary$avg_gaming_duration[pattern_summary$Condition == "control"]
+intervention_gaming <- pattern_summary$avg_gaming_duration[pattern_summary$Condition == "intervention"]
+
+if(length(control_avg) > 0) cat("- Control group average days:", round(control_avg, 1), "\n")
+if(length(intervention_avg) > 0) cat("- Intervention group average days:", round(intervention_avg, 1), "\n")
+if(length(control_gaming) > 0) cat("- Control group average gaming duration:", round(control_gaming, 1), "min\n")
+if(length(intervention_gaming) > 0) cat("- Intervention group average gaming duration:", round(intervention_gaming, 1), "min\n")
 ```
 
 ## Data Export
 
 ```{r export}
+# Create output directory if it doesn't exist
+if (!dir.exists("../../.tmp/aw")) {
+  dir.create("../../.tmp/aw", recursive = TRUE)
+}
+
 # Export processed data for further analysis
 write_csv(complete_grid, "../../.tmp/aw/study_day_availability_matrix.csv")
 write_csv(availability_summary, "../../.tmp/aw/daily_availability_summary.csv")
 write_csv(participant_patterns, "../../.tmp/aw/participant_data_patterns.csv")
-write_csv(session_stats_by_platform, "../../.tmp/aw/participant_session_statistics_by_platform.csv")
-write_csv(top_apps_with_status_platform, "../../.tmp/aw/top_apps_by_participant_platform.csv")
-write_csv(unique_apps_by_platform, "../../.tmp/aw/unique_apps_with_statistics_by_platform.csv")
+write_csv(gaming_timeseries, "../../.tmp/aw/gaming_timeseries_data.csv")
 
-cat("Exported files:\n")
+if(exists("gaming_apps_summary") && nrow(gaming_apps_summary) > 0) {
+  write_csv(gaming_apps_summary, "../../.tmp/aw/gaming_apps_summary.csv")
+}
+
+if(exists("top_gaming_by_participant") && nrow(top_gaming_by_participant) > 0) {
+  write_csv(top_gaming_by_participant, "../../.tmp/aw/top_gaming_apps_by_participant.csv")
+}
+
+cat("Exported ActivityWatch analysis files:\n")
 cat("- study_day_availability_matrix.csv: Complete participant x study day matrix\n")
 cat("- daily_availability_summary.csv: Daily availability percentages\n")
 cat("- participant_data_patterns.csv: Individual participant patterns\n")
-cat("- participant_session_statistics_by_platform.csv: Detailed session statistics per participant by platform\n")
-cat("- top_apps_by_participant_platform.csv: Top 10 apps for each participant by platform\n")
-cat("- unique_apps_with_statistics_by_platform.csv: Complete list of unique apps with usage statistics by platform\n")
+cat("- gaming_timeseries_data.csv: Gaming duration time series data\n")
+if(exists("gaming_apps_summary") && nrow(gaming_apps_summary) > 0) {
+  cat("- gaming_apps_summary.csv: Gaming apps usage statistics\n")
+}
+if(exists("top_gaming_by_participant") && nrow(top_gaming_by_participant) > 0) {
+  cat("- top_gaming_apps_by_participant.csv: Top gaming apps per participant\n")
+}
 ```

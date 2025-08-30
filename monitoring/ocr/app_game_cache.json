@@ -8097,5 +8097,12 @@
     "reasoning": "Contains 'Legal', highly indicative of a law or legal services app and thus not a game.",
     "classification_timestamp": "2025-08-29T17:58:39.359282",
     "model_used": "gemini-2.0-flash-exp"
+  },
+  "audio­mack": {
+    "is_game": false,
+    "confidence": 9,
+    "reasoning": "Audiomack is a music streaming and downloading platform. It's not related to gaming.",
+    "classification_timestamp": "2025-08-29T18:28:22.161481",
+    "model_used": "gemini-2.0-flash-exp"
   }
 }
