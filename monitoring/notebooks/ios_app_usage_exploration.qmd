@@ -48,7 +48,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ```{r data-refresh}
 # Set to FALSE to skip data refresh and use existing files
-REFRESH_DATA <- TRUE
+REFRESH_DATA <- FALSE
 
 # Cache duration: refresh data if older than 1 hour
 CACHE_DURATION_HOURS <- 1
@@ -75,38 +75,151 @@ if (REFRESH_DATA && (needs_main_refresh || needs_contact_refresh)) {
   cat("=== REFRESHING iOS DATA FROM QUALTRICS ===\n")
   cat("Running complete iOS data pipeline...\n\n")
   
-  pipeline_result <- tryCatch({
-    cat("⏱️ This may take several minutes to download screenshots, run OCR analysis, and pull Qualtrics data...\n")
+  # Step 1: Download Qualtrics images
+  cat("Step 1/6: Downloading Qualtrics survey responses and images...\n")
+  step1_result <- tryCatch({
     system2(
       "python3",
-      args = c("../../monitoring/join_diary_ios.py", "--output-dir", "../../.tmp", "--verbose"),
+      args = c("../../monitoring/qualtrics_image_downloader.py"),
       stdout = TRUE,
       stderr = TRUE,
-      wait = TRUE,
-      timeout = 3600  # 60 minutes timeout for full iOS pipeline
+      wait = TRUE
     )
   }, error = function(e) {
-    cat("❌ Error in iOS pipeline:", e$message, "\n")
+    cat("❌ Error in Step 1:", e$message, "\n")
     return(NULL)
   })
   
-  if (!is.null(attr(pipeline_result, "status")) && attr(pipeline_result, "status") != 0) {
-    cat("⚠️ Warning: iOS pipeline exited with non-zero status:", attr(pipeline_result, "status"), "\n")
-    if (length(pipeline_result) > 0) {
-      cat("Last 20 lines of output:\n")
-      cat(paste(tail(pipeline_result, 20), collapse = "\n"), "\n\n")
-    }
-  } else if (!is.null(pipeline_result)) {
-    cat("✅ iOS pipeline completed successfully\n")
-    if (length(pipeline_result) > 5) {
-      cat("Last few lines of output:\n")
-      cat(paste(tail(pipeline_result, 5), collapse = "\n"), "\n\n")
+  if (!is.null(attr(step1_result, "status")) && attr(step1_result, "status") != 0) {
+    cat("⚠️ Warning: Step 1 exited with non-zero status\n")
+    if (length(step1_result) > 0) {
+      cat("Output:\n", paste(tail(step1_result, 10), collapse = "\n"), "\n")
     }
   } else {
-    cat("❌ iOS pipeline failed or timed out\n")
+    cat("✅ Step 1 completed successfully\n")
   }
   
-  cat("🎉 iOS data pipeline completed!\n\n")
+  # Step 2: OCR analysis with Gemini
+  cat("\nStep 2/6: Analyzing screenshots with Gemini OCR...\n")
+  step2_result <- tryCatch({
+    system2(
+      "python3",
+      args = c("../../monitoring/ocr/gemini_screenshot_analyzer.py"),
+      stdout = TRUE,
+      stderr = TRUE,
+      wait = TRUE
+    )
+  }, error = function(e) {
+    cat("❌ Error in Step 2:", e$message, "\n")
+    return(NULL)
+  })
+  
+  if (!is.null(attr(step2_result, "status")) && attr(step2_result, "status") != 0) {
+    cat("⚠️ Warning: Step 2 exited with non-zero status\n")
+    if (length(step2_result) > 0) {
+      cat("Output:\n", paste(tail(step2_result, 10), collapse = "\n"), "\n")
+    }
+  } else {
+    cat("✅ Step 2 completed successfully\n")
+  }
+  
+  # Step 3: Aggregate participant data
+  cat("\nStep 3/6: Aggregating participant data...\n")
+  step3_result <- tryCatch({
+    system2(
+      "python3",
+      args = c("../../monitoring/ocr/participant_aggregator.py"),
+      stdout = TRUE,
+      stderr = TRUE,
+      wait = TRUE
+    )
+  }, error = function(e) {
+    cat("❌ Error in Step 3:", e$message, "\n")
+    return(NULL)
+  })
+  
+  if (!is.null(attr(step3_result, "status")) && attr(step3_result, "status") != 0) {
+    cat("⚠️ Warning: Step 3 exited with non-zero status\n")
+    if (length(step3_result) > 0) {
+      cat("Output:\n", paste(tail(step3_result, 10), collapse = "\n"), "\n")
+    }
+  } else {
+    cat("✅ Step 3 completed successfully\n")
+  }
+  
+  # Step 4: Convert to CSV
+  cat("\nStep 4/6: Converting summary to CSV...\n")
+  step4_result <- tryCatch({
+    system2(
+      "python3",
+      args = c("../../monitoring/ocr/summary_to_csv.py"),
+      stdout = TRUE,
+      stderr = TRUE,
+      wait = TRUE
+    )
+  }, error = function(e) {
+    cat("❌ Error in Step 4:", e$message, "\n")
+    return(NULL)
+  })
+  
+  if (!is.null(attr(step4_result, "status")) && attr(step4_result, "status") != 0) {
+    cat("⚠️ Warning: Step 4 exited with non-zero status\n")
+    if (length(step4_result) > 0) {
+      cat("Output:\n", paste(tail(step4_result, 10), collapse = "\n"), "\n")
+    }
+  } else {
+    cat("✅ Step 4 completed successfully\n")
+  }
+  
+  # Step 5: Classify gaming apps
+  cat("\nStep 5/6: Classifying gaming applications...\n")
+  step5_result <- tryCatch({
+    system2(
+      "python3",
+      args = c("../../monitoring/ocr/app_game_classifier.py"),
+      stdout = TRUE,
+      stderr = TRUE,
+      wait = TRUE
+    )
+  }, error = function(e) {
+    cat("❌ Error in Step 5:", e$message, "\n")
+    return(NULL)
+  })
+  
+  if (!is.null(attr(step5_result, "status")) && attr(step5_result, "status") != 0) {
+    cat("⚠️ Warning: Step 5 exited with non-zero status\n")
+    if (length(step5_result) > 0) {
+      cat("Output:\n", paste(tail(step5_result, 10), collapse = "\n"), "\n")
+    }
+  } else {
+    cat("✅ Step 5 completed successfully\n")
+  }
+  
+  # Step 6: Pull contact list data from Qualtrics
+  cat("\nStep 6/6: Pulling contact list data from Qualtrics...\n")
+  step6_result <- tryCatch({
+    system2(
+      "python3",
+      args = c("../../monitoring/pull_contact_list.py", "--output", "contact_list_with_embedded"),
+      stdout = TRUE,
+      stderr = TRUE,
+      wait = TRUE
+    )
+  }, error = function(e) {
+    cat("❌ Error in Step 6:", e$message, "\n")
+    return(NULL)
+  })
+  
+  if (!is.null(attr(step6_result, "status")) && attr(step6_result, "status") != 0) {
+    cat("⚠️ Warning: Step 6 exited with non-zero status\n")
+    if (length(step6_result) > 0) {
+      cat("Output:\n", paste(tail(step6_result, 10), collapse = "\n"), "\n")
+    }
+  } else {
+    cat("✅ Step 6 completed successfully\n")
+  }
+  
+  cat("\n🎉 iOS data pipeline completed!\n\n")
   
 } else if (REFRESH_DATA) {
   file_age_hours <- as.numeric(difftime(Sys.time(), file.mtime(FINAL_OUTPUT_FILE), units = "hours"))
@@ -733,45 +846,40 @@ if(total_gaming_time > 0) {
 ## Gaming Apps Analysis
 
 ```{r gaming-apps-analysis}
-# Identify and analyze gaming apps - showing ALL gaming apps with participant counts
+# Identify and analyze gaming apps
 gaming_apps_summary <- ios_processed %>%
   filter(ProbGame == TRUE) %>%
   group_by(App) %>%
   summarise(
-    participant_count = n_distinct(PID),
     total_sessions = n(),
     total_duration = sum(Duration, na.rm = TRUE),
+    unique_users = n_distinct(PID),
     unique_days = n_distinct(Date),
     avg_duration_per_session = mean(Duration, na.rm = TRUE),
     avg_confidence = mean(LLM_conf, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  arrange(desc(participant_count), desc(total_duration)) %>%
+  filter(unique_users >= 2) %>%  # Apps used by at least 2 participants
+  arrange(desc(total_duration)) %>%
   mutate(
     total_duration_hours = round(total_duration / 60, 1),
     avg_duration_per_session = round(avg_duration_per_session, 1),
     avg_confidence = round(avg_confidence, 1)
   )
 
-# Display stats
-cat("Total unique gaming apps identified:", nrow(gaming_apps_summary), "\n")
-cat("Apps played by 1 participant:", sum(gaming_apps_summary$participant_count == 1), "\n")
-cat("Apps played by 2+ participants:", sum(gaming_apps_summary$participant_count >= 2), "\n")
-cat("Apps played by 5+ participants:", sum(gaming_apps_summary$participant_count >= 5), "\n\n")
-
 datatable(gaming_apps_summary,
-          caption = "All Gaming Apps Summary (with Participant Counts)",
-          colnames = c("App Name", "Participants", "Total Sessions", "Total Duration (min)", 
+          caption = "Gaming Apps Summary (Used by 2+ Participants)",
+          colnames = c("App Name", "Total Sessions", "Total Duration (min)", "Unique Users", 
                        "Days Used", "Avg Duration/Session (min)", "Avg LLM Confidence", 
                        "Total Duration (hrs)"),
           options = list(
-            pageLength = 20,
+            pageLength = 15,
             scrollX = TRUE,
             columnDefs = list(list(width = '150px', targets = c(0))),
-            order = list(list(1, 'desc'), list(3, 'desc'))
+            order = list(list(2, 'desc'))
           ),
           filter = 'top') %>%
-          formatRound(columns = c(3, 5, 6, 7), digits = 1)
+          formatRound(columns = c(2, 5, 6, 7), digits = 1)
 
 # Top gaming apps by participant
 top_gaming_by_participant <- ios_processed %>%
