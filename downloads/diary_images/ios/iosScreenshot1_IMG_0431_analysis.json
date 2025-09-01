@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-23",
+  "screenshot_timestamp": "13:09",
+  "apps": [
+    {
+      "app_name": "Reddit",
+      "time_spent": "4h 36m",
+      "time_spent_minutes": 276
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "3h 10m",
+      "time_spent_minutes": 190
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "1h 26m",
+      "time_spent_minutes": 86
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "27m",
+      "time_spent_minutes": 27
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "ClearScore: Credit Score Ch...",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "onthemarket.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "first direct",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "zcal.co",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/5381621023/R_8nVYRYSi0RxMadz/iosScreenshot1_IMG_0431.png",
+    "analysis_timestamp": "2025-09-01T12:37:02.376624",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

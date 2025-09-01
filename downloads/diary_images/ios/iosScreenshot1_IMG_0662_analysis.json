@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-18",
+  "screenshot_timestamp": "00:44",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "4h 3m",
+      "time_spent_minutes": 243
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 45m",
+      "time_spent_minutes": 105
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "51m",
+      "time_spent_minutes": 51
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "first direct",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "myvue.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "edhrec.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "warhammer-community.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/5381621023/R_2LZDpVj78HMSQJC/iosScreenshot1_IMG_0662.png",
+    "analysis_timestamp": "2025-09-01T12:34:41.304326",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

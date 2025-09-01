@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-24",
+  "screenshot_timestamp": "17:17",
+  "apps": [
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "44m",
+      "time_spent_minutes": 44
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "33m",
+      "time_spent_minutes": 33
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Word",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Zoom Workplace",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "com.apple.controlcenter",
+      "time_spent": "26s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.finder",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.codeten.tesjobs.applica...",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/3236077775/R_8NBUGkndmhOLL1f/iosScreenshot2_IMG_3730.png",
+    "analysis_timestamp": "2025-09-01T12:14:18.038101",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

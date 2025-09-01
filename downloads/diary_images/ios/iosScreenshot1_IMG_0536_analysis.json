@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-18",
+  "screenshot_timestamp": "08:02",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "29m",
+      "time_spent_minutes": 29
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "Spark",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "7s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "6s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/3630021688/R_5LnZDVYlloI8pZD/iosScreenshot1_IMG_0536.png",
+    "analysis_timestamp": "2025-09-01T12:20:24.673858",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

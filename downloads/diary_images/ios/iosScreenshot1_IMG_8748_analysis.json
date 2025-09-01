@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-02",
+  "screenshot_timestamp": "12:04",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "4h 25m",
+      "time_spent_minutes": 265
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "2h 36m",
+      "time_spent_minutes": 156
+    },
+    {
+      "app_name": "Threads",
+      "time_spent": "1h 10m",
+      "time_spent_minutes": 70
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "1h 6m",
+      "time_spent_minutes": 66
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "Nationwide",
+      "time_spent": "43m",
+      "time_spent_minutes": 43
+    },
+    {
+      "app_name": "Uber Eats",
+      "time_spent": "41m",
+      "time_spent_minutes": 41
+    },
+    {
+      "app_name": "Monzo",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Domino's",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "KFC",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for the specified date.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/8357967109/R_8SBn3fq2JZ0cdq0/iosScreenshot1_IMG_8748.png",
+    "analysis_timestamp": "2025-09-01T12:24:47.368035",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

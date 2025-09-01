@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-01",
+  "screenshot_timestamp": "13:13",
+  "apps": [
+    {
+      "app_name": "Reddit",
+      "time_spent": "2h 48m",
+      "time_spent_minutes": 168
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "2h 12m",
+      "time_spent_minutes": 132
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 37m",
+      "time_spent_minutes": 97
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 21m",
+      "time_spent_minutes": 81
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "1h 4m",
+      "time_spent_minutes": 64
+    },
+    {
+      "app_name": "Etsy",
+      "time_spent": "1h",
+      "time_spent_minutes": 60
+    },
+    {
+      "app_name": "natwest.com",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "op.gg",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "edhrec.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5381621023/R_2XOaSo6jkydlyj7/iosScreenshot1_IMG_0476.png",
+    "analysis_timestamp": "2025-09-01T13:51:58.034620",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

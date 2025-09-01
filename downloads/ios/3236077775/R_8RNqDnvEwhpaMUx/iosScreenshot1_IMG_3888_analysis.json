@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-01",
+  "screenshot_timestamp": "13:40",
+  "apps": [
+    {
+      "app_name": "Google",
+      "time_spent": "39m",
+      "time_spent_minutes": 39
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "Strong",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "SmartShop",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "spareroom.co.uk",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Slack",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8RNqDnvEwhpaMUx/iosScreenshot1_IMG_3888.png",
+    "analysis_timestamp": "2025-09-01T13:41:40.433269",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

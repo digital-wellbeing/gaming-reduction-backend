@@ -1,0 +1,4260 @@
+{
+  "participant_id": "3236077775",
+  "report_timestamp": "2025-09-01T13:48:33.454563",
+  "device_types": {
+    "iphone": {
+      "daily_entries": [
+        {
+          "response_id": "R_822zzDxIqddfDGU",
+          "response_folder": "R_822zzDxIqddfDGU",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_822zzDxIqddfDGU/iosScreenshot1_IMG_3501.png",
+          "screenshot_date": "2025-07-07",
+          "screenshot_date_based_on_upload": "2025-07-07",
+          "screenshot_timestamp": "17:12",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "49m",
+              "time_spent_minutes": 49
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "31m",
+              "time_spent_minutes": 31
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Notes",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "NHS App",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Slack",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Nintendo Switch App",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 120,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2QFr5C7iL0zImuR",
+          "response_folder": "R_2QFr5C7iL0zImuR",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2QFr5C7iL0zImuR/iosScreenshot1_IMG_3513.png",
+          "screenshot_date": "2025-07-08",
+          "screenshot_date_based_on_upload": "2025-07-08",
+          "screenshot_timestamp": "13:39",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "45m",
+              "time_spent_minutes": 45
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 145,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_82Wymyt4QeAC2CU",
+          "response_folder": "R_82Wymyt4QeAC2CU",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_82Wymyt4QeAC2CU/iosScreenshot1_IMG_3527.png",
+          "screenshot_date": "2025-07-09",
+          "screenshot_date_based_on_upload": "2025-07-09",
+          "screenshot_timestamp": "13:10",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "45m",
+              "time_spent_minutes": 45
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "SmartShop",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "BrookesSport",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 141,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8RXmIKhIXiNgkSt",
+          "response_folder": "R_8RXmIKhIXiNgkSt",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8RXmIKhIXiNgkSt/iosScreenshot2_IMG_3544.png",
+          "screenshot_date": "2025-07-10",
+          "screenshot_date_based_on_upload": "2025-07-11",
+          "screenshot_timestamp": "12:17",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Microsoft Word",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "strengthlevel.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "40s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "27s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "17s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": "6s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.QuickTimePlayerX",
+              "time_spent": "3s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Microsoft Excel",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 35,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_22ILlQQj7JgjPFr",
+          "response_folder": "R_22ILlQQj7JgjPFr",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_22ILlQQj7JgjPFr/iosScreenshot2_IMG_3534.png",
+          "screenshot_date": "2025-07-10",
+          "screenshot_date_based_on_upload": "2025-07-10",
+          "screenshot_timestamp": "12:38",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 7m",
+              "time_spent_minutes": 67
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "15s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "3s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.QuickTimePlayerX",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "0s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 7,
+          "total_time_minutes": 82,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_22ILlQQj7JgjPFr",
+          "response_folder": "R_22ILlQQj7JgjPFr",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_22ILlQQj7JgjPFr/iosScreenshot1_IMG_3533.png",
+          "screenshot_date": "2025-07-10",
+          "screenshot_date_based_on_upload": "2025-07-10",
+          "screenshot_timestamp": "12:38",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "rabbitandwolves.com",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "54s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "thameswater.co.uk",
+              "time_spent": "52s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Phone",
+              "time_spent": "50s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 78,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8RXmIKhIXiNgkSt",
+          "response_folder": "R_8RXmIKhIXiNgkSt",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8RXmIKhIXiNgkSt/iosScreenshot1_IMG_3543.png",
+          "screenshot_date": "2025-07-11",
+          "screenshot_date_based_on_upload": "2025-07-11",
+          "screenshot_timestamp": "12:17",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "BrookesSport",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 133,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2frvI6J8RNQodIl",
+          "response_folder": "R_2frvI6J8RNQodIl",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2frvI6J8RNQodIl/iosScreenshot1_IMG_3573.png",
+          "screenshot_date": "2025-07-12",
+          "screenshot_date_based_on_upload": "2025-07-12",
+          "screenshot_timestamp": "12:37",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "1h 4m",
+              "time_spent_minutes": 64
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 1m",
+              "time_spent_minutes": 61
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "theclevercarrot.com",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "YouTube: Watch, Listen, Stre...",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "BrookesSport",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 206,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2frvI6J8RNQodIl",
+          "response_folder": "R_2frvI6J8RNQodIl",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2frvI6J8RNQodIl/iosScreenshot2_IMG_3574.png",
+          "screenshot_date": "2025-07-12",
+          "screenshot_date_based_on_upload": "2025-07-12",
+          "screenshot_timestamp": "12:37",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "1h 38m",
+              "time_spent_minutes": 98
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 3m",
+              "time_spent_minutes": 63
+            },
+            {
+              "app_name": "Microsoft Excel",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Microsoft Word",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "YouTube: Watch, Listen, Stre...",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "bbc.co.uk",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "emp.bbc.co.uk",
+              "time_spent": "41s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 279,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8A70EcnrmIFoJ6p",
+          "response_folder": "R_8A70EcnrmIFoJ6p",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8A70EcnrmIFoJ6p/iosScreenshot1_IMG_3597.png",
+          "screenshot_date": "2025-07-13",
+          "screenshot_date_based_on_upload": "2025-07-13",
+          "screenshot_timestamp": "12:54",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "52m",
+              "time_spent_minutes": 52
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "49m",
+              "time_spent_minutes": 49
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "40m",
+              "time_spent_minutes": 40
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Google Photos",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "LinkedIn: Job Search & News",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 199,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8A70EcnrmIFoJ6p",
+          "response_folder": "R_8A70EcnrmIFoJ6p",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8A70EcnrmIFoJ6p/iosScreenshot2_IMG_3598.png",
+          "screenshot_date": "2025-07-13",
+          "screenshot_date_based_on_upload": "2025-07-13",
+          "screenshot_timestamp": "12:54",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "2h 19m",
+              "time_spent_minutes": 139
+            },
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "1h 15m",
+              "time_spent_minutes": 75
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 12m",
+              "time_spent_minutes": 72
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "55m",
+              "time_spent_minutes": 55
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "46m",
+              "time_spent_minutes": 46
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "bbc.co.uk",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "com.apple.systempreferences",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "Microsoft Word",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Microsoft Excel",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 609,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_81ayX0oAf4UOg91",
+          "response_folder": "R_81ayX0oAf4UOg91",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_81ayX0oAf4UOg91/iosScreenshot1_IMG_3612.png",
+          "screenshot_date": "2025-07-14",
+          "screenshot_date_based_on_upload": "2025-07-14",
+          "screenshot_timestamp": "14:41",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "52m",
+              "time_spent_minutes": 52
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "SmartShop",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Passwords",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Edge",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 146,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_81ayX0oAf4UOg91",
+          "response_folder": "R_81ayX0oAf4UOg91",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_81ayX0oAf4UOg91/iosScreenshot2_IMG_3613.png",
+          "screenshot_date": "2025-07-14",
+          "screenshot_date_based_on_upload": "2025-07-14",
+          "screenshot_timestamp": "14:41",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "15s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.QuickTimePlayerX",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "1s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 7,
+          "total_time_minutes": 24,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_839Yzm8ImXIqMA6",
+          "response_folder": "R_839Yzm8ImXIqMA6",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_839Yzm8ImXIqMA6/iosScreenshot1_IMG_3619.png",
+          "screenshot_date": "2025-07-15",
+          "screenshot_date_based_on_upload": "2025-07-15",
+          "screenshot_timestamp": "18:30",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 118,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_839Yzm8ImXIqMA6",
+          "response_folder": "R_839Yzm8ImXIqMA6",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_839Yzm8ImXIqMA6/iosScreenshot2_IMG_3620.png",
+          "screenshot_date": "2025-07-15",
+          "screenshot_date_based_on_upload": "2025-07-15",
+          "screenshot_timestamp": "18:30",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "38m",
+              "time_spent_minutes": 38
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "com.apple.QuickTimePlayerX",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "57s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "54s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.systempreferences",
+              "time_spent": "12s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "6s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "0s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 129,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2etJmhz7J5iCJs5",
+          "response_folder": "R_2etJmhz7J5iCJs5",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2etJmhz7J5iCJs5/iosScreenshot2_IMG_3628.png",
+          "screenshot_date": "2025-07-16",
+          "screenshot_date_based_on_upload": "2025-07-16",
+          "screenshot_timestamp": "12:53",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "8s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 3,
+          "total_time_minutes": 22,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2etJmhz7J5iCJs5",
+          "response_folder": "R_2etJmhz7J5iCJs5",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2etJmhz7J5iCJs5/iosScreenshot1_IMG_3629.png",
+          "screenshot_date": "2025-07-16",
+          "screenshot_date_based_on_upload": "2025-07-16",
+          "screenshot_timestamp": "12:53",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "40m",
+              "time_spent_minutes": 40
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "InvestEngine",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Santander",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "NatWest",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 149,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2EsSM5lAsRJq31e",
+          "response_folder": "R_2EsSM5lAsRJq31e",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2EsSM5lAsRJq31e/iosScreenshot1_IMG_3651.png",
+          "screenshot_date": "2025-07-17",
+          "screenshot_date_based_on_upload": "2025-07-18",
+          "screenshot_timestamp": "12:20",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "sainsburys.co.uk",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "SmartShop",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Notes",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 157,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8TsJfB2xythbwi6",
+          "response_folder": "R_8TsJfB2xythbwi6",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8TsJfB2xythbwi6/iosScreenshot2_IMG_3646.png",
+          "screenshot_date": "2025-07-17",
+          "screenshot_date_based_on_upload": "2025-07-17",
+          "screenshot_timestamp": "17:30",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 15m",
+              "time_spent_minutes": 75
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 13m",
+              "time_spent_minutes": 73
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1h 2m",
+              "time_spent_minutes": 62
+            },
+            {
+              "app_name": "com.apple.systempreferences",
+              "time_spent": "1h",
+              "time_spent_minutes": 60
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "1h",
+              "time_spent_minutes": 60
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "46m",
+              "time_spent_minutes": 46
+            },
+            {
+              "app_name": "openpowerlifting.org",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "ouplc.co.uk",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "liftercalc.com",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "bbc.co.uk",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 560,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8TsJfB2xythbwi6",
+          "response_folder": "R_8TsJfB2xythbwi6",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8TsJfB2xythbwi6/iosScreenshot1_IMG_3645.png",
+          "screenshot_date": "2025-07-17",
+          "screenshot_date_based_on_upload": "2025-07-17",
+          "screenshot_timestamp": "17:30",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "47m",
+              "time_spent_minutes": 47
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "canvas.ox.ac.uk",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "YouTube: Watch, Listen, Stre...",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 158,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2EsSM5lAsRJq31e",
+          "response_folder": "R_2EsSM5lAsRJq31e",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2EsSM5lAsRJq31e/iosScreenshot2_IMG_3652.png",
+          "screenshot_date": "2025-07-18",
+          "screenshot_date_based_on_upload": "2025-07-18",
+          "screenshot_timestamp": "12:20",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "28s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "18s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 3,
+          "total_time_minutes": 5,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8mgxv6UBi98moNc",
+          "response_folder": "R_8mgxv6UBi98moNc",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8mgxv6UBi98moNc/iosScreenshot1_IMG_3664.png",
+          "screenshot_date": "2025-07-19",
+          "screenshot_date_based_on_upload": "2025-07-19",
+          "screenshot_timestamp": "12:18",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "1h 22m",
+              "time_spent_minutes": 82
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "31m",
+              "time_spent_minutes": 31
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "first direct",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "holycowvegan.net",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "moneysavingexpert.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 172,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8mgxv6UBi98moNc",
+          "response_folder": "R_8mgxv6UBi98moNc",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8mgxv6UBi98moNc/iosScreenshot2_IMG_3665.png",
+          "screenshot_date": "2025-07-19",
+          "screenshot_date_based_on_upload": "2025-07-19",
+          "screenshot_timestamp": "12:18",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 56m",
+              "time_spent_minutes": 116
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 9m",
+              "time_spent_minutes": 69
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "51m",
+              "time_spent_minutes": 51
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "com.codeten.tesjobs.applica...",
+              "time_spent": "38s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "38s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "3s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 280,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8y3jSmGsU2iFICq",
+          "response_folder": "R_8y3jSmGsU2iFICq",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8y3jSmGsU2iFICq/iosScreenshot1_IMG_3685.png",
+          "screenshot_date": "2025-07-20",
+          "screenshot_date_based_on_upload": "2025-07-20",
+          "screenshot_timestamp": "17:14",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "29m",
+              "time_spent_minutes": 29
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "YouTube: Watch, Listen, Stre...",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "bardoburner.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "PayPal",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 136,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8y3jSmGsU2iFICq",
+          "response_folder": "R_8y3jSmGsU2iFICq",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8y3jSmGsU2iFICq/iosScreenshot2_IMG_3686.png",
+          "screenshot_date": "2025-07-20",
+          "screenshot_date_based_on_upload": "2025-07-20",
+          "screenshot_timestamp": "17:14",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "2h 36m",
+              "time_spent_minutes": 156
+            },
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "1h 15m",
+              "time_spent_minutes": 75
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "com.cisco.secureclient.gui",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "25s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "YouTube: Watch, Listen, Stre...",
+              "time_spent": "13s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "7s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 294,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8kMJdMyCSJR2lIU",
+          "response_folder": "R_8kMJdMyCSJR2lIU",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8kMJdMyCSJR2lIU/iosScreenshot2_IMG_3693.png",
+          "screenshot_date": "2025-07-21",
+          "screenshot_date_based_on_upload": "2025-07-21",
+          "screenshot_timestamp": "13:10",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "1h 16m",
+              "time_spent_minutes": 76
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "com.google.Chrome",
+              "time_spent": "12s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.Safari",
+              "time_spent": "7s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 5,
+          "total_time_minutes": 105,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8kMJdMyCSJR2lIU",
+          "response_folder": "R_8kMJdMyCSJR2lIU",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8kMJdMyCSJR2lIU/iosScreenshot1_IMG_3694.png",
+          "screenshot_date": "2025-07-21",
+          "screenshot_date_based_on_upload": "2025-07-21",
+          "screenshot_timestamp": "13:11",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "25m",
+              "time_spent_minutes": 25
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Mitula Homes",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "GWR",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 143,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_82Q4I0gpvxS9ygw",
+          "response_folder": "R_82Q4I0gpvxS9ygw",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_82Q4I0gpvxS9ygw/iosScreenshot2_IMG_3711.png",
+          "screenshot_date": "2025-07-22",
+          "screenshot_date_based_on_upload": "2025-07-22",
+          "screenshot_timestamp": "13:47",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "com.codeten.tesjobs.applica...",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "bbc.co.uk",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "46s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "emp.bbc.co.uk",
+              "time_spent": "39s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.QuickTimePlayerX",
+              "time_spent": "24s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 103,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_82Q4I0gpvxS9ygw",
+          "response_folder": "R_82Q4I0gpvxS9ygw",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_82Q4I0gpvxS9ygw/iosScreenshot1_IMG_3710.png",
+          "screenshot_date": "2025-07-22",
+          "screenshot_date_based_on_upload": "2025-07-22",
+          "screenshot_timestamp": "13:47",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "31m",
+              "time_spent_minutes": 31
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "spareroom.co.uk",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Tesco Bank",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "exploretock.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "trivago.deals",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "tescobank.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 113,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2rFXW4m73VrekKC",
+          "response_folder": "R_2rFXW4m73VrekKC",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2rFXW4m73VrekKC/iosScreenshot2_IMG_3723.png",
+          "screenshot_date": "2025-07-23",
+          "screenshot_date_based_on_upload": "2025-07-23",
+          "screenshot_timestamp": "17:11",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 2,
+          "total_time_minutes": 2,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2rFXW4m73VrekKC",
+          "response_folder": "R_2rFXW4m73VrekKC",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2rFXW4m73VrekKC/iosScreenshot1_IMG_3722.png",
+          "screenshot_date": "2025-07-23",
+          "screenshot_date_based_on_upload": "2025-07-23",
+          "screenshot_timestamp": "17:11",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "37m",
+              "time_spent_minutes": 37
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "36m",
+              "time_spent_minutes": 36
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "31m",
+              "time_spent_minutes": 31
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "spareroom.co.uk",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 163,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8NBUGkndmhOLL1f",
+          "response_folder": "R_8NBUGkndmhOLL1f",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8NBUGkndmhOLL1f/iosScreenshot1_IMG_3729.png",
+          "screenshot_date": "2025-07-24",
+          "screenshot_date_based_on_upload": "2025-07-24",
+          "screenshot_timestamp": "17:17",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "37m",
+              "time_spent_minutes": 37
+            },
+            {
+              "app_name": "NatWest",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "apply.natwest.com",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "moneysavingexpert.com",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "LinkedIn: Job Search & News",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "psy.ox.ac.uk",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Calculator",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 124,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8NBUGkndmhOLL1f",
+          "response_folder": "R_8NBUGkndmhOLL1f",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8NBUGkndmhOLL1f/iosScreenshot2_IMG_3730.png",
+          "screenshot_date": "2025-07-24",
+          "screenshot_date_based_on_upload": "2025-07-24",
+          "screenshot_timestamp": "17:17",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "46m",
+              "time_spent_minutes": 46
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "34m",
+              "time_spent_minutes": 34
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "33m",
+              "time_spent_minutes": 33
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "com.apple.controlcenter",
+              "time_spent": "26s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "3s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.codeten.tesjobs.applica...",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 209,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8YTNWOrvKCtj7sR",
+          "response_folder": "R_8YTNWOrvKCtj7sR",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8YTNWOrvKCtj7sR/iosScreenshot2_IMG_3740.png",
+          "screenshot_date": "2025-07-25",
+          "screenshot_date_based_on_upload": "2025-07-25",
+          "screenshot_timestamp": "13:02",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "49s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "14s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.cisco.secureclient.gui",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "0s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 6,
+          "total_time_minutes": 21,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8YTNWOrvKCtj7sR",
+          "response_folder": "R_8YTNWOrvKCtj7sR",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8YTNWOrvKCtj7sR/iosScreenshot1_IMG_3739.png",
+          "screenshot_date": "2025-07-25",
+          "screenshot_date_based_on_upload": "2025-07-25",
+          "screenshot_timestamp": "13:02",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "37m",
+              "time_spent_minutes": 37
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "NatWest",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "BrookesSport",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Tesco Bank",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "cancerresearchuk.org",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 133,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2zNReMAluzVJEpr",
+          "response_folder": "R_2zNReMAluzVJEpr",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2zNReMAluzVJEpr/iosScreenshot1_IMG_3818.png",
+          "screenshot_date": "2025-07-26",
+          "screenshot_date_based_on_upload": "2025-07-26",
+          "screenshot_timestamp": "18:43",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "1h 3m",
+              "time_spent_minutes": 63
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "NatWest",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "holycowvegan.net",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "all.accor.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 176,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2zNReMAluzVJEpr",
+          "response_folder": "R_2zNReMAluzVJEpr",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2zNReMAluzVJEpr/iosScreenshot2_IMG_3819.png",
+          "screenshot_date": "2025-07-26",
+          "screenshot_date_based_on_upload": "2025-07-26",
+          "screenshot_timestamp": "18:43",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "2h 7m",
+              "time_spent_minutes": 127
+            },
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "47m",
+              "time_spent_minutes": 47
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "19s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "YouTube: Watch, Listen, Stre...",
+              "time_spent": "5s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "3s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.archiveutility",
+              "time_spent": "1s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "0s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.cisco.securecilent.gui",
+              "time_spent": "0s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 215,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8ZODdUsH9946O51",
+          "response_folder": "R_8ZODdUsH9946O51",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8ZODdUsH9946O51/iosScreenshot2_IMG_3842.png",
+          "screenshot_date": "2025-07-27",
+          "screenshot_date_based_on_upload": "2025-07-27",
+          "screenshot_timestamp": "13:12",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 7m",
+              "time_spent_minutes": 67
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "57s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Photo Booth",
+              "time_spent": "26s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "25s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "9s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.controlcenter",
+              "time_spent": "4s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.cisco.secureclient.gui",
+              "time_spent": "0s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 9,
+          "total_time_minutes": 88,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8ZODdUsH9946O51",
+          "response_folder": "R_8ZODdUsH9946O51",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8ZODdUsH9946O51/iosScreenshot1_IMG_3841.png",
+          "screenshot_date": "2025-07-27",
+          "screenshot_date_based_on_upload": "2025-07-27",
+          "screenshot_timestamp": "13:12",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "NatWest",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "oxfordcastleandprison.co.uk",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 117,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8PvAKBMDk7d9NXe",
+          "response_folder": "R_8PvAKBMDk7d9NXe",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8PvAKBMDk7d9NXe/iosScreenshot1_IMG_3845.png",
+          "screenshot_date": "2025-07-28",
+          "screenshot_date_based_on_upload": "2025-07-28",
+          "screenshot_timestamp": "13:18",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "LinkedIn: Job Search & News",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "rightmove.co.uk",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "spareroom.co.uk",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 155,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8PvAKBMDk7d9NXe",
+          "response_folder": "R_8PvAKBMDk7d9NXe",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8PvAKBMDk7d9NXe/iosScreenshot2_IMG_3846.png",
+          "screenshot_date": "2025-07-28",
+          "screenshot_date_based_on_upload": "2025-07-28",
+          "screenshot_timestamp": "13:19",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "29m",
+              "time_spent_minutes": 29
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "58s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "29s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "18s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "3s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 8,
+          "total_time_minutes": 41,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8uODKrgsqGFUjlv",
+          "response_folder": "R_8uODKrgsqGFUjlv",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8uODKrgsqGFUjlv/iosScreenshot2_IMG_3852.png",
+          "screenshot_date": "2025-07-29",
+          "screenshot_date_based_on_upload": "2025-07-29",
+          "screenshot_timestamp": "13:41",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "1h 55m",
+              "time_spent_minutes": 115
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 50m",
+              "time_spent_minutes": 110
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": "1h 35m",
+              "time_spent_minutes": 95
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "1h 32m",
+              "time_spent_minutes": 92
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1h 31m",
+              "time_spent_minutes": 91
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "1h 26m",
+              "time_spent_minutes": 86
+            },
+            {
+              "app_name": "com.apple.QuickTimePlayerX",
+              "time_spent": "1h 25m",
+              "time_spent_minutes": 85
+            },
+            {
+              "app_name": "com.cisco.secureclient.gui",
+              "time_spent": "1h 25m",
+              "time_spent_minutes": 85
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 3m",
+              "time_spent_minutes": 63
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "25s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "10s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 836,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8uODKrgsqGFUjlv",
+          "response_folder": "R_8uODKrgsqGFUjlv",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8uODKrgsqGFUjlv/iosScreenshot1_IMG_3851.png",
+          "screenshot_date": "2025-07-29",
+          "screenshot_date_based_on_upload": "2025-07-29",
+          "screenshot_timestamp": "13:41",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Notes",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "InvestEngine",
+              "time_spent": "42s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "oxford.gov.uk",
+              "time_spent": "30s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 50,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2AKJSPOFuWfFWnV",
+          "response_folder": "R_2AKJSPOFuWfFWnV",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2AKJSPOFuWfFWnV/iosScreenshot2_IMG_3864.png",
+          "screenshot_date": "2025-07-30",
+          "screenshot_date_based_on_upload": "2025-07-30",
+          "screenshot_timestamp": "17:16",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Mail",
+              "time_spent": "48s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "1",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 2,
+          "total_time_minutes": 0,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2AKJSPOFuWfFWnV",
+          "response_folder": "R_2AKJSPOFuWfFWnV",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2AKJSPOFuWfFWnV/iosScreenshot1_IMG_3863.png",
+          "screenshot_date": "2025-07-30",
+          "screenshot_date_based_on_upload": "2025-07-30",
+          "screenshot_timestamp": "17:16",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "H&B",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Opal",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 130,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8oXhlJVYF6i1z4f",
+          "response_folder": "R_8oXhlJVYF6i1z4f",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8oXhlJVYF6i1z4f/iosScreenshot1_IMG_3867.png",
+          "screenshot_date": "2025-07-31",
+          "screenshot_date_based_on_upload": "2025-07-31",
+          "screenshot_timestamp": "13:11",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "55m",
+              "time_spent_minutes": 55
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Reminders",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Notes",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Calculator",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "LinkedIn: Job Search & News",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 149,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8oXhlJVYF6i1z4f",
+          "response_folder": "R_8oXhlJVYF6i1z4f",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8oXhlJVYF6i1z4f/iosScreenshot2_IMG_3868.png",
+          "screenshot_date": "2025-07-31",
+          "screenshot_date_based_on_upload": "2025-07-31",
+          "screenshot_timestamp": "13:11",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 41m",
+              "time_spent_minutes": 101
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "com.apple.finder",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "oxford.targetconnect.net",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "YouTube: Watch, Listen, Stre...",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "alzheimersresearchuk.org",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "jobs ac UK",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 196,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8RNqDnvEwhpaMUx",
+          "response_folder": "R_8RNqDnvEwhpaMUx",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8RNqDnvEwhpaMUx/iosScreenshot1_IMG_3888.png",
+          "screenshot_date": "2025-08-01",
+          "screenshot_date_based_on_upload": "2025-08-01",
+          "screenshot_timestamp": "13:40",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "SmartShop",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "spareroom.co.uk",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Slack",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 128,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2MrXhGxPViSI7oB",
+          "response_folder": "R_2MrXhGxPViSI7oB",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2MrXhGxPViSI7oB/iosScreenshot1_IMG_3906.png",
+          "screenshot_date": "2025-08-02",
+          "screenshot_date_based_on_upload": "2025-08-02",
+          "screenshot_timestamp": "13:30",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 15m",
+              "time_spent_minutes": 75
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "54m",
+              "time_spent_minutes": 54
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "49m",
+              "time_spent_minutes": 49
+            },
+            {
+              "app_name": "minimalistbaker.com",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "tinandthyme.uk",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Virgin Money",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Chase",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 245,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2MrXhGxPViSI7oB",
+          "response_folder": "R_2MrXhGxPViSI7oB",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2MrXhGxPViSI7oB/iosScreenshot2_IMG_3907.png",
+          "screenshot_date": "2025-08-02",
+          "screenshot_date_based_on_upload": "2025-08-02",
+          "screenshot_timestamp": "13:31",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "2h 12m",
+              "time_spent_minutes": 132
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "rightmove.co.uk",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "com.apple.ScreenContinuity",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "onthemarket.com",
+              "time_spent": "30s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "21s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "unknown",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 212,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_22rSMQXysvNRfUZ",
+          "response_folder": "R_22rSMQXysvNRfUZ",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_22rSMQXysvNRfUZ/iosScreenshot1_IMG_3916.png",
+          "screenshot_date": "2025-08-03",
+          "screenshot_date_based_on_upload": "2025-08-03",
+          "screenshot_timestamp": "13:20",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google",
+              "time_spent": "48m",
+              "time_spent_minutes": 48
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "42m",
+              "time_spent_minutes": 42
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Chase",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Virgin Money",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 188,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_22rSMQXysvNRfUZ",
+          "response_folder": "R_22rSMQXysvNRfUZ",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_22rSMQXysvNRfUZ/iosScreenshot2_IMG_3917.png",
+          "screenshot_date": "2025-08-03",
+          "screenshot_date_based_on_upload": "2025-08-03",
+          "screenshot_timestamp": "13:20",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 53m",
+              "time_spent_minutes": 113
+            },
+            {
+              "app_name": "Preview",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Microsoft Excel",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Word",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "54s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "finance.admin.ox.ac.uk",
+              "time_spent": "18s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Microsoft PowerPoint",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "com.lumivero.nvivo-15",
+              "time_spent": "1s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 174,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2D8vZ5IAaAFLais",
+          "response_folder": "R_2D8vZ5IAaAFLais",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2D8vZ5IAaAFLais/iosScreenshot1_IMG_3928.png",
+          "screenshot_date": "2025-08-04",
+          "screenshot_date_based_on_upload": "2025-08-04",
+          "screenshot_timestamp": "12:38",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "34m",
+              "time_spent_minutes": 34
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Google",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Strong",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Notes",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 143,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2D8vZ5IAaAFLais",
+          "response_folder": "R_2D8vZ5IAaAFLais",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2D8vZ5IAaAFLais/iosScreenshot2_IMG_3930.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-08-04",
+          "screenshot_timestamp": "12:39",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "youtube.com",
+              "time_spent": "1 hr",
+              "time_spent_minutes": 60
+            },
+            {
+              "app_name": "Facebook & Messenger",
+              "time_spent": "10 min",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Dream Town Story",
+              "time_spent": "1 hr, 30 min",
+              "time_spent_minutes": 90
+            },
+            {
+              "app_name": "eBay & Depop",
+              "time_spent": "10 min",
+              "time_spent_minutes": 10
+            }
+          ],
+          "total_apps": 4,
+          "total_time_minutes": 170,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot2_IMG_3930.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8RNqDnvEwhpaMUx",
+          "response_folder": "R_8RNqDnvEwhpaMUx",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8RNqDnvEwhpaMUx/iosScreenshot2_IMG_3889.png",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-08-01",
+          "screenshot_timestamp": "13:40",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Notion",
+              "time_spent": "53s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "1",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 2,
+          "total_time_minutes": 0,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot2_IMG_3889.png",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        }
+      ],
+      "total_entries": 55,
+      "total_apps_detected": 580,
+      "unique_apps": [
+        "App Store",
+        "Authenticator",
+        "BrookesSport",
+        "Calculator",
+        "Calendar",
+        "Camera",
+        "Chase",
+        "Clock",
+        "Dream Town Story",
+        "Edge",
+        "Facebook",
+        "Facebook & Messenger",
+        "GWR",
+        "Google",
+        "Google Chrome",
+        "Google Maps",
+        "Google Photos",
+        "H&B",
+        "Instagram",
+        "InvestEngine",
+        "LinkedIn: Job Search & News",
+        "Mail",
+        "Messages",
+        "Messenger",
+        "Microsoft Excel",
+        "Microsoft PowerPoint",
+        "Microsoft Word",
+        "Mitula Homes",
+        "NHS App",
+        "NatWest",
+        "Nintendo Switch App",
+        "Notes",
+        "Notion",
+        "Opal",
+        "Outlook",
+        "Passwords",
+        "PayPal",
+        "Phone",
+        "Photo Booth",
+        "Photos",
+        "Preview",
+        "Reddit",
+        "Reminders",
+        "Safari",
+        "Santander",
+        "Settings",
+        "Slack",
+        "SmartShop",
+        "Strong",
+        "Teams",
+        "Tesco Bank",
+        "User Authentication",
+        "Virgin Money",
+        "WhatsApp",
+        "Word",
+        "YouTube: Watch, Listen, Stre...",
+        "Zoom Workplace",
+        "all.accor.com",
+        "alzheimersresearchuk.org",
+        "apply.natwest.com",
+        "bardoburner.com",
+        "bbc.co.uk",
+        "cancerresearchuk.org",
+        "canvas.ox.ac.uk",
+        "com.apple.QuickTimePlayerX",
+        "com.apple.Safari",
+        "com.apple.ScreenContinuity",
+        "com.apple.archiveutility",
+        "com.apple.controlcenter",
+        "com.apple.finder",
+        "com.apple.systempreferences",
+        "com.cisco.securecilent.gui",
+        "com.cisco.secureclient.gui",
+        "com.codeten.tesjobs.applica...",
+        "com.google.Chrome",
+        "com.lumivero.nvivo-15",
+        "eBay & Depop",
+        "emp.bbc.co.uk",
+        "exploretock.com",
+        "finance.admin.ox.ac.uk",
+        "first direct",
+        "google.com",
+        "holycowvegan.net",
+        "jobs ac UK",
+        "liftercalc.com",
+        "mini-tud.netlify.app",
+        "minimalistbaker.com",
+        "moneysavingexpert.com",
+        "oii.qualtrics.com",
+        "onthemarket.com",
+        "openpowerlifting.org",
+        "ouplc.co.uk",
+        "oxford.gov.uk",
+        "oxford.targetconnect.net",
+        "oxfordcastleandprison.co.uk",
+        "psy.ox.ac.uk",
+        "rabbitandwolves.com",
+        "rightmove.co.uk",
+        "sainsburys.co.uk",
+        "spareroom.co.uk",
+        "strengthlevel.com",
+        "tescobank.com",
+        "thameswater.co.uk",
+        "theclevercarrot.com",
+        "tinandthyme.uk",
+        "trivago.deals",
+        "youtube.com"
+      ],
+      "confidence_scores": [
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95
+      ],
+      "unique_apps_count": 107,
+      "average_confidence": 0.95,
+      "total_time_minutes": 8906
+    },
+    "desktop": {
+      "daily_entries": [
+        {
+          "response_id": "R_822zzDxIqddfDGU",
+          "response_folder": "R_822zzDxIqddfDGU",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_822zzDxIqddfDGU/iosScreenshot2_image.jpg",
+          "screenshot_date": "2025-07-07",
+          "screenshot_date_based_on_upload": "2025-07-07",
+          "screenshot_timestamp": "unknown",
+          "device_type_confidence": 0.9,
+          "apps": [
+            {
+              "app_name": "All Usage",
+              "time_spent": "3h 44m",
+              "time_spent_minutes": 224
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "57m",
+              "time_spent_minutes": 57
+            },
+            {
+              "app_name": "Google - More ways to...",
+              "time_spent": "49m",
+              "time_spent_minutes": 49
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "com.burbn.instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "com.apple.mobilenotes",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "NHS App",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Slack",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "com.nintendo.znca",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 417,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2QFr5C7iL0zImuR",
+          "response_folder": "R_2QFr5C7iL0zImuR",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2QFr5C7iL0zImuR/iosScreenshot2_IMG_3504.jpeg",
+          "screenshot_date": "2025-07-08",
+          "screenshot_date_based_on_upload": "2025-07-08",
+          "screenshot_timestamp": "unknown",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "All Usage",
+              "time_spent": "5h 43m",
+              "time_spent_minutes": 343
+            },
+            {
+              "app_name": "Google Chrome",
+              "time_spent": "1h 16m",
+              "time_spent_minutes": 76
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 5m",
+              "time_spent_minutes": 65
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "53m",
+              "time_spent_minutes": 53
+            },
+            {
+              "app_name": "Mail",
+              "time_spent": "51m",
+              "time_spent_minutes": 51
+            },
+            {
+              "app_name": "Zoom Workplace",
+              "time_spent": "47m",
+              "time_spent_minutes": 47
+            },
+            {
+              "app_name": "System Settings",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "oxford.targetconnect.net",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "QuickTime Player",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Finder",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            }
+          ],
+          "total_apps": 11,
+          "total_time_minutes": 737,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_82Wymyt4QeAC2CU",
+          "response_folder": "R_82Wymyt4QeAC2CU",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_82Wymyt4QeAC2CU/iosScreenshot2_image.jpg",
+          "screenshot_date": "unknown",
+          "screenshot_date_based_on_upload": "2025-07-09",
+          "screenshot_timestamp": "unknown",
+          "device_type_confidence": 0.9,
+          "apps": [
+            {
+              "app_name": "com.google.chrome.ios",
+              "time_spent": "1h 3m",
+              "time_spent_minutes": 63
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "45m",
+              "time_spent_minutes": 45
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "com.apple.mobilemail",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "com.google.GoogleMob...",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "com.cameronchow.Stro...",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Notion",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "com.burbn.instagram",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "com.google.Maps",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "com.sainsburys.ssa",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 226,
+          "analysis_warnings": 1,
+          "warning_details": [
+            {
+              "type": "unknown_date",
+              "message": "Date of screenshot not discernible for iosScreenshot2_image.jpg",
+              "value": "unknown"
+            }
+          ],
+          "date_normalized_to_2025": false
+        }
+      ],
+      "total_entries": 3,
+      "total_apps_detected": 36,
+      "unique_apps": [
+        "All Usage",
+        "Calendar",
+        "Finder",
+        "Google - More ways to...",
+        "Google Chrome",
+        "Mail",
+        "NHS App",
+        "Notion",
+        "QuickTime Player",
+        "Safari",
+        "Settings",
+        "Slack",
+        "System Settings",
+        "WhatsApp",
+        "Zoom Workplace",
+        "com.apple.mobilemail",
+        "com.apple.mobilenotes",
+        "com.burbn.instagram",
+        "com.cameronchow.Stro...",
+        "com.google.GoogleMob...",
+        "com.google.Maps",
+        "com.google.chrome.ios",
+        "com.nintendo.znca",
+        "com.sainsburys.ssa",
+        "google.com",
+        "oii.qualtrics.com",
+        "oxford.targetconnect.net"
+      ],
+      "confidence_scores": [
+        0.9,
+        0.95,
+        0.9
+      ],
+      "unique_apps_count": 27,
+      "average_confidence": 0.9166666666666666,
+      "total_time_minutes": 1380
+    }
+  },
+  "total_daily_entries": 58,
+  "date_range": {
+    "earliest": "2025-07-07",
+    "latest": "2025-08-04"
+  },
+  "processing_summary": {
+    "total_json_files_found": 58,
+    "successfully_parsed": 58,
+    "parsing_errors": []
+  }
+}

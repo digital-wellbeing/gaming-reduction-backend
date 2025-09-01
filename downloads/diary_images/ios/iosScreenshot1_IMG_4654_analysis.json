@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-07",
+  "screenshot_timestamp": "19:35",
+  "apps": [
+    {
+      "app_name": "Snapchat",
+      "time_spent": "4h 23m",
+      "time_spent_minutes": 263
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "3h 55m",
+      "time_spent_minutes": 235
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 17m",
+      "time_spent_minutes": 77
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "X",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "28s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "13s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "MusicUIService",
+      "time_spent": "11s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "8s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/9700566533/R_86ZhLh8JDg0krLz/iosScreenshot1_IMG_4654.png",
+    "analysis_timestamp": "2025-09-01T12:19:05.312224",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

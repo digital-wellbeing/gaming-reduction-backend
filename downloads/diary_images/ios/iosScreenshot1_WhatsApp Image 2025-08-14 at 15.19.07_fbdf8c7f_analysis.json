@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-13",
+  "screenshot_timestamp": "unknown",
+  "apps": [
+    {
+      "app_name": "Pinterest",
+      "time_spent": "1h 8m",
+      "time_spent_minutes": 68
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h",
+      "time_spent_minutes": 60
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "Olio",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "survey2.yougov.com",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Bumble",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Authenticator",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "ginabnutrition.com",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing most used apps and websites.",
+  "_metadata": {
+    "source_image": "downloads/diary_images/ios/4162013242/R_8gNjxk8uOCC6526/iosScreenshot1_WhatsApp Image 2025-08-14 at 15.19.07_fbdf8c7f.jpg",
+    "analysis_timestamp": "2025-09-01T13:28:38.104461",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

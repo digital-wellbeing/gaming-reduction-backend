@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-26",
+  "screenshot_timestamp": "14:40",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 31m",
+      "time_spent_minutes": 91
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 21m",
+      "time_spent_minutes": 81
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "39m",
+      "time_spent_minutes": 39
+    },
+    {
+      "app_name": "Notes",
+      "time_spent": "36m",
+      "time_spent_minutes": 36
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "27m",
+      "time_spent_minutes": 27
+    },
+    {
+      "app_name": "Airbnb",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Monzo",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "LinkedIn",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for Mollie's iPhone.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6644123211/R_8zNLQ2EJPKFL98k/iosScreenshot1_IMG_4970.png",
+    "analysis_timestamp": "2025-09-01T14:04:55.665445",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

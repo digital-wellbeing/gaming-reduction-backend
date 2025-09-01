@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-21",
+  "screenshot_timestamp": "12:24",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "4h 8m",
+      "time_spent_minutes": 248
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 56m",
+      "time_spent_minutes": 116
+    },
+    {
+      "app_name": "Crunchyroll",
+      "time_spent": "1h 54m",
+      "time_spent_minutes": 114
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "48m",
+      "time_spent_minutes": 48
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "33m",
+      "time_spent_minutes": 33
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Passwords",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "PayPal",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Letterboxd",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Klarna",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for an iPhone, showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8Ua8SCjmXD7qNJ9/iosScreenshot1_IMG_2847.png",
+    "analysis_timestamp": "2025-09-01T13:56:06.859369",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

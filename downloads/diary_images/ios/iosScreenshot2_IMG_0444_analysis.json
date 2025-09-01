@@ -1,0 +1,35 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-01",
+  "screenshot_timestamp": "10:51",
+  "apps": [
+    {
+      "app_name": "Settings",
+      "time_spent": "4s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "almostadoctor.co.uk",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Other",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage statistics.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_8QY6J1qzf2WAISc/iosScreenshot2_IMG_0444.png",
+    "analysis_timestamp": "2025-09-01T12:33:21.112553",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

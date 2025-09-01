@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-03",
+  "screenshot_timestamp": "00:58",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "15 min",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 22m",
+      "time_spent_minutes": 82
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "57m",
+      "time_spent_minutes": 57
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "25m",
+      "time_spent_minutes": 25
+    },
+    {
+      "app_name": "Snapchat",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Notes",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6090743748/R_2sOKsJvYRSwM1ax/iosScreenshot1_IMG_4003.png",
+    "analysis_timestamp": "2025-09-01T14:02:49.257305",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

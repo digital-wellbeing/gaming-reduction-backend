@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-18",
+  "screenshot_timestamp": "22:38",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "3h 6m",
+      "time_spent_minutes": 186
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 41m",
+      "time_spent_minutes": 101
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 5m",
+      "time_spent_minutes": 65
+    },
+    {
+      "app_name": "IMDb: Movies & TV Shows",
+      "time_spent": "57m",
+      "time_spent_minutes": 57
+    },
+    {
+      "app_name": "Tumblr",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Uber Eats",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6090743748/R_86o3VnqDDIkONmQ/iosScreenshot1_IMG_3758.png",
+    "analysis_timestamp": "2025-09-01T14:03:40.774659",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

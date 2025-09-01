@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-12",
+  "screenshot_timestamp": "13:56",
+  "apps": [
+    {
+      "app_name": "Travel Town",
+      "time_spent": "3h 4m",
+      "time_spent_minutes": 184
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Coin Master",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "GameOverlayUI",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Reminders",
+      "time_spent": "59s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "41s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "OurGroceries",
+      "time_spent": "39s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for 'Yesterday, 12 July'.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/1905721722/R_8gWxICTPEVww0tH/iosScreenshot1_IMG_5268.png",
+    "analysis_timestamp": "2025-09-01T12:24:21.420074",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

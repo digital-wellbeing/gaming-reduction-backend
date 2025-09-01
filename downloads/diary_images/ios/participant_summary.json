@@ -1,0 +1,120 @@
+{
+  "summary": {
+    "total_participants": 8,
+    "total_images": 1,
+    "successful_participants": 7,
+    "failed_participants": 1,
+    "total_successful_images": 0,
+    "total_failed_images": 1,
+    "total_images_with_warnings": 0,
+    "total_processing_time_seconds": 2.9606142044067383,
+    "success_rate": 0.0,
+    "report_timestamp": "2025-09-01T13:32:56.293936"
+  },
+  "participants": [
+    {
+      "participant_id": "1905721722",
+      "total_images": 0,
+      "processed_images": 0,
+      "successful_images": 0,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 0.0009961128234863281,
+      "success_rate": 0,
+      "response_folders": [],
+      "error_details": []
+    },
+    {
+      "participant_id": "3236077775",
+      "total_images": 0,
+      "processed_images": 0,
+      "successful_images": 0,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 0.0014524459838867188,
+      "success_rate": 0,
+      "response_folders": [],
+      "error_details": []
+    },
+    {
+      "participant_id": "3630021688",
+      "total_images": 0,
+      "processed_images": 0,
+      "successful_images": 0,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 0.0001404285430908203,
+      "success_rate": 0,
+      "response_folders": [],
+      "error_details": []
+    },
+    {
+      "participant_id": "4162013242",
+      "total_images": 0,
+      "processed_images": 0,
+      "successful_images": 0,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 0.0003895759582519531,
+      "success_rate": 0,
+      "response_folders": [],
+      "error_details": []
+    },
+    {
+      "participant_id": "5381621023",
+      "total_images": 0,
+      "processed_images": 0,
+      "successful_images": 0,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 0.0008137226104736328,
+      "success_rate": 0,
+      "response_folders": [],
+      "error_details": []
+    },
+    {
+      "participant_id": "6090743748",
+      "total_images": 1,
+      "processed_images": 1,
+      "successful_images": 0,
+      "failed_images": 1,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 2.6827008724212646,
+      "success_rate": 0.0,
+      "response_folders": [
+        "R_8hoygh19jHxeojn"
+      ],
+      "error_details": [
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/6090743748/R_8hoygh19jHxeojn/iosScreenshot1_IMG_3728.png",
+          "response_folder": "R_8hoygh19jHxeojn",
+          "error": "2025-09-01 13:32:53,933 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/diary_images/ios/6090743748/R_8hoygh19jHxeojn/iosScreenshot1_IMG_3728.png\n2025-09"
+        }
+      ]
+    },
+    {
+      "participant_id": "8357967109",
+      "total_images": 0,
+      "processed_images": 0,
+      "successful_images": 0,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 0.0013277530670166016,
+      "success_rate": 0,
+      "response_folders": [],
+      "error_details": []
+    },
+    {
+      "participant_id": "9700566533",
+      "total_images": 0,
+      "processed_images": 0,
+      "successful_images": 0,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 0.0009448528289794922,
+      "success_rate": 0,
+      "response_folders": [],
+      "error_details": []
+    }
+  ]
+}

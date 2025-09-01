@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-19",
+  "screenshot_timestamp": "16:42",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 54m",
+      "time_spent_minutes": 174
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 34m",
+      "time_spent_minutes": 94
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 28m",
+      "time_spent_minutes": 88
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "55m",
+      "time_spent_minutes": 55
+    },
+    {
+      "app_name": "Daily Anatomy",
+      "time_spent": "49m",
+      "time_spent_minutes": 49
+    },
+    {
+      "app_name": "IMDb: Movies & TV Shows",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "TrainPal",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "MonopolyGO",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "passmedicine.com",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_2trsx9wDUuuMon0/iosScreenshot1_IMG_3698.png",
+    "analysis_timestamp": "2025-09-01T12:31:36.350649",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

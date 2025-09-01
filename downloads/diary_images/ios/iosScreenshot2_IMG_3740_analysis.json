@@ -1,0 +1,45 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-25",
+  "screenshot_timestamp": "13:02",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "49s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "14s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.cisco.secureclient.gui",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.finder",
+      "time_spent": "0s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for a MacBook Air",
+  "_metadata": {
+    "source_image": "downloads/diary_images/ios/3236077775/R_8YTNWOrvKCtj7sR/iosScreenshot2_IMG_3740.png",
+    "analysis_timestamp": "2025-09-01T13:30:52.738311",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

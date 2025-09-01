@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-07",
+  "screenshot_timestamp": "12:45",
+  "apps": [
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 48m",
+      "time_spent_minutes": 108
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Coin Master",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Microsoft Outlook",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Health",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "assets.balluff.com",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/1905721722/R_2gZYYREI3H3aqc2/iosScreenshot1_IMG_5236.png",
+    "analysis_timestamp": "2025-09-01T12:23:26.910319",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

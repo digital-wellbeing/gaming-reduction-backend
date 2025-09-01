@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-21",
+  "screenshot_timestamp": "12:28",
+  "apps": [
+    {
+      "app_name": "Netflix",
+      "time_spent": "2h 26m",
+      "time_spent_minutes": 146
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 39m",
+      "time_spent_minutes": 99
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Oxford Bus",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Authenticator",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2ag6QSGuWWvDR3b/iosScreenshot1_IMG_4714.png",
+    "analysis_timestamp": "2025-09-01T13:49:38.799451",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

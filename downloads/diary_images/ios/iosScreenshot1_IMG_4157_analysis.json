@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-10",
+  "screenshot_timestamp": "23:07",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "15 min",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 37m",
+      "time_spent_minutes": 97
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 34m",
+      "time_spent_minutes": 94
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 14m",
+      "time_spent_minutes": 74
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "38m",
+      "time_spent_minutes": 38
+    },
+    {
+      "app_name": "Bluesky",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Patreon",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "vevox.app",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_8ZUhlMrwkEjeJnO/iosScreenshot1_IMG_4157.png",
+    "analysis_timestamp": "2025-09-01T12:30:13.357597",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

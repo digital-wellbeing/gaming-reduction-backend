@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-14",
+  "screenshot_timestamp": "unknown",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 25m",
+      "time_spent_minutes": 145
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "1h 29m",
+      "time_spent_minutes": 89
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    },
+    {
+      "app_name": "Pinterest",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "poczta.onet.pl",
+      "time_spent": "29m",
+      "time_spent_minutes": 29
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "survey2.yougov.com",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing time spent on different apps and websites.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8tsATh0zpXcQbLd/iosScreenshot1_IMG_4656.jpeg",
+    "analysis_timestamp": "2025-09-01T13:50:30.404309",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

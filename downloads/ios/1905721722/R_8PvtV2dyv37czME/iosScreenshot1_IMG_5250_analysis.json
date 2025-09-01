@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-09",
+  "screenshot_timestamp": "13:06",
+  "apps": [
+    {
+      "app_name": "Telegram",
+      "time_spent": "2h 1m",
+      "time_spent_minutes": 121
+    },
+    {
+      "app_name": "Notes",
+      "time_spent": "38m",
+      "time_spent_minutes": 38
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "SAP Cloud for Customer",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Coin Master",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Microsoft Outlook",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for application usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/1905721722/R_8PvtV2dyv37czME/iosScreenshot1_IMG_5250.png",
+    "analysis_timestamp": "2025-09-01T13:38:12.237155",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

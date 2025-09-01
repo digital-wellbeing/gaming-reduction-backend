@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-04",
+  "screenshot_timestamp": "23:35",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "15 min",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 40m",
+      "time_spent_minutes": 160
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 21m",
+      "time_spent_minutes": 81
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 8m",
+      "time_spent_minutes": 68
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "29m",
+      "time_spent_minutes": 29
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Chester Zoo",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_8AmfQBsq1KCVbu9/iosScreenshot1_IMG_4041.png",
+    "analysis_timestamp": "2025-09-01T12:33:36.932501",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

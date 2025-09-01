@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-30",
+  "screenshot_timestamp": "20:26",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "3h 1m",
+      "time_spent_minutes": 181
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "55m",
+      "time_spent_minutes": 55
+    },
+    {
+      "app_name": "Everand: Audiobooks & Ebo...",
+      "time_spent": "44m",
+      "time_spent_minutes": 44
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    },
+    {
+      "app_name": "Pinterest",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "chatgpt.com",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "TrainPal",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8rdDwG5UmCTeSBd/iosScreenshot1_IMG_4806.png",
+    "analysis_timestamp": "2025-09-01T13:50:22.578216",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

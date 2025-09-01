@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-17",
+  "screenshot_timestamp": "12:32",
+  "apps": [
+    {
+      "app_name": "Chrome",
+      "time_spent": "1h 48m",
+      "time_spent_minutes": 108
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 22m",
+      "time_spent_minutes": 82
+    },
+    {
+      "app_name": "Travel Town",
+      "time_spent": "51m",
+      "time_spent_minutes": 51
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "36m",
+      "time_spent_minutes": 36
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Temu",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Microsoft Outlook",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "OurGroceries",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Wallet",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for all devices, showing app usage for the specified day (Yesterday, July 17)",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/1905721722/R_8dXGd1Eu13A7Ely/iosScreenshot1_IMG_5291.png",
+    "analysis_timestamp": "2025-09-01T13:36:55.752471",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

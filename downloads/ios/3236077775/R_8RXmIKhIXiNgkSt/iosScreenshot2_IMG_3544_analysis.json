@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-10",
+  "screenshot_timestamp": "12:17",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Microsoft Word",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "strengthlevel.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Word",
+      "time_spent": "40s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "27s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "17s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Zoom Workplace",
+      "time_spent": "6s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.QuickTimePlayerX",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Calendar",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Microsoft Excel",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage on Tyra's MacBook Air. The screenshot date is 'Yesterday, 11 July', meaning it was taken on July 11, so the previous day, 10 July. The timestamp is 12:17.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8RXmIKhIXiNgkSt/iosScreenshot2_IMG_3544.png",
+    "analysis_timestamp": "2025-09-01T13:40:29.569963",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

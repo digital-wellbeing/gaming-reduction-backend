@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-14",
+  "screenshot_timestamp": "15:14",
+  "apps": [
+    {
+      "app_name": "TikTok",
+      "time_spent": "2h 41m",
+      "time_spent_minutes": 161
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 33m",
+      "time_spent_minutes": 93
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 13m",
+      "time_spent_minutes": 73
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Oviva",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Monzo",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "LinkedIn",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6644123211/R_8EWkZLEa01iakOE/iosScreenshot1_IMG_4902.png",
+    "analysis_timestamp": "2025-09-01T14:05:38.097703",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

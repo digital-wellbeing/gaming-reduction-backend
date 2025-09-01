@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-20",
+  "screenshot_timestamp": "13:27",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "4h 54m",
+      "time_spent_minutes": 294
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 52m",
+      "time_spent_minutes": 112
+    },
+    {
+      "app_name": "Pokémon HOME",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Klarna",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Starling",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Curzon Cinemas",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Letterboxd",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for Jensen's iPhone",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2S8lXmxpzffUwjm/iosScreenshot1_IMG_2845.png",
+    "analysis_timestamp": "2025-09-01T13:57:13.283342",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-18",
+  "screenshot_timestamp": "12:35",
+  "apps": [
+    {
+      "app_name": "Reddit",
+      "time_spent": "2h 44m",
+      "time_spent_minutes": 164
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 38m",
+      "time_spent_minutes": 158
+    },
+    {
+      "app_name": "Pokémon HOME",
+      "time_spent": "1h 1m",
+      "time_spent_minutes": 61
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Letterboxd",
+      "time_spent": "52s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Curzon Cinemas",
+      "time_spent": "44s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "38s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Screenshots",
+      "time_spent": "20s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2n9XiD1GVSGhzyN/iosScreenshot1_IMG_2839.png",
+    "analysis_timestamp": "2025-09-01T13:57:32.485337",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

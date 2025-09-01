@@ -1,0 +1,15 @@
+{
+  "participant_id": "9700566533",
+  "report_timestamp": "2025-09-01T14:09:16.105750",
+  "device_types": {},
+  "total_daily_entries": 0,
+  "date_range": {
+    "earliest": null,
+    "latest": null
+  },
+  "processing_summary": {
+    "total_json_files_found": 0,
+    "successfully_parsed": 0,
+    "parsing_errors": []
+  }
+}

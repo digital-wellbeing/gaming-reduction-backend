@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.9,
+  "date_of_screenshot": "2025-06-15",
+  "screenshot_timestamp": "23:35",
+  "apps": [
+    {
+      "app_name": "Disney+",
+      "time_spent": "1h 37m",
+      "time_spent_minutes": 97
+    },
+    {
+      "app_name": "Dropout",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "58s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Prime Video",
+      "time_spent": "35s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_87jo8RYJGGYN0SI/iosScreenshot2_IMG_0468.png",
+    "analysis_timestamp": "2025-09-01T12:29:17.456290",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

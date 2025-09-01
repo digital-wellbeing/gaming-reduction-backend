@@ -1,0 +1,1348 @@
+{
+  "participant_id": "4162013242",
+  "report_timestamp": "2025-09-01T13:51:20.295816",
+  "device_types": {
+    "iphone": {
+      "daily_entries": [
+        {
+          "response_id": "R_27QzMDwm1NU1qXr",
+          "response_folder": "R_27QzMDwm1NU1qXr",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_27QzMDwm1NU1qXr/iosScreenshot1_IMG_4616.png",
+          "screenshot_date": "2025-08-08",
+          "screenshot_date_based_on_upload": "2025-08-08",
+          "screenshot_timestamp": "12:09",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Revolut",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Oxford Bus",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 69,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2THLsRijmwUC8hp",
+          "response_folder": "R_2THLsRijmwUC8hp",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2THLsRijmwUC8hp/iosScreenshot1_IMG_4622.png",
+          "screenshot_date": "2025-08-10",
+          "screenshot_date_based_on_upload": "2025-08-10",
+          "screenshot_timestamp": "00:13",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Pinterest",
+              "time_spent": "1h 25m",
+              "time_spent_minutes": 85
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 4m",
+              "time_spent_minutes": 64
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "kwestiasmaku.com",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "thestudentroom.co.uk",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 207,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2QYIGPuvKnusMSL",
+          "response_folder": "R_2QYIGPuvKnusMSL",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2QYIGPuvKnusMSL/iosScreenshot1_IMG_4630.png",
+          "screenshot_date": "2025-08-11",
+          "screenshot_date_based_on_upload": "2025-08-11",
+          "screenshot_timestamp": "12:14",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Pinterest",
+              "time_spent": "1h 2m",
+              "time_spent_minutes": 62
+            },
+            {
+              "app_name": "Netflix",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Hashi",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "The Guardian - Live World N...",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 194,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_81QRKV9dmjMQ5Qs",
+          "response_folder": "R_81QRKV9dmjMQ5Qs",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_81QRKV9dmjMQ5Qs/iosScreenshot1_IMG_4640.png",
+          "screenshot_date": "2025-08-12",
+          "screenshot_date_based_on_upload": "2025-08-12",
+          "screenshot_timestamp": "13:51",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Pinterest",
+              "time_spent": "46m",
+              "time_spent_minutes": 46
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "42m",
+              "time_spent_minutes": 42
+            },
+            {
+              "app_name": "TrainPal",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "29m",
+              "time_spent_minutes": 29
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "camerich.co.uk",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 205,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8gNjxk8uOCC6526",
+          "response_folder": "R_8gNjxk8uOCC6526",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8gNjxk8uOCC6526/iosScreenshot1_WhatsApp Image 2025-08-14 at 15.19.07_fbdf8c7f.jpg",
+          "screenshot_date": "2025-08-13",
+          "screenshot_date_based_on_upload": "2025-08-13",
+          "screenshot_timestamp": "unknown",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Pinterest",
+              "time_spent": "1h 8m",
+              "time_spent_minutes": 68
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "1h",
+              "time_spent_minutes": 60
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "Olio",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "survey2.yougov.com",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Bumble",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "ginabnutrition.com",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 254,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8tsATh0zpXcQbLd",
+          "response_folder": "R_8tsATh0zpXcQbLd",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8tsATh0zpXcQbLd/iosScreenshot1_IMG_4656.jpeg",
+          "screenshot_date": "2025-08-14",
+          "screenshot_date_based_on_upload": "2025-08-14",
+          "screenshot_timestamp": "unknown",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "2h 25m",
+              "time_spent_minutes": 145
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "1h 29m",
+              "time_spent_minutes": 89
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "30m",
+              "time_spent_minutes": 30
+            },
+            {
+              "app_name": "poczta.onet.pl",
+              "time_spent": "29m",
+              "time_spent_minutes": 29
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "survey2.yougov.com",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 437,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8mdZjQRX5Zen0YW",
+          "response_folder": "R_8mdZjQRX5Zen0YW",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8mdZjQRX5Zen0YW/iosScreenshot1_IMG_4662.png",
+          "screenshot_date": "2025-08-15",
+          "screenshot_date_based_on_upload": "2025-08-15",
+          "screenshot_timestamp": "20:38",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 13m",
+              "time_spent_minutes": 73
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "1h 2m",
+              "time_spent_minutes": 62
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "45m",
+              "time_spent_minutes": 45
+            },
+            {
+              "app_name": "Ticketmaster",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "seetickets.com",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "eBay marketplace: shopping...",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 291,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8xFAIgAXWludtU5",
+          "response_folder": "R_8xFAIgAXWludtU5",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8xFAIgAXWludtU5/iosScreenshot1_IMG_4681.png",
+          "screenshot_date": "2025-08-16",
+          "screenshot_date_based_on_upload": "2025-08-16",
+          "screenshot_timestamp": "21:44",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 39m",
+              "time_spent_minutes": 99
+            },
+            {
+              "app_name": "archiveofourown.org",
+              "time_spent": "1h 10m",
+              "time_spent_minutes": 70
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "45m",
+              "time_spent_minutes": 45
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "37m",
+              "time_spent_minutes": 37
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Hashi",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Oxford Bus",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Olio",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Amazon Shopping",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 318,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2w6496qQaB2QIOw",
+          "response_folder": "R_2w6496qQaB2QIOw",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2w6496qQaB2QIOw/iosScreenshot1_IMG_4695.png",
+          "screenshot_date": "2025-08-18",
+          "screenshot_date_based_on_upload": "2025-08-18",
+          "screenshot_timestamp": "20:19",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "55m",
+              "time_spent_minutes": 55
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "survey2.yougov.com",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "TrainPal",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Oxford U Sport",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 130,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8VpFlapHVRUiwCJ",
+          "response_folder": "R_8VpFlapHVRUiwCJ",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8VpFlapHVRUiwCJ/iosScreenshot1_Image (1).png",
+          "screenshot_date": "2025-08-19",
+          "screenshot_date_based_on_upload": "2025-08-19",
+          "screenshot_timestamp": "unknown",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 12m",
+              "time_spent_minutes": 72
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "50m",
+              "time_spent_minutes": 50
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "sexualhealthoxfordshire.nhs....",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "The Guardian - Live World N...",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 208,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2ag6QSGuWWvDR3b",
+          "response_folder": "R_2ag6QSGuWWvDR3b",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2ag6QSGuWWvDR3b/iosScreenshot1_IMG_4714.png",
+          "screenshot_date": "2025-08-21",
+          "screenshot_date_based_on_upload": "2025-08-21",
+          "screenshot_timestamp": "12:28",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Netflix",
+              "time_spent": "2h 26m",
+              "time_spent_minutes": 146
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 39m",
+              "time_spent_minutes": 99
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Oxford Bus",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 330,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2mlay40F1sGFjwb",
+          "response_folder": "R_2mlay40F1sGFjwb",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2mlay40F1sGFjwb/iosScreenshot1_WhatsApp Image 2025-08-23 at 8.15.23 PM.jpeg",
+          "screenshot_date": "2025-08-22",
+          "screenshot_date_based_on_upload": "2025-08-22",
+          "screenshot_timestamp": "unknown",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 19m",
+              "time_spent_minutes": 79
+            },
+            {
+              "app_name": "Netflix",
+              "time_spent": "57m",
+              "time_spent_minutes": 57
+            },
+            {
+              "app_name": "kwestiasmaku.com",
+              "time_spent": "56m",
+              "time_spent_minutes": 56
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "mojewypieki.com",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 241,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8670JJ7z9VnpwnT",
+          "response_folder": "R_8670JJ7z9VnpwnT",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8670JJ7z9VnpwnT/iosScreenshot1_IMG_4748.png",
+          "screenshot_date": "2025-08-24",
+          "screenshot_date_based_on_upload": "2025-08-24",
+          "screenshot_timestamp": "14:05",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "42m",
+              "time_spent_minutes": 42
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "33m",
+              "time_spent_minutes": 33
+            },
+            {
+              "app_name": "futureyard.org",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "mini-tud.netlify.app",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "The Guardian - Live World N...",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "TooGoodToGo",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "youth.europa.eu",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 113,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2OE3epXE19lNRBL",
+          "response_folder": "R_2OE3epXE19lNRBL",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2OE3epXE19lNRBL/iosScreenshot1_IMG_4750.png",
+          "screenshot_date": "2025-08-25",
+          "screenshot_date_based_on_upload": "2025-08-25",
+          "screenshot_timestamp": "18:08",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 44m",
+              "time_spent_minutes": 104
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "38m",
+              "time_spent_minutes": 38
+            },
+            {
+              "app_name": "kwestiasmaku.com",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "The Guardian - Live World N...",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "survey2.yougov.com",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "kerincunningham.com",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 237,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8FLNVI4FrR0Bf2J",
+          "response_folder": "R_8FLNVI4FrR0Bf2J",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8FLNVI4FrR0Bf2J/iosScreenshot1_IMG_4754.png",
+          "screenshot_date": "2025-08-26",
+          "screenshot_date_based_on_upload": "2025-08-26",
+          "screenshot_timestamp": "12:48",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 35m",
+              "time_spent_minutes": 95
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "31m",
+              "time_spent_minutes": 31
+            },
+            {
+              "app_name": "TrainPal",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "book.nationalexpress.com",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Wikipedia",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            }
+          ],
+          "total_apps": 9,
+          "total_time_minutes": 222,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2wvjSN7cMAmLTf3",
+          "response_folder": "R_2wvjSN7cMAmLTf3",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2wvjSN7cMAmLTf3/iosScreenshot1_IMG_4764.png",
+          "screenshot_date": "2025-08-27",
+          "screenshot_date_based_on_upload": "2025-08-28",
+          "screenshot_timestamp": "00:43",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "TrainPal",
+              "time_spent": "1h 30m",
+              "time_spent_minutes": 90
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 1m",
+              "time_spent_minutes": 61
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "45m",
+              "time_spent_minutes": 45
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Notes",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "The Guardian - Live World N...",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Wikipedia",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 280,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8ab5CqAJYl2cHhR",
+          "response_folder": "R_8ab5CqAJYl2cHhR",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8ab5CqAJYl2cHhR/iosScreenshot1_IMG_4766.png",
+          "screenshot_date": "2025-08-28",
+          "screenshot_date_based_on_upload": null,
+          "screenshot_timestamp": "12:07",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "56m",
+              "time_spent_minutes": 56
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "37m",
+              "time_spent_minutes": 37
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "31m",
+              "time_spent_minutes": 31
+            },
+            {
+              "app_name": "Google Maps",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "userinterviews.com",
+              "time_spent": "19m",
+              "time_spent_minutes": 19
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "18m",
+              "time_spent_minutes": 18
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "YouGov",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "TrainPal",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Revolut",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 232,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2njSNlbInPAYq1E",
+          "response_folder": "R_2njSNlbInPAYq1E",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2njSNlbInPAYq1E/iosScreenshot1_IMG_4781.png",
+          "screenshot_date": "2025-08-28",
+          "screenshot_date_based_on_upload": null,
+          "screenshot_timestamp": "14:57",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 22m",
+              "time_spent_minutes": 82
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "35m",
+              "time_spent_minutes": 35
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "Outlook",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "userinterviews.com",
+              "time_spent": "13m",
+              "time_spent_minutes": 13
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "cherwell.org",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 243,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8rdDwG5UmCTeSBd",
+          "response_folder": "R_8rdDwG5UmCTeSBd",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8rdDwG5UmCTeSBd/iosScreenshot1_IMG_4806.png",
+          "screenshot_date": "2025-08-30",
+          "screenshot_date_based_on_upload": null,
+          "screenshot_timestamp": "20:26",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "3h 1m",
+              "time_spent_minutes": 181
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "55m",
+              "time_spent_minutes": 55
+            },
+            {
+              "app_name": "Everand: Audiobooks & Ebo...",
+              "time_spent": "44m",
+              "time_spent_minutes": 44
+            },
+            {
+              "app_name": "google.com",
+              "time_spent": "26m",
+              "time_spent_minutes": 26
+            },
+            {
+              "app_name": "Pinterest",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "chatgpt.com",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Wikipedia",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "TrainPal",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 366,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        }
+      ],
+      "total_entries": 19,
+      "total_apps_detected": 189,
+      "unique_apps": [
+        "Amazon Shopping",
+        "Authenticator",
+        "Bumble",
+        "Camera",
+        "Everand: Audiobooks & Ebo...",
+        "Facebook",
+        "Google Maps",
+        "Hashi",
+        "Messenger",
+        "Netflix",
+        "Notes",
+        "Olio",
+        "Outlook",
+        "Oxford Bus",
+        "Oxford U Sport",
+        "Photos",
+        "Pinterest",
+        "Reddit",
+        "Revolut",
+        "Safari",
+        "Spotify",
+        "Teams",
+        "The Guardian - Live World N...",
+        "Ticketmaster",
+        "TooGoodToGo",
+        "TrainPal",
+        "WhatsApp",
+        "Wikipedia",
+        "YouGov",
+        "YouTube",
+        "archiveofourown.org",
+        "book.nationalexpress.com",
+        "camerich.co.uk",
+        "chatgpt.com",
+        "cherwell.org",
+        "eBay marketplace: shopping...",
+        "futureyard.org",
+        "ginabnutrition.com",
+        "google.com",
+        "kerincunningham.com",
+        "kwestiasmaku.com",
+        "mini-tud.netlify.app",
+        "mojewypieki.com",
+        "oii.qualtrics.com",
+        "poczta.onet.pl",
+        "seetickets.com",
+        "sexualhealthoxfordshire.nhs....",
+        "survey2.yougov.com",
+        "thestudentroom.co.uk",
+        "userinterviews.com",
+        "youth.europa.eu"
+      ],
+      "confidence_scores": [
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95
+      ],
+      "unique_apps_count": 51,
+      "average_confidence": 0.9500000000000001,
+      "total_time_minutes": 4577
+    }
+  },
+  "total_daily_entries": 19,
+  "date_range": {
+    "earliest": "2025-08-08",
+    "latest": "2025-08-30"
+  },
+  "processing_summary": {
+    "total_json_files_found": 19,
+    "successfully_parsed": 19,
+    "parsing_errors": []
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-28",
+  "screenshot_timestamp": "14:57",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 22m",
+      "time_spent_minutes": 82
+    },
+    {
+      "app_name": "Pinterest",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "userinterviews.com",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "cherwell.org",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for 'Yesterday, 29 August', showing time spent in various apps.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2njSNlbInPAYq1E/iosScreenshot1_IMG_4781.png",
+    "analysis_timestamp": "2025-09-01T13:50:04.509577",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

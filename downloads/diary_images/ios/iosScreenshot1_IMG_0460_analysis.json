@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-28",
+  "screenshot_timestamp": "12:33",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "1h 18m",
+      "time_spent_minutes": 78
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 10m",
+      "time_spent_minutes": 70
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "57m",
+      "time_spent_minutes": 57
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "29m",
+      "time_spent_minutes": 29
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "Uber",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Strava",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "maxblizz.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Starling",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "warhammer.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/5381621023/R_8w4WyP8QKJgc1YQ/iosScreenshot1_IMG_0460.png",
+    "analysis_timestamp": "2025-09-01T12:35:15.687453",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

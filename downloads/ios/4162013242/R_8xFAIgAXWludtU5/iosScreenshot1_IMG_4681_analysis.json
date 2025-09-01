@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-16",
+  "screenshot_timestamp": "21:44",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 39m",
+      "time_spent_minutes": 99
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 10m",
+      "time_spent_minutes": 70
+    },
+    {
+      "app_name": "Pinterest",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "37m",
+      "time_spent_minutes": 37
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "27m",
+      "time_spent_minutes": 27
+    },
+    {
+      "app_name": "Hashi",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Oxford Bus",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Olio",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Amazon Shopping",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8xFAIgAXWludtU5/iosScreenshot1_IMG_4681.png",
+    "analysis_timestamp": "2025-09-01T13:50:47.292940",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

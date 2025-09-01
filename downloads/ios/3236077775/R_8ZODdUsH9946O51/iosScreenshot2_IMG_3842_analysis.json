@@ -1,0 +1,60 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-27",
+  "screenshot_timestamp": "13:12",
+  "apps": [
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 7m",
+      "time_spent_minutes": 67
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "Calendar",
+      "time_spent": "57s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Photo Booth",
+      "time_spent": "26s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "25s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "9s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.controlcenter",
+      "time_spent": "4s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.cisco.secureclient.gui",
+      "time_spent": "0s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for apps used on a specific day. The date 'Yesterday, 27 July' refers to the day the data represents, not necessarily the screenshot date.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8ZODdUsH9946O51/iosScreenshot2_IMG_3842.png",
+    "analysis_timestamp": "2025-09-01T13:44:50.257055",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

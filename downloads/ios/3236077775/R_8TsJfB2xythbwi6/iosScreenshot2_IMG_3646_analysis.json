@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-17",
+  "screenshot_timestamp": "17:30",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 15m",
+      "time_spent_minutes": 75
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "1h 13m",
+      "time_spent_minutes": 73
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "1h 2m",
+      "time_spent_minutes": 62
+    },
+    {
+      "app_name": "com.apple.systempreferences",
+      "time_spent": "1h",
+      "time_spent_minutes": 60
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "1h",
+      "time_spent_minutes": 60
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "openpowerlifting.org",
+      "time_spent": "36m",
+      "time_spent_minutes": 36
+    },
+    {
+      "app_name": "ouplc.co.uk",
+      "time_spent": "36m",
+      "time_spent_minutes": 36
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "36m",
+      "time_spent_minutes": 36
+    },
+    {
+      "app_name": "liftercalc.com",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    },
+    {
+      "app_name": "bbc.co.uk",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_8TsJfB2xythbwi6/iosScreenshot2_IMG_3646.png",
+    "analysis_timestamp": "2025-09-01T13:42:21.877531",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

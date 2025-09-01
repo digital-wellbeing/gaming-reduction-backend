@@ -1,0 +1,41 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "12:39",
+  "apps": [
+    {
+      "app_name": "youtube.com",
+      "time_spent": "1 hr",
+      "time_spent_minutes": 60
+    },
+    {
+      "app_name": "Facebook & Messenger",
+      "time_spent": "10 min",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Dream Town Story",
+      "time_spent": "1 hr, 30 min",
+      "time_spent_minutes": 90
+    },
+    {
+      "app_name": "eBay & Depop",
+      "time_spent": "10 min",
+      "time_spent_minutes": 10
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage limits.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2D8vZ5IAaAFLais/iosScreenshot2_IMG_3930.png",
+    "analysis_timestamp": "2025-09-01T13:47:27.516571",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot2_IMG_3930.png",
+        "value": "unknown"
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-30",
+  "screenshot_timestamp": "13:00",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 26m",
+      "time_spent_minutes": 146
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "2h 7m",
+      "time_spent_minutes": 127
+    },
+    {
+      "app_name": "Letterboxd",
+      "time_spent": "1h",
+      "time_spent_minutes": 60
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Waze",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Hue",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "53s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "TV",
+      "time_spent": "49s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "39s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2pPFgVSmGJCCfGp/iosScreenshot1_IMG_2882.png",
+    "analysis_timestamp": "2025-09-01T13:55:19.219494",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

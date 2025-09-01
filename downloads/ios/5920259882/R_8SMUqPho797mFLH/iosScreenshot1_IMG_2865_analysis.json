@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-26",
+  "screenshot_timestamp": "14:16",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "5h 4m",
+      "time_spent_minutes": 304
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "2h 13m",
+      "time_spent_minutes": 133
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 4m",
+      "time_spent_minutes": 64
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "Files",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Authenticator",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8SMUqPho797mFLH/iosScreenshot1_IMG_2865.png",
+    "analysis_timestamp": "2025-09-01T13:56:44.608681",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-27",
+  "screenshot_timestamp": "12:03",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "5h 44m",
+      "time_spent_minutes": 344
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "2h 38m",
+      "time_spent_minutes": 158
+    },
+    {
+      "app_name": "Disney+",
+      "time_spent": "1h 57m",
+      "time_spent_minutes": 117
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 56m",
+      "time_spent_minutes": 116
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "AuthenticationServicesUI",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "Hue",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Letterboxd",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "IKEA",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8o2CocJXbCEwrh7/iosScreenshot1_IMG_2866.png",
+    "analysis_timestamp": "2025-09-01T13:55:47.749713",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

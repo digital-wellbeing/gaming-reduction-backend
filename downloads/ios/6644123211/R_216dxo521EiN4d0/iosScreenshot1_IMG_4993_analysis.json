@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-30",
+  "screenshot_timestamp": "21:50",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 39m",
+      "time_spent_minutes": 99
+    },
+    {
+      "app_name": "NYT Games",
+      "time_spent": "40m",
+      "time_spent_minutes": 40
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "LinkedIn",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "X",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Rightmove",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for a single day, showing app usage times.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6644123211/R_216dxo521EiN4d0/iosScreenshot1_IMG_4993.png",
+    "analysis_timestamp": "2025-09-01T14:05:59.406455",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

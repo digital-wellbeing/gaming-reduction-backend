@@ -1,0 +1,25 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-04",
+  "screenshot_timestamp": "1:10",
+  "apps": [
+    {
+      "app_name": "Camera",
+      "time_spent": "11s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_8jvuYxCelLLbLxq/iosScreenshot2_IMG_0448.png",
+    "analysis_timestamp": "2025-09-01T12:29:48.721672",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

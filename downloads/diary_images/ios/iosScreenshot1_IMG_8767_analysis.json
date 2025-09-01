@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-08",
+  "screenshot_timestamp": "12:04",
+  "apps": [
+    {
+      "app_name": "Maps",
+      "time_spent": "2h 5m",
+      "time_spent_minutes": 125
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 53m",
+      "time_spent_minutes": 113
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Candy Crush Saga",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Monzo",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Zable",
+      "time_spent": "45s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "39s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "20s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "chatgpt.com",
+      "time_spent": "16s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/8357967109/R_2DAJX408bIiNqSG/iosScreenshot1_IMG_8767.png",
+    "analysis_timestamp": "2025-09-01T12:25:43.332918",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

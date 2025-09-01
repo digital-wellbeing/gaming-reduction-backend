@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-26",
+  "screenshot_timestamp": "18:43",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "2h 7m",
+      "time_spent_minutes": 127
+    },
+    {
+      "app_name": "com.lumivero.nvivo-15",
+      "time_spent": "47m",
+      "time_spent_minutes": 47
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "com.apple.finder",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "19s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "YouTube: Watch, Listen, Stre...",
+      "time_spent": "5s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.archiveutility",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "0s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.cisco.securecilent.gui",
+      "time_spent": "0s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2zNReMAluzVJEpr/iosScreenshot2_IMG_3819.png",
+    "analysis_timestamp": "2025-09-01T13:40:58.400697",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

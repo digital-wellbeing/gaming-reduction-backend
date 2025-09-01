@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-28",
+  "screenshot_timestamp": "14:16",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 38m",
+      "time_spent_minutes": 98
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "LinkedIn",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "Santander",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Trading 212",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6644123211/R_2opAWEUJxDxSJjO/iosScreenshot1_IMG_4978.png",
+    "analysis_timestamp": "2025-09-01T14:05:27.530609",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

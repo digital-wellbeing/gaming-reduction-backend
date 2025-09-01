@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-01",
+  "screenshot_timestamp": "19:12",
+  "apps": [
+    {
+      "app_name": "Snapchat",
+      "time_spent": "3h 6m",
+      "time_spent_minutes": 186
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "2h 17m",
+      "time_spent_minutes": 137
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "1h 11m",
+      "time_spent_minutes": 71
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 6m",
+      "time_spent_minutes": 66
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "57m",
+      "time_spent_minutes": 57
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "37m",
+      "time_spent_minutes": 37
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "McDonald's",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "WebSheet",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for a particular day.",
+  "_metadata": {
+    "source_image": "../../downloads/ios/9700566533/R_8Qgw1aseEgdGSGd/iosScreenshot1_IMG_4620.png",
+    "analysis_timestamp": "2025-09-01T15:37:08.268883",
+    "model_used": "gemini-2.0-flash",
+    "analysis_warnings": []
+  }
+}

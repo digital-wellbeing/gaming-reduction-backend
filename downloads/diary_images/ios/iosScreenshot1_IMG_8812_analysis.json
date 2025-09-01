@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-16",
+  "screenshot_timestamp": "20:08",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "49m",
+      "time_spent_minutes": 49
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "Komoot",
+      "time_spent": "29m",
+      "time_spent_minutes": 29
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Threads",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Met Office",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "45s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/8357967109/R_23eQ51LItlYWzK4/iosScreenshot1_IMG_8812.png",
+    "analysis_timestamp": "2025-09-01T12:25:05.629588",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

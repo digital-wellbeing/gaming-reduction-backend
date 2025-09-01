@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-27",
+  "screenshot_timestamp": "10:46",
+  "apps": [
+    {
+      "app_name": "Productivity & Finance",
+      "time_spent": "1h 31m",
+      "time_spent_minutes": 91
+    },
+    {
+      "app_name": "Other",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Utilities",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Slides",
+      "time_spent": "1h 29m",
+      "time_spent_minutes": 89
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "moodle.chester.ac.uk",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "ecosia.org",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "emcura.com",
+      "time_spent": "55s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "login.microsoftonline.com",
+      "time_spent": "38s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Drive",
+      "time_spent": "28s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6090743748/R_8YobxJfrt0GtFVZ/iosScreenshot2_IMG_0441.png",
+    "analysis_timestamp": "2025-09-01T14:02:24.207768",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-27",
+  "screenshot_timestamp": "00:43",
+  "apps": [
+    {
+      "app_name": "TrainPal",
+      "time_spent": "1h 30m",
+      "time_spent_minutes": 90
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 1m",
+      "time_spent_minutes": 61
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Notes",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "The Guardian - Live World N...",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2wvjSN7cMAmLTf3/iosScreenshot1_IMG_4764.png",
+    "analysis_timestamp": "2025-09-01T13:48:59.133544",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "device_type": "desktop",
+  "device_type_confidence": 0.9,
+  "date_of_screenshot": "unknown",
+  "screenshot_timestamp": "unknown",
+  "apps": [
+    {
+      "app_name": "com.google.chrome.ios",
+      "time_spent": "1h 3m",
+      "time_spent_minutes": 63
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "com.apple.mobilemail",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "com.google.GoogleMob...",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "com.cameronchow.Stro...",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "com.burbn.instagram",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "com.google.Maps",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "com.sainsburys.ssa",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    }
+  ],
+  "analysis_notes": "Desktop Screen Time report",
+  "_metadata": {
+    "source_image": "downloads/diary_images/ios/3236077775/R_82Wymyt4QeAC2CU/iosScreenshot2_image.jpg",
+    "analysis_timestamp": "2025-09-01T13:28:21.812688",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": [
+      {
+        "type": "unknown_date",
+        "message": "Date of screenshot not discernible for iosScreenshot2_image.jpg",
+        "value": "unknown"
+      }
+    ]
+  }
+}

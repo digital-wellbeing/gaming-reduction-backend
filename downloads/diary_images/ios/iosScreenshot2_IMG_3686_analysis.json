@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-20",
+  "screenshot_timestamp": "17:14",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "2h 36m",
+      "time_spent_minutes": 156
+    },
+    {
+      "app_name": "com.lumivero.nvivo-15",
+      "time_spent": "1h 15m",
+      "time_spent_minutes": 75
+    },
+    {
+      "app_name": "Word",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "com.cisco.secureclient.gui",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "25s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "YouTube: Watch, Listen, Stre...",
+      "time_spent": "13s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "7s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.finder",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage on 'Tyra's MacBook Air'",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/3236077775/R_8y3jSmGsU2iFICq/iosScreenshot2_IMG_3686.png",
+    "analysis_timestamp": "2025-09-01T12:17:03.738894",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

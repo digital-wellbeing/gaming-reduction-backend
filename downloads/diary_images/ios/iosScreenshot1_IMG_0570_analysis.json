@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-11",
+  "screenshot_timestamp": "00:45",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "2h 19m",
+      "time_spent_minutes": 139
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "56m",
+      "time_spent_minutes": 56
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "53m",
+      "time_spent_minutes": 53
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Uber",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "first direct",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "myvue.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Shop",
+      "time_spent": "58s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for the previous day.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/5381621023/R_2PpgqffakYuXBsy/iosScreenshot1_IMG_0570.png",
+    "analysis_timestamp": "2025-09-01T12:36:26.206834",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

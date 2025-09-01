@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-31",
+  "screenshot_timestamp": "13:11",
+  "apps": [
+    {
+      "app_name": "Google",
+      "time_spent": "55m",
+      "time_spent_minutes": 55
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Reminders",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Notes",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Calculator",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Strong",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "LinkedIn: Job Search & News",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/3236077775/R_8oXhlJVYF6i1z4f/iosScreenshot1_IMG_3867.png",
+    "analysis_timestamp": "2025-09-01T12:15:17.958359",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

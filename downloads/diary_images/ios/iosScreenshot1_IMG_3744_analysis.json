@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-23",
+  "screenshot_timestamp": "22:58",
+  "apps": [
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 46m",
+      "time_spent_minutes": 106
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 41m",
+      "time_spent_minutes": 101
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "57m",
+      "time_spent_minutes": 57
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Tumblr",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Uber Eats",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Snapchat",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Microsoft Word",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_8TtuPNx4J8fixRk/iosScreenshot1_IMG_3744.png",
+    "analysis_timestamp": "2025-09-01T12:30:39.146906",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-04",
+  "screenshot_timestamp": "15:21",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "1h 47m",
+      "time_spent_minutes": 107
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "59s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Trainline",
+      "time_spent": "45s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "5s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "nissan.co.uk",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report. Date is inferred to be July 4, 2025 since the screen says 'Yesterday, 5 July'.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5381621023/R_8Qc4bg2Xzx855gB/iosScreenshot1_IMG_0519.png",
+    "analysis_timestamp": "2025-09-01T13:53:15.171024",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-04",
+  "screenshot_timestamp": "12:49",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "2h 21m",
+      "time_spent_minutes": 141
+    },
+    {
+      "app_name": "Clock",
+      "time_spent": "1h 48m",
+      "time_spent_minutes": 108
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "38m",
+      "time_spent_minutes": 38
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Tesco",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Uber",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "first direct",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "warhammer-community.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Strava",
+      "time_spent": "50s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Screenshots",
+      "time_spent": "46s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5381621023/R_28Pp4A0JZ8Nqul3/iosScreenshot1_IMG_0509.png",
+    "analysis_timestamp": "2025-09-01T13:53:33.754051",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

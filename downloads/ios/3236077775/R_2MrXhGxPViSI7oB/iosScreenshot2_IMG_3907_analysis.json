@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-02",
+  "screenshot_timestamp": "13:31",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "2h 12m",
+      "time_spent_minutes": 132
+    },
+    {
+      "app_name": "Word",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "rightmove.co.uk",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "com.apple.ScreenContinuity",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Zoom Workplace",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "onthemarket.com",
+      "time_spent": "30s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "21s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "unknown",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2MrXhGxPViSI7oB/iosScreenshot2_IMG_3907.png",
+    "analysis_timestamp": "2025-09-01T13:43:07.325978",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-21",
+  "screenshot_timestamp": "13:10",
+  "apps": [
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "1h 16m",
+      "time_spent_minutes": 76
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "27m",
+      "time_spent_minutes": 27
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "com.google.Chrome",
+      "time_spent": "12s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.Safari",
+      "time_spent": "7s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage on a MacBook Air.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/3236077775/R_8kMJdMyCSJR2lIU/iosScreenshot2_IMG_3693.png",
+    "analysis_timestamp": "2025-09-01T12:17:29.526540",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-31",
+  "screenshot_timestamp": "12:03",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Slides",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "geekymedics.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "ecosia.org",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "almostadoctor.co.uk",
+      "time_spent": "28s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Drive",
+      "time_spent": "26s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "ecgguru.com",
+      "time_spent": "22s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "1",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for Thursday, May 29",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_2wM0FRTtOjLfITl/iosScreenshot2_IMG_0443.png",
+    "analysis_timestamp": "2025-09-01T12:30:46.471817",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

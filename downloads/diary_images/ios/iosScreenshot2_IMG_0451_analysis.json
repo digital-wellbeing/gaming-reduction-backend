@@ -1,0 +1,35 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-08",
+  "screenshot_timestamp": "01:45",
+  "apps": [
+    {
+      "app_name": "Messages",
+      "time_spent": "40",
+      "time_spent_minutes": 40
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "7",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Health",
+      "time_spent": "1",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Reminders",
+      "time_spent": "1",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_2cAZLDI4coQnx29/iosScreenshot2_IMG_0451.png",
+    "analysis_timestamp": "2025-09-01T12:28:30.793680",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

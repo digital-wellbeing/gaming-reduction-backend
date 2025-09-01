@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-24",
+  "screenshot_timestamp": "12:06",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 58m",
+      "time_spent_minutes": 178
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 43m",
+      "time_spent_minutes": 103
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "PayPal",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Letterboxd",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Health",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Hue",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Picturehouse",
+      "time_spent": "48s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Crunchyroll",
+      "time_spent": "19s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "13s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for Jensen's iPhone.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8zbGEFwyuQtK0WG/iosScreenshot1_IMG_2851.png",
+    "analysis_timestamp": "2025-09-01T13:56:26.498210",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

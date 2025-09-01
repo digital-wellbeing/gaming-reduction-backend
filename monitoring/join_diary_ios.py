@@ -21,6 +21,17 @@ from typing import Dict, List, Set, Tuple, Optional
 import argparse
 from dotenv import load_dotenv
 
+# Import participant report functions from the ActivityWatch script
+try:
+    from join_diary_activitywatch import (
+        load_contact_list_data, 
+        load_diary_unique_tuples,
+        write_participant_report
+    )
+except ImportError:
+    print("Warning: Could not import participant report functions from join_diary_activitywatch.py")
+    print("iOS participant report generation will be skipped")
+
 
 def is_file_recent(file_path: Path, max_age_minutes: int = 60) -> bool:
     """Check if a file exists and was modified within the last N minutes."""
@@ -239,6 +250,70 @@ def check_output_files(output_dir: Path) -> Dict[str, bool]:
     return file_status
 
 
+def generate_ios_participant_report(output_dir: Path) -> bool:
+    """Generate iOS-specific participant report based on available iOS data."""
+    try:
+        print("\nGenerating iOS participant report...")
+        
+        # File paths
+        diary_file = output_dir / "diary_responses_lifetime.csv"
+        contact_file = output_dir / "contact_list_with_embedded.csv"
+        ios_summary_file = output_dir / "ios" / "gaming_apps_summary.csv"
+        
+        # Load data
+        if not diary_file.exists():
+            print(f"⚠️ Diary file not found: {diary_file}")
+            return False
+            
+        if not contact_file.exists():
+            print(f"⚠️ Contact list file not found: {contact_file}")
+            return False
+        
+        diary_data = load_diary_unique_tuples(str(diary_file))
+        contact_data = load_contact_list_data(str(contact_file))
+        
+        # Create iOS participant report based on diary data and contact list
+        ios_participant_report = []
+        
+        for random_id, submission_ids in diary_data.items():
+            if random_id in contact_data:
+                contact_info = contact_data[random_id]
+                
+                # Check if this participant has iOS data
+                platforms = contact_info.get('Platforms', '')
+                phone_type = contact_info.get('phoneType', '')
+                has_ios_data = ('iOS' in platforms or 'iPhone' in phone_type)
+                
+                participant_entry = {
+                    'RANDOM_ID': random_id,
+                    'EnrollmentDate': contact_info.get('EnrollmentDate', ''),
+                    'Condition': contact_info.get('Condition', ''),
+                    'Platforms': platforms,
+                    'phoneType': phone_type,
+                    'submission_ids_list': str(submission_ids),
+                    'num_submission_ids': len(submission_ids),
+                    'has_ios_data': has_ios_data,
+                    'ios_screenshots_available': 'Unknown'  # Could be enhanced to check actual iOS data
+                }
+                
+                ios_participant_report.append(participant_entry)
+        
+        # Write iOS participant report
+        ios_report_output = output_dir / "participant_report_ios.csv"
+        write_participant_report(str(ios_report_output), ios_participant_report)
+        
+        print(f"✅ iOS participant report generated: {ios_report_output}")
+        print(f"   Total iOS participants: {len(ios_participant_report)}")
+        ios_participants = sum(1 for p in ios_participant_report if p['has_ios_data'])
+        print(f"   Participants with iOS platforms: {ios_participants}")
+        
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error generating iOS participant report: {e}")
+        return False
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='iOS Pipeline: Pull fresh screenshot, diary, and contact data, then run OCR preprocessing'
@@ -351,7 +426,21 @@ def main():
         print("STEP 2: SKIPPED - OCR PREPROCESSING")
         print("=" * 60)
     
-    # Step 3: Check output files and report status
+    # Step 3: Generate iOS participant report
+    print("\n" + "=" * 60)
+    print("STEP 3: GENERATING iOS PARTICIPANT REPORT")
+    print("=" * 60)
+    
+    try:
+        ios_report_success = generate_ios_participant_report(output_dir)
+        if ios_report_success:
+            print("✅ iOS participant report generated successfully")
+        else:
+            print("⚠️ iOS participant report generation failed or skipped")
+    except Exception as e:
+        print(f"❌ Error in iOS participant report generation: {e}")
+    
+    # Step 4: Check output files and report status
     file_status = check_output_files(output_dir)
     
     # Summary

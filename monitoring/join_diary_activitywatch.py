@@ -42,7 +42,7 @@ def detect_platform_from_bucket_info(bucket_info):
     return 'Other'
 
 
-def is_file_recent(file_path: Path, max_age_minutes: int = 10) -> bool:
+def is_file_recent(file_path: Path, max_age_minutes: int = 60) -> bool:
     """Check if a file exists and was modified within the last N minutes."""
     if not file_path.exists():
         return False
@@ -84,14 +84,25 @@ def pull_supabase_data(output_file: Path) -> bool:
         env["PGPASSWORD"] = db_password
         
         # Build psql command to export uploads table as CSV (ActivityWatch only)
+        # Create a temporary SQL script to set timeout and run the copy command
+        import tempfile
+        
+        sql_script = f"""
+SET statement_timeout = '3600000';  -- 1 hour timeout
+\\copy (SELECT * FROM uploads WHERE platform = 'ActivityWatch') TO '{str(output_file)}' WITH CSV HEADER;
+"""
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.sql', delete=False) as f:
+            f.write(sql_script)
+            sql_file = f.name
+        
         cmd = [
             "psql",
             "-h", host,
             "-p", port,
             "-d", database,
             "-U", user,
-            "-c", "\\copy (SELECT * FROM uploads WHERE platform = 'ActivityWatch') TO STDOUT WITH CSV HEADER",
-            "-o", str(output_file)
+            "-f", sql_file
         ]
         
         print(f"Connecting to Supabase database...")
@@ -99,22 +110,30 @@ def pull_supabase_data(output_file: Path) -> bool:
         print(f"Database: {database}")
         print(f"User: {user}")
         print(f"Output file: {output_file}")
+        print(f"Pulling ALL ActivityWatch data (with 1-hour statement timeout)")
         
-        # Execute command
-        result = subprocess.run(cmd, env=env, capture_output=True, text=True)
-        
-        if result.returncode == 0:
-            print(f"✓ ActivityWatch data successfully exported to {output_file}")
-            if output_file.exists():
-                file_size = output_file.stat().st_size
-                file_size_mb = file_size / (1024 * 1024)
-                print(f"File size: {file_size_mb:.2f} MB ({file_size:,} bytes)")
-                return True
-        else:
-            print(f"✗ Error executing psql command:")
-            print(f"STDERR: {result.stderr}")
-            print(f"STDOUT: {result.stdout}")
-            return False
+        try:
+            # Execute command
+            result = subprocess.run(cmd, env=env, capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                print(f"✓ ActivityWatch data successfully exported to {output_file}")
+                if output_file.exists():
+                    file_size = output_file.stat().st_size
+                    file_size_mb = file_size / (1024 * 1024)
+                    print(f"File size: {file_size_mb:.2f} MB ({file_size:,} bytes)")
+                    return True
+            else:
+                print(f"✗ Error executing psql command:")
+                print(f"STDERR: {result.stderr}")
+                print(f"STDOUT: {result.stdout}")
+                return False
+        finally:
+            # Clean up temporary SQL file
+            try:
+                os.unlink(sql_file)
+            except:
+                pass
             
     except Exception as e:
         print(f"✗ Error pulling ActivityWatch data: {e}")
@@ -261,8 +280,12 @@ def pull_exit_survey_data(output_dir: Path) -> bool:
         exit_file = output_dir / "exit_responses_lifetime.csv"
         
         print("Pulling exit survey data from Qualtrics...")
+        # Get the directory where this script is located
+        script_dir = Path(__file__).parent
+        exit_script = script_dir / "exit_export.py"
+        
         exit_cmd = [
-            "python", "monitoring/exit_export.py",
+            "python3", str(exit_script),
             "--lifetime",
             "--filename", "exit_responses_lifetime"
         ]
@@ -293,8 +316,12 @@ def pull_contact_list_data(output_dir: Path) -> bool:
         contact_list_file = output_dir / "contact_list_with_embedded.csv"
         
         print("Pulling contact list data from Qualtrics...")
+        # Get the directory where this script is located
+        script_dir = Path(__file__).parent
+        contact_list_script = script_dir / "pull_contact_list.py"
+        
         contact_list_cmd = [
-            "python", "monitoring/pull_contact_list.py",
+            "python3", str(contact_list_script),
             "--output", "contact_list_with_embedded"
         ]
         
@@ -767,7 +794,7 @@ def main():
     parser.add_argument('--verbose', '-v', action='store_true',
                         help='Enable verbose output')
     parser.add_argument('--debug', action='store_true',
-                        help='Skip downloading fresh data if recent files (< 10 minutes) exist')
+                        help='Skip downloading fresh data if recent files (< 1 hour) exist')
     
     args = parser.parse_args()
     
@@ -797,19 +824,19 @@ def main():
             files_status = {}
             any_old = False
             
-            print("🔍 DEBUG MODE: Checking file ages...")
+            print("🔍 DEBUG MODE: Checking file ages (1-hour threshold)...")
             for file_path, description in files_to_check:
                 if is_file_recent(file_path):
                     age_minutes = (datetime.now() - datetime.fromtimestamp(file_path.stat().st_mtime)).total_seconds() / 60
                     print(f"✓ {description} file is recent ({age_minutes:.1f} minutes old): {file_path}")
                     files_status[description] = 'recent'
                 else:
-                    print(f"✗ {description} file missing or too old: {file_path}")
+                    print(f"✗ {description} file missing or too old (>1 hour): {file_path}")
                     files_status[description] = 'old'
                     any_old = True
             
             if not any_old:
-                print(f"\n🚀 DEBUG MODE: All files are recent (< 10 minutes), skipping entire data pull!")
+                print(f"\n🚀 DEBUG MODE: All files are recent (< 1 hour), skipping entire data pull!")
                 print("=" * 60)
                 print("STEP 1: SKIPPED - USING ALL RECENT FILES")
                 print("=" * 60)
@@ -838,8 +865,12 @@ def main():
             # Pull diary data from Qualtrics (only if needed)
             if not args.debug or files_status.get("Diary responses") == 'old':
                 print("\n1.2: Pulling diary responses data from Qualtrics...")
+                # Get the directory where this script is located
+                script_dir = Path(__file__).parent
+                diary_script = script_dir / "diary_export.py"
+                
                 diary_export_cmd = [
-                    "python", "monitoring/diary_export.py", 
+                    "python3", str(diary_script), 
                     "--lifetime",
                     "--filename", "diary_responses_lifetime"
                 ]
@@ -1029,8 +1060,12 @@ def main():
     participant_report = generate_participant_report(joined_app_usage, joined_screen_unlocks, contact_data)
     
     # Write participant report
-    participant_report_output = output_dir / "participant_report.csv"
-    write_participant_report(str(participant_report_output), participant_report)
+    # Generate platform-specific participant reports
+    participant_report_android_output = output_dir / "participant_report_android.csv" 
+    participant_report_all_output = output_dir / "participant_report.csv"  # Keep for backward compatibility
+    
+    write_participant_report(str(participant_report_android_output), participant_report)
+    write_participant_report(str(participant_report_all_output), participant_report)  # Maintain existing file
     
     # Print summary statistics
     print(f"\nParticipant Report Summary:")
@@ -1134,7 +1169,8 @@ def main():
     print(f"Output files:")
     print(f"  {app_usage_output}")
     print(f"  {screen_unlocks_output}")
-    print(f"  {participant_report_output}")
+    print(f"  {participant_report_android_output}")
+    print(f"  {participant_report_all_output} (backward compatibility)")
 
 
 if __name__ == "__main__":

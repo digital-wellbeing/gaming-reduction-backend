@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-06",
+  "screenshot_timestamp": "01:54",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 17m",
+      "time_spent_minutes": 137
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "56m",
+      "time_spent_minutes": 56
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "53m",
+      "time_spent_minutes": 53
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_2cAZLDI4coQnx29/iosScreenshot1_IMG_4120.png",
+    "analysis_timestamp": "2025-09-01T12:28:38.518128",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

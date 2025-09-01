@@ -1,0 +1,1447 @@
+{
+  "participant_id": "5920259882",
+  "report_timestamp": "2025-09-01T13:57:51.473160",
+  "device_types": {
+    "iphone": {
+      "daily_entries": [
+        {
+          "response_id": "R_2wv2R2j4Y830qJj",
+          "response_folder": "R_2wv2R2j4Y830qJj",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2wv2R2j4Y830qJj/iosScreenshot1_IMG_2826.png",
+          "screenshot_date": "2025-08-12",
+          "screenshot_date_based_on_upload": "2025-08-12",
+          "screenshot_timestamp": "14:40",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "42m",
+              "time_spent_minutes": 42
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "20m",
+              "time_spent_minutes": 20
+            },
+            {
+              "app_name": "AuthKitUIService",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "52s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "14s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "PS App",
+              "time_spent": "12s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 103,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8cTFIIIrGNwzHgx",
+          "response_folder": "R_8cTFIIIrGNwzHgx",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8cTFIIIrGNwzHgx/iosScreenshot1_IMG_2828.png",
+          "screenshot_date": "2025-08-13",
+          "screenshot_date_based_on_upload": "2025-08-13",
+          "screenshot_timestamp": "12:03",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 10m",
+              "time_spent_minutes": 70
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 8m",
+              "time_spent_minutes": 68
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "27m",
+              "time_spent_minutes": 27
+            },
+            {
+              "app_name": "Files",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Screenshots",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Ring",
+              "time_spent": "48s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 225,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2uwUdWwenmrMw7Q",
+          "response_folder": "R_2uwUdWwenmrMw7Q",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2uwUdWwenmrMw7Q/iosScreenshot1_IMG_2831.png",
+          "screenshot_date": "2025-08-14",
+          "screenshot_date_based_on_upload": "2025-08-14",
+          "screenshot_timestamp": "12:13",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "3h 29m",
+              "time_spent_minutes": 209
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "3h 28m",
+              "time_spent_minutes": 208
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 42m",
+              "time_spent_minutes": 102
+            },
+            {
+              "app_name": "Camera",
+              "time_spent": "1h 33m",
+              "time_spent_minutes": 93
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Pokémon HOME",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Weather",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "44s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 11,
+          "total_time_minutes": 664,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2fxECOQEW2fQWf9",
+          "response_folder": "R_2fxECOQEW2fQWf9",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2fxECOQEW2fQWf9/iosScreenshot1_IMG_2832.png",
+          "screenshot_date": "2025-08-15",
+          "screenshot_date_based_on_upload": "2025-08-15",
+          "screenshot_timestamp": "12:03",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "2h 30m",
+              "time_spent_minutes": 150
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 20m",
+              "time_spent_minutes": 80
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Files",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "51s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "24s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "15s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Screenshots",
+              "time_spent": "11s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "3s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 266,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8k7mVhM0eKdavAt",
+          "response_folder": "R_8k7mVhM0eKdavAt",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8k7mVhM0eKdavAt/iosScreenshot1_IMG_2834.png",
+          "screenshot_date": "2025-08-16",
+          "screenshot_date_based_on_upload": "2025-08-16",
+          "screenshot_timestamp": "12:57",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 38m",
+              "time_spent_minutes": 98
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "52m",
+              "time_spent_minutes": 52
+            },
+            {
+              "app_name": "Lloyds",
+              "time_spent": "38m",
+              "time_spent_minutes": 38
+            },
+            {
+              "app_name": "Amex UK",
+              "time_spent": "32m",
+              "time_spent_minutes": 32
+            },
+            {
+              "app_name": "Pokémon HOME",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "Starling",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Curzon Cinemas",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "HSBC UK",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "PS App",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "PayPal",
+              "time_spent": null,
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 13,
+          "total_time_minutes": 266,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8rcgtBg1sNBZ4DQ",
+          "response_folder": "R_8rcgtBg1sNBZ4DQ",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8rcgtBg1sNBZ4DQ/iosScreenshot1_IMG_2836.png",
+          "screenshot_date": "2025-08-17",
+          "screenshot_date_based_on_upload": "2025-08-17",
+          "screenshot_timestamp": "12:04",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "2h 52m",
+              "time_spent_minutes": 172
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 25m",
+              "time_spent_minutes": 85
+            },
+            {
+              "app_name": "Pokémon HOME",
+              "time_spent": "52m",
+              "time_spent_minutes": 52
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "42s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "36s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "30s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "20s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Clock",
+              "time_spent": "11s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "8s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Screenshots",
+              "time_spent": "2s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 11,
+          "total_time_minutes": 311,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2n9XiD1GVSGhzyN",
+          "response_folder": "R_2n9XiD1GVSGhzyN",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2n9XiD1GVSGhzyN/iosScreenshot1_IMG_2839.png",
+          "screenshot_date": "2025-08-18",
+          "screenshot_date_based_on_upload": "2025-08-18",
+          "screenshot_timestamp": "12:35",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Reddit",
+              "time_spent": "2h 44m",
+              "time_spent_minutes": 164
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "2h 38m",
+              "time_spent_minutes": 158
+            },
+            {
+              "app_name": "Pokémon HOME",
+              "time_spent": "1h 1m",
+              "time_spent_minutes": 61
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "52s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Curzon Cinemas",
+              "time_spent": "44s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "38s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Screenshots",
+              "time_spent": "20s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 396,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8QPfyx6BkERRsFb",
+          "response_folder": "R_8QPfyx6BkERRsFb",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8QPfyx6BkERRsFb/iosScreenshot1_IMG_2841.png",
+          "screenshot_date": "2025-08-19",
+          "screenshot_date_based_on_upload": "2025-08-19",
+          "screenshot_timestamp": "13:16",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 51m",
+              "time_spent_minutes": 111
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "59m",
+              "time_spent_minutes": 59
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "Files",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Pokémon HOME",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "43s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Picturehouse",
+              "time_spent": "31s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "17s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 223,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2S8lXmxpzffUwjm",
+          "response_folder": "R_2S8lXmxpzffUwjm",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2S8lXmxpzffUwjm/iosScreenshot1_IMG_2845.png",
+          "screenshot_date": "2025-08-20",
+          "screenshot_date_based_on_upload": "2025-08-20",
+          "screenshot_timestamp": "13:27",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "4h 54m",
+              "time_spent_minutes": 294
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 52m",
+              "time_spent_minutes": 112
+            },
+            {
+              "app_name": "Pokémon HOME",
+              "time_spent": "24m",
+              "time_spent_minutes": 24
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "22m",
+              "time_spent_minutes": 22
+            },
+            {
+              "app_name": "Klarna",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "Starling",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Curzon Cinemas",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 486,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8Ua8SCjmXD7qNJ9",
+          "response_folder": "R_8Ua8SCjmXD7qNJ9",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8Ua8SCjmXD7qNJ9/iosScreenshot1_IMG_2847.png",
+          "screenshot_date": "2025-08-21",
+          "screenshot_date_based_on_upload": "2025-08-21",
+          "screenshot_timestamp": "12:24",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "4h 8m",
+              "time_spent_minutes": 248
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 56m",
+              "time_spent_minutes": 116
+            },
+            {
+              "app_name": "Crunchyroll",
+              "time_spent": "1h 54m",
+              "time_spent_minutes": 114
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "48m",
+              "time_spent_minutes": 48
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "33m",
+              "time_spent_minutes": 33
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Passwords",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "PayPal",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "Klarna",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 609,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8zbGEFwyuQtK0WG",
+          "response_folder": "R_8zbGEFwyuQtK0WG",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8zbGEFwyuQtK0WG/iosScreenshot1_IMG_2851.png",
+          "screenshot_date": "2025-08-24",
+          "screenshot_date_based_on_upload": "2025-08-24",
+          "screenshot_timestamp": "12:06",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "2h 58m",
+              "time_spent_minutes": 178
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 43m",
+              "time_spent_minutes": 103
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "PayPal",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Health",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Picturehouse",
+              "time_spent": "48s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Crunchyroll",
+              "time_spent": "19s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "13s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 322,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2lrZtKy1h3qqgok",
+          "response_folder": "R_2lrZtKy1h3qqgok",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2lrZtKy1h3qqgok/iosScreenshot1_IMG_2864.png",
+          "screenshot_date": "2025-08-25",
+          "screenshot_date_based_on_upload": "2025-08-25",
+          "screenshot_timestamp": "17:56",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Reddit",
+              "time_spent": "2h 2m",
+              "time_spent_minutes": 122
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 48m",
+              "time_spent_minutes": 108
+            },
+            {
+              "app_name": "Waze",
+              "time_spent": "1h 45m",
+              "time_spent_minutes": 105
+            },
+            {
+              "app_name": "Photos",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "IKEA",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "42s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 362,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8SMUqPho797mFLH",
+          "response_folder": "R_8SMUqPho797mFLH",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8SMUqPho797mFLH/iosScreenshot1_IMG_2865.png",
+          "screenshot_date": "2025-08-26",
+          "screenshot_date_based_on_upload": "2025-08-26",
+          "screenshot_timestamp": "14:16",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "5h 4m",
+              "time_spent_minutes": 304
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "2h 13m",
+              "time_spent_minutes": 133
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "1h 4m",
+              "time_spent_minutes": 64
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "34m",
+              "time_spent_minutes": 34
+            },
+            {
+              "app_name": "Files",
+              "time_spent": "16m",
+              "time_spent_minutes": 16
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "14m",
+              "time_spent_minutes": 14
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Authenticator",
+              "time_spent": "6m",
+              "time_spent_minutes": 6
+            },
+            {
+              "app_name": "App Store",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            }
+          ],
+          "total_apps": 10,
+          "total_time_minutes": 595,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8o2CocJXbCEwrh7",
+          "response_folder": "R_8o2CocJXbCEwrh7",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8o2CocJXbCEwrh7/iosScreenshot1_IMG_2866.png",
+          "screenshot_date": "2025-08-27",
+          "screenshot_date_based_on_upload": "2025-08-27",
+          "screenshot_timestamp": "12:03",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "5h 44m",
+              "time_spent_minutes": 344
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "2h 38m",
+              "time_spent_minutes": 158
+            },
+            {
+              "app_name": "Disney+",
+              "time_spent": "1h 57m",
+              "time_spent_minutes": 117
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 56m",
+              "time_spent_minutes": 116
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "28m",
+              "time_spent_minutes": 28
+            },
+            {
+              "app_name": "AuthenticationServicesUI",
+              "time_spent": "23m",
+              "time_spent_minutes": 23
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "IKEA",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 813,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_8LjKLX0OYNM5qxl",
+          "response_folder": "R_8LjKLX0OYNM5qxl",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8LjKLX0OYNM5qxl/iosScreenshot1_IMG_2873.png",
+          "screenshot_date": "2025-08-27",
+          "screenshot_date_based_on_upload": null,
+          "screenshot_timestamp": "19:43",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "3h 48m",
+              "time_spent_minutes": 228
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "2h 15m",
+              "time_spent_minutes": 135
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 27m",
+              "time_spent_minutes": 87
+            },
+            {
+              "app_name": "Files",
+              "time_spent": "11m",
+              "time_spent_minutes": 11
+            },
+            {
+              "app_name": "PS App",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "4m",
+              "time_spent_minutes": 4
+            },
+            {
+              "app_name": "Maps",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Suica",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Amex UK",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Teams",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 482,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2KCt82lNag6xBgK",
+          "response_folder": "R_2KCt82lNag6xBgK",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2KCt82lNag6xBgK/iosScreenshot1_IMG_2881.png",
+          "screenshot_date": "2025-08-29",
+          "screenshot_date_based_on_upload": null,
+          "screenshot_timestamp": "13:31",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "2h 46m",
+              "time_spent_minutes": 166
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "1h 44m",
+              "time_spent_minutes": 104
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "51m",
+              "time_spent_minutes": 51
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "39m",
+              "time_spent_minutes": 39
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "21m",
+              "time_spent_minutes": 21
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Amex UK",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "philips-hue.com",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "IKEA",
+              "time_spent": "54s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 398,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2pPFgVSmGJCCfGp",
+          "response_folder": "R_2pPFgVSmGJCCfGp",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2pPFgVSmGJCCfGp/iosScreenshot1_IMG_2882.png",
+          "screenshot_date": "2025-08-30",
+          "screenshot_date_based_on_upload": null,
+          "screenshot_timestamp": "13:00",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "2h 26m",
+              "time_spent_minutes": 146
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "2h 7m",
+              "time_spent_minutes": 127
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "1h",
+              "time_spent_minutes": 60
+            },
+            {
+              "app_name": "YouTube",
+              "time_spent": "17m",
+              "time_spent_minutes": 17
+            },
+            {
+              "app_name": "Waze",
+              "time_spent": "15m",
+              "time_spent_minutes": 15
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "10m",
+              "time_spent_minutes": 10
+            },
+            {
+              "app_name": "Hue",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Spotify",
+              "time_spent": "53s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "TV",
+              "time_spent": "49s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Settings",
+              "time_spent": "39s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 379,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        },
+        {
+          "response_id": "R_2ScblzIpurbbNp2",
+          "response_folder": "R_2ScblzIpurbbNp2",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2ScblzIpurbbNp2/iosScreenshot1_IMG_2888.png",
+          "screenshot_date": "2025-08-31",
+          "screenshot_date_based_on_upload": null,
+          "screenshot_timestamp": "12:10",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Safari",
+              "time_spent": "1h 48m",
+              "time_spent_minutes": 108
+            },
+            {
+              "app_name": "Reddit",
+              "time_spent": "53m",
+              "time_spent_minutes": 53
+            },
+            {
+              "app_name": "WhatsApp",
+              "time_spent": "9m",
+              "time_spent_minutes": 9
+            },
+            {
+              "app_name": "Trainline",
+              "time_spent": "5m",
+              "time_spent_minutes": 5
+            },
+            {
+              "app_name": "Letterboxd",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "Gmail",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "User Authentication",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Picturehouse",
+              "time_spent": "1m",
+              "time_spent_minutes": 1
+            },
+            {
+              "app_name": "Screenshots",
+              "time_spent": "47s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "eBay",
+              "time_spent": "41s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Calendar",
+              "time_spent": "30s",
+              "time_spent_minutes": 0
+            },
+            {
+              "app_name": "Wallet",
+              "time_spent": "27s",
+              "time_spent_minutes": 0
+            }
+          ],
+          "total_apps": 12,
+          "total_time_minutes": 181,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        }
+      ],
+      "total_entries": 18,
+      "total_apps_detected": 213,
+      "unique_apps": [
+        "Amex UK",
+        "App Store",
+        "AuthKitUIService",
+        "AuthenticationServicesUI",
+        "Authenticator",
+        "Calendar",
+        "Camera",
+        "Clock",
+        "Crunchyroll",
+        "Curzon Cinemas",
+        "Disney+",
+        "Files",
+        "Gmail",
+        "HSBC UK",
+        "Health",
+        "Hue",
+        "IKEA",
+        "Klarna",
+        "Letterboxd",
+        "Lloyds",
+        "Maps",
+        "Messages",
+        "PS App",
+        "Passwords",
+        "PayPal",
+        "Photos",
+        "Picturehouse",
+        "Pokémon HOME",
+        "Reddit",
+        "Ring",
+        "Safari",
+        "Screenshots",
+        "Settings",
+        "Spotify",
+        "Starling",
+        "Suica",
+        "TV",
+        "Teams",
+        "Trainline",
+        "User Authentication",
+        "Wallet",
+        "Waze",
+        "Weather",
+        "WhatsApp",
+        "YouTube",
+        "eBay",
+        "philips-hue.com"
+      ],
+      "confidence_scores": [
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95,
+        0.95
+      ],
+      "unique_apps_count": 47,
+      "average_confidence": 0.9499999999999998,
+      "total_time_minutes": 7081
+    }
+  },
+  "total_daily_entries": 18,
+  "date_range": {
+    "earliest": "2025-08-12",
+    "latest": "2025-08-31"
+  },
+  "processing_summary": {
+    "total_json_files_found": 18,
+    "successfully_parsed": 18,
+    "parsing_errors": []
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-05",
+  "screenshot_timestamp": "12:22",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "2h 3m",
+      "time_spent_minutes": 123
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "1h 5m",
+      "time_spent_minutes": 65
+    },
+    {
+      "app_name": "Candy Crush Saga",
+      "time_spent": "1h",
+      "time_spent_minutes": 60
+    },
+    {
+      "app_name": "Tesco",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Threads",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "bakewithjack.co.uk",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for a given day.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/8357967109/R_25qRple33IhoBc5/iosScreenshot1_IMG_8759.png",
+    "analysis_timestamp": "2025-09-01T12:26:59.302769",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

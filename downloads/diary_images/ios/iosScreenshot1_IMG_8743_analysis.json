@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-31",
+  "screenshot_timestamp": "08:35",
+  "apps": [
+    {
+      "app_name": "Maps",
+      "time_spent": "2h 52m",
+      "time_spent_minutes": 172
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "2h 45m",
+      "time_spent_minutes": 165
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "58m",
+      "time_spent_minutes": 58
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Monzo",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Sky Vegas",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "evri.com",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Threads",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "sportsdirect.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "sportsdirect.returns.international",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Met Office",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/8357967109/R_247KdGto2sSxDLX/iosScreenshot1_IMG_8743.png",
+    "analysis_timestamp": "2025-09-01T12:24:56.931806",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

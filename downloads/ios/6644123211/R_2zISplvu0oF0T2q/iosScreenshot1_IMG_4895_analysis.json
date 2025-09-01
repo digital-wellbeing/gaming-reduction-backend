@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-13",
+  "screenshot_timestamp": "14:09",
+  "apps": [
+    {
+      "app_name": "Tik Tok",
+      "time_spent": "1h 58m",
+      "time_spent_minutes": 118
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 50m",
+      "time_spent_minutes": 110
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "55m",
+      "time_spent_minutes": 55
+    },
+    {
+      "app_name": "Claude",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "LinkedIn",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Notes",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "sextherapyherts.co.uk",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Uber Eats",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6644123211/R_2zISplvu0oF0T2q/iosScreenshot1_IMG_4895.png",
+    "analysis_timestamp": "2025-09-01T14:04:45.394190",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

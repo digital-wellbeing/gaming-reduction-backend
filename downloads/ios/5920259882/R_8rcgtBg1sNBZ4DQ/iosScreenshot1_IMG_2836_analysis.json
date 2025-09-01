@@ -1,0 +1,70 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-17",
+  "screenshot_timestamp": "12:04",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 52m",
+      "time_spent_minutes": 172
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 25m",
+      "time_spent_minutes": 85
+    },
+    {
+      "app_name": "Pokémon HOME",
+      "time_spent": "52m",
+      "time_spent_minutes": 52
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Letterboxd",
+      "time_spent": "42s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Hue",
+      "time_spent": "36s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "30s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "20s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Clock",
+      "time_spent": "11s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "8s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Screenshots",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8rcgtBg1sNBZ4DQ/iosScreenshot1_IMG_2836.png",
+    "analysis_timestamp": "2025-09-01T13:56:53.606042",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

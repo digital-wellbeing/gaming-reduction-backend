@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-28",
+  "screenshot_timestamp": "13:20",
+  "apps": [
+    {
+      "app_name": "The Office: Somehow We Mana...",
+      "time_spent": "3h 31m",
+      "time_spent_minutes": 211
+    },
+    {
+      "app_name": "Mahjong Mingle",
+      "time_spent": "1h 20m",
+      "time_spent_minutes": 80
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "1h 15m",
+      "time_spent_minutes": 75
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "58m",
+      "time_spent_minutes": 58
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "48m",
+      "time_spent_minutes": 48
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Klarna",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Two Dots",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/1905721722/R_8A3UOSAcm5jU3xT/iosScreenshot1_IMG_5178.png",
+    "analysis_timestamp": "2025-09-01T13:37:53.417540",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-10",
+  "screenshot_timestamp": "13:02",
+  "apps": [
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 13m",
+      "time_spent_minutes": 73
+    },
+    {
+      "app_name": "Snapchat",
+      "time_spent": "48m",
+      "time_spent_minutes": 48
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "42m",
+      "time_spent_minutes": 42
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Netflix",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Setup",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Scientific Calculator fx-991",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "BitLife",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Notes",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/9700566533/R_8QlMNYfpBomzLJ9/iosScreenshot1_IMG_4684.png",
+    "analysis_timestamp": "2025-09-01T12:18:56.033212",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-10",
+  "screenshot_timestamp": "12:18",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "6h 21m",
+      "time_spent_minutes": 381
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "2h 31m",
+      "time_spent_minutes": 151
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 6m",
+      "time_spent_minutes": 66
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "M365 Copilot",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "54s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "49s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Google Translate",
+      "time_spent": "47s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage statistics for a given day.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/1905721722/R_8cuMViFMgbdwAlh/iosScreenshot1_IMG_5259.png",
+    "analysis_timestamp": "2025-09-01T12:24:04.112998",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

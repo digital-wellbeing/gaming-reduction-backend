@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-24",
+  "screenshot_timestamp": "14:05",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "42m",
+      "time_spent_minutes": 42
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "33m",
+      "time_spent_minutes": 33
+    },
+    {
+      "app_name": "futureyard.org",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "mini-tud.netlify.app",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "The Guardian - Live World N...",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "TooGoodToGo",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "youth.europa.eu",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8670JJ7z9VnpwnT/iosScreenshot1_IMG_4748.png",
+    "analysis_timestamp": "2025-09-01T13:50:13.321945",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

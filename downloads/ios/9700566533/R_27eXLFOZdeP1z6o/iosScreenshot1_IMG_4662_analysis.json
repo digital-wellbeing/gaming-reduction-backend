@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-08",
+  "screenshot_timestamp": "21:44",
+  "apps": [
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 20m",
+      "time_spent_minutes": 80
+    },
+    {
+      "app_name": "Snapchat",
+      "time_spent": "1h 16m",
+      "time_spent_minutes": 76
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "59m",
+      "time_spent_minutes": 59
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "25m",
+      "time_spent_minutes": 25
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Xbox",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Vinted",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Contacts",
+      "time_spent": "33s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "24s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "17s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for the previous day.",
+  "_metadata": {
+    "source_image": "../../downloads/ios/9700566533/R_27eXLFOZdeP1z6o/iosScreenshot1_IMG_4662.png",
+    "analysis_timestamp": "2025-09-01T15:37:27.323328",
+    "model_used": "gemini-2.0-flash",
+    "analysis_warnings": []
+  }
+}

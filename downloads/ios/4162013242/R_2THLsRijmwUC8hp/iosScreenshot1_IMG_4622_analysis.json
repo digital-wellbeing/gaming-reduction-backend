@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-10",
+  "screenshot_timestamp": "00:13",
+  "apps": [
+    {
+      "app_name": "Pinterest",
+      "time_spent": "1h 25m",
+      "time_spent_minutes": 85
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 4m",
+      "time_spent_minutes": 64
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "kwestiasmaku.com",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "mini-tud.netlify.app",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "thestudentroom.co.uk",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for a given day, listing apps and time spent.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2THLsRijmwUC8hp/iosScreenshot1_IMG_4622.png",
+    "analysis_timestamp": "2025-09-01T13:49:55.583856",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

@@ -47,7 +47,6 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ## Data Refresh Pipeline
 
 ```{r data-refresh}
-# Set to FALSE to skip data refresh and use existing files
 REFRESH_DATA <- TRUE
 
 # Cache duration: refresh data if older than 1 hour
@@ -57,6 +56,15 @@ CACHE_DURATION_HOURS <- 1
 AW_DATA_FILE <- "../../.tmp/aw_app_usage.csv"
 AW_ENRICHED_FILE <- "../../.tmp/aw_app_usage_enriched.csv"
 PARTICIPANT_REPORT_FILE <- "../../.tmp/participant_report.csv"
+
+# Use platform-specific participant report if available, otherwise fall back to generic
+PARTICIPANT_REPORT_ANDROID_FILE <- "../../.tmp/participant_report_android.csv"
+if (file.exists(PARTICIPANT_REPORT_ANDROID_FILE)) {
+  PARTICIPANT_REPORT_FILE <- PARTICIPANT_REPORT_ANDROID_FILE
+  cat("Using Android-specific participant report\n")
+} else {
+  cat("Using generic participant report (backward compatibility)\n")
+}
 
 # Check if we need to refresh data based on file age
 should_refresh_data <- function(file_path, cache_hours = 1) {
@@ -73,11 +81,15 @@ if (REFRESH_DATA && (should_refresh_data(AW_DATA_FILE, CACHE_DURATION_HOURS) || 
   cat("=== REFRESHING ACTIVITYWATCH DATA FROM SUPABASE ===\n")
   cat("Step 1/2: Pulling ActivityWatch data from Supabase...\n")
   
+  # Get absolute paths
+  script_path <- normalizePath("../../monitoring/join_diary_activitywatch.py")
+  output_dir <- normalizePath("../../.tmp")
+  
   step1_result <- tryCatch({
     cat("⏱️ This may take several minutes to pull data from Supabase and Qualtrics...\n")
     system2(
       "python3",
-      args = c("../../monitoring/join_diary_activitywatch.py", "--output-dir", "../../.tmp", "--verbose"),
+      args = c(script_path, "--output-dir", output_dir, "--diary-file", file.path(output_dir, "diary_responses_lifetime.csv"), "--verbose"),
       stdout = TRUE,
       stderr = TRUE,
       wait = TRUE,
@@ -121,11 +133,16 @@ if (REFRESH_DATA && (should_refresh_data(AW_DATA_FILE, CACHE_DURATION_HOURS) || 
 if (REFRESH_DATA && should_refresh_data(AW_ENRICHED_FILE, CACHE_DURATION_HOURS)) {
   cat("\nStep 2/2: Enriching ActivityWatch data with game classification...\n")
   
+  # Get absolute paths
+  classifier_script <- normalizePath("../../monitoring/ocr/app_game_classifier.py")
+  aw_data_path <- normalizePath(AW_DATA_FILE)
+  aw_enriched_path <- normalizePath(AW_ENRICHED_FILE, mustWork = FALSE)
+  
   step2_result <- tryCatch({
     cat("⏱️ This may take several minutes to classify gaming apps...\n")
     system2(
       "python3",
-      args = c("../../monitoring/ocr/app_game_classifier.py", AW_DATA_FILE, "--format", "activitywatch", "--output", AW_ENRICHED_FILE),
+      args = c(classifier_script, aw_data_path, "--format", "activitywatch", "--output", aw_enriched_path),
       stdout = TRUE,
       stderr = TRUE,
       wait = TRUE,
@@ -159,7 +176,10 @@ if (REFRESH_DATA && should_refresh_data(AW_ENRICHED_FILE, CACHE_DURATION_HOURS))
   cat("Skipping enrichment to save time.\n\n")
 } else if (!file.exists(AW_ENRICHED_FILE) && file.exists(AW_DATA_FILE)) {
   cat("\nEnriched file missing - running classification...\n")
-  system2("python3", args = c("../../monitoring/ocr/app_game_classifier.py", AW_DATA_FILE, "--format", "activitywatch", "--output", AW_ENRICHED_FILE))
+  classifier_script <- normalizePath("../../monitoring/ocr/app_game_classifier.py")
+  aw_data_path <- normalizePath(AW_DATA_FILE)
+  aw_enriched_path <- normalizePath(AW_ENRICHED_FILE, mustWork = FALSE)
+  system2("python3", args = c(classifier_script, aw_data_path, "--format", "activitywatch", "--output", aw_enriched_path))
   cat("✅ Game classification completed\n\n")
 }
 

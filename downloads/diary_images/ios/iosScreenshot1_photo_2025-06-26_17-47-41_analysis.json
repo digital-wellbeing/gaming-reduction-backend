@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-26",
+  "screenshot_timestamp": "17:46",
+  "apps": [
+    {
+      "app_name": "Chrome",
+      "time_spent": "2h 9m",
+      "time_spent_minutes": 129
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 33m",
+      "time_spent_minutes": 93
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "1h 14m",
+      "time_spent_minutes": 74
+    },
+    {
+      "app_name": "Color Block Jam",
+      "time_spent": "1h 5m",
+      "time_spent_minutes": 65
+    },
+    {
+      "app_name": "Two Dots",
+      "time_spent": "43m",
+      "time_spent_minutes": 43
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Clock",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "PeopleHR",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "myGP",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for a given day.",
+  "_metadata": {
+    "source_image": "downloads/diary_images/ios/1905721722/R_2po0CI2f4fkStHW/iosScreenshot1_photo_2025-06-26_17-47-41.jpg",
+    "analysis_timestamp": "2025-09-01T13:28:30.969145",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

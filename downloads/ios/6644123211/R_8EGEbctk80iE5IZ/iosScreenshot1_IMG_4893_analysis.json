@@ -1,0 +1,80 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-12",
+  "screenshot_timestamp": "10:38",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "2h 2m",
+      "time_spent_minutes": 122
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 54m",
+      "time_spent_minutes": 114
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "1h 18m",
+      "time_spent_minutes": 78
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "47m",
+      "time_spent_minutes": 47
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Uber Eats",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Claude",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "LinkedIn",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6644123211/R_8EGEbctk80iE5IZ/iosScreenshot1_IMG_4893.PNG",
+    "analysis_timestamp": "2025-09-01T14:06:38.583219",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

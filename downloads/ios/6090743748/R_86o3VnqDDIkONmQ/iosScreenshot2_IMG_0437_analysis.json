@@ -1,0 +1,50 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-25",
+  "screenshot_timestamp": "10:39",
+  "apps": [
+    {
+      "app_name": "Entertainment",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Creativity",
+      "time_spent": "4s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Dropout",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "5s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "4s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Dropout",
+      "time_spent": "2",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "1",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage and device pickups.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6090743748/R_86o3VnqDDIkONmQ/iosScreenshot2_IMG_0437.png",
+    "analysis_timestamp": "2025-09-01T14:03:32.541979",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

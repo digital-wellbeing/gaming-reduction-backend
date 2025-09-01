@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-06",
+  "screenshot_timestamp": "15:30",
+  "apps": [
+    {
+      "app_name": "Discord",
+      "time_spent": "2h 26m",
+      "time_spent_minutes": 146
+    },
+    {
+      "app_name": "Snapchat",
+      "time_spent": "1h 30m",
+      "time_spent_minutes": 90
+    },
+    {
+      "app_name": "TikTok",
+      "time_spent": "1h 18m",
+      "time_spent_minutes": 78
+    },
+    {
+      "app_name": "Netflix",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "BitLife",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "unknown",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for yesterday (June 6th) on Tom's iPhone.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/9700566533/R_8lbi8tVdF3f0j2M/iosScreenshot1_IMG_4648.png",
+    "analysis_timestamp": "2025-09-01T12:19:23.643346",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

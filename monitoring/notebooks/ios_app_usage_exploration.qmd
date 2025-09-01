@@ -47,14 +47,17 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ## Data Refresh Pipeline
 
 ```{r data-refresh}
-# Set to FALSE to skip data refresh and use existing files
-REFRESH_DATA <- FALSE
+# Set to TRUE to refresh data from Qualtrics and re-run OCR analysis
+# WARNING: Data refresh can take 10+ minutes due to image downloads and OCR processing
+# NOTE: OCR analysis now skips already-analyzed images for efficiency
+# To force reprocessing of all images, you'll need to manually run with --reprocess-existing
+REFRESH_DATA <- TRUE
 
 # Cache duration: refresh data if older than 1 hour
 CACHE_DURATION_HOURS <- 1
 
 # Define the output files to check for caching
-FINAL_OUTPUT_FILE <- "../../downloads/diary_images/ios/aggregated_participant_data_enriched.csv"
+FINAL_OUTPUT_FILE <- "../../downloads/ios/aggregated_participant_data_enriched.csv"
 CONTACT_LIST_FILE <- "../../.tmp/contact_list_with_embedded.csv"
 
 # Check if we need to refresh data based on file age
@@ -75,12 +78,12 @@ if (REFRESH_DATA && (needs_main_refresh || needs_contact_refresh)) {
   cat("=== REFRESHING iOS DATA FROM QUALTRICS ===\n")
   cat("Running complete iOS data pipeline...\n\n")
   
-  # Step 1: Download Qualtrics images
-  cat("Step 1/6: Downloading Qualtrics survey responses and images...\n")
+  # Step 1: Pull contact list data from Qualtrics (FIRST - other steps depend on this)
+  cat("Step 1/6: Pulling contact list data from Qualtrics...\n")
   step1_result <- tryCatch({
     system2(
       "python3",
-      args = c("../../monitoring/qualtrics_image_downloader.py"),
+      args = c("../pull_contact_list.py", "--output", "contact_list_with_embedded"),
       stdout = TRUE,
       stderr = TRUE,
       wait = TRUE
@@ -99,15 +102,17 @@ if (REFRESH_DATA && (needs_main_refresh || needs_contact_refresh)) {
     cat("✅ Step 1 completed successfully\n")
   }
   
-  # Step 2: OCR analysis with Gemini
-  cat("\nStep 2/6: Analyzing screenshots with Gemini OCR...\n")
+  # Step 2: Download Qualtrics images
+  cat("\nStep 2/6: Downloading Qualtrics survey responses and images...\n")
+  cat("(This may take several minutes - downloading and processing images)\n")
   step2_result <- tryCatch({
     system2(
       "python3",
-      args = c("../../monitoring/ocr/gemini_screenshot_analyzer.py"),
+      args = c("../../monitoring/qualtrics_image_downloader.py", "--verbose"),
       stdout = TRUE,
       stderr = TRUE,
-      wait = TRUE
+      wait = TRUE,
+      timeout = 600  # 10 minute timeout
     )
   }, error = function(e) {
     cat("❌ Error in Step 2:", e$message, "\n")
@@ -123,12 +128,17 @@ if (REFRESH_DATA && (needs_main_refresh || needs_contact_refresh)) {
     cat("✅ Step 2 completed successfully\n")
   }
   
-  # Step 3: Aggregate participant data
-  cat("\nStep 3/6: Aggregating participant data...\n")
+  # Step 3: OCR analysis with Gemini (process all iOS images)
+  cat("\nStep 3/6: Analyzing screenshots with Gemini OCR...\n")
+  cat("(Skipping already-analyzed images for efficiency)\n")
   step3_result <- tryCatch({
     system2(
       "python3",
-      args = c("../../monitoring/ocr/participant_aggregator.py"),
+      args = c("../../monitoring/ocr/gemini_screenshot_analyzer.py",
+               "../../downloads/
+               es/ios",
+               "--output-dir", "../../downloads/ios",
+               "--summary-only"),
       stdout = TRUE,
       stderr = TRUE,
       wait = TRUE
@@ -147,12 +157,16 @@ if (REFRESH_DATA && (needs_main_refresh || needs_contact_refresh)) {
     cat("✅ Step 3 completed successfully\n")
   }
   
-  # Step 4: Convert to CSV
-  cat("\nStep 4/6: Converting summary to CSV...\n")
+  # Step 4: Aggregate participant data for all participants
+  cat("\nStep 4/6: Aggregating participant data...\n")
   step4_result <- tryCatch({
     system2(
       "python3",
-      args = c("../../monitoring/ocr/summary_to_csv.py"),
+      args = c("../../monitoring/ocr/participant_aggregator.py",
+               "--group",
+               "--base-dir", "../../downloads/ios",
+               "--qualtrics-csv", "../../downloads/HFF Gaming Reduction 3 - Daily Survey.csv",
+               "--output-report", "../../downloads/ios/participant_summary.json"),
       stdout = TRUE,
       stderr = TRUE,
       wait = TRUE
@@ -171,12 +185,14 @@ if (REFRESH_DATA && (needs_main_refresh || needs_contact_refresh)) {
     cat("✅ Step 4 completed successfully\n")
   }
   
-  # Step 5: Classify gaming apps
-  cat("\nStep 5/6: Classifying gaming applications...\n")
+  # Step 5: Convert summary JSON to CSV
+  cat("\nStep 5/6: Converting summary to CSV...\n")
   step5_result <- tryCatch({
     system2(
       "python3",
-      args = c("../../monitoring/ocr/app_game_classifier.py"),
+      args = c("../../monitoring/ocr/summary_to_csv.py",
+               "../../downloads/ios/participant_summary.json",
+               "--output", "../../downloads/ios/aggregated_participant_data.csv"),
       stdout = TRUE,
       stderr = TRUE,
       wait = TRUE
@@ -195,12 +211,15 @@ if (REFRESH_DATA && (needs_main_refresh || needs_contact_refresh)) {
     cat("✅ Step 5 completed successfully\n")
   }
   
-  # Step 6: Pull contact list data from Qualtrics
-  cat("\nStep 6/6: Pulling contact list data from Qualtrics...\n")
+  # Step 6: Classify gaming apps
+  cat("\nStep 6/6: Classifying gaming applications...\n")
   step6_result <- tryCatch({
     system2(
       "python3",
-      args = c("../../monitoring/pull_contact_list.py", "--output", "contact_list_with_embedded"),
+      args = c("../../monitoring/ocr/app_game_classifier.py",
+               "../../downloads/ios/aggregated_participant_data.csv",
+               "--output", "../../downloads/ios/aggregated_participant_data_enriched.csv",
+               "--format", "ios"),
       stdout = TRUE,
       stderr = TRUE,
       wait = TRUE
@@ -251,7 +270,20 @@ cat("\n")
 
 ```{r load-data}
 # Load the iOS aggregated app usage data
-ios_data <- read_csv("../../downloads/diary_images/ios/aggregated_participant_data_enriched.csv")
+ios_data <- read_csv("../../downloads/ios/aggregated_participant_data_enriched.csv")
+
+# Load iOS-specific participant report if available
+if (file.exists("../../.tmp/participant_report_ios.csv")) {
+  participant_report_ios <- read_csv("../../.tmp/participant_report_ios.csv")
+  cat("✓ Loaded iOS-specific participant report with", nrow(participant_report_ios), "participants\n")
+  
+  # Show iOS participants summary
+  ios_with_data <- sum(participant_report_ios$has_ios_data, na.rm = TRUE)
+  cat("  Participants with iOS platforms:", ios_with_data, "\n")
+} else {
+  cat("⚠️ iOS-specific participant report not found. Run join_diary_ios.py to generate it.\n")
+  participant_report_ios <- NULL
+}
 
 # Load contact list data with embedded fields (Condition, Platforms, phoneType, EnrollmentDate)
 if (file.exists("../../.tmp/contact_list_with_embedded.csv")) {
@@ -282,7 +314,7 @@ if (file.exists("../../.tmp/contact_list_with_embedded.csv")) {
   cat("Consider re-running with REFRESH_DATA <- TRUE to pull contact list data.\n\n")
   
   # Fallback: Load enrollment data from the daily survey file
-  enrollment_data <- read_csv("../../downloads/diary_images/HFF Gaming Reduction 3 - Daily Survey.csv") %>%
+  enrollment_data <- read_csv("../../downloads/HFF Gaming Reduction 3 - Daily Survey.csv") %>%
     # Skip the first 3 header rows and select relevant columns
     slice(-(1:3)) %>%
     select(RANDOM_ID, EnrollmentDate, Condition) %>%
@@ -458,130 +490,170 @@ for(i in 1:nrow(status_summary)) {
 ## Data Availability Matrix
 
 ```{r data-availability-matrix}
-# Create comprehensive data availability matrix for iOS participants by device type
-study_day_availability <- ios_processed %>%
-  group_by(PID, DeviceType, study_day) %>%
-  summarise(
-    has_data = TRUE,
-    num_apps = n_distinct(App),
-    total_duration = sum(Duration, na.rm = TRUE),
-    gaming_duration = sum(ifelse(ProbGame == TRUE & !is.na(ProbGame), Duration, 0), na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# Debug: Check gaming duration calculation by device type
-cat("Gaming duration check by device type:\n")
-gaming_by_device <- study_day_availability %>%
-  group_by(DeviceType) %>%
-  summarise(
-    total_gaming_duration = sum(gaming_duration, na.rm = TRUE),
-    participants = n_distinct(PID),
-    .groups = "drop"
-  )
-print(gaming_by_device)
-
-# Let's also check the raw data by device type
-gaming_check_device <- ios_processed %>%
-  filter(ProbGame == TRUE) %>%
-  group_by(DeviceType) %>%
-  summarise(
-    total_gaming_sessions = n(),
-    total_gaming_duration = sum(Duration, na.rm = TRUE),
-    .groups = "drop"
-  )
-cat("Raw gaming data check by device type:\n")
-print(gaming_check_device)
-
-# Get all participants and their device types
-participant_devices <- ios_processed %>%
-  group_by(PID) %>%
-  summarise(device_types = paste(sort(unique(DeviceType)), collapse = ", "), .groups = "drop")
-
-# Create separate complete grids for each device type
-device_types <- unique(ios_processed$DeviceType)
-all_study_days <- 1:28
-
-# Create device-specific grids
-device_grids <- list()
-
-for(device in device_types) {
-  device_participants <- unique(ios_processed$PID[ios_processed$DeviceType == device])
-  
-  device_grid <- expand_grid(
-    PID = device_participants,
-    study_day = all_study_days,
-    DeviceType = device
-  ) %>%
-    left_join(study_day_availability, by = c("PID", "DeviceType", "study_day")) %>%
-    mutate(
-      has_data = ifelse(is.na(has_data), FALSE, has_data),
-      gaming_duration = ifelse(is.na(gaming_duration), 0, gaming_duration)
-    ) %>%
-    left_join(
-      participant_summary %>% select(PID, Condition, EnrollmentDate, 
-                                   study_completion_status, status_category),
-      by = "PID"
-    )
-  
-  device_grids[[device]] <- device_grid
-  
-  cat(sprintf("Device '%s': %d participants, %d total records\n", 
-              device, length(device_participants), nrow(device_grid)))
+# Debug: Check ios_processed data structure first
+cat("Debugging ios_processed data:\n")
+cat("- Number of rows:", nrow(ios_processed), "\n")
+if (nrow(ios_processed) > 0) {
+  cat("- Column names:", paste(names(ios_processed), collapse = ", "), "\n")
+  cat("- Unique DeviceTypes:", paste(unique(ios_processed$DeviceType), collapse = ", "), "\n")
+  cat("- Study day range:", range(ios_processed$study_day, na.rm = TRUE), "\n")
+  cat("- Number of unique participants:", n_distinct(ios_processed$PID), "\n")
+} else {
+  cat("❌ ERROR: ios_processed is empty! Check data loading and processing steps.\n")
+  # Create empty objects to prevent further errors
+  complete_grid <- data.frame()
+  availability_summary_by_device <- data.frame()
+  availability_summary <- data.frame()
 }
 
-# Combine all device grids
-complete_grid <- bind_rows(device_grids)
+# Only proceed if we have data
+if (nrow(ios_processed) > 0) {
+  # Create comprehensive data availability matrix for iOS participants by device type
+  study_day_availability <- ios_processed %>%
+    group_by(PID, DeviceType, study_day) %>%
+    summarise(
+      has_data = TRUE,
+      num_apps = n_distinct(App),
+      total_duration = sum(Duration, na.rm = TRUE),
+      gaming_duration = sum(ifelse(ProbGame == TRUE & !is.na(ProbGame), Duration, 0), na.rm = TRUE),
+      .groups = "drop"
+    )
 
-# Debug: Check the join results
-cat("\nCombined grid dimensions:", nrow(complete_grid), "rows\n")
-cat("Participants with Condition data:", sum(!is.na(complete_grid$Condition)), "\n")
-cat("Unique participants in complete_grid:", n_distinct(complete_grid$PID), "\n")
+  # Debug: Check gaming duration calculation by device type
+  cat("\nGaming duration check by device type:\n")
+  gaming_by_device <- study_day_availability %>%
+    group_by(DeviceType) %>%
+    summarise(
+      total_gaming_duration = sum(gaming_duration, na.rm = TRUE),
+      participants = n_distinct(PID),
+      .groups = "drop"
+    )
+  print(gaming_by_device)
 
-# Summary statistics by device type
-availability_summary_by_device <- complete_grid %>%
-  group_by(DeviceType, study_day) %>%
-  summarise(
-    participants_with_data = sum(has_data),
-    total_participants = n(),
-    percentage_with_data = (participants_with_data / total_participants) * 100,
-    .groups = "drop"
-  )
+  # Let's also check the raw data by device type
+  gaming_check_device <- ios_processed %>%
+    filter(ProbGame == TRUE) %>%
+    group_by(DeviceType) %>%
+    summarise(
+      total_gaming_sessions = n(),
+      total_gaming_duration = sum(Duration, na.rm = TRUE),
+      .groups = "drop"
+    )
+  cat("Raw gaming data check by device type:\n")
+  print(gaming_check_device)
 
-# Overall summary (combined)
-availability_summary <- complete_grid %>%
-  group_by(study_day) %>%
-  summarise(
-    participants_with_data = sum(has_data),
-    total_participants = n(),
-    percentage_with_data = (participants_with_data / total_participants) * 100,
-    .groups = "drop"
-  )
+  # Get all participants and their device types
+  participant_devices <- ios_processed %>%
+    group_by(PID) %>%
+    summarise(device_types = paste(sort(unique(DeviceType)), collapse = ", "), .groups = "drop")
 
-# Display device-specific summaries
-for(device in device_types) {
-  device_summary <- availability_summary_by_device %>% filter(DeviceType == device)
-  
-  cat(sprintf("\n=== %s DATA AVAILABILITY SUMMARY ===\n", toupper(device)))
-  device_table <- datatable(device_summary %>% select(-DeviceType),
-            caption = paste("Data Availability Summary by Study Day -", stringr::str_to_title(device)),
-            colnames = c("Study Day", "Participants with Data", "Total Participants", "Percentage with Data"),
-            options = list(
-              pageLength = 10,
-              scrollX = TRUE,
-              order = list(list(0, 'asc'))
-            ),
-            filter = 'top') %>%
-    formatRound(columns = c(4), digits = 1)
-  
-  print(device_table)
+  # Create separate complete grids for each device type
+  device_types <- unique(ios_processed$DeviceType)
+  all_study_days <- 1:28
+
+  # Create device-specific grids
+  device_grids <- list()
+
+  for(device in device_types) {
+    device_participants <- unique(ios_processed$PID[ios_processed$DeviceType == device])
+    
+    device_grid <- expand_grid(
+      PID = device_participants,
+      study_day = all_study_days,
+      DeviceType = device
+    ) %>%
+      left_join(study_day_availability, by = c("PID", "DeviceType", "study_day")) %>%
+      mutate(
+        has_data = ifelse(is.na(has_data), FALSE, has_data),
+        gaming_duration = ifelse(is.na(gaming_duration), 0, gaming_duration)
+      ) %>%
+      left_join(
+        participant_summary %>% select(PID, Condition, EnrollmentDate, 
+                                     study_completion_status, status_category),
+        by = "PID"
+      )
+    
+    device_grids[[device]] <- device_grid
+    
+    cat(sprintf("Device '%s': %d participants, %d total records\n", 
+                device, length(device_participants), nrow(device_grid)))
+  }
+
+  # Combine all device grids
+  complete_grid <- bind_rows(device_grids)
+
+  # Debug: Check the join results
+  cat("\nCombined grid dimensions:", nrow(complete_grid), "rows\n")
+  if (nrow(complete_grid) > 0) {
+    cat("Participants with Condition data:", sum(!is.na(complete_grid$Condition)), "\n")
+    cat("Unique participants in complete_grid:", n_distinct(complete_grid$PID), "\n")
+    cat("Column names in complete_grid:", paste(names(complete_grid), collapse = ", "), "\n")
+  }
+
+  # Only create summaries if we have data in complete_grid
+  if (nrow(complete_grid) > 0 && "DeviceType" %in% names(complete_grid) && "study_day" %in% names(complete_grid)) {
+    # Summary statistics by device type
+    availability_summary_by_device <- complete_grid %>%
+      group_by(DeviceType, study_day) %>%
+      summarise(
+        participants_with_data = sum(has_data, na.rm = TRUE),
+        total_participants = n(),
+        percentage_with_data = (participants_with_data / total_participants) * 100,
+        .groups = "drop"
+      )
+
+    # Overall summary (combined)
+    availability_summary <- complete_grid %>%
+      group_by(study_day) %>%
+      summarise(
+        participants_with_data = sum(has_data, na.rm = TRUE),
+        total_participants = n(),
+        percentage_with_data = (participants_with_data / total_participants) * 100,
+        .groups = "drop"
+      )
+
+    # Display device-specific summaries
+    for(device in device_types) {
+      device_summary <- availability_summary_by_device %>% filter(DeviceType == device)
+      
+      if (nrow(device_summary) > 0) {
+        cat(sprintf("\n=== %s DATA AVAILABILITY SUMMARY ===\n", toupper(device)))
+        device_table <- datatable(device_summary %>% select(-DeviceType),
+                  caption = paste("Data Availability Summary by Study Day -", stringr::str_to_title(device)),
+                  colnames = c("Study Day", "Participants with Data", "Total Participants", "Percentage with Data"),
+                  options = list(
+                    pageLength = 10,
+                    scrollX = TRUE,
+                    order = list(list(0, 'asc'))
+                  ),
+                  filter = 'top') %>%
+          formatRound(columns = c(4), digits = 1)
+        
+        print(device_table)
+      } else {
+        cat(sprintf("\n=== %s DATA AVAILABILITY SUMMARY ===\n", toupper(device)))
+        cat("No data available for this device type.\n")
+      }
+    }
+  } else {
+    cat("❌ ERROR: complete_grid is missing required columns or is empty.\n")
+    # Create empty summaries to prevent further errors
+    availability_summary_by_device <- data.frame()
+    availability_summary <- data.frame()
+  }
+} else {
+  cat("Skipping data availability matrix due to empty ios_processed data.\n")
 }
 ```
 
 ## Visualization: Data Availability Heatmaps by Device Type
 
 ```{r heatmap-visualization}
-# Create separate heatmaps for each device type
-for(device in device_types) {
+# Only create visualizations if we have data
+if (exists("complete_grid") && nrow(complete_grid) > 0 && exists("device_types") && length(device_types) > 0) {
+  
+  # Create separate heatmaps for each device type
+  for(device in device_types) {
   device_data <- complete_grid %>% filter(DeviceType == device)
   device_participants <- unique(device_data$PID)
   
@@ -664,17 +736,24 @@ combined_heatmap <- complete_grid %>%
 
 cat("\n=== COMBINED DEVICE TYPE HEATMAP ===\n")
 print(combined_heatmap)
+
+} else {
+  cat("No data available for heatmap visualization.\n")
+}
 ```
 
 ## Gaming Time Series Analysis
 
 ```{r gaming-timeseries}
-# Calculate daily gaming duration for each participant by device type
-gaming_timeseries <- complete_grid %>%
-  mutate(
-    gaming_duration = ifelse(is.na(gaming_duration), 0, gaming_duration),
-    gaming_duration_min = gaming_duration  # Data is already in minutes
-  )
+# Only proceed if we have complete_grid data
+if (exists("complete_grid") && nrow(complete_grid) > 0) {
+  
+  # Calculate daily gaming duration for each participant by device type
+  gaming_timeseries <- complete_grid %>%
+    mutate(
+      gaming_duration = ifelse(is.na(gaming_duration), 0, gaming_duration),
+      gaming_duration_min = gaming_duration  # Data is already in minutes
+    )
 
 # Only filter out participants without Condition data if they exist, otherwise keep all
 if(sum(is.na(gaming_timeseries$Condition)) < nrow(gaming_timeseries)) {
@@ -838,34 +917,40 @@ if(total_gaming_time > 0) {
     
     print(combined_gaming_plot)
   }
+  } else {
+    cat("No gaming data found. Skipping gaming time series plots.\n")
+  }
 } else {
-  cat("No gaming data found. Skipping gaming time series plots.\n")
+  cat("No complete_grid data available. Skipping gaming time series analysis.\n")
 }
 ```
 
 ## Gaming Apps Analysis
 
 ```{r gaming-apps-analysis}
-# Identify and analyze gaming apps
-gaming_apps_summary <- ios_processed %>%
-  filter(ProbGame == TRUE) %>%
-  group_by(App) %>%
-  summarise(
-    total_sessions = n(),
-    total_duration = sum(Duration, na.rm = TRUE),
-    unique_users = n_distinct(PID),
-    unique_days = n_distinct(Date),
-    avg_duration_per_session = mean(Duration, na.rm = TRUE),
-    avg_confidence = mean(LLM_conf, na.rm = TRUE),
-    .groups = "drop"
-  ) %>%
-  filter(unique_users >= 2) %>%  # Apps used by at least 2 participants
-  arrange(desc(total_duration)) %>%
-  mutate(
-    total_duration_hours = round(total_duration / 60, 1),
-    avg_duration_per_session = round(avg_duration_per_session, 1),
-    avg_confidence = round(avg_confidence, 1)
-  )
+# Only proceed if we have ios_processed data
+if (exists("ios_processed") && nrow(ios_processed) > 0) {
+  
+  # Identify and analyze gaming apps
+  gaming_apps_summary <- ios_processed %>%
+    filter(ProbGame == TRUE) %>%
+    group_by(App) %>%
+    summarise(
+      total_sessions = n(),
+      total_duration = sum(Duration, na.rm = TRUE),
+      unique_users = n_distinct(PID),
+      unique_days = n_distinct(Date),
+      avg_duration_per_session = mean(Duration, na.rm = TRUE),
+      avg_confidence = mean(LLM_conf, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    filter(unique_users >= 2) %>%  # Apps used by at least 2 participants
+    arrange(desc(total_duration)) %>%
+    mutate(
+      total_duration_hours = round(total_duration / 60, 1),
+      avg_duration_per_session = round(avg_duration_per_session, 1),
+      avg_confidence = round(avg_confidence, 1)
+    )
 
 datatable(gaming_apps_summary,
           caption = "Gaming Apps Summary (Used by 2+ Participants)",
@@ -906,76 +991,105 @@ top_gaming_by_participant <- ios_processed %>%
 
 # Show sample of top gaming apps by participant
 cat("Sample of participants' top gaming apps:\n")
-sample_participants <- top_gaming_by_participant %>%
-  arrange(PID, app_rank)
 
-current_participant <- ""
-count <- 0
-for(i in 1:min(nrow(sample_participants), 50)) {  # Show first 50 entries
-  row <- sample_participants[i,]
-  if (row$PID != current_participant) {
-    current_participant <- row$PID
-    count <- count + 1
-    if(count <= 10) {  # Show first 10 participants
-      cat(sprintf("\n%s (%s, %s):\n", row$PID, row$study_completion_status, row$Condition))
+# Only proceed if we have gaming data
+if (exists("top_gaming_by_participant") && nrow(top_gaming_by_participant) > 0) {
+  sample_participants <- top_gaming_by_participant %>%
+    filter(!is.na(PID)) %>%  # Remove rows with NA PID
+    arrange(PID, app_rank)
+
+  if (nrow(sample_participants) > 0) {
+    current_participant <- ""
+    count <- 0
+    for(i in 1:min(nrow(sample_participants), 50)) {  # Show first 50 entries
+      row <- sample_participants[i,]
+      if (!is.na(row$PID) && row$PID != current_participant) {
+        current_participant <- row$PID
+        count <- count + 1
+        if(count <= 10) {  # Show first 10 participants
+          cat(sprintf("\n%s (%s, %s):\n", 
+                      ifelse(is.na(row$PID), "Unknown", row$PID), 
+                      ifelse(is.na(row$study_completion_status), "Unknown", row$study_completion_status),
+                      ifelse(is.na(row$Condition), "Unknown", row$Condition)))
+        }
+      }
+      if(count <= 10 && !is.na(row$PID)) {
+        cat(sprintf("  %d. %s (%d sessions, %.1f min, %d days, %.1f%%)\n", 
+                    row$app_rank, 
+                    ifelse(is.na(row$App), "Unknown", row$App), 
+                    row$total_sessions, row$total_duration, 
+                    row$days_used, row$pct_of_total_gaming))
+      }
     }
+  } else {
+    cat("No valid gaming data found for participants.\n")
   }
-  if(count <= 10) {
-    cat(sprintf("  %d. %s (%d sessions, %.1f min, %d days, %.1f%%)\n", 
-                row$app_rank, row$App, row$total_sessions, row$total_duration, 
-                row$days_used, row$pct_of_total_gaming))
+  } else {
+    cat("No gaming data available.\n")
   }
+} else {
+  cat("No ios_processed data available for gaming apps analysis.\n")
 }
 ```
 
 ## Data Availability Trends
 
 ```{r availability-trends}
-# Plot percentage of participants with data by study day
-availability_trend <- availability_summary %>%
-  ggplot(aes(x = study_day, y = percentage_with_data)) +
-  geom_line(color = "#2166ac", size = 1) +
-  geom_point(color = "#2166ac", size = 2) +
-  scale_x_continuous(breaks = seq(1, 28, 2)) +
-  scale_y_continuous(limits = c(0, 100), labels = function(x) paste0(x, "%")) +
-  labs(
-    title = "Percentage of iOS Participants with App Usage Data by Study Day",
-    x = "Study Day",
-    y = "Percentage of Participants with Data",
-    caption = paste0("Based on ", n_distinct(ios_processed$PID), " iOS participants")
-  ) +
-  theme_minimal()
+# Only proceed if we have availability_summary data
+if (exists("availability_summary") && nrow(availability_summary) > 0 && exists("ios_processed") && nrow(ios_processed) > 0) {
+  
+  # Plot percentage of participants with data by study day
+  availability_trend <- availability_summary %>%
+    ggplot(aes(x = study_day, y = percentage_with_data)) +
+    geom_line(color = "#2166ac", size = 1) +
+    geom_point(color = "#2166ac", size = 2) +
+    scale_x_continuous(breaks = seq(1, 28, 2)) +
+    scale_y_continuous(limits = c(0, 100), labels = function(x) paste0(x, "%")) +
+    labs(
+      title = "Percentage of iOS Participants with App Usage Data by Study Day",
+      x = "Study Day",
+      y = "Percentage of Participants with Data",
+      caption = paste0("Based on ", n_distinct(ios_processed$PID), " iOS participants")
+    ) +
+    theme_minimal()
 
-print(availability_trend)
+  print(availability_trend)
 
-# Additional summary statistics
-cat("\nData Availability Statistics:\n")
-cat("- Days with 100% participation:", sum(availability_summary$percentage_with_data == 100), "\n")
-cat("- Days with >50% participation:", sum(availability_summary$percentage_with_data > 50), "\n")
-cat("- Days with <25% participation:", sum(availability_summary$percentage_with_data < 25), "\n")
+  # Additional summary statistics
+  cat("\nData Availability Statistics:\n")
+  cat("- Days with 100% participation:", sum(availability_summary$percentage_with_data == 100), "\n")
+  cat("- Days with >50% participation:", sum(availability_summary$percentage_with_data > 50), "\n")
+  cat("- Days with <25% participation:", sum(availability_summary$percentage_with_data < 25), "\n")
+  
+} else {
+  cat("No availability summary data available for trends visualization.\n")
+}
 ```
 
 ## Individual Participant Patterns
 
 ```{r individual-patterns}
-# Look at individual participant data patterns
-participant_patterns <- complete_grid %>%
-  group_by(PID, Condition, study_completion_status, status_category) %>%
-  summarise(
-    total_days_with_data = sum(has_data),
-    consecutive_days = max(rle(has_data)$lengths[rle(has_data)$values == TRUE], na.rm = TRUE),
-    first_day_with_data = min(study_day[has_data], na.rm = TRUE),
-    last_day_with_data = max(study_day[has_data], na.rm = TRUE),
-    total_gaming_duration = sum(gaming_duration, na.rm = TRUE),
-    .groups = "drop"
-  ) %>%
-  mutate(
-    consecutive_days = ifelse(is.infinite(consecutive_days), 0, consecutive_days),
-    data_span = last_day_with_data - first_day_with_data + 1,
-    avg_gaming_per_day = round(total_gaming_duration / total_days_with_data, 1)
-  ) %>%
-  # Sort by completion status
-  arrange(status_category, PID)
+# Only proceed if we have complete_grid data
+if (exists("complete_grid") && nrow(complete_grid) > 0) {
+  
+  # Look at individual participant data patterns
+  participant_patterns <- complete_grid %>%
+    group_by(PID, Condition, study_completion_status, status_category) %>%
+    summarise(
+      total_days_with_data = sum(has_data, na.rm = TRUE),
+      consecutive_days = max(rle(has_data)$lengths[rle(has_data)$values == TRUE], na.rm = TRUE),
+      first_day_with_data = min(study_day[has_data], na.rm = TRUE),
+      last_day_with_data = max(study_day[has_data], na.rm = TRUE),
+      total_gaming_duration = sum(gaming_duration, na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      consecutive_days = ifelse(is.infinite(consecutive_days), 0, consecutive_days),
+      data_span = last_day_with_data - first_day_with_data + 1,
+      avg_gaming_per_day = round(total_gaming_duration / total_days_with_data, 1)
+    ) %>%
+    # Sort by completion status
+    arrange(status_category, PID)
 
 # Summary by condition
 pattern_summary <- participant_patterns %>%
@@ -1013,23 +1127,34 @@ datatable(participant_patterns,
       ),
       filter = 'top') %>%
       formatRound(columns = c(5, 6, 7, 8, 9, 10, 11), digits = 1)
+
+} else {
+  cat("No complete_grid data available for individual participant patterns analysis.\n")
+  # Create empty objects to prevent errors in later sections
+  participant_patterns <- data.frame()
+}
 ```
 
 ## Key Findings Summary
 
 ```{r summary}
-# Calculate key statistics
-total_ios_participants <- n_distinct(ios_processed$PID)
-days_with_any_data <- sum(availability_summary$participants_with_data > 0)
-peak_participation_day <- availability_summary$study_day[which.max(availability_summary$percentage_with_data)]
-peak_participation_rate <- max(availability_summary$percentage_with_data)
+# Only proceed if we have the required data
+if (exists("ios_processed") && nrow(ios_processed) > 0 && 
+    exists("availability_summary") && nrow(availability_summary) > 0 && 
+    exists("participant_patterns") && nrow(participant_patterns) > 0) {
+  
+  # Calculate key statistics
+  total_ios_participants <- n_distinct(ios_processed$PID)
+  days_with_any_data <- sum(availability_summary$participants_with_data > 0)
+  peak_participation_day <- availability_summary$study_day[which.max(availability_summary$percentage_with_data)]
+  peak_participation_rate <- max(availability_summary$percentage_with_data)
 
-avg_days_per_participant <- mean(participant_patterns$total_days_with_data, na.rm = TRUE)
-participants_with_full_study <- sum(participant_patterns$total_days_with_data >= 20, na.rm = TRUE)
+  avg_days_per_participant <- mean(participant_patterns$total_days_with_data, na.rm = TRUE)
+  participants_with_full_study <- sum(participant_patterns$total_days_with_data >= 20, na.rm = TRUE)
 
-# Gaming statistics
-total_gaming_apps <- n_distinct(ios_processed$App[ios_processed$ProbGame == TRUE])
-avg_gaming_duration <- mean(participant_patterns$total_gaming_duration, na.rm = TRUE)
+  # Gaming statistics
+  total_gaming_apps <- n_distinct(ios_processed$App[ios_processed$ProbGame == TRUE])
+  avg_gaming_duration <- mean(participant_patterns$total_gaming_duration, na.rm = TRUE)
 
 # Completion status counts
 completion_counts <- participant_summary %>% count(study_completion_status)
@@ -1062,18 +1187,32 @@ cat("- Overall data availability rate:", round(mean(availability_summary$percent
 cat("Gaming Analysis:\n")
 cat("- Unique gaming apps identified:", total_gaming_apps, "\n")
 cat("- Average total gaming duration per participant:", round(avg_gaming_duration, 1), "minutes\n")
-cat("- Gaming apps used by ≥2 participants:", nrow(gaming_apps_summary), "\n\n")
+if(exists("gaming_apps_summary") && nrow(gaming_apps_summary) > 0) {
+  cat("- Gaming apps used by ≥2 participants:", nrow(gaming_apps_summary), "\n\n")
+} else {
+  cat("- Gaming apps used by ≥2 participants: Data not available\n\n")
+}
 
 cat("Condition Comparison:\n")
-control_avg <- pattern_summary$avg_days_with_data[pattern_summary$Condition == "control"]
-intervention_avg <- pattern_summary$avg_days_with_data[pattern_summary$Condition == "intervention"]
-control_gaming <- pattern_summary$avg_gaming_duration[pattern_summary$Condition == "control"]
-intervention_gaming <- pattern_summary$avg_gaming_duration[pattern_summary$Condition == "intervention"]
+if(exists("pattern_summary") && nrow(pattern_summary) > 0) {
+  control_avg <- pattern_summary$avg_days_with_data[pattern_summary$Condition == "control"]
+  intervention_avg <- pattern_summary$avg_days_with_data[pattern_summary$Condition == "intervention"]
+  control_gaming <- pattern_summary$avg_gaming_duration[pattern_summary$Condition == "control"]
+  intervention_gaming <- pattern_summary$avg_gaming_duration[pattern_summary$Condition == "intervention"]
 
-if(length(control_avg) > 0) cat("- Control group average days:", round(control_avg, 1), "\n")
-if(length(intervention_avg) > 0) cat("- Intervention group average days:", round(intervention_avg, 1), "\n")
-if(length(control_gaming) > 0) cat("- Control group average gaming duration:", round(control_gaming, 1), "min\n")
-if(length(intervention_gaming) > 0) cat("- Intervention group average gaming duration:", round(intervention_gaming, 1), "min\n")
+  if(length(control_avg) > 0) cat("- Control group average days:", round(control_avg, 1), "\n")
+  if(length(intervention_avg) > 0) cat("- Intervention group average days:", round(intervention_avg, 1), "\n")
+  if(length(control_gaming) > 0) cat("- Control group average gaming duration:", round(control_gaming, 1), "min\n")
+  if(length(intervention_gaming) > 0) cat("- Intervention group average gaming duration:", round(intervention_gaming, 1), "min\n")
+} else {
+  cat("- Condition comparison data not available\n")
+}
+
+} else {
+  cat("=== iOS APP USAGE KEY FINDINGS ===\n\n")
+  cat("❌ ERROR: Insufficient data for summary report.\n")
+  cat("Check data loading and processing steps.\n")
+}
 ```
 
 ## Data Export
@@ -1084,19 +1223,43 @@ if (!dir.exists("../../.tmp/ios")) {
   dir.create("../../.tmp/ios", recursive = TRUE)
 }
 
-# Export processed data for further analysis
-write_csv(complete_grid, "../../.tmp/ios/study_day_availability_matrix.csv")
-write_csv(availability_summary, "../../.tmp/ios/daily_availability_summary.csv")
-write_csv(participant_patterns, "../../.tmp/ios/participant_data_patterns.csv")
-write_csv(gaming_timeseries, "../../.tmp/ios/gaming_timeseries_data.csv")
-write_csv(gaming_apps_summary, "../../.tmp/ios/gaming_apps_summary.csv")
-write_csv(top_gaming_by_participant, "../../.tmp/ios/top_gaming_apps_by_participant.csv")
+# Export processed data for further analysis (only if objects exist)
+exported_files <- character(0)
 
-cat("Exported iOS analysis files:\n")
-cat("- study_day_availability_matrix.csv: Complete participant x study day matrix\n")
-cat("- daily_availability_summary.csv: Daily availability percentages\n")
-cat("- participant_data_patterns.csv: Individual participant patterns\n")
-cat("- gaming_timeseries_data.csv: Gaming duration time series data\n")
-cat("- gaming_apps_summary.csv: Gaming apps usage statistics\n")
-cat("- top_gaming_apps_by_participant.csv: Top gaming apps per participant\n")
+if (exists("complete_grid") && nrow(complete_grid) > 0) {
+  write_csv(complete_grid, "../../.tmp/ios/study_day_availability_matrix.csv")
+  exported_files <- c(exported_files, "- study_day_availability_matrix.csv: Complete participant x study day matrix")
+}
+
+if (exists("availability_summary") && nrow(availability_summary) > 0) {
+  write_csv(availability_summary, "../../.tmp/ios/daily_availability_summary.csv")
+  exported_files <- c(exported_files, "- daily_availability_summary.csv: Daily availability percentages")
+}
+
+if (exists("participant_patterns") && nrow(participant_patterns) > 0) {
+  write_csv(participant_patterns, "../../.tmp/ios/participant_data_patterns.csv")
+  exported_files <- c(exported_files, "- participant_data_patterns.csv: Individual participant patterns")
+}
+
+if (exists("gaming_timeseries") && nrow(gaming_timeseries) > 0) {
+  write_csv(gaming_timeseries, "../../.tmp/ios/gaming_timeseries_data.csv")
+  exported_files <- c(exported_files, "- gaming_timeseries_data.csv: Gaming duration time series data")
+}
+
+if (exists("gaming_apps_summary") && nrow(gaming_apps_summary) > 0) {
+  write_csv(gaming_apps_summary, "../../.tmp/ios/gaming_apps_summary.csv")
+  exported_files <- c(exported_files, "- gaming_apps_summary.csv: Gaming apps usage statistics")
+}
+
+if (exists("top_gaming_by_participant") && nrow(top_gaming_by_participant) > 0) {
+  write_csv(top_gaming_by_participant, "../../.tmp/ios/top_gaming_apps_by_participant.csv")
+  exported_files <- c(exported_files, "- top_gaming_apps_by_participant.csv: Top gaming apps per participant")
+}
+
+if (length(exported_files) > 0) {
+  cat("Exported iOS analysis files:\n")
+  cat(paste(exported_files, collapse = "\n"), "\n")
+} else {
+  cat("No data available for export.\n")
+}
 ```

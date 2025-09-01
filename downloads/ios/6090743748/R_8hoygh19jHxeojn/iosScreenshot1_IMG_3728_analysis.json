@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-22",
+  "screenshot_timestamp": "23:11",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 9m",
+      "time_spent_minutes": 129
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 32m",
+      "time_spent_minutes": 92
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "Microsoft Word",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Snapchat",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Tumblr",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6090743748/R_8hoygh19jHxeojn/iosScreenshot1_IMG_3728.png",
+    "analysis_timestamp": "2025-09-01T14:04:24.674687",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

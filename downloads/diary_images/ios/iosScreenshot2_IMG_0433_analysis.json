@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-22",
+  "screenshot_timestamp": "17:53",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "49m",
+      "time_spent_minutes": 49
+    },
+    {
+      "app_name": "Notability",
+      "time_spent": "43m",
+      "time_spent_minutes": 43
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "osmosis.org",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Dropout",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "cureepilepsy.org",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "litfl.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "ecosia.org",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "epilepsy.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_8t9EivbcOouvILn/iosScreenshot2_IMG_0433.png",
+    "analysis_timestamp": "2025-09-01T12:28:14.605959",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

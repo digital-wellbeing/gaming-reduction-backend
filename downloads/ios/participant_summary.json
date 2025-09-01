@@ -1,0 +1,470 @@
+{
+  "summary": {
+    "total_participants": 10,
+    "total_images": 228,
+    "successful_participants": 8,
+    "failed_participants": 2,
+    "total_successful_images": 199,
+    "total_failed_images": 29,
+    "total_images_with_warnings": 3,
+    "total_processing_time_seconds": 1929.3322608470917,
+    "success_rate": 87.28070175438597,
+    "report_timestamp": "2025-09-01T14:09:16.147847"
+  },
+  "participants": [
+    {
+      "participant_id": "1905721722",
+      "total_images": 17,
+      "processed_images": 17,
+      "successful_images": 17,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 157.50647687911987,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_27U4z0OudEjehMm",
+        "R_2wdl1V71rPV3lIZ",
+        "R_863fkkYXGxqe5sC",
+        "R_2Le66IbjwY8bzxP",
+        "R_8cuMViFMgbdwAlh",
+        "R_2Mtcz7V0vZ1xxoT",
+        "R_2fklLasoP5LvxLN",
+        "R_2lSwMO5OMeC6pSd",
+        "R_87UwAK3YfRqNYaM",
+        "R_21Fe6FNu2Aoo6mk",
+        "R_2gZYYREI3H3aqc2",
+        "R_8PvtV2dyv37czME",
+        "R_8A3UOSAcm5jU3xT",
+        "R_8gWxICTPEVww0tH",
+        "R_2JAGUG8tWjoDXYR",
+        "R_21bVv3t0Hg1VTZy",
+        "R_8sQlHHHa2f1LDMt"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "3236077775",
+      "total_images": 58,
+      "processed_images": 58,
+      "successful_images": 58,
+      "failed_images": 0,
+      "images_with_warnings": 3,
+      "processing_time_seconds": 529.1075389385223,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_839Yzm8ImXIqMA6",
+        "R_2MrXhGxPViSI7oB",
+        "R_8ZODdUsH9946O51",
+        "R_2QFr5C7iL0zImuR",
+        "R_8y3jSmGsU2iFICq",
+        "R_22rSMQXysvNRfUZ",
+        "R_8TsJfB2xythbwi6",
+        "R_8A70EcnrmIFoJ6p",
+        "R_2rFXW4m73VrekKC",
+        "R_8YTNWOrvKCtj7sR",
+        "R_2zNReMAluzVJEpr",
+        "R_2etJmhz7J5iCJs5",
+        "R_81ayX0oAf4UOg91",
+        "R_8mgxv6UBi98moNc",
+        "R_2D8vZ5IAaAFLais",
+        "R_8RXmIKhIXiNgkSt",
+        "R_82Q4I0gpvxS9ygw",
+        "R_822zzDxIqddfDGU",
+        "R_2AKJSPOFuWfFWnV",
+        "R_8RNqDnvEwhpaMUx",
+        "R_22ILlQQj7JgjPFr",
+        "R_2frvI6J8RNQodIl",
+        "R_8oXhlJVYF6i1z4f",
+        "R_8PvAKBMDk7d9NXe",
+        "R_8uODKrgsqGFUjlv",
+        "R_8kMJdMyCSJR2lIU",
+        "R_8NBUGkndmhOLL1f",
+        "R_82Wymyt4QeAC2CU",
+        "R_2EsSM5lAsRJq31e"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "3630021688",
+      "total_images": 1,
+      "processed_images": 1,
+      "successful_images": 1,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 9.861117124557495,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_5LnZDVYlloI8pZD"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "4162013242",
+      "total_images": 19,
+      "processed_images": 19,
+      "successful_images": 19,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 156.90544080734253,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_8tsATh0zpXcQbLd",
+        "R_27QzMDwm1NU1qXr",
+        "R_8670JJ7z9VnpwnT",
+        "R_2mlay40F1sGFjwb",
+        "R_81QRKV9dmjMQ5Qs",
+        "R_8ab5CqAJYl2cHhR",
+        "R_2THLsRijmwUC8hp",
+        "R_8xFAIgAXWludtU5",
+        "R_2ag6QSGuWWvDR3b",
+        "R_2wvjSN7cMAmLTf3",
+        "R_8mdZjQRX5Zen0YW",
+        "R_2OE3epXE19lNRBL",
+        "R_2QYIGPuvKnusMSL",
+        "R_8rdDwG5UmCTeSBd",
+        "R_2w6496qQaB2QIOw",
+        "R_2njSNlbInPAYq1E",
+        "R_8FLNVI4FrR0Bf2J",
+        "R_8gNjxk8uOCC6526",
+        "R_8VpFlapHVRUiwCJ"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "5381621023",
+      "total_images": 23,
+      "processed_images": 23,
+      "successful_images": 23,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 219.37091612815857,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_8kyHX81ISFcd3Al",
+        "R_2dFVrbzF4BKdvK2",
+        "R_2PpgqffakYuXBsy",
+        "R_8vdRkGir4JK6MGl",
+        "R_8Qc4bg2Xzx855gB",
+        "R_86a9JEndQ61anjc",
+        "R_8OuBWRAeKoWkCcv",
+        "R_8fpoiZvxNoo0BMu",
+        "R_2h2ARXOoHV0kaGZ",
+        "R_2L2wGxTc466lNEB",
+        "R_8dixsR4Grl8oCV2",
+        "R_2sVuWt6JML6BLwZ",
+        "R_8w4WyP8QKJgc1YQ",
+        "R_28Pp4A0JZ8Nqul3",
+        "R_8hHerG1a36vhbk9",
+        "R_2wF7rzkzJmCFPGU",
+        "R_2ZQabmb0V4LnMbo",
+        "R_8nVYRYSi0RxMadz",
+        "R_2VmZL2WBd6in83z",
+        "R_2CPaHtSXMuu5eMp",
+        "R_2LZDpVj78HMSQJC",
+        "R_29oJNyG3zeddynW",
+        "R_2XOaSo6jkydlyj7"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "5920259882",
+      "total_images": 18,
+      "processed_images": 18,
+      "successful_images": 18,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 171.73505759239197,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_8k7mVhM0eKdavAt",
+        "R_2lrZtKy1h3qqgok",
+        "R_8SMUqPho797mFLH",
+        "R_2ScblzIpurbbNp2",
+        "R_8Ua8SCjmXD7qNJ9",
+        "R_8zbGEFwyuQtK0WG",
+        "R_2pPFgVSmGJCCfGp",
+        "R_8LjKLX0OYNM5qxl",
+        "R_2KCt82lNag6xBgK",
+        "R_2S8lXmxpzffUwjm",
+        "R_8cTFIIIrGNwzHgx",
+        "R_8o2CocJXbCEwrh7",
+        "R_2n9XiD1GVSGhzyN",
+        "R_2uwUdWwenmrMw7Q",
+        "R_8QPfyx6BkERRsFb",
+        "R_8rcgtBg1sNBZ4DQ",
+        "R_2fxECOQEW2fQWf9",
+        "R_2wv2R2j4Y830qJj"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "6090743748",
+      "total_images": 45,
+      "processed_images": 45,
+      "successful_images": 45,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 402.6163442134857,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_8jvuYxCelLLbLxq",
+        "R_8jKcDEzloHWmHCm",
+        "R_86o3VnqDDIkONmQ",
+        "R_2wnpJFs4a0YyLcG",
+        "R_87jo8RYJGGYN0SI",
+        "R_8ZUhlMrwkEjeJnO",
+        "R_2JW1lsYNziJequj",
+        "R_2pigQ6LlwUEkEQE",
+        "R_2wM0FRTtOjLfITl",
+        "R_2trsx9wDUuuMon0",
+        "R_2cAZLDI4coQnx29",
+        "R_8TtuPNx4J8fixRk",
+        "R_8YobxJfrt0GtFVZ",
+        "R_2PXY0VzxT8VYBGR",
+        "R_8hoygh19jHxeojn",
+        "R_8t9EivbcOouvILn",
+        "R_2IRfrgkaaFYPa7L",
+        "R_8QY6J1qzf2WAISc",
+        "R_2Cv4SRYrDdvkGbn",
+        "R_8AmfQBsq1KCVbu9",
+        "R_8JtNOHrzECQ6Alr",
+        "R_2sOKsJvYRSwM1ax",
+        "R_2j8r2ntpI6fByMs"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "6644123211",
+      "total_images": 17,
+      "processed_images": 17,
+      "successful_images": 17,
+      "failed_images": 0,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 175.6999077796936,
+      "success_rate": 100.0,
+      "response_folders": [
+        "R_8zNLQ2EJPKFL98k",
+        "R_2zISplvu0oF0T2q",
+        "R_8EGEbctk80iE5IZ",
+        "R_2JwN1UXrhAC6ZtD",
+        "R_2qxSy1NUM9CjLNP",
+        "R_8BVCDxD84tCSzF7",
+        "R_8EiJCldBM3m8sLp",
+        "R_80e1DrKwqjNYf62",
+        "R_8C4gt9k7JgRkPyp",
+        "R_82mVcYOjTO1U9c9",
+        "R_81TzDbjZRVZrnVv",
+        "R_8EWkZLEa01iakOE",
+        "R_2opAWEUJxDxSJjO",
+        "R_82xYgHVYTlNysMk",
+        "R_8FnYWLtkxDzYY0M",
+        "R_216dxo521EiN4d0",
+        "R_8zJ7iHntk3nMO1t"
+      ],
+      "error_details": []
+    },
+    {
+      "participant_id": "8357967109",
+      "total_images": 18,
+      "processed_images": 18,
+      "successful_images": 1,
+      "failed_images": 17,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 66.85490417480469,
+      "success_rate": 5.555555555555555,
+      "response_folders": [
+        "R_2DAJX408bIiNqSG",
+        "R_8SBn3fq2JZ0cdq0",
+        "R_2BhA03r8mN8HCCh",
+        "R_25qRple33IhoBc5",
+        "R_23eQ51LItlYWzK4",
+        "R_2yHOkkyTzI4R98B",
+        "R_83pr1idX9jj400x",
+        "R_8Xyzq0CMk4sDx4d",
+        "R_2MSUNQBXrtFFoec",
+        "R_2fZ8LgYOikFJcMP",
+        "R_83pqvCqZKFT2UqG",
+        "R_2LhhO0gU0zpCsrN",
+        "R_2erZDD6ntKbdCOD",
+        "R_2ig2BEwEceNNYVb",
+        "R_8m9wQX1GB1YDTgJ",
+        "R_247KdGto2sSxDLX",
+        "R_21aW9HUlOkoxL2c",
+        "R_2CEpbBo0fm2YVE5"
+      ],
+      "error_details": [
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_247KdGto2sSxDLX/iosScreenshot1_IMG_8743.png",
+          "response_folder": "R_247KdGto2sSxDLX",
+          "error": "2025-09-01 14:07:40,935 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_247KdGto2sSxDLX/iosScreenshot1_IMG_8743.png\n2025-09-01 14:07:43,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_23eQ51LItlYWzK4/iosScreenshot1_IMG_8812.png",
+          "response_folder": "R_23eQ51LItlYWzK4",
+          "error": "2025-09-01 14:07:44,133 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_23eQ51LItlYWzK4/iosScreenshot1_IMG_8812.png\n2025-09-01 14:07:46,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_21aW9HUlOkoxL2c/iosScreenshot1_IMG_8784.png",
+          "response_folder": "R_21aW9HUlOkoxL2c",
+          "error": "2025-09-01 14:07:47,531 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_21aW9HUlOkoxL2c/iosScreenshot1_IMG_8784.png\n2025-09-01 14:07:50,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2CEpbBo0fm2YVE5/iosScreenshot1_IMG_8755.png",
+          "response_folder": "R_2CEpbBo0fm2YVE5",
+          "error": "2025-09-01 14:07:50,893 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2CEpbBo0fm2YVE5/iosScreenshot1_IMG_8755.png\n2025-09-01 14:07:53,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2yHOkkyTzI4R98B/iosScreenshot1_IMG_8747.jpeg",
+          "response_folder": "R_2yHOkkyTzI4R98B",
+          "error": "2025-09-01 14:07:54,087 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2yHOkkyTzI4R98B/iosScreenshot1_IMG_8747.jpeg\n2025-09-01 14:07:56"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2fZ8LgYOikFJcMP/iosScreenshot1_IMG_8766.png",
+          "response_folder": "R_2fZ8LgYOikFJcMP",
+          "error": "2025-09-01 14:07:57,025 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2fZ8LgYOikFJcMP/iosScreenshot1_IMG_8766.png\n2025-09-01 14:07:59,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2DAJX408bIiNqSG/iosScreenshot1_IMG_8767.png",
+          "response_folder": "R_2DAJX408bIiNqSG",
+          "error": "2025-09-01 14:08:00,430 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2DAJX408bIiNqSG/iosScreenshot1_IMG_8767.png\n2025-09-01 14:08:03,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2erZDD6ntKbdCOD/iosScreenshot1_IMG_8763.png",
+          "response_folder": "R_2erZDD6ntKbdCOD",
+          "error": "2025-09-01 14:08:03,735 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2erZDD6ntKbdCOD/iosScreenshot1_IMG_8763.png\n2025-09-01 14:08:06,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_8m9wQX1GB1YDTgJ/iosScreenshot1_IMG_8664.png",
+          "response_folder": "R_8m9wQX1GB1YDTgJ",
+          "error": "2025-09-01 14:08:07,211 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_8m9wQX1GB1YDTgJ/iosScreenshot1_IMG_8664.png\n2025-09-01 14:08:09,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_83pr1idX9jj400x/iosScreenshot1_IMG_8751.png",
+          "response_folder": "R_83pr1idX9jj400x",
+          "error": "2025-09-01 14:08:10,148 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_83pr1idX9jj400x/iosScreenshot1_IMG_8751.png\n2025-09-01 14:08:12,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_83pqvCqZKFT2UqG/iosScreenshot1_IMG_8814.png",
+          "response_folder": "R_83pqvCqZKFT2UqG",
+          "error": "2025-09-01 14:08:13,401 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_83pqvCqZKFT2UqG/iosScreenshot1_IMG_8814.png\n2025-09-01 14:08:15,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2BhA03r8mN8HCCh/iosScreenshot1_IMG_8791.png",
+          "response_folder": "R_2BhA03r8mN8HCCh",
+          "error": "2025-09-01 14:08:16,247 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2BhA03r8mN8HCCh/iosScreenshot1_IMG_8791.png\n2025-09-01 14:08:19,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_8Xyzq0CMk4sDx4d/iosScreenshot1_IMG_8779.png",
+          "response_folder": "R_8Xyzq0CMk4sDx4d",
+          "error": "2025-09-01 14:08:19,958 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_8Xyzq0CMk4sDx4d/iosScreenshot1_IMG_8779.png\n2025-09-01 14:08:22,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2ig2BEwEceNNYVb/iosScreenshot1_IMG_8665.png",
+          "response_folder": "R_2ig2BEwEceNNYVb",
+          "error": "2025-09-01 14:08:23,093 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2ig2BEwEceNNYVb/iosScreenshot1_IMG_8665.png\n2025-09-01 14:08:26,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_25qRple33IhoBc5/iosScreenshot1_IMG_8759.png",
+          "response_folder": "R_25qRple33IhoBc5",
+          "error": "2025-09-01 14:08:27,174 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_25qRple33IhoBc5/iosScreenshot1_IMG_8759.png\n2025-09-01 14:08:29,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2MSUNQBXrtFFoec/iosScreenshot1_IMG_8769.jpeg",
+          "response_folder": "R_2MSUNQBXrtFFoec",
+          "error": "2025-09-01 14:08:30,390 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2MSUNQBXrtFFoec/iosScreenshot1_IMG_8769.jpeg\n2025-09-01 14:08:33"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2LhhO0gU0zpCsrN/iosScreenshot1_IMG_8667.png",
+          "response_folder": "R_2LhhO0gU0zpCsrN",
+          "error": "2025-09-01 14:08:33,656 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_2LhhO0gU0zpCsrN/iosScreenshot1_IMG_8667.png\n2025-09-01 14:08:36,"
+        }
+      ]
+    },
+    {
+      "participant_id": "9700566533",
+      "total_images": 12,
+      "processed_images": 12,
+      "successful_images": 0,
+      "failed_images": 12,
+      "images_with_warnings": 0,
+      "processing_time_seconds": 39.32307147979736,
+      "success_rate": 0.0,
+      "response_folders": [
+        "R_27eXLFOZdeP1z6o",
+        "R_8GfRKdPu1KdiWFC",
+        "R_2sceIqUCJRkihwZ",
+        "R_8Qgw1aseEgdGSGd",
+        "R_8QlMNYfpBomzLJ9",
+        "R_24ovbtWxN4emP7V",
+        "R_8PLjV2Y8ogNfP19",
+        "R_8lbi8tVdF3f0j2M",
+        "R_8rOhDuhhr31GgGz",
+        "R_2erFwoOZxunXat6",
+        "R_86ZhLh8JDg0krLz",
+        "R_82McXztIy1zdCya"
+      ],
+      "error_details": [
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_2erFwoOZxunXat6/iosScreenshot1_IMG_4637.png",
+          "response_folder": "R_2erFwoOZxunXat6",
+          "error": "2025-09-01 14:08:37,236 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_2erFwoOZxunXat6/iosScreenshot1_IMG_4637.png\n2025-09-01 14:08:39,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_82McXztIy1zdCya/iosScreenshot1_IMG_4646.png",
+          "response_folder": "R_82McXztIy1zdCya",
+          "error": "2025-09-01 14:08:40,346 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_82McXztIy1zdCya/iosScreenshot1_IMG_4646.png\n2025-09-01 14:08:43,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8QlMNYfpBomzLJ9/iosScreenshot1_IMG_4684.png",
+          "response_folder": "R_8QlMNYfpBomzLJ9",
+          "error": "2025-09-01 14:08:43,799 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8QlMNYfpBomzLJ9/iosScreenshot1_IMG_4684.png\n2025-09-01 14:08:46,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_86ZhLh8JDg0krLz/iosScreenshot1_IMG_4654.png",
+          "response_folder": "R_86ZhLh8JDg0krLz",
+          "error": "2025-09-01 14:08:47,067 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_86ZhLh8JDg0krLz/iosScreenshot1_IMG_4654.png\n2025-09-01 14:08:49,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8Qgw1aseEgdGSGd/iosScreenshot1_IMG_4620.png",
+          "response_folder": "R_8Qgw1aseEgdGSGd",
+          "error": "2025-09-01 14:08:50,342 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8Qgw1aseEgdGSGd/iosScreenshot1_IMG_4620.png\n2025-09-01 14:08:52,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8lbi8tVdF3f0j2M/iosScreenshot1_IMG_4648.png",
+          "response_folder": "R_8lbi8tVdF3f0j2M",
+          "error": "2025-09-01 14:08:53,407 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8lbi8tVdF3f0j2M/iosScreenshot1_IMG_4648.png\n2025-09-01 14:08:55,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_27eXLFOZdeP1z6o/iosScreenshot1_IMG_4662.png",
+          "response_folder": "R_27eXLFOZdeP1z6o",
+          "error": "2025-09-01 14:08:56,508 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_27eXLFOZdeP1z6o/iosScreenshot1_IMG_4662.png\n2025-09-01 14:08:59,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_24ovbtWxN4emP7V/iosScreenshot1_IMG_4607.png",
+          "response_folder": "R_24ovbtWxN4emP7V",
+          "error": "2025-09-01 14:09:00,128 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_24ovbtWxN4emP7V/iosScreenshot1_IMG_4607.png\n2025-09-01 14:09:02,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8GfRKdPu1KdiWFC/iosScreenshot1_IMG_4673.png",
+          "response_folder": "R_8GfRKdPu1KdiWFC",
+          "error": "2025-09-01 14:09:03,573 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8GfRKdPu1KdiWFC/iosScreenshot1_IMG_4673.png\n2025-09-01 14:09:06,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8PLjV2Y8ogNfP19/iosScreenshot1_IMG_4627.png",
+          "response_folder": "R_8PLjV2Y8ogNfP19",
+          "error": "2025-09-01 14:09:06,659 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8PLjV2Y8ogNfP19/iosScreenshot1_IMG_4627.png\n2025-09-01 14:09:09,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8rOhDuhhr31GgGz/iosScreenshot1_IMG_4607.png",
+          "response_folder": "R_8rOhDuhhr31GgGz",
+          "error": "2025-09-01 14:09:10,122 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_8rOhDuhhr31GgGz/iosScreenshot1_IMG_4607.png\n2025-09-01 14:09:12,"
+        },
+        {
+          "image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_2sceIqUCJRkihwZ/iosScreenshot1_IMG_4598.png",
+          "response_folder": "R_2sceIqUCJRkihwZ",
+          "error": "2025-09-01 14:09:13,568 - INFO - Analyzing: /home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/9700566533/R_2sceIqUCJRkihwZ/iosScreenshot1_IMG_4598.png\n2025-09-01 14:09:15,"
+        }
+      ]
+    }
+  ]
+}

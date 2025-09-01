@@ -2,3 +2,11 @@
   quarto-pub:
     - id: d90efa4e-0ffd-43c3-924c-5b2ba03a52ae
       url: https://sinandrei.quarto.pub/reduction-aw
+- source: ios_app_usage_exploration.qmd
+  quarto-pub:
+    - id: acf805ea-c2da-4b00-93ca-a7555b07ab95
+      url: https://sinandrei.quarto.pub/ios-app-usage-data-exploration-by-study-day
+- source: aw_app_usage_exploration.qmd
+  quarto-pub:
+    - id: daec0159-a573-4e73-8bf4-4769c7af2a5a
+      url: https://sinandrei.quarto.pub/activitywatch-app-usage-data-exploration-by-study-day

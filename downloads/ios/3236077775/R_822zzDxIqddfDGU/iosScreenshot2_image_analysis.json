@@ -1,0 +1,75 @@
+{
+  "device_type": "desktop",
+  "device_type_confidence": 0.9,
+  "date_of_screenshot": "2025-07-07",
+  "screenshot_timestamp": "unknown",
+  "apps": [
+    {
+      "app_name": "All Usage",
+      "time_spent": "3h 44m",
+      "time_spent_minutes": 224
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "57m",
+      "time_spent_minutes": 57
+    },
+    {
+      "app_name": "Google - More ways to...",
+      "time_spent": "49m",
+      "time_spent_minutes": 49
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "com.burbn.instagram",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "com.apple.mobilenotes",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "NHS App",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Slack",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "com.nintendo.znca",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "MacOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_822zzDxIqddfDGU/iosScreenshot2_image.jpg",
+    "analysis_timestamp": "2025-09-01T13:45:46.993257",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

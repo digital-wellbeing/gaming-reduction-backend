@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-11",
+  "screenshot_timestamp": "12:04",
+  "apps": [
+    {
+      "app_name": "Train Miner",
+      "time_spent": "1h 44m",
+      "time_spent_minutes": 104
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "1h 29m",
+      "time_spent_minutes": 89
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 20m",
+      "time_spent_minutes": 80
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "36m",
+      "time_spent_minutes": 36
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Travel Town",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Rock N' Cash",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "OurGroceries",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "PeopleHR",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/1905721722/R_2s4FnXXxq0h7FCs/iosScreenshot1_IMG_5266.png",
+    "analysis_timestamp": "2025-09-01T13:36:09.974613",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

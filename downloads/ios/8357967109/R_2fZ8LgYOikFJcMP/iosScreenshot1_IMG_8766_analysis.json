@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-07",
+  "screenshot_timestamp": "17:30",
+  "apps": [
+    {
+      "app_name": "Maps",
+      "time_spent": "2h 30m",
+      "time_spent_minutes": 150
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "25m",
+      "time_spent_minutes": 25
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "chatgpt.com",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Twitch",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "59s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "ea.com",
+      "time_spent": "39s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Met Office",
+      "time_spent": "14s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "8s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "accounts.google.com",
+      "time_spent": "6s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "5s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "../../downloads/ios/8357967109/R_2fZ8LgYOikFJcMP/iosScreenshot1_IMG_8766.png",
+    "analysis_timestamp": "2025-09-01T15:39:02.636760",
+    "model_used": "gemini-2.0-flash",
+    "analysis_warnings": []
+  }
+}

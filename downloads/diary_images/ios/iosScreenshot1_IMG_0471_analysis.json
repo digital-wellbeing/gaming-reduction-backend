@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-30",
+  "screenshot_timestamp": "16:03",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "4h 15m",
+      "time_spent_minutes": 255
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "59m",
+      "time_spent_minutes": 59
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "56m",
+      "time_spent_minutes": 56
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "37m",
+      "time_spent_minutes": 37
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "34m",
+      "time_spent_minutes": 34
+    },
+    {
+      "app_name": "ra.co",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    },
+    {
+      "app_name": "first direct",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/5381621023/R_2sVuWt6JML6BLwZ/iosScreenshot1_IMG_0471.png",
+    "analysis_timestamp": "2025-09-01T12:35:58.745524",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

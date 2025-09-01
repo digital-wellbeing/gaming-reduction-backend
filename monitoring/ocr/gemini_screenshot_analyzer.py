@@ -13,6 +13,7 @@ import argparse
 import logging
 import warnings
 import re
+import time
 from pathlib import Path
 from typing import Dict, Any, Optional
 import base64
@@ -35,7 +36,7 @@ class ScreenshotAnalysisWarning(UserWarning):
 class GeminiScreenshotAnalyzer:
     """Analyzes screenshots using Gemini Flash OCR to extract app usage data"""
     
-    def __init__(self, api_key: str, model_name: str = 'gemini-2.0-flash-exp'):
+    def __init__(self, api_key: str, model_name: str = 'gemini-2.0-flash'):
         """Initialize the Gemini client with API key"""
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel(model_name)
@@ -280,8 +281,26 @@ def load_environment_variables():
 
 
 def process_single_image(analyzer: GeminiScreenshotAnalyzer, image_path: Path, 
-                        output_dir: Optional[Path] = None, save_json: bool = True) -> Optional[Dict[str, Any]]:
+                        output_dir: Optional[Path] = None, save_json: bool = True, 
+                        reprocess_existing: bool = False) -> Optional[Dict[str, Any]]:
     """Process a single image and save results"""
+    
+    # Check if analysis already exists (unless reprocessing is requested)
+    if save_json and not reprocess_existing:
+        if output_dir:
+            expected_output_file = output_dir / f"{image_path.stem}_analysis.json"
+        else:
+            expected_output_file = image_path.parent / f"{image_path.stem}_analysis.json"
+            
+        if expected_output_file.exists():
+            logging.info(f"Skipping (already analyzed): {image_path}")
+            # Load and return existing analysis
+            try:
+                with open(expected_output_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                logging.warning(f"Failed to load existing analysis for {image_path}: {e}. Reprocessing...")
+    
     logging.info(f"Analyzing: {image_path}")
     
     try:
@@ -326,7 +345,8 @@ def process_single_image(analyzer: GeminiScreenshotAnalyzer, image_path: Path,
 
 
 def process_directory(analyzer: GeminiScreenshotAnalyzer, input_dir: Path, 
-                     output_dir: Optional[Path] = None, save_json: bool = True) -> Dict[str, Any]:
+                     output_dir: Optional[Path] = None, save_json: bool = True, 
+                     reprocess_existing: bool = False) -> Dict[str, Any]:
     """Process all images in a directory"""
     # Find all image files
     image_extensions = {'.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff'}
@@ -343,7 +363,9 @@ def process_directory(analyzer: GeminiScreenshotAnalyzer, input_dir: Path,
     logging.info(f"Found {len(image_files)} image files to process")
     
     results = {
+        "total_found": len(image_files),
         "processed": 0,
+        "skipped": 0,
         "successful": 0, 
         "failed": 0,
         "warnings": 0,
@@ -351,13 +373,25 @@ def process_directory(analyzer: GeminiScreenshotAnalyzer, input_dir: Path,
     }
     
     for image_path in image_files:
-        results["processed"] += 1
+        # Check if file already exists before processing
+        was_skipped = False
+        if save_json and not reprocess_existing:
+            if output_dir:
+                expected_output_file = output_dir / f"{image_path.stem}_analysis.json"
+            else:
+                expected_output_file = image_path.parent / f"{image_path.stem}_analysis.json"
+            was_skipped = expected_output_file.exists()
         
-        result = process_single_image(analyzer, image_path, output_dir, save_json)
+        result = process_single_image(analyzer, image_path, output_dir, save_json, reprocess_existing)
         
         if result:
             results["successful"] += 1
             results["results"].append(result)
+            
+            if was_skipped:
+                results["skipped"] += 1
+            else:
+                results["processed"] += 1
             
             # Count warnings
             warnings_info = result.get('_metadata', {}).get('analysis_warnings', [])
@@ -410,9 +444,15 @@ def main():
     
     parser.add_argument(
         '--model',
-        default='gemini-2.0-flash-exp',
-        choices=['gemini-1.5-flash', 'gemini-2.0-flash-exp'],
-        help='Gemini model to use for analysis (default: gemini-2.0-flash-exp)'
+        default='gemini-2.0-flash',
+        choices=['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-2.0-flash-exp'],
+        help='Gemini model to use for analysis (default: gemini-2.0-flash)'
+    )
+    
+    parser.add_argument(
+        '--reprocess-existing',
+        action='store_true',
+        help='Reprocess images that already have analysis JSON files (default: skip existing)'
     )
     
     args = parser.parse_args()
@@ -438,7 +478,7 @@ def main():
         if input_path.is_file():
             # Process single file
             save_json = not args.no_save
-            result = process_single_image(analyzer, input_path, output_dir, save_json)
+            result = process_single_image(analyzer, input_path, output_dir, save_json, args.reprocess_existing)
             
             if result and args.pretty_print:
                 print(json.dumps(result, indent=2, ensure_ascii=False))
@@ -448,11 +488,13 @@ def main():
         elif input_path.is_dir():
             # Process directory
             save_json = not args.no_save
-            results = process_directory(analyzer, input_path, output_dir, save_json)
+            results = process_directory(analyzer, input_path, output_dir, save_json, args.reprocess_existing)
             
             # Print summary
             logging.info(f"\nProcessing Summary:")
-            logging.info(f"Total processed: {results['processed']}")
+            logging.info(f"Total found: {results['total_found']}")
+            logging.info(f"Skipped (already analyzed): {results['skipped']}")
+            logging.info(f"Newly processed: {results['processed']}")
             logging.info(f"Successful: {results['successful']}")
             logging.info(f"With warnings: {results['warnings']}")
             logging.info(f"Failed: {results['failed']}")

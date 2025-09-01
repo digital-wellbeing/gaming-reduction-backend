@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-02",
+  "screenshot_timestamp": "12:05",
+  "apps": [
+    {
+      "app_name": "YouTube",
+      "time_spent": "3h 2m",
+      "time_spent_minutes": 182
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 54m",
+      "time_spent_minutes": 114
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 9m",
+      "time_spent_minutes": 69
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "44m",
+      "time_spent_minutes": 44
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "33m",
+      "time_spent_minutes": 33
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "25m",
+      "time_spent_minutes": 25
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "edhrec.com",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "trolltradercards.com",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Google Drive – online backup",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/5381621023/R_2ZQabmb0V4LnMbo/iosScreenshot1_IMG_0485.png",
+    "analysis_timestamp": "2025-09-01T12:34:49.405531",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

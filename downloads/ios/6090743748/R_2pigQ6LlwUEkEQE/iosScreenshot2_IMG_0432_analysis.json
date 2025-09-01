@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-21",
+  "screenshot_timestamp": "10:05",
+  "apps": [
+    {
+      "app_name": "Productivity & Finance",
+      "time_spent": "1h 40m",
+      "time_spent_minutes": 100
+    },
+    {
+      "app_name": "Social",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Creativity",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Notability",
+      "time_spent": "1h 38m",
+      "time_spent_minutes": 98
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "45s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "FaceTime",
+      "time_spent": "3s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Camera",
+      "time_spent": "1s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for the day.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6090743748/R_2pigQ6LlwUEkEQE/iosScreenshot2_IMG_0432.png",
+    "analysis_timestamp": "2025-09-01T14:01:55.686373",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

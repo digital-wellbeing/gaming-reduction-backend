@@ -1,0 +1,130 @@
+{
+  "participant_id": "8357967109",
+  "report_timestamp": "2025-09-01T14:08:36.751668",
+  "device_types": {
+    "iphone": {
+      "daily_entries": [
+        {
+          "response_id": "R_8SBn3fq2JZ0cdq0",
+          "response_folder": "R_8SBn3fq2JZ0cdq0",
+          "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/8357967109/R_8SBn3fq2JZ0cdq0/iosScreenshot1_IMG_8748.png",
+          "screenshot_date": "2025-08-02",
+          "screenshot_date_based_on_upload": "2025-08-02",
+          "screenshot_timestamp": "12:04",
+          "device_type_confidence": 0.95,
+          "apps": [
+            {
+              "app_name": "Instagram",
+              "time_spent": "4h 25m",
+              "time_spent_minutes": 265
+            },
+            {
+              "app_name": "Maps",
+              "time_spent": "2h 36m",
+              "time_spent_minutes": 156
+            },
+            {
+              "app_name": "Threads",
+              "time_spent": "1h 10m",
+              "time_spent_minutes": 70
+            },
+            {
+              "app_name": "Messenger",
+              "time_spent": "1h 6m",
+              "time_spent_minutes": 66
+            },
+            {
+              "app_name": "Facebook",
+              "time_spent": "46m",
+              "time_spent_minutes": 46
+            },
+            {
+              "app_name": "Nationwide",
+              "time_spent": "43m",
+              "time_spent_minutes": 43
+            },
+            {
+              "app_name": "Uber Eats",
+              "time_spent": "41m",
+              "time_spent_minutes": 41
+            },
+            {
+              "app_name": "Monzo",
+              "time_spent": "12m",
+              "time_spent_minutes": 12
+            },
+            {
+              "app_name": "Messages",
+              "time_spent": "8m",
+              "time_spent_minutes": 8
+            },
+            {
+              "app_name": "Domino's",
+              "time_spent": "7m",
+              "time_spent_minutes": 7
+            },
+            {
+              "app_name": "Safari",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "Amazon",
+              "time_spent": "3m",
+              "time_spent_minutes": 3
+            },
+            {
+              "app_name": "KFC",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            },
+            {
+              "app_name": "oii.qualtrics.com",
+              "time_spent": "2m",
+              "time_spent_minutes": 2
+            }
+          ],
+          "total_apps": 14,
+          "total_time_minutes": 724,
+          "analysis_warnings": 0,
+          "warning_details": [],
+          "date_normalized_to_2025": false
+        }
+      ],
+      "total_entries": 1,
+      "total_apps_detected": 14,
+      "unique_apps": [
+        "Amazon",
+        "Domino's",
+        "Facebook",
+        "Instagram",
+        "KFC",
+        "Maps",
+        "Messages",
+        "Messenger",
+        "Monzo",
+        "Nationwide",
+        "Safari",
+        "Threads",
+        "Uber Eats",
+        "oii.qualtrics.com"
+      ],
+      "confidence_scores": [
+        0.95
+      ],
+      "unique_apps_count": 14,
+      "average_confidence": 0.95,
+      "total_time_minutes": 724
+    }
+  },
+  "total_daily_entries": 1,
+  "date_range": {
+    "earliest": "2025-08-02",
+    "latest": "2025-08-02"
+  },
+  "processing_summary": {
+    "total_json_files_found": 1,
+    "successfully_parsed": 1,
+    "parsing_errors": []
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-28",
+  "screenshot_timestamp": "16:55",
+  "apps": [
+    {
+      "app_name": "Messenger",
+      "time_spent": "3h 9m",
+      "time_spent_minutes": 189
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 52m",
+      "time_spent_minutes": 112
+    },
+    {
+      "app_name": "Google Calendar",
+      "time_spent": "21m",
+      "time_spent_minutes": 21
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Tesco",
+      "time_spent": "17m",
+      "time_spent_minutes": 17
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "sportsdirect.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": "45s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Steam",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/8357967109/R_8m9wQX1GB1YDTgJ/iosScreenshot1_IMG_8664.png",
+    "analysis_timestamp": "2025-09-01T12:26:01.972939",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

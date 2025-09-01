@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-12",
+  "screenshot_timestamp": "12:37",
+  "apps": [
+    {
+      "app_name": "com.lumivero.nvivo-15",
+      "time_spent": "1h 38m",
+      "time_spent_minutes": 98
+    },
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "1h 3m",
+      "time_spent_minutes": 63
+    },
+    {
+      "app_name": "Microsoft Excel",
+      "time_spent": "35m",
+      "time_spent_minutes": 35
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "Microsoft Word",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "YouTube: Watch, Listen, Stre...",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "bbc.co.uk",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "emp.bbc.co.uk",
+      "time_spent": "41s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for a MacBook Air",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/3236077775/R_2frvI6J8RNQodIl/iosScreenshot2_IMG_3574.png",
+    "analysis_timestamp": "2025-09-01T12:16:23.949970",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

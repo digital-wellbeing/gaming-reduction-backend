@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-25",
+  "screenshot_timestamp": "18:08",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 44m",
+      "time_spent_minutes": 104
+    },
+    {
+      "app_name": "Pinterest",
+      "time_spent": "38m",
+      "time_spent_minutes": 38
+    },
+    {
+      "app_name": "kwestiasmaku.com",
+      "time_spent": "23m",
+      "time_spent_minutes": 23
+    },
+    {
+      "app_name": "The Guardian - Live World N...",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "survey2.yougov.com",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "kerincunningham.com",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_2OE3epXE19lNRBL/iosScreenshot1_IMG_4750.png",
+    "analysis_timestamp": "2025-09-01T13:51:20.168971",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

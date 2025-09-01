@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-27",
+  "screenshot_timestamp": "19:43",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "3h 48m",
+      "time_spent_minutes": 228
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "2h 15m",
+      "time_spent_minutes": 135
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 27m",
+      "time_spent_minutes": 87
+    },
+    {
+      "app_name": "Files",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "PS App",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Maps",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Suica",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Amex UK",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_8LjKLX0OYNM5qxl/iosScreenshot1_IMG_2873.png",
+    "analysis_timestamp": "2025-09-01T13:57:41.673053",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

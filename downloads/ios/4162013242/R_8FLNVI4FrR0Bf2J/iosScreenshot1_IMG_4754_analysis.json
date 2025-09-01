@@ -1,0 +1,60 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-26",
+  "screenshot_timestamp": "12:48",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 35m",
+      "time_spent_minutes": 95
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "31m",
+      "time_spent_minutes": 31
+    },
+    {
+      "app_name": "TrainPal",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "15m",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "book.nationalexpress.com",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8FLNVI4FrR0Bf2J/iosScreenshot1_IMG_4754.png",
+    "analysis_timestamp": "2025-09-01T13:49:14.601905",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

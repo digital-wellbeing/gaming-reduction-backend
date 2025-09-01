@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-12",
+  "screenshot_timestamp": "13:51",
+  "apps": [
+    {
+      "app_name": "Pinterest",
+      "time_spent": "46m",
+      "time_spent_minutes": 46
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "42m",
+      "time_spent_minutes": 42
+    },
+    {
+      "app_name": "TrainPal",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "29m",
+      "time_spent_minutes": 29
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "24m",
+      "time_spent_minutes": 24
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Outlook",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "camerich.co.uk",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for a day.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_81QRKV9dmjMQ5Qs/iosScreenshot1_IMG_4640.png",
+    "analysis_timestamp": "2025-09-01T13:49:46.969125",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

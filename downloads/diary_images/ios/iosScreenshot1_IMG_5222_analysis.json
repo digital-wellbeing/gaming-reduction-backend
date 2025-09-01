@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-05",
+  "screenshot_timestamp": "12:10",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "1h 28m",
+      "time_spent_minutes": 88
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "1h 4m",
+      "time_spent_minutes": 64
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "44m",
+      "time_spent_minutes": 44
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "MileIQ",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "46s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "40s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "25s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "YouTube Music",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage for a specific day.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/1905721722/R_83mMNpfxDDpmZup/iosScreenshot1_IMG_5222.png",
+    "analysis_timestamp": "2025-09-01T12:21:52.842723",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

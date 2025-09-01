@@ -1,0 +1,25 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-30",
+  "screenshot_timestamp": "17:16",
+  "apps": [
+    {
+      "app_name": "Mail",
+      "time_spent": "48s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "1",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS screen showing usage report for the Mail app. Showing usage pickups and notifications for a specific date.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/3236077775/R_2AKJSPOFuWfFWnV/iosScreenshot2_IMG_3864.png",
+    "analysis_timestamp": "2025-09-01T13:45:06.503158",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

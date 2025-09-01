@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-15",
+  "screenshot_timestamp": "18:30",
+  "apps": [
+    {
+      "app_name": "Google Chrome",
+      "time_spent": "39m",
+      "time_spent_minutes": 39
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "38m",
+      "time_spent_minutes": 38
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "28m",
+      "time_spent_minutes": 28
+    },
+    {
+      "app_name": "Notion",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Zoom Workplace",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "com.apple.QuickTimePlayerX",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Microsoft PowerPoint",
+      "time_spent": "57s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.finder",
+      "time_spent": "54s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "com.apple.systempreferences",
+      "time_spent": "12s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Word",
+      "time_spent": "6s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Preview",
+      "time_spent": "2s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "0s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for Tyra's MacBook Air",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/3236077775/R_839Yzm8ImXIqMA6/iosScreenshot2_IMG_3620.png",
+    "analysis_timestamp": "2025-09-01T12:14:44.506832",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

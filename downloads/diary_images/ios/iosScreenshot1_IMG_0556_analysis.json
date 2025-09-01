@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-08",
+  "screenshot_timestamp": "12:18",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "2h 28m",
+      "time_spent_minutes": 148
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "2h 8m",
+      "time_spent_minutes": 128
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 22m",
+      "time_spent_minutes": 82
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 3m",
+      "time_spent_minutes": 63
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "56m",
+      "time_spent_minutes": 56
+    },
+    {
+      "app_name": "NHS App",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    },
+    {
+      "app_name": "google.com",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "NatWest",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "Trainline",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "onlinebanking.natwest.com",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Vinted",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/5381621023/R_2CPaHtSXMuu5eMp/iosScreenshot1_IMG_0556.png",
+    "analysis_timestamp": "2025-09-01T12:36:08.448222",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

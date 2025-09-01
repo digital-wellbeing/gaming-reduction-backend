@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-06",
+  "screenshot_timestamp": "23:13",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "3h 28m",
+      "time_spent_minutes": 208
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "1h 50m",
+      "time_spent_minutes": 110
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "1h 6m",
+      "time_spent_minutes": 66
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "50m",
+      "time_spent_minutes": 50
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "44m",
+      "time_spent_minutes": 44
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Starling",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Rightmove",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "mini-tud.netlify.app",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Spotify",
+      "time_spent": "50s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5381621023/R_2h2ARXOoHV0kaGZ/iosScreenshot1_IMG_0529.png",
+    "analysis_timestamp": "2025-09-01T13:54:20.984024",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

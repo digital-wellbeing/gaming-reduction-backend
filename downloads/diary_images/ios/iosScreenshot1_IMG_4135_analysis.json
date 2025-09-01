@@ -1,0 +1,55 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-08",
+  "screenshot_timestamp": "00:23",
+  "apps": [
+    {
+      "app_name": "Instagram",
+      "time_spent": "15 min",
+      "time_spent_minutes": 15
+    },
+    {
+      "app_name": "Safari",
+      "time_spent": "3h 54m",
+      "time_spent_minutes": 234
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "2h 4m",
+      "time_spent_minutes": 124
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 49m",
+      "time_spent_minutes": 109
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "1h 21m",
+      "time_spent_minutes": 81
+    },
+    {
+      "app_name": "faithinactionba.org",
+      "time_spent": "59m",
+      "time_spent_minutes": 59
+    },
+    {
+      "app_name": "fanfiction.net",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/6090743748/R_2JW1lsYNziJequj/iosScreenshot1_IMG_4135.png",
+    "analysis_timestamp": "2025-09-01T12:31:02.175666",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

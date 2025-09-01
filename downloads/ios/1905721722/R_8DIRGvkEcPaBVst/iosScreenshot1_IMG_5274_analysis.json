@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-07-14",
+  "screenshot_timestamp": "12:57",
+  "apps": [
+    {
+      "app_name": "Travel Town",
+      "time_spent": "1h 23m",
+      "time_spent_minutes": 83
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "1h 18m",
+      "time_spent_minutes": 78
+    },
+    {
+      "app_name": "Train Miner",
+      "time_spent": "1h 9m",
+      "time_spent_minutes": 69
+    },
+    {
+      "app_name": "Coin Master",
+      "time_spent": "1h 1m",
+      "time_spent_minutes": 61
+    },
+    {
+      "app_name": "Clock",
+      "time_spent": "33m",
+      "time_spent_minutes": 33
+    },
+    {
+      "app_name": "Reminders",
+      "time_spent": "33m",
+      "time_spent_minutes": 33
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "16m",
+      "time_spent_minutes": 16
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "2m",
+      "time_spent_minutes": 2
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Instagram",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Microsoft Authenticator",
+      "time_spent": "42s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Amazon",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/1905721722/R_8DIRGvkEcPaBVst/iosScreenshot1_IMG_5274.png",
+    "analysis_timestamp": "2025-09-01T13:35:50.483492",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

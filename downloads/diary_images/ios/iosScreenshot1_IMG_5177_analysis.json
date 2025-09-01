@@ -1,0 +1,85 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-06-27",
+  "screenshot_timestamp": "16:33",
+  "apps": [
+    {
+      "app_name": "The Office: Somehow We Mana...",
+      "time_spent": "10h 13m",
+      "time_spent_minutes": 613
+    },
+    {
+      "app_name": "Chrome",
+      "time_spent": "3h 6m",
+      "time_spent_minutes": 186
+    },
+    {
+      "app_name": "Solitaire",
+      "time_spent": "1h 10m",
+      "time_spent_minutes": 70
+    },
+    {
+      "app_name": "Telegram",
+      "time_spent": "54m",
+      "time_spent_minutes": 54
+    },
+    {
+      "app_name": "Macadam",
+      "time_spent": "30m",
+      "time_spent_minutes": 30
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "18m",
+      "time_spent_minutes": 18
+    },
+    {
+      "app_name": "Two Dots",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Google Maps",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "Clock",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "4m",
+      "time_spent_minutes": 4
+    },
+    {
+      "app_name": "Duolingo",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "OurGroceries",
+      "time_spent": "3m",
+      "time_spent_minutes": 3
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Phone",
+      "time_spent": null,
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report for 'Yesterday'",
+  "_metadata": {
+    "source_image": "../../downloads/diary_images/ios/1905721722/R_21bVv3t0Hg1VTZy/iosScreenshot1_IMG_5177.png",
+    "analysis_timestamp": "2025-09-01T12:22:43.572521",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

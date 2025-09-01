@@ -1,0 +1,65 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-15",
+  "screenshot_timestamp": "20:38",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "1h 13m",
+      "time_spent_minutes": 73
+    },
+    {
+      "app_name": "Pinterest",
+      "time_spent": "1h 2m",
+      "time_spent_minutes": 62
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "45m",
+      "time_spent_minutes": 45
+    },
+    {
+      "app_name": "Ticketmaster",
+      "time_spent": "27m",
+      "time_spent_minutes": 27
+    },
+    {
+      "app_name": "Messenger",
+      "time_spent": "26m",
+      "time_spent_minutes": 26
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "19m",
+      "time_spent_minutes": 19
+    },
+    {
+      "app_name": "Facebook",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "oii.qualtrics.com",
+      "time_spent": "11m",
+      "time_spent_minutes": 11
+    },
+    {
+      "app_name": "seetickets.com",
+      "time_spent": "8m",
+      "time_spent_minutes": 8
+    },
+    {
+      "app_name": "eBay marketplace: shopping...",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/4162013242/R_8mdZjQRX5Zen0YW/iosScreenshot1_IMG_4662.png",
+    "analysis_timestamp": "2025-09-01T13:49:07.322090",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

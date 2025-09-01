@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-05-20",
+  "screenshot_timestamp": "22:04",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "2h 17m",
+      "time_spent_minutes": 137
+    },
+    {
+      "app_name": "archiveofourown.org",
+      "time_spent": "1h 13m",
+      "time_spent_minutes": 73
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "32m",
+      "time_spent_minutes": 32
+    },
+    {
+      "app_name": "startpage.com",
+      "time_spent": "22m",
+      "time_spent_minutes": 22
+    },
+    {
+      "app_name": "passmedicine.com",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "14m",
+      "time_spent_minutes": 14
+    },
+    {
+      "app_name": "YouTube",
+      "time_spent": "13m",
+      "time_spent_minutes": 13
+    },
+    {
+      "app_name": "Wikipedia",
+      "time_spent": "12m",
+      "time_spent_minutes": 12
+    },
+    {
+      "app_name": "Mail",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "IMDb: Movies & TV Shows",
+      "time_spent": "7m",
+      "time_spent_minutes": 7
+    },
+    {
+      "app_name": "App Store",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    },
+    {
+      "app_name": "Discord",
+      "time_spent": "6m",
+      "time_spent_minutes": 6
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report, showing time spent in apps.",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/6090743748/R_2pigQ6LlwUEkEQE/iosScreenshot1_IMG_3719.png",
+    "analysis_timestamp": "2025-09-01T14:01:45.861144",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}

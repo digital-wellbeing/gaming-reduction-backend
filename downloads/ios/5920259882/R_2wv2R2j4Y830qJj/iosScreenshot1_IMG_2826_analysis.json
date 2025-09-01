@@ -1,0 +1,75 @@
+{
+  "device_type": "iphone",
+  "device_type_confidence": 0.95,
+  "date_of_screenshot": "2025-08-12",
+  "screenshot_timestamp": "14:40",
+  "apps": [
+    {
+      "app_name": "Safari",
+      "time_spent": "42m",
+      "time_spent_minutes": 42
+    },
+    {
+      "app_name": "Reddit",
+      "time_spent": "20m",
+      "time_spent_minutes": 20
+    },
+    {
+      "app_name": "AuthKitUIService",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "User Authentication",
+      "time_spent": "10m",
+      "time_spent_minutes": 10
+    },
+    {
+      "app_name": "Teams",
+      "time_spent": "9m",
+      "time_spent_minutes": 9
+    },
+    {
+      "app_name": "WhatsApp",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Photos",
+      "time_spent": "5m",
+      "time_spent_minutes": 5
+    },
+    {
+      "app_name": "Gmail",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Messages",
+      "time_spent": "1m",
+      "time_spent_minutes": 1
+    },
+    {
+      "app_name": "Settings",
+      "time_spent": "52s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "Hue",
+      "time_spent": "14s",
+      "time_spent_minutes": 0
+    },
+    {
+      "app_name": "PS App",
+      "time_spent": "12s",
+      "time_spent_minutes": 0
+    }
+  ],
+  "analysis_notes": "iOS Screen Time report showing app usage",
+  "_metadata": {
+    "source_image": "/home/tamas.foldes/Development/Projects/gaming-reduction-backend/downloads/ios/5920259882/R_2wv2R2j4Y830qJj/iosScreenshot1_IMG_2826.png",
+    "analysis_timestamp": "2025-09-01T13:55:29.024831",
+    "model_used": "gemini-2.0-flash-exp",
+    "analysis_warnings": []
+  }
+}
