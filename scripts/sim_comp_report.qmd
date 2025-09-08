@@ -66,7 +66,7 @@ if (!all(loaded_core)) {
 }
 
 # Load optional packages (nice to have but not critical)
-optional_packages <- c("ggtern", "progress", "patchwork", "foreach", "doSNOW", "doParallel", "DT", "ggtext", "ggraph")
+optional_packages <- c("ggtern", "progress", "patchwork", "foreach", "doSNOW", "doParallel", "DT", "ggtext", "ggraph", "kableExtra")
 message("Loading optional packages...")
 loaded_optional <- sapply(optional_packages, load_package_safely)
 message("Optional packages loaded: ", paste(optional_packages[loaded_optional], collapse = ", "))
@@ -259,14 +259,6 @@ These variability levels correspond to different types of lifestyle patterns:
 
 - **SD = 0.4 (Highly Variable)**: Irregular schedule or lifestyle - shift work, freelancing, frequent travel, or major day-to-day routine differences. Can vary by ±60-80 minutes daily.
 
-### Impact on Study Power
-
-Higher within-subject variability **reduces** power because:
-1. **Noise obscures signal**: More day-to-day variation makes it harder to detect true intervention effects
-2. **Measurement precision**: Greater variability around each person's "true" behavior level adds noise
-3. **Effect detectability**: Small but real intervention effects can be masked by high natural variation
-
-This is why the power analysis shows that studies with participants who have very consistent routines (low SD) are more likely to detect intervention effects than studies with highly variable participants.
 
 ## Simulation Engine
 
@@ -977,214 +969,182 @@ if(all(all_high_validity == total_rows)) {
 }
 
 message("\n" , paste(rep("=", 60), collapse=""))
+```
 
 ### Simulate study
 
-```{r sample_study}
-# Updated generate_data function with compliance
+```{r sample_study, message=FALSE, warning=FALSE}
+# ---- 1. Load / install required packages ----
+required_pkgs <- c("tidyverse", "MASS", "compositions", "extraDistr")
+for (p in required_pkgs) {
+  if (!requireNamespace(p, quietly = TRUE)) {
+    install.packages(p, repos = "https://cloud.r-project.org")
+  }
+  library(p, character.only = TRUE)
+}
+
+# ---- 2. Helper conversion functions (define if absent) ----
+if (!exists("comp_to_ilr", mode = "function")) {
+  comp_to_ilr <- function(x_min) {
+    stopifnot(is.matrix(x_min), ncol(x_min) == 3)
+    bad_row <- !is.finite(rowSums(x_min)) | rowSums(x_min) <= 0
+    if (any(bad_row)) {
+      x_min[bad_row, ] <- matrix(rep(c(600, 480, 360), each = sum(bad_row)),
+                                 ncol = 3, byrow = TRUE)
+    }
+    x_min[x_min <= 0 | !is.finite(x_min)] <- 1e-6
+    compositions::ilr(sweep(x_min, 1, rowSums(x_min), "/"))
+  }
+}
+
+if (!exists("ilr_to_minutes", mode = "function")) {
+  ilr_to_minutes <- function(ilr_mat, total = 1440) {
+    stopifnot(is.matrix(ilr_mat), ncol(ilr_mat) == 2)
+    prop <- as.matrix(compositions::ilrInv(ilr_mat))
+    bad <- apply(prop, 1, function(r) any(!is.finite(r) | r <= 0) ||
+                                   !is.finite(sum(r)) || abs(sum(r) - 1) > 1e-8)
+    if (any(bad)) prop[bad, ] <- 1/3
+    round(prop * total, 1)
+  }
+}
+
+# ---- 3. Data-generation function with compliance modelling ----
 generate_data <- function(n_pg, effect_min, baseline_days, intervention_days,
                           s_between, s_within, seed = NULL) {
-
   if (!is.null(seed)) set.seed(seed)
-
   N   <- n_pg * 2
-  grp <- rep(0:1, each = n_pg)              # 0 = Control, 1 = Intervention
+  grp <- rep(0:1, each = n_pg)          # 0 = Control, 1 = Intervention
 
-  # Mean daily compositions: (sedentary, sleep, physical)
+  # Mean daily compositions (sedentary, sleep, physical)
   base_comp   <- c(600, 480, 360)
   active_comp <- c(600 - effect_min, 480, 360 + effect_min)
 
-  # Person‑level random effects in ILR space
+  # Person-level random effects in ILR space
   b_ilr <- MASS::mvrnorm(N, mu = c(0, 0), Sigma = diag(s_between^2, 2))
 
-  # Person-specific playtime proportion of sedentary time (10-40%)
-  personal_play_prop <- sapply(1:N, function(i) {
-    p <- rbeta(1, 2, 5) * 0.3 + 0.1  # right-skew between 0.1-0.4
-    return(p)
-  })
+  # Person-specific playtime proportion of sedentary time (10–40%)
+  personal_play_prop <- rbeta(N, 2, 5) * 0.3 + 0.1
 
-  # Person-specific compliance rates for intervention group (60-95%)
-  # Control group gets compliance = 1 (no intervention to comply with)
-  personal_compliance <- sapply(1:N, function(i) {
-    if (grp[i] == 0) {
-      return(1.0)  # Control group - no intervention
-    } else {
-      # Intervention group: Beta distribution shifted to 60-95% range
-      # Beta(2,2) gives symmetric distribution, shifted to [0.6, 0.95]
-      compliance <- rbeta(1, 2, 2) * 0.35 + 0.6
-      return(compliance)
-    }
-  })
-  
-  # Daily compliance variation using Kumaraswamy distribution
-  # This adds day-to-day variation in compliance within each person
+  # Person-specific compliance (intervention only)
+  personal_compliance <- ifelse(
+    grp == 0, 1,
+    rbeta(N, 2, 2) * 0.35 + 0.6
+  )
+
+  # Helper: daily compliance variation
   daily_compliance_variation <- function(n_days, base_compliance) {
-    # Use Kumaraswamy distribution to add daily variation
-    # Parameters chosen to create realistic daily fluctuations around base compliance
-    daily_factors <- extraDistr::rkumar(n_days, a = 0.05, b = 0.1)
-    # Scale the factors to create variation around base compliance
-    # This creates realistic day-to-day variation in compliance behavior
-    pmax(0, pmin(1, base_compliance * (0.8 + 0.4 * daily_factors)))
+    pmax(0, pmin(1, base_compliance * (0.8 + 0.4 *
+           extraDistr::rkumar(n_days, a = 0.05, b = 0.1))))
   }
 
-  # Containers
+  # Storage
   all_ids <- all_periods <- all_days <- NULL
-  all_ilr <- matrix(, 0, 2)
-  all_sedentary <- numeric()  # Store actual sedentary minutes
+  all_ilr <- matrix(0, 0, 2)
+  playmin <- numeric()
 
+  # Loop over people & periods
   for (i in seq_len(N)) {
     for (period in c("baseline", "intervention")) {
       ndays   <- if (period == "baseline") baseline_days else intervention_days
       comp_mu <- if (period == "baseline" || grp[i] == 0) base_comp else active_comp
 
       comp_ilr <- comp_to_ilr(matrix(rep(comp_mu, ndays), ncol = 3, byrow = TRUE))
-      comp_ilr <- sweep(comp_ilr, 2, b_ilr[i, ], "+")               # add person RE
+      comp_ilr <- sweep(comp_ilr, 2, b_ilr[i, ], "+")
       day_ilr  <- comp_ilr + MASS::mvrnorm(ndays, mu = c(0, 0),
-                                            Sigma = diag(s_within^2, 2))
-
-      # Index bookkeeping
+                                           Sigma = diag(s_within^2, 2))
       all_ids     <- c(all_ids, rep(i, ndays))
       all_periods <- c(all_periods, rep(period, ndays))
       all_days    <- c(all_days,
-                        if (period == "baseline") seq_len(baseline_days)
-                        else baseline_days + seq_len(intervention_days))
+                       if (period == "baseline") seq_len(baseline_days)
+                       else baseline_days + seq_len(intervention_days))
       all_ilr     <- rbind(all_ilr, day_ilr)
-      
-      # Store sedentary minutes for this person-period (will be calculated after ILR transformation)
-      # We'll calculate playtime after we have the actual sedentary minutes
     }
   }
 
-  # Back‑transform ILR → minutes and calculate playtime based on actual sedentary behavior
+  # Convert ILR → minutes
   mins <- ilr_to_minutes(all_ilr)
   colnames(mins) <- c("sedentary", "sleep", "physical")
-  
-  # Now generate playtime based on actual sedentary minutes
-  playmin <- numeric(length(all_ids))
-  
-  # Pre-generate daily compliance for each person during intervention period
-  daily_compliance <- list()
-  for (person_id in 1:N) {
-    if (grp[person_id] == 1) {  # Intervention group
-      daily_compliance[[person_id]] <- daily_compliance_variation(
-        intervention_days, 
-        personal_compliance[person_id]
-      )
-    } else {
-      daily_compliance[[person_id]] <- rep(1.0, intervention_days)  # Control group
-    }
-  }
-  
-  # Track intervention day counter for each person
+
+  # Prepare daily compliance per participant
+  daily_compliance <- lapply(seq_len(N), function(pid) {
+    if (grp[pid] == 0) rep(1, intervention_days)
+    else daily_compliance_variation(intervention_days, personal_compliance[pid])
+  })
+
   intervention_day_counter <- rep(0, N)
-  
-  for (i in seq_along(all_ids)) {
-    person_id <- all_ids[i]
-    period <- all_periods[i]
-    actual_sedentary <- mins[i, "sedentary"]
-    
-    # Base playtime as proportion of actual sedentary time
-    base_playtime <- personal_play_prop[person_id] * actual_sedentary
-    
-    # Add small amount of day-to-day noise (2% of base playtime)
-    daily_sd <- 0.02 * base_playtime
-    noisy_playtime <- rnorm(1, base_playtime, daily_sd)
-    
-    # Apply intervention effect for intervention group during intervention period
-    if (period == "intervention" && grp[person_id] == 1) {
-      # Increment intervention day counter for this person
-      intervention_day_counter[person_id] <- intervention_day_counter[person_id] + 1
-      
-      # Get daily compliance for this person and day
-      daily_compliance_rate <- daily_compliance[[person_id]][intervention_day_counter[person_id]]
-      
-      # Reduce playtime by effect_min * daily compliance rate
-      # Perfect compliance = full effect_min reduction
-      # Partial compliance = proportional reduction
-      actual_reduction <- effect_min * daily_compliance_rate
-      intervention_playtime <- pmax(0, noisy_playtime - actual_reduction)
-      playmin[i] <- intervention_playtime
+  for (row in seq_along(all_ids)) {
+    pid   <- all_ids[row]
+    period <- all_periods[row]
+
+    base_playtime   <- personal_play_prop[pid] * mins[row, "sedentary"]
+    noisy_playtime  <- rnorm(1, base_playtime, 0.02 * base_playtime)
+
+    if (period == "intervention" && grp[pid] == 1) {
+      intervention_day_counter[pid] <- intervention_day_counter[pid] + 1
+      daily_c <- daily_compliance[[pid]][intervention_day_counter[pid]]
+      playmin[row] <- pmax(0, noisy_playtime - effect_min * daily_c)
     } else {
-      # Control group or baseline period: just use the playtime based on actual sedentary
-      playmin[i] <- pmax(0, noisy_playtime)  # Ensure non-negative
+      playmin[row] <- pmax(0, noisy_playtime)
     }
   }
 
-  # Create daily compliance values for the dataset
-  daily_compliance_values <- numeric(length(all_ids))
+  # Align daily compliance to rows
   intervention_day_counter <- rep(0, N)
-  
-  for (i in seq_along(all_ids)) {
-    person_id <- all_ids[i]
-    period <- all_periods[i]
-    
-    if (period == "intervention" && grp[person_id] == 1) {
-      intervention_day_counter[person_id] <- intervention_day_counter[person_id] + 1
-      daily_compliance_values[i] <- daily_compliance[[person_id]][intervention_day_counter[person_id]]
-    } else {
-      daily_compliance_values[i] <- personal_compliance[person_id]
-    }
-  }
-  
-  # Assemble data frame
-  dat <- data.frame(
-    id        = factor(all_ids),
-    group     = factor(grp[all_ids], labels = c("Control", "Abstinence")),
-    period    = factor(all_periods, levels = c("baseline", "intervention")),
-    day       = all_days,
-    sedentary = mins[, 1],
-    sleep     = mins[, 2],
-    physical  = mins[, 3],
-    playtime  = playmin,
-    compliance = daily_compliance_values,  # Add daily compliance to dataset
-    base_compliance = personal_compliance[all_ids]  # Add base person-level compliance
-  )
+  daily_comp_rows <- mapply(function(pid, per) {
+    if (per == "intervention" && grp[pid] == 1) {
+      intervention_day_counter[pid] <<- intervention_day_counter[pid] + 1
+      daily_compliance[[pid]][intervention_day_counter[pid]]
+    } else personal_compliance[pid]
+  }, all_ids, all_periods)
 
-  dat <- dat %>%
+  tibble(
+    id         = factor(all_ids),
+    group      = factor(grp[all_ids], labels = c("Control", "Abstinence")),
+    period     = factor(all_periods, levels = c("baseline", "intervention")),
+    day        = all_days,
+    sedentary  = mins[, 1],
+    sleep      = mins[, 2],
+    physical   = mins[, 3],
+    playtime   = playmin,
+    compliance = daily_comp_rows
+  ) %>%
     group_by(id) %>%
     mutate(
-      base_play_mean      = mean(playtime[period == "baseline"]),
-      playtime_reduction  = base_play_mean - playtime,
-      intervention_active = as.integer(group == "Abstinence" & period == "intervention"),
-      # Calculate actual compliance as proportion of intended reduction achieved
-      intended_reduction  = ifelse(group == "Abstinence" & period == "intervention", effect_min, 0),
-      actual_compliance   = ifelse(intended_reduction > 0, 
-                                 pmin(1, playtime_reduction / intended_reduction), 
-                                 compliance)
+      base_play_mean     = mean(playtime[period == "baseline"]),
+      playtime_reduction = base_play_mean - playtime,
+      intended_reduction = if_else(group == "Abstinence" & period == "intervention",
+                                   effect_min, 0),
+      actual_compliance  = if_else(intended_reduction > 0,
+                                   pmin(1, playtime_reduction / intended_reduction),
+                                   compliance)
     ) %>%
     ungroup()
-
-  return(dat)
 }
-# Generate sample data with moderate effect size
+
+# ---- 4. Run a demo simulation ----
 set.seed(123)
 sample_data <- generate_data(
-  n_pg = 40,              # 40 participants per group
-  effect_min = 60,         
-  baseline_days = 7,      # 7 days baseline
-  intervention_days = 14, # 14 days intervention
-  s_between = 0.3,        # moderate between-subject variability
-  s_within = 0.2,         # moderate within-subject variability
-  seed = 123
+  n_pg             = 40,
+  effect_min       = 60,
+  baseline_days    = 7,
+  intervention_days = 14,
+  s_between        = 0.3,
+  s_within         = 0.2
 )
 
-# Check the structure of the generated data
 glimpse(sample_data)
 
-# Show compliance distribution in intervention group
-compliance_summary <- sample_data %>%
+# Quick compliance summary
+sample_data %>%
   filter(group == "Abstinence", period == "intervention") %>%
   distinct(id, compliance) %>%
   summarise(
-    n = n(),
+    n               = n(),
     mean_compliance = mean(compliance),
-    sd_compliance = sd(compliance),
-    min_compliance = min(compliance),
-    max_compliance = max(compliance)
+    sd_compliance   = sd(compliance),
+    min_compliance  = min(compliance),
+    max_compliance  = max(compliance)
   )
-
-print("Compliance Summary for Intervention Group:")
-print(compliance_summary)
 ```
 
 ```{r longitudinal_plots}
@@ -1192,9 +1152,9 @@ print(compliance_summary)
 daily_composition_means <- sample_data %>%
   group_by(group, period, day) %>%
   summarise(
-    sedentary_mean = mean(sedentary),
-    sleep_mean = mean(sleep),
-    physical_mean = mean(physical),
+    sedentary_mean = mean(sedentary, na.rm = TRUE),
+    sleep_mean = mean(sleep, na.rm = TRUE),
+    physical_mean = mean(physical, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   pivot_longer(
@@ -1245,8 +1205,8 @@ print(composition_longitudinal)
 daily_playtime_means <- sample_data %>%
   group_by(group, period, day) %>%
   summarise(
-    playtime_mean = mean(playtime),
-    playtime_se = sd(playtime) / sqrt(n()),
+    playtime_mean = mean(playtime, na.rm = TRUE),
+    playtime_se = sd(playtime, na.rm = TRUE) / sqrt(sum(!is.na(playtime))),
     .groups = "drop"
   )
 
@@ -1402,7 +1362,7 @@ knitr::kable(
 
 ```{r power_analysis_extended, eval=TRUE}
 # Load the results from the SimEngine power analysis
-load("scripts/sim_comp_debug/power_sim_results_20250722_223508.RData")
+load("scripts/sim_comp_debug/power_sim_results_20250906_224427.RData")
 
 # Get the power summary data frame
 power_results_multi <- result$power_summary
@@ -1592,6 +1552,413 @@ The two per-protocol approaches test subtly different hypotheses:
 
 **Impact**: The robust approach's power is severely underestimated in these results. When correctly interpreted, it likely has similar or higher power than the change score approach, as it avoids potential regression-to-the-mean issues inherent in change scores.
 :::
+
+## Minimum Detectable Effect Sizes at 80% Power
+
+This section analyzes the minimum detectable effect sizes (MDEs) at 80% power for different models and variability parameters, helping identify optimal study design configurations.
+
+### ITT Effects - Minimum Detectable Effect Sizes
+
+```{r}
+#| label: itt-power-table
+#| code-summary: "Show code (ITT minimum detectable effects table)"
+
+# Function to interpolate minimum detectable effect at 80% power
+find_mde_80 <- function(power_data) {
+  # If we already have 80% power or higher at the smallest effect, return that
+  if (min(power_data$power_interaction, na.rm = TRUE) >= 0.8) {
+    return(min(power_data$effect_min, na.rm = TRUE))
+  }
+  
+  # If we never reach 80% power, return NA
+  if (max(power_data$power_interaction, na.rm = TRUE) < 0.8) {
+    return(NA_real_)
+  }
+  
+  # Linear interpolation to find effect size at 80% power
+  approx(x = power_data$power_interaction, y = power_data$effect_min, xout = 0.8)$y
+}
+
+# Calculate minimum detectable effects for ITT across different variability settings
+mde_table_itt <- power_results_multi %>%
+  group_by(s_between, s_within) %>%
+  summarise(
+    mde_80_itt = find_mde_80(cur_data()),
+    max_power_itt = max(power_interaction, na.rm = TRUE),
+    mean_power_itt = mean(power_interaction, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(s_between, s_within) %>%
+  mutate(
+    # Format effect sizes for display
+    mde_80_itt_fmt = ifelse(is.na(mde_80_itt), 
+                           paste0(">", max(power_results_multi$effect_min)), 
+                           sprintf("%.0f", mde_80_itt)),
+    max_power_itt_fmt = sprintf("%.1f%%", max_power_itt * 100),
+    mean_power_itt_fmt = sprintf("%.1f%%", mean_power_itt * 100),
+    # Create combined variability label for easier interpretation
+    variability_profile = case_when(
+      s_between <= 0.15 & s_within <= 0.20 ~ "Low variability (consistent participants)",
+      s_between <= 0.15 & s_within > 0.20 ~ "Low between, high within (stable people, variable days)",
+      s_between > 0.15 & s_within <= 0.20 ~ "High between, low within (different people, stable days)",
+      TRUE ~ "High variability (variable participants & days)"
+    )
+  )
+
+# Create formatted table for ITT effects
+library(kableExtra)
+
+mde_table_itt %>%
+  select(
+    `Between-Subject SD` = s_between,
+    `Within-Subject SD` = s_within,
+    `Variability Profile` = variability_profile,
+    `MDE at 80% Power (min)` = mde_80_itt_fmt,
+    `Mean Power` = mean_power_itt_fmt,
+    `Max Power Achieved` = max_power_itt_fmt
+  ) %>%
+  kable(
+    caption = "Minimum Detectable Effect Sizes at 80% Power - ITT (Intention-to-Treat) Effects",
+    align = c("c", "c", "l", "c", "c", "c")
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "left"
+  ) %>%
+  pack_rows("Low Between-Subject Variability (0.10-0.15)", 1, sum(mde_table_itt$s_between <= 0.15)) %>%
+  pack_rows("High Between-Subject Variability (0.20-0.30)", sum(mde_table_itt$s_between <= 0.15) + 1, nrow(mde_table_itt)) %>%
+  footnote(
+    general = c(
+      "MDE = Minimum Detectable Effect size at 80% power (minutes of sedentary time reduction)",
+      "Between-Subject SD reflects variability between different participants",
+      "Within-Subject SD reflects day-to-day variability within the same participant",
+      "Values >120 indicate the model did not achieve 80% power at the largest tested effect size"
+    ),
+    general_title = "Notes:"
+  )
+
+# Summary statistics for ITT
+cat("\n=== ITT EFFECT SENSITIVITY SUMMARY ===\n")
+
+# Find best performing configurations
+best_itt_configs <- mde_table_itt %>%
+  filter(!is.na(mde_80_itt)) %>%
+  arrange(mde_80_itt) %>%
+  head(5)
+
+if (nrow(best_itt_configs) > 0) {
+  cat("Top 5 most sensitive configurations (smallest MDE):\n")
+  for (i in 1:nrow(best_itt_configs)) {
+    row <- best_itt_configs[i, ]
+    cat(sprintf("  %d. MDE = %0.f min (s_between=%.2f, s_within=%.2f) - %s\n", 
+                i, row$mde_80_itt, row$s_between, row$s_within, row$variability_profile))
+  }
+} else {
+  cat("No configurations achieved 80% power within the tested effect size range.\n")
+  
+  # Find configurations with highest power instead
+  highest_power_configs <- mde_table_itt %>%
+    arrange(desc(max_power_itt)) %>%
+    head(5)
+  
+  cat("Top 5 configurations by maximum power achieved:\n")
+  for (i in 1:nrow(highest_power_configs)) {
+    row <- highest_power_configs[i, ]
+    cat(sprintf("  %d. Max Power = %.1f%% (s_between=%.2f, s_within=%.2f) - %s\n", 
+                i, row$max_power_itt * 100, row$s_between, row$s_within, row$variability_profile))
+  }
+}
+
+# Variability impact analysis
+cat("\n=== VARIABILITY IMPACT ON ITT DETECTION ===\n")
+variability_impact <- mde_table_itt %>%
+  group_by(variability_profile) %>%
+  summarise(
+    n_configs = n(),
+    mean_mde = mean(mde_80_itt, na.rm = TRUE),
+    mean_max_power = mean(max_power_itt, na.rm = TRUE),
+    configs_80_plus = sum(!is.na(mde_80_itt)),
+    .groups = "drop"
+  ) %>%
+  arrange(mean_mde)
+
+for (i in 1:nrow(variability_impact)) {
+  profile <- variability_impact[i, ]
+  cat(sprintf("%s:\n", profile$variability_profile))
+  if (profile$configs_80_plus > 0) {
+    cat(sprintf("  • Mean MDE: %.0f minutes\n", profile$mean_mde))
+    cat(sprintf("  • Configs reaching 80%% power: %d/%d\n", profile$configs_80_plus, profile$n_configs))
+  } else {
+    cat(sprintf("  • No configs reached 80%% power (mean max power: %.1f%%)\n", profile$mean_max_power * 100))
+  }
+  cat(sprintf("  • Mean maximum power: %.1f%%\n\n", profile$mean_max_power * 100))
+}
+
+cat("=======================================\n")
+```
+
+### Per-Protocol Effects - Minimum Detectable Effect Sizes
+
+```{r}
+#| label: protocol-power-table
+#| code-summary: "Show code (per-protocol minimum detectable effects table)"
+
+# Function for per-protocol MDE calculation
+find_mde_80_protocol <- function(power_data, power_col) {
+  power_values <- power_data[[power_col]]
+  # If we already have 80% power or higher at the smallest effect, return that
+  if (min(power_values, na.rm = TRUE) >= 0.8) {
+    return(min(power_data$effect_min, na.rm = TRUE))
+  }
+  
+  # If we never reach 80% power, return NA
+  if (max(power_values, na.rm = TRUE) < 0.8) {
+    return(NA_real_)
+  }
+  
+  # Linear interpolation to find effect size at 80% power
+  approx(x = power_values, y = power_data$effect_min, xout = 0.8)$y
+}
+
+# Calculate minimum detectable effects for both per-protocol approaches
+mde_table_protocol <- power_results_multi %>%
+  group_by(s_between, s_within) %>%
+  summarise(
+    mde_80_change = find_mde_80_protocol(cur_data(), "power_protocol_change"),
+    mde_80_robust = find_mde_80_protocol(cur_data(), "power_protocol_robust"),
+    max_power_change = max(power_protocol_change, na.rm = TRUE),
+    max_power_robust = max(power_protocol_robust, na.rm = TRUE),
+    mean_power_change = mean(power_protocol_change, na.rm = TRUE),
+    mean_power_robust = mean(power_protocol_robust, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(s_between, s_within) %>%
+  mutate(
+    # Format effect sizes for display
+    mde_80_change_fmt = ifelse(is.na(mde_80_change), 
+                              paste0(">", max(power_results_multi$effect_min)), 
+                              sprintf("%.0f", mde_80_change)),
+    mde_80_robust_fmt = ifelse(is.na(mde_80_robust), 
+                              paste0(">", max(power_results_multi$effect_min)), 
+                              sprintf("%.0f", mde_80_robust)),
+    max_power_change_fmt = sprintf("%.1f%%", max_power_change * 100),
+    max_power_robust_fmt = sprintf("%.1f%%", max_power_robust * 100),
+    mean_power_change_fmt = sprintf("%.1f%%", mean_power_change * 100),
+    mean_power_robust_fmt = sprintf("%.1f%%", mean_power_robust * 100),
+    # Variability profile
+    variability_profile = case_when(
+      s_between <= 0.15 & s_within <= 0.20 ~ "Low variability",
+      s_between <= 0.15 & s_within > 0.20 ~ "Low between, high within",
+      s_between > 0.15 & s_within <= 0.20 ~ "High between, low within",
+      TRUE ~ "High variability"
+    )
+  )
+
+# Create side-by-side comparison table for per-protocol approaches
+comparison_table <- mde_table_protocol %>%
+  select(
+    `Between SD` = s_between,
+    `Within SD` = s_within,
+    `Profile` = variability_profile,
+    `Change Score MDE` = mde_80_change_fmt,
+    `Change Max Power` = max_power_change_fmt,
+    `Robust MDE` = mde_80_robust_fmt,
+    `Robust Max Power` = max_power_robust_fmt
+  )
+
+comparison_table %>%
+  kable(
+    caption = "Per-Protocol Minimum Detectable Effect Sizes at 80% Power - Change Score vs Robust Approach",
+    align = c("c", "c", "l", "c", "c", "c", "c")
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "left"
+  ) %>%
+  add_header_above(c(" " = 3, "Change Score Approach" = 2, "Robust Approach" = 2)) %>%
+  pack_rows("Low Between-Subject Variability", 1, sum(mde_table_protocol$s_between <= 0.15)) %>%
+  pack_rows("High Between-Subject Variability", sum(mde_table_protocol$s_between <= 0.15) + 1, nrow(mde_table_protocol)) %>%
+  footnote(
+    general = c(
+      "Change Score Approach: Tests if reducing playtime improves outcomes (positive effect)",
+      "Robust Approach: Tests if lower playtime during intervention improves outcomes (negative effect)", 
+      "Both approaches test the same underlying hypothesis from different analytical perspectives",
+      "MDE values in minutes represent the minimum sedentary time reduction detectable at 80% power"
+    ),
+    general_title = "Notes:"
+  )
+
+# Per-protocol summary analysis
+cat("\n=== PER-PROTOCOL APPROACH COMPARISON ===\n")
+
+# Calculate approach performance
+change_score_performance <- mde_table_protocol %>%
+  filter(!is.na(mde_80_change)) %>%
+  summarise(
+    n_configs_80 = n(),
+    mean_mde = mean(mde_80_change, na.rm = TRUE),
+    min_mde = min(mde_80_change, na.rm = TRUE),
+    mean_max_power = mean(max_power_change, na.rm = TRUE)
+  )
+
+robust_performance <- mde_table_protocol %>%
+  filter(!is.na(mde_80_robust)) %>%
+  summarise(
+    n_configs_80 = n(),
+    mean_mde = mean(mde_80_robust, na.rm = TRUE),  
+    min_mde = min(mde_80_robust, na.rm = TRUE),
+    mean_max_power = mean(max_power_robust, na.rm = TRUE)
+  )
+
+total_configs <- nrow(mde_table_protocol)
+
+cat("CHANGE SCORE APPROACH:\n")
+if (change_score_performance$n_configs_80 > 0) {
+  cat(sprintf("  • Configs reaching 80%% power: %d/%d (%.1f%%)\n", 
+              change_score_performance$n_configs_80, total_configs, 
+              100 * change_score_performance$n_configs_80 / total_configs))
+  cat(sprintf("  • Mean MDE: %.0f minutes\n", change_score_performance$mean_mde))
+  cat(sprintf("  • Best MDE: %.0f minutes\n", change_score_performance$min_mde))
+} else {
+  overall_change_power <- mean(mde_table_protocol$max_power_change, na.rm = TRUE)
+  cat(sprintf("  • No configs reached 80%% power (mean max power: %.1f%%)\n", overall_change_power * 100))
+}
+
+cat("\nROBUST APPROACH:\n")
+if (robust_performance$n_configs_80 > 0) {
+  cat(sprintf("  • Configs reaching 80%% power: %d/%d (%.1f%%)\n", 
+              robust_performance$n_configs_80, total_configs,
+              100 * robust_performance$n_configs_80 / total_configs))
+  cat(sprintf("  • Mean MDE: %.0f minutes\n", robust_performance$mean_mde))
+  cat(sprintf("  • Best MDE: %.0f minutes\n", robust_performance$min_mde))
+} else {
+  overall_robust_power <- mean(mde_table_protocol$max_power_robust, na.rm = TRUE)
+  cat(sprintf("  • No configs reached 80%% power (mean max power: %.1f%%)\n", overall_robust_power * 100))
+}
+
+# Overall approach comparison
+if (change_score_performance$n_configs_80 > 0 && robust_performance$n_configs_80 > 0) {
+  if (change_score_performance$mean_mde < robust_performance$mean_mde) {
+    cat(sprintf("\n✓ Change Score approach more sensitive (%.0f vs %.0f min average MDE)\n", 
+                change_score_performance$mean_mde, robust_performance$mean_mde))
+  } else {
+    cat(sprintf("\n✓ Robust approach more sensitive (%.0f vs %.0f min average MDE)\n", 
+                robust_performance$mean_mde, change_score_performance$mean_mde))
+  }
+} else if (change_score_performance$n_configs_80 > robust_performance$n_configs_80) {
+  cat("\n✓ Change Score approach reaches 80% power in more configurations\n")
+} else if (robust_performance$n_configs_80 > change_score_performance$n_configs_80) {
+  cat("\n✓ Robust approach reaches 80% power in more configurations\n")
+} else {
+  cat("\n≈ Both approaches show similar performance patterns\n")
+}
+
+# Best performing configurations for each approach  
+cat("\n=== OPTIMAL CONFIGURATIONS ===\n")
+
+if (change_score_performance$n_configs_80 > 0) {
+  best_change <- mde_table_protocol %>%
+    filter(!is.na(mde_80_change)) %>%
+    arrange(mde_80_change) %>%
+    head(3)
+  
+  cat("TOP 3 CHANGE SCORE CONFIGURATIONS:\n")
+  for (i in 1:nrow(best_change)) {
+    row <- best_change[i, ]
+    cat(sprintf("  %d. MDE = %.0f min (s_between=%.2f, s_within=%.2f) - %s\n", 
+                i, row$mde_80_change, row$s_between, row$s_within, row$variability_profile))
+  }
+}
+
+if (robust_performance$n_configs_80 > 0) {
+  best_robust <- mde_table_protocol %>%
+    filter(!is.na(mde_80_robust)) %>%
+    arrange(mde_80_robust) %>%
+    head(3)
+  
+  cat("\nTOP 3 ROBUST CONFIGURATIONS:\n")
+  for (i in 1:nrow(best_robust)) {
+    row <- best_robust[i, ]
+    cat(sprintf("  %d. MDE = %.0f min (s_between=%.2f, s_within=%.2f) - %s\n", 
+                i, row$mde_80_robust, row$s_between, row$s_within, row$variability_profile))
+  }
+}
+
+cat("=======================================\n")
+```
+
+### Study Design Recommendations
+
+```{r}
+#| label: design-recommendations
+#| code-summary: "Show code (study design recommendations)"
+
+cat("=== STUDY DESIGN RECOMMENDATIONS ===\n\n")
+
+# Find the overall best configurations across all approaches
+all_configs <- bind_rows(
+  mde_table_itt %>% 
+    filter(!is.na(mde_80_itt)) %>%
+    transmute(s_between, s_within, approach = "ITT", mde = mde_80_itt, max_power = max_power_itt),
+  mde_table_protocol %>% 
+    filter(!is.na(mde_80_change)) %>%
+    transmute(s_between, s_within, approach = "Per-Protocol (Change)", mde = mde_80_change, max_power = max_power_change),
+  mde_table_protocol %>% 
+    filter(!is.na(mde_80_robust)) %>%
+    transmute(s_between, s_within, approach = "Per-Protocol (Robust)", mde = mde_80_robust, max_power = max_power_robust)
+)
+
+if (nrow(all_configs) > 0) {
+  # Overall best configurations
+  overall_best <- all_configs %>%
+    arrange(mde) %>%
+    head(5)
+  
+  cat("🎯 TOP 5 OVERALL MOST SENSITIVE CONFIGURATIONS:\n")
+  for (i in 1:nrow(overall_best)) {
+    row <- overall_best[i, ]
+    cat(sprintf("  %d. %s: MDE = %.0f min (s_between=%.2f, s_within=%.2f, max_power=%.1f%%)\n", 
+                i, row$approach, row$mde, row$s_between, row$s_within, row$max_power * 100))
+  }
+  
+  # Recommendations by variability scenario
+  cat("\n📊 RECOMMENDATIONS BY EXPECTED STUDY VARIABILITY:\n\n")
+  
+  low_var_configs <- all_configs %>% filter(s_between <= 0.15 & s_within <= 0.20)
+  if (nrow(low_var_configs) > 0) {
+    best_low_var <- low_var_configs %>% arrange(mde) %>% head(1)
+    cat("LOW VARIABILITY STUDIES (consistent participants, stable daily patterns):\n")
+    cat(sprintf("  ✓ Best approach: %s (MDE = %.0f min)\n", best_low_var$approach, best_low_var$mde))
+    cat(sprintf("  ✓ Optimal parameters: s_between=%.2f, s_within=%.2f\n", best_low_var$s_between, best_low_var$s_within))
+  }
+  
+  high_var_configs <- all_configs %>% filter(s_between > 0.20 | s_within > 0.25)
+  if (nrow(high_var_configs) > 0) {
+    best_high_var <- high_var_configs %>% arrange(mde) %>% head(1)
+    cat("\nHIGH VARIABILITY STUDIES (diverse participants, variable daily patterns):\n")
+    cat(sprintf("  ✓ Best approach: %s (MDE = %.0f min)\n", best_high_var$approach, best_high_var$mde))
+    cat(sprintf("  ✓ Optimal parameters: s_between=%.2f, s_within=%.2f\n", best_high_var$s_between, best_high_var$s_within))
+  }
+  
+  # Effect size guidelines
+  cat("\n💡 EFFECT SIZE PLANNING GUIDELINES:\n")
+  cat(sprintf("  • For 80%% power, plan for interventions achieving ≥%.0f minutes sedentary reduction\n", min(all_configs$mde)))
+  cat(sprintf("  • Most configurations require ≥%.0f minutes for adequate power\n", median(all_configs$mde)))
+  cat(sprintf("  • Conservative planning should assume ≥%.0f minutes needed\n", quantile(all_configs$mde, 0.75)))
+  
+} else {
+  cat("⚠️  NO CONFIGURATIONS ACHIEVED 80% POWER within tested effect sizes.\n\n")
+  cat("RECOMMENDATIONS FOR FUTURE STUDIES:\n")
+  cat("  1. Test larger effect sizes (>120 minutes sedentary reduction)\n")
+  cat("  2. Increase sample size beyond n=40 per group\n")
+  cat("  3. Consider designs that reduce measurement variability\n")
+  cat("  4. Focus on populations with more consistent behavioral patterns\n")
+}
+
+cat("\n======================================\n")
+```
 
 
 

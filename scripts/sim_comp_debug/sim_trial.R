@@ -35,7 +35,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 # Default values
 default_sims <- 1000
-default_cores <- 16
+default_cores <- 10
 default_output <- NULL  # Will use default timestamped filename if not specified
 
 # Parse arguments: --sims=VALUE --cores=VALUE --output=PATH

@@ -46,7 +46,7 @@ First we load packages with `pacman`, which is fully compatible with `renv`.
 
 library(pacman)
 
-p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr, extraDistr)
+p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr, extraDistr, kableExtra)
 
 # Replace your current plan() line with:
 if (interactive()) {
@@ -749,6 +749,117 @@ ggplot(sim_summary_h2a, aes(x = b, y = power, color = model, alpha = model == "f
 #              lower = conf.low,
 #              upper = conf.high,
 #              labeltext = term)
+
+### Minimum Detectable Effect Sizes at 80% Power
+
+```{r}
+#| label: h2a-power-table
+#| code-summary: "Show code (minimum detectable effects table)"
+
+# Function to interpolate minimum detectable effect at 80% power
+find_mde_80 <- function(power_data) {
+  # If we already have 80% power or higher at the smallest effect, return that
+  if (min(power_data$power, na.rm = TRUE) >= 0.8) {
+    return(min(power_data$b, na.rm = TRUE))
+  }
+  
+  # If we never reach 80% power, return NA
+  if (max(power_data$power, na.rm = TRUE) < 0.8) {
+    return(NA_real_)
+  }
+  
+  # Linear interpolation to find effect size at 80% power
+  approx(x = power_data$power, y = power_data$b, xout = 0.8)$y
+}
+
+# Calculate minimum detectable effects for each model and effect shape
+mde_table <- sim_summary_h2a |>
+  group_by(model, effect_shape) |>
+  summarise(
+    mde_80_unstandardized = find_mde_80(cur_data()),
+    mde_80_standardized = mde_80_unstandardized / 3,  # Convert to standardized units (sleep quality range is ~20, so /3 approximates standardization)
+    max_power = max(power, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(effect_shape, mde_80_standardized) |>
+  mutate(
+    # Clean up model names for presentation
+    model_clean = case_when(
+      model == "fit_gam" ~ "GAM",
+      model == "fit_gam_no_main" ~ "GAM (no main effect)",
+      model == "fit_mlm" ~ "MLM",
+      model == "fit_mlm_simple" ~ "MLM Simple",
+      model == "fit_gls" ~ "GLS",
+      model == "fit_gls_simple" ~ "GLS Simple", 
+      model == "fit_gls_spline" ~ "GLS Splines",
+      TRUE ~ model
+    ),
+    # Format effect sizes for display
+    mde_80_unstandardized_fmt = ifelse(is.na(mde_80_unstandardized), 
+                                     ">1.5", 
+                                     sprintf("%.1f", mde_80_unstandardized)),
+    mde_80_standardized_fmt = ifelse(is.na(mde_80_standardized), 
+                                   ">0.50", 
+                                   sprintf("%.2f", mde_80_standardized)),
+    max_power_fmt = sprintf("%.1f%%", max_power * 100)
+  )
+
+# Create formatted table
+mde_table |>
+  select(
+    `Effect Shape` = effect_shape,
+    `Model` = model_clean,
+    `MDE (Unstandardized)` = mde_80_unstandardized_fmt,
+    `MDE (Standardized)` = mde_80_standardized_fmt,
+    `Max Power Achieved` = max_power_fmt
+  ) |>
+  kable(
+    caption = "Minimum Detectable Effect Sizes at 80% Power by Model and Effect Shape",
+    align = c("l", "l", "r", "r", "r")
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "left"
+  ) |>
+  pack_rows("Growing Effect", 1, sum(mde_table$effect_shape == "grow")) |>
+  pack_rows("Plateau Effect", sum(mde_table$effect_shape == "grow") + 1, nrow(mde_table)) |>
+  footnote(
+    general = c(
+      "MDE = Minimum Detectable Effect size at 80% power",
+      "Standardized effects calculated as unstandardized effect / 3",
+      "Models ordered by sensitivity (smallest MDE first) within each effect shape",
+      "'>1.5' and '>0.50' indicate models that did not achieve 80% power at largest tested effect size"
+    ),
+    general_title = "Notes:"
+  )
+
+# Summary statistics
+cat("\n=== SUMMARY OF MODEL PERFORMANCE ===\n")
+best_models <- mde_table |>
+  group_by(effect_shape) |>
+  slice_min(mde_80_standardized, na_rm = TRUE, n = 3) |>
+  ungroup()
+
+for (shape in unique(best_models$effect_shape)) {
+  cat(sprintf("\n%s effects - Top 3 most sensitive models:\n", str_to_title(shape)))
+  shape_models <- best_models |> filter(effect_shape == shape)
+  for (i in 1:nrow(shape_models)) {
+    cat(sprintf("  %d. %s: %.2f standardized effect\n", 
+                i, shape_models$model_clean[i], shape_models$mde_80_standardized[i]))
+  }
+}
+
+# Overall best model
+overall_best <- mde_table |>
+  filter(!is.na(mde_80_standardized)) |>
+  slice_min(mde_80_standardized, n = 1)
+
+cat(sprintf("\nOverall most sensitive model: %s (%s effects)\n", 
+            overall_best$model_clean, overall_best$effect_shape))
+cat(sprintf("MDE at 80%% power: %.2f standardized effect (%.1f unstandardized)\n",
+            overall_best$mde_80_standardized, overall_best$mde_80_unstandardized))
+cat("=====================================\n")
 
 ```
 

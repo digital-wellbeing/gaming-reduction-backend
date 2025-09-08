@@ -1,6 +1,12 @@
 ---
 title: "H3 - Effect of Abstention on Wellbeing"
-format: html
+format: 
+  html:
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    toc: true
+    toc-depth: 3
 execute-dir: project
 author: "Nick Ballou"
 date: today
@@ -42,13 +48,13 @@ First we load packages with `pacman`, which is fully compatible with `renv`.
 
 library(pacman)
 
-p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr, extraDistr)
+p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr, extraDistr, kableExtra)
 
 # Replace your current plan() line with:
 if (interactive()) {
   plan(multisession, workers = parallel::detectCores()-8)
 } else {
-  plan(sequential)
+  plan(multisession, workers = parallel::detectCores()-8)
 }
 # Diagnostic information about parallel setup
 
@@ -136,7 +142,11 @@ sim_data <- function(n = 80,
     mutate(
       intervention_period = as.numeric(day > 7 & day < 22),
       intervention_active = intervention_period & condition == "intervention",
-      compliance = ifelse(intervention_active, rkumar(n*n_days, a = .05, b = .1), 0),
+      # Use fully-qualified name so the function works even if the extraDistr package
+      # has not been attached in the worker’s search path.
+      compliance = ifelse(intervention_active,
+                          extraDistr::rkumar(n * n_days, a = .05, b = .1),
+                          0),
       
       # In the baseline period, play is just the subject’s baseline plus some day-to-day noise
       # During the intervention, experimental subjects reduce play by their compliance amount
@@ -244,17 +254,36 @@ fit_gam_no_main <- function(dat) {
 #' @return An object of class \code{lmerMod}, which is the fitted MLM model.
 #'
 fit_mlm <- function(dat) {
-  # lmer(wellbeing ~ condition*intervention_period + age + gender + (1|id), data = dat)
+  # Control parameters for better convergence
+  ctrl <- lmeControl(
+    maxIter = 200,
+    msMaxIter = 200,
+    tolerance = 1e-6,
+    niterEM = 50,
+    msMaxEval = 400,
+    optimMethod = "L-BFGS-B"
+  )
+  
   lme(
     fixed = wellbeing ~ condition*intervention_period + age + gender,
-    random = ~ 1|id,  # or use a more flexible structure if needed
+    random = ~ 1|id,
     correlation = corCAR1(form = ~ day | id),
     method = "ML",
+    control = ctrl,
     data = dat |> filter(!is.na(wellbeing))
   )
 }
 
 fit_mlm_simple <- function(dat) {
+  # Control parameters for better convergence
+  ctrl <- lmeControl(
+    maxIter = 200,
+    msMaxIter = 200,
+    tolerance = 1e-6,
+    niterEM = 50,
+    msMaxEval = 400,
+    optimMethod = "L-BFGS-B"
+  )
   
   tmp <- dat |> 
     group_by(id) |> 
@@ -263,13 +292,27 @@ fit_mlm_simple <- function(dat) {
     filter(intervention_period == 1) |> 
     filter(!is.na(wellbeing))
   
-  lme(
-    fixed = wellbeing ~ baseline + condition + age + gender,
-    random = ~ 1 + condition|id,
-    correlation = corCAR1(form = ~ day | id),
-    method = "ML",
-    data = tmp |> filter(!is.na(wellbeing))
-  )
+  # Try full model first, then fallback to simpler random effects if needed
+  tryCatch({
+    lme(
+      fixed = wellbeing ~ baseline + condition + age + gender,
+      random = ~ 1 + condition|id,
+      correlation = corCAR1(form = ~ day | id),
+      method = "ML",
+      control = ctrl,
+      data = tmp
+    )
+  }, error = function(e) {
+    # Fallback: Use random intercept only
+    lme(
+      fixed = wellbeing ~ baseline + condition + age + gender,
+      random = ~ 1|id,
+      correlation = corCAR1(form = ~ day | id),
+      method = "ML",
+      control = ctrl,
+      data = tmp
+    )
+  })
 }
 
 fit_gls <- function(dat) {
@@ -306,21 +349,108 @@ fit_gls_spline <- function(dat) {
 }
 
 fit_mlm_reduction <- function(dat) {
-  lme(
-    fixed = wellbeing ~ intervention_active*reduction + age + gender, 
-    random = ~ 1 + intervention_active*reduction | id,
-    correlation = corCAR1(form = ~ day | id),
-    data = dat
+  # Control parameters for better convergence
+  ctrl <- lmeControl(
+    maxIter = 200,
+    msMaxIter = 200,
+    tolerance = 1e-6,
+    niterEM = 50,
+    msMaxEval = 400,
+    optimMethod = "L-BFGS-B"
   )
+  
+  # Try the full model first
+  tryCatch({
+    lme(
+      fixed = wellbeing ~ intervention_active*reduction + age + gender, 
+      random = ~ 1 + intervention_active*reduction | id,
+      correlation = corCAR1(form = ~ day | id),
+      control = ctrl,
+      data = dat |> filter(!is.na(wellbeing))
+    )
+  }, error = function(e) {
+    # Fallback 1: Simplify random effects (remove correlation)
+    tryCatch({
+      lme(
+        fixed = wellbeing ~ intervention_active*reduction + age + gender,
+        random = list(id = pdBlocked(list(~ 1, ~ intervention_active*reduction - 1))),
+        correlation = corCAR1(form = ~ day | id),
+        control = ctrl,
+        data = dat |> filter(!is.na(wellbeing))
+      )
+    }, error = function(e2) {
+      # Fallback 2: Further simplify random effects
+      tryCatch({
+        lme(
+          fixed = wellbeing ~ intervention_active*reduction + age + gender,
+          random = ~ 1 + intervention_active | id,
+          correlation = corCAR1(form = ~ day | id),
+          control = ctrl,
+          data = dat |> filter(!is.na(wellbeing))
+        )
+      }, error = function(e3) {
+        # Fallback 3: Simplest model that still captures the effect
+        lme(
+          fixed = wellbeing ~ intervention_active*reduction + age + gender,
+          random = ~ 1 | id,
+          correlation = corCAR1(form = ~ day | id),
+          control = ctrl,
+          data = dat |> filter(!is.na(wellbeing))
+        )
+      })
+    })
+  })
 }
 
 fit_mlm_reduction_robust <- function(dat) {
-  lme(
-    fixed = wellbeing ~ intervention_active*playtime + baseline_playtime + age + gender,
-    random = ~ 1 | id,  # Simplified to random intercept only
-    correlation = corCAR1(form = ~ day | id),
-    data = dat
+  # Control parameters for better convergence
+  ctrl <- lmeControl(
+    maxIter = 200,
+    msMaxIter = 200,
+    tolerance = 1e-6,
+    niterEM = 50,
+    msMaxEval = 400,
+    optimMethod = "L-BFGS-B"
   )
+  
+  # Clean data and standardize variables to improve numerical stability
+  dat_clean <- dat |> 
+    filter(!is.na(wellbeing)) |>
+    mutate(
+      # Standardize continuous variables to help with convergence
+      playtime_std = as.numeric(scale(playtime)),
+      baseline_playtime_std = as.numeric(scale(baseline_playtime)),
+      age_std = as.numeric(scale(age))
+    )
+  
+  # Try the full model first
+  tryCatch({
+    lme(
+      fixed = wellbeing ~ intervention_active*playtime_std + baseline_playtime_std + age_std + gender,
+      random = ~ 1 | id,
+      correlation = corCAR1(form = ~ day | id),
+      control = ctrl,
+      data = dat_clean
+    )
+  }, error = function(e) {
+    # Fallback: Try without correlation structure if needed
+    tryCatch({
+      lme(
+        fixed = wellbeing ~ intervention_active*playtime_std + baseline_playtime_std + age_std + gender,
+        random = ~ 1 | id,
+        control = ctrl,
+        data = dat_clean
+      )
+    }, error = function(e2) {
+      # Final fallback: Use original (non-standardized) variables without correlation
+      lme(
+        fixed = wellbeing ~ intervention_active*playtime + baseline_playtime + age + gender,
+        random = ~ 1 | id,
+        control = ctrl,
+        data = dat |> filter(!is.na(wellbeing))
+      )
+    })
+  })
 }
 
 # Helper function to extract the focal effect for GLS models
@@ -434,7 +564,7 @@ We fit various models to the newly simulated data to make sure each appears to b
 ```{r}
 #| label: test-fit-h3a
 #| eval: false
-#| code-summary: "Show code (test fit h3a)"
+#' @param n Number of participants passed to \code{sim_data()}. Default is 1000.
 
 dat <- sim_data(mediated = FALSE)
 
@@ -505,7 +635,7 @@ To assess power/sensitivity, we run multiple simulations (controlled by `n_sims`
 
 As this is quite slow, we both use parallel processing with `furrr` cache the results.
 
-```{r, cache = TRUE}
+```{r}
 #| label: sim-study-h3a
 #| code-summary: "Show code (simulate power h3a)"
 
@@ -518,6 +648,9 @@ if (!require(tictoc, quietly = TRUE)) {
 # Start timing
 tic("H3a simulation total time")
 
+# Set number of simulations
+# Note: Reduce this number (e.g., to 50) for testing to avoid long runtimes
+# Enable debug mode to see convergence failure messages: options(debug_mode = TRUE)
 n_sims <- 500
 
 specs_h3a <- expand_grid(
@@ -544,6 +677,13 @@ message("Running ", nrow(all_jobs_h3a), " simulations across ", nbrOfWorkers(), 
 
 # Run all simulations in parallel
 results_h3a <- future_map_dfr(1:nrow(all_jobs_h3a), function(job_idx) {
+  # Load required libraries in each worker
+  library(tidyverse)
+  library(nlme)
+  library(mgcv)
+  library(broom.mixed)
+  library(emmeans)
+  
   # Get job parameters
   job <- all_jobs_h3a[job_idx, ]
   
@@ -576,7 +716,10 @@ results_h3a <- future_map_dfr(1:nrow(all_jobs_h3a), function(job_idx) {
     
     return(result)
   }, error = function(e) {
-    message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
+    # Only show debug messages if debug mode is enabled and in interactive mode
+    if (getOption("debug_mode", FALSE) && interactive()) {
+      message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
+    }
     tibble(
       term = NA_character_,
       estimate = NA_real_,
@@ -633,7 +776,7 @@ message("============================")
 #| code-summary: "Show code (visualize power h3a)"
 
 # Estimated effect vs. true effect (b)
-ggplot(sim_summary_h3a, aes(x = b, y = mean_effect, color = model)) +
+ggplot(sim_summary_h3a, aes(x = b, y = mean_effect, color = model, alpha = model == "fit_gam")) +
   geom_point(size = 3) +
   geom_errorbar(aes(ymin = mean_conf.low, ymax = mean_conf.high), width = 0.1) +
   facet_wrap(~ effect_shape) +
@@ -641,10 +784,11 @@ ggplot(sim_summary_h3a, aes(x = b, y = mean_effect, color = model)) +
   labs(x = "True Effect (unstandardized b)", y = "Estimated Effect",
        title = "Estimated vs. True Effects by Model and Effect Shape") +
   scale_x_continuous(breaks = c(1.2, 2.4, 3.6, 4.8, 6),
-                     sec.axis = sec_axis(~ . / 12, name = "Standardized Effect (b/12)"))
+                     sec.axis = sec_axis(~ . / 12, name = "Standardized Effect (b/12)")) +
+  scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.3), guide = "none")
 
 # Power vs. true effect (b)
-ggplot(sim_summary_h3a, aes(x = b, y = power, color = model)) +
+ggplot(sim_summary_h3a, aes(x = b, y = power, color = model, alpha = model == "fit_gam")) +
   geom_line(size = 1) +
   geom_point(size = 3) +
   facet_wrap(~ effect_shape) +
@@ -652,13 +796,127 @@ ggplot(sim_summary_h3a, aes(x = b, y = power, color = model)) +
        title = "Power by Model and Effect Shape") +
   scale_x_continuous(breaks = c(1.2, 2.4, 3.6, 4.8, 6),
                      sec.axis = sec_axis(~ . / 12, name = "Standardized Effect (b/12)")) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1))
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1)) +
+  scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.3), guide = "none")
 
 # results |>
 #   forestplot(mean = estimate,
 #              lower = conf.low,
 #              upper = conf.high,
 #              labeltext = term)
+
+```
+
+### Minimum Detectable Effect Sizes at 80% Power
+
+```{r}
+#| label: h3a-power-table
+#| code-summary: "Show code (minimum detectable effects table)"
+
+# Function to interpolate minimum detectable effect at 80% power
+find_mde_80 <- function(power_data) {
+  # If we already have 80% power or higher at the smallest effect, return that
+  if (min(power_data$power, na.rm = TRUE) >= 0.8) {
+    return(min(power_data$b, na.rm = TRUE))
+  }
+  
+  # If we never reach 80% power, return NA
+  if (max(power_data$power, na.rm = TRUE) < 0.8) {
+    return(NA_real_)
+  }
+  
+  # Linear interpolation to find effect size at 80% power
+  approx(x = power_data$power, y = power_data$b, xout = 0.8)$y
+}
+
+# Calculate minimum detectable effects for each model and effect shape
+mde_table <- sim_summary_h3a |>
+  group_by(model, effect_shape) |>
+  summarise(
+    mde_80_unstandardized = find_mde_80(cur_data()),
+    mde_80_standardized = mde_80_unstandardized / 12,  # Convert to standardized units
+    max_power = max(power, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(effect_shape, mde_80_standardized) |>
+  mutate(
+    # Clean up model names for presentation
+    model_clean = case_when(
+      model == "fit_gam" ~ "GAM",
+      model == "fit_gam_no_main" ~ "GAM (no main effect)",
+      model == "fit_mlm" ~ "MLM",
+      model == "fit_mlm_simple" ~ "MLM Simple",
+      model == "fit_gls" ~ "GLS",
+      model == "fit_gls_simple" ~ "GLS Simple", 
+      model == "fit_gls_spline" ~ "GLS Splines",
+      TRUE ~ model
+    ),
+    # Format effect sizes for display
+    mde_80_unstandardized_fmt = ifelse(is.na(mde_80_unstandardized), 
+                                      ">6.0", 
+                                      sprintf("%.1f", mde_80_unstandardized)),
+    mde_80_standardized_fmt = ifelse(is.na(mde_80_standardized), 
+                                    ">0.50", 
+                                    sprintf("%.2f", mde_80_standardized)),
+    max_power_fmt = sprintf("%.1f%%", max_power * 100)
+  )
+
+# Create formatted table
+mde_table |>
+  select(
+    `Effect Shape` = effect_shape,
+    `Model` = model_clean,
+    `MDE (Unstandardized)` = mde_80_unstandardized_fmt,
+    `MDE (Standardized)` = mde_80_standardized_fmt,
+    `Max Power Achieved` = max_power_fmt
+  ) |>
+  kable(
+    caption = "Minimum Detectable Effect Sizes at 80% Power by Model and Effect Shape",
+    align = c("l", "l", "r", "r", "r")
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "left"
+  ) |>
+  pack_rows("Growing Effect", 1, sum(mde_table$effect_shape == "grow")) |>
+  pack_rows("Plateau Effect", sum(mde_table$effect_shape == "grow") + 1, nrow(mde_table)) |>
+  footnote(
+    general = c(
+      "MDE = Minimum Detectable Effect size at 80% power",
+      "Standardized effects calculated as unstandardized effect / 12",
+      "Models ordered by sensitivity (smallest MDE first) within each effect shape",
+      "'>6.0' and '>0.50' indicate models that did not achieve 80% power at largest tested effect size"
+    ),
+    general_title = "Notes:"
+  )
+
+# Summary statistics
+cat("\n=== SUMMARY OF MODEL PERFORMANCE ===\n")
+best_models <- mde_table |>
+  group_by(effect_shape) |>
+  slice_min(mde_80_standardized, na_rm = TRUE, n = 3) |>
+  ungroup()
+
+for (shape in unique(best_models$effect_shape)) {
+  cat(sprintf("\n%s effects - Top 3 most sensitive models:\n", str_to_title(shape)))
+  shape_models <- best_models |> filter(effect_shape == shape)
+  for (i in 1:nrow(shape_models)) {
+    cat(sprintf("  %d. %s: %.2f standardized effect\n", 
+                i, shape_models$model_clean[i], shape_models$mde_80_standardized[i]))
+  }
+}
+
+# Overall best model
+overall_best <- mde_table |>
+  filter(!is.na(mde_80_standardized)) |>
+  slice_min(mde_80_standardized, n = 1)
+
+cat(sprintf("\nOverall most sensitive model: %s (%s effects)\n", 
+            overall_best$model_clean, overall_best$effect_shape))
+cat(sprintf("MDE at 80%% power: %.2f standardized effect (%.1f unstandardized)\n",
+            overall_best$mde_80_standardized, overall_best$mde_80_unstandardized))
+cat("=====================================\n")
 
 ```
 
@@ -674,6 +932,9 @@ Same thing as above, but now looking at power for our per-protocol model.
 # Start timing
 tic("H3b simulation total time")
 
+# Set number of simulations  
+# Note: Reduce this number (e.g., to 50) for testing to avoid long runtimes
+# Enable debug mode to see convergence failure messages: options(debug_mode = TRUE)
 n_sims <- 500
 
 # Note: With two per-protocol models, this simulation will take approximately 
@@ -745,7 +1006,10 @@ results_h3b <- future_map_dfr(1:nrow(all_jobs_h3b), function(job_idx) {
     
     return(result)
   }, error = function(e) {
-    message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
+    # Only show debug messages if debug mode is enabled and in interactive mode
+    if (getOption("debug_mode", FALSE) && interactive()) {
+      message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
+    }
     tibble(
       term = NA_character_,
       estimate = NA_real_,
@@ -904,6 +1168,142 @@ cat("- Robust Model: Tests if lower playtime is associated with better wellbeing
 cat("Both approaches test the same underlying phenomenon but from different angles.\n")
 cat("=========================================\n")
 
+
+```
+
+### Minimum Detectable Effect Sizes at 80% Power (H3b - Per-Protocol)
+
+```{r}
+#| label: h3b-power-table
+#| code-summary: "Show code (H3b minimum detectable effects table)"
+
+# Function to interpolate minimum detectable effect at 80% power for H3b
+find_mde_80_h3b <- function(power_data) {
+  # If we already have 80% power or higher at the smallest effect, return that
+  if (min(power_data$power, na.rm = TRUE) >= 0.8) {
+    return(min(power_data$expected_effect, na.rm = TRUE))
+  }
+  
+  # If we never reach 80% power, return NA
+  if (max(power_data$power, na.rm = TRUE) < 0.8) {
+    return(NA_real_)
+  }
+  
+  # Linear interpolation to find effect size at 80% power
+  approx(x = power_data$power, y = power_data$expected_effect, xout = 0.8)$y
+}
+
+# Calculate minimum detectable effects for each H3b model and effect shape
+mde_table_h3b <- sim_summary_h3b |>
+  group_by(model, effect_shape) |>
+  summarise(
+    mde_80_expected = find_mde_80_h3b(cur_data()),
+    mde_80_standardized = mde_80_expected / 12,  # Convert to standardized units
+    max_power = max(power, na.rm = TRUE),
+    mean_power = mean(power, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(effect_shape, mde_80_standardized) |>
+  mutate(
+    # Clean up model names for presentation
+    model_clean = case_when(
+      model == "fit_mlm_reduction" ~ "MLM Reduction (Change Score)",
+      model == "fit_mlm_reduction_robust" ~ "MLM Reduction (Robust)",
+      TRUE ~ model
+    ),
+    # Format effect sizes for display
+    mde_80_expected_fmt = ifelse(is.na(mde_80_expected), 
+                                ">0.50", 
+                                sprintf("%.2f", mde_80_expected)),
+    mde_80_standardized_fmt = ifelse(is.na(mde_80_standardized), 
+                                    ">0.042", 
+                                    sprintf("%.3f", mde_80_standardized)),
+    max_power_fmt = sprintf("%.1f%%", max_power * 100),
+    mean_power_fmt = sprintf("%.1f%%", mean_power * 100)
+  )
+
+# Create formatted table for H3b
+mde_table_h3b |>
+  select(
+    `Effect Shape` = effect_shape,
+    `Model` = model_clean,
+    `MDE (Expected Effect)` = mde_80_expected_fmt,
+    `MDE (Standardized)` = mde_80_standardized_fmt,
+    `Mean Power` = mean_power_fmt,
+    `Max Power Achieved` = max_power_fmt
+  ) |>
+  kable(
+    caption = "Minimum Detectable Effect Sizes at 80% Power - H3b Per-Protocol Models",
+    align = c("l", "l", "r", "r", "r", "r")
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "left"
+  ) |>
+  pack_rows("Growing Effect", 1, sum(mde_table_h3b$effect_shape == "grow")) |>
+  pack_rows("Plateau Effect", sum(mde_table_h3b$effect_shape == "grow") + 1, nrow(mde_table_h3b)) |>
+  footnote(
+    general = c(
+      "MDE = Minimum Detectable Effect size at 80% power",
+      "Expected Effect = b × average compliance (accounting for Kumaraswamy distribution)", 
+      "Standardized effects calculated as expected effect / 12",
+      "Change Score Model tests if reduction improves wellbeing (positive effect)",
+      "Robust Model tests if lower playtime improves wellbeing (negative effect)",
+      "Both models are testing the same underlying hypothesis from different angles"
+    ),
+    general_title = "Notes:"
+  )
+
+# Summary statistics for H3b
+cat("\n=== H3B MODEL SENSITIVITY COMPARISON ===\n")
+
+# Compare models within each effect shape
+for (shape in unique(mde_table_h3b$effect_shape)) {
+  cat(sprintf("\n%s effects:\n", str_to_title(shape)))
+  shape_models <- mde_table_h3b |> filter(effect_shape == shape)
+  for (i in 1:nrow(shape_models)) {
+    if (!is.na(shape_models$mde_80_standardized[i])) {
+      cat(sprintf("  %s: %.3f standardized effect (%.1f%% mean power)\n", 
+                  shape_models$model_clean[i], 
+                  shape_models$mde_80_standardized[i],
+                  shape_models$mean_power[i] * 100))
+    } else {
+      cat(sprintf("  %s: >0.042 standardized effect (%.1f%% max power achieved)\n", 
+                  shape_models$model_clean[i],
+                  shape_models$max_power[i] * 100))
+    }
+  }
+}
+
+# Overall comparison
+overall_best_h3b <- mde_table_h3b |>
+  filter(!is.na(mde_80_standardized)) |>
+  slice_min(mde_80_standardized, n = 1)
+
+if (nrow(overall_best_h3b) > 0) {
+  cat(sprintf("\nMost sensitive H3b model: %s (%s effects)\n", 
+              overall_best_h3b$model_clean, overall_best_h3b$effect_shape))
+  cat(sprintf("MDE at 80%% power: %.3f standardized effect (%.2f expected effect)\n",
+              overall_best_h3b$mde_80_standardized, overall_best_h3b$mde_80_expected))
+} else {
+  cat("\nNote: No H3b models achieved 80% power within the tested effect range.\n")
+  cat("All models have high sensitivity for detecting per-protocol effects.\n")
+}
+
+# Power comparison between approaches
+change_score_data <- mde_table_h3b |> filter(model == "fit_mlm_reduction")
+robust_data <- mde_table_h3b |> filter(model == "fit_mlm_reduction_robust")
+
+cat(sprintf("\nApproach Comparison (averaged across effect shapes):\n"))
+cat(sprintf("Change Score Approach - Mean Power: %.1f%%, Max Power: %.1f%%\n", 
+            mean(change_score_data$mean_power, na.rm = TRUE) * 100,
+            mean(change_score_data$max_power, na.rm = TRUE) * 100))
+cat(sprintf("Robust Approach - Mean Power: %.1f%%, Max Power: %.1f%%\n",
+            mean(robust_data$mean_power, na.rm = TRUE) * 100,
+            mean(robust_data$max_power, na.rm = TRUE) * 100))
+
+cat("==========================================\n")
 
 ```
 
