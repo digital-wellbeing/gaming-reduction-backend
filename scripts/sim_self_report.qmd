@@ -665,32 +665,11 @@ current_params_h3a <- list(
   effect_shapes = c("grow", "plateau")
 )
 
-# Check if cache exists and parameters match
-cache_valid_h3a <- FALSE
-if (file.exists(cache_file_h3a) && file.exists(cache_summary_h3a) && file.exists(cache_params_h3a)) {
-  cached_params_h3a <- readRDS(cache_params_h3a)
-  cache_valid_h3a <- identical(current_params_h3a, cached_params_h3a)
-}
-
-if (cache_valid_h3a) {
-  message("Loading cached H3a simulation results...")
-  results_h3a <- readRDS(cache_file_h3a)
-  sim_summary_h3a <- readRDS(cache_summary_h3a)
-  message("Cached results loaded successfully!")
-} else {
-  message("No cached results found. Running H3a simulations...")
-  
-  # Create cache directory if it doesn't exist
-  if (!dir.exists("cache")) {
-    dir.create("cache", recursive = TRUE)
-  }
-  
-  # Start timing
-  tic("H3a simulation total time")
-  
-  # Set number of simulations
-# Note: Reduce this number (e.g., to 50) for testing to avoid long runtimes
-# Enable debug mode to see convergence failure messages: options(debug_mode = TRUE)
+# -------------------------------------------------------------------
+# Prepare job specifications irrespective of cache status
+# This ensures that variables such as `specs_h3a`, `all_jobs_h3a`, and
+# related helpers are available even when we load results from cache,
+# avoiding downstream errors (e.g., `all_jobs_h3a` not found).
 n_sims <- 500
 
 specs_h3a <- expand_grid(
@@ -713,98 +692,123 @@ all_jobs_h3a <- specs_h3a |>
   crossing(sim = 1:n_sims) |> 
   mutate(job_id = row_number())
 
-message("Running ", nrow(all_jobs_h3a), " simulations across ", nbrOfWorkers(), " cores...")
+# Check if cache exists and parameters match
+cache_valid_h3a <- FALSE
+if (file.exists(cache_file_h3a) && file.exists(cache_summary_h3a) && file.exists(cache_params_h3a)) {
+  cached_params_h3a <- readRDS(cache_params_h3a)
+  cache_valid_h3a <- identical(current_params_h3a, cached_params_h3a)
+}
 
-# Run all simulations in parallel
-results_h3a <- future_map_dfr(1:nrow(all_jobs_h3a), function(job_idx) {
-  # Load required libraries in each worker
-  library(tidyverse)
-  library(nlme)
-  library(mgcv)
-  library(broom.mixed)
-  library(emmeans)
+if (cache_valid_h3a) {
+  message("Loading cached H3a simulation results...")
+  results_h3a <- readRDS(cache_file_h3a)
+  sim_summary_h3a <- readRDS(cache_summary_h3a)
+  message("Cached H3a results loaded successfully!")
+} else {
+  message("No cached H3a results found or parameters changed. Running H3a simulations...")
   
-  # Get job parameters
-  job <- all_jobs_h3a[job_idx, ]
+  # Create cache directory if it doesn't exist
+  if (!dir.exists("cache")) {
+    dir.create("cache", recursive = TRUE)
+  }
   
-  tryCatch({
-    result <- sim_study(
-      model = job$model,
-      focal_term = job$focal_term,
-      n = 80,
-      n_days = 28,
-      # effect parameters
-      b = job$b, # effect in unstandardized units
-      mu = 78.5, # grand mean of the outcome
-      effect_shape = job$effect_shape,
-      k = .5,
-      # random effects parameters
-      tau_int = 9.7,   # Random intercept SD (between-person variance)
-      tau_slope = .8,  # Random slope SD 
-      within_person_sd = 11.8, # Within-person SD
-      # AR(1) parameters
-      phi = 0.7,     # Autocorrelation coefficient
-      mediated = FALSE
-    ) |> 
-      mutate(
+  # Start timing
+  tic("H3a simulation total time")
+  
+  # n_sims is already defined above
+
+  message("Running ", nrow(all_jobs_h3a), " simulations across ", nbrOfWorkers(), " cores...")
+
+  # Run all simulations in parallel
+  results_h3a <- future_map_dfr(1:nrow(all_jobs_h3a), function(job_idx) {
+    # Load required libraries in each worker
+    library(tidyverse)
+    library(nlme)
+    library(mgcv)
+    library(broom.mixed)
+    library(emmeans)
+    
+    # Get job parameters
+    job <- all_jobs_h3a[job_idx, ]
+    
+    tryCatch({
+      result <- sim_study(
+        model = job$model,
+        focal_term = job$focal_term,
+        n = 80,
+        n_days = 28,
+        # effect parameters
+        b = job$b, # effect in unstandardized units
+        mu = 78.5, # grand mean of the outcome
+        effect_shape = job$effect_shape,
+        k = .5,
+        # random effects parameters
+        tau_int = 9.7,   # Random intercept SD (between-person variance)
+        tau_slope = .8,  # Random slope SD 
+        within_person_sd = 11.8, # Within-person SD
+        # AR(1) parameters
+        phi = 0.7,     # Autocorrelation coefficient
+        mediated = FALSE
+      ) |> 
+        mutate(
+          sim = job$sim,
+          row_id = job$row_id,
+          model = job$model,
+          b = job$b,
+          effect_shape = job$effect_shape
+        )
+      
+      return(result)
+    }, error = function(e) {
+      # Only show debug messages if debug mode is enabled and in interactive mode
+      if (getOption("debug_mode", FALSE) && interactive()) {
+        message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
+      }
+      tibble(
+        term = NA_character_,
+        estimate = NA_real_,
+        std.error = NA_real_,
+        conf.low = NA_real_,
+        conf.high = NA_real_,
         sim = job$sim,
         row_id = job$row_id,
         model = job$model,
         b = job$b,
         effect_shape = job$effect_shape
       )
-    
-    return(result)
-  }, error = function(e) {
-    # Only show debug messages if debug mode is enabled and in interactive mode
-    if (getOption("debug_mode", FALSE) && interactive()) {
-      message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
-    }
-    tibble(
-      term = NA_character_,
-      estimate = NA_real_,
-      std.error = NA_real_,
-      conf.low = NA_real_,
-      conf.high = NA_real_,
-      sim = job$sim,
-      row_id = job$row_id,
-      model = job$model,
-      b = job$b,
-      effect_shape = job$effect_shape
+    })
+  }, .progress = TRUE,
+  .options = furrr_options(
+    globals = c("all_jobs_h3a", "sim_study", "sim_data", 
+                "fit_gam", "fit_gam_no_main",
+                "fit_mlm", "fit_mlm_simple",
+                "fit_gls", "fit_gls_simple",
+                "fit_gls_spline", 
+                "extract_marginal_effect"),
+    seed = TRUE
+  ))
+
+  sim_summary_h3a <- results_h3a |> 
+    group_by(row_id) |> 
+    summarise(
+      model = first(model),
+      b = first(b),
+      effect_shape = first(effect_shape),
+      mean_effect = mean(estimate, na.rm = TRUE),
+      mean_se = mean(std.error, na.rm = TRUE),
+      mean_conf.low = mean(conf.low, na.rm = TRUE),
+      mean_conf.high = mean(conf.high, na.rm = TRUE),
+      power = sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))
     )
-  })
-}, .progress = TRUE,
-.options = furrr_options(
-  globals = c("all_jobs_h3a", "sim_study", "sim_data", 
-              "fit_gam", "fit_gam_no_main",
-              "fit_mlm", "fit_mlm_simple",
-              "fit_gls", "fit_gls_simple",
-              "fit_gls_spline", 
-              "extract_marginal_effect"),
-  seed = TRUE
-))
 
-sim_summary_h3a <- results_h3a |> 
-  group_by(row_id) |> 
-  summarise(
-    model = first(model),
-    b = first(b),
-    effect_shape = first(effect_shape),
-    mean_effect = mean(estimate, na.rm = TRUE),
-    mean_se = mean(std.error, na.rm = TRUE),
-    mean_conf.low = mean(conf.low, na.rm = TRUE),
-    mean_conf.high = mean(conf.high, na.rm = TRUE),
-    power = sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))
-  )
+  # Stop timing and display results
+  h3a_time <- toc()
 
-# Stop timing and display results
-h3a_time <- toc()
-
-# Save results to cache
-saveRDS(results_h3a, cache_file_h3a)
-saveRDS(sim_summary_h3a, cache_summary_h3a)
-saveRDS(current_params_h3a, cache_params_h3a)
-message("H3a simulation results saved to cache!")
+  # Save results to cache
+  saveRDS(results_h3a, cache_file_h3a)
+  saveRDS(sim_summary_h3a, cache_summary_h3a)
+  saveRDS(current_params_h3a, cache_params_h3a)
+  message("H3a simulation results saved to cache!")
 
 } # End of else block for cached results
 
@@ -999,32 +1003,11 @@ current_params_h3b <- list(
   mediated = TRUE
 )
 
-# Check if cache exists and parameters match
-cache_valid_h3b <- FALSE
-if (file.exists(cache_file_h3b) && file.exists(cache_summary_h3b) && file.exists(cache_params_h3b)) {
-  cached_params_h3b <- readRDS(cache_params_h3b)
-  cache_valid_h3b <- identical(current_params_h3b, cached_params_h3b)
-}
-
-if (cache_valid_h3b) {
-  message("Loading cached H3b simulation results...")
-  results_h3b <- readRDS(cache_file_h3b)
-  sim_summary_h3b <- readRDS(cache_summary_h3b)
-  message("Cached H3b results loaded successfully!")
-} else {
-  message("No cached H3b results found. Running H3b simulations...")
-  
-  # Create cache directory if it doesn't exist
-  if (!dir.exists("cache")) {
-    dir.create("cache", recursive = TRUE)
-  }
-  
-  # Start timing
-  tic("H3b simulation total time")
-  
-  # Set number of simulations  
-# Note: Reduce this number (e.g., to 50) for testing to avoid long runtimes
-# Enable debug mode to see convergence failure messages: options(debug_mode = TRUE)
+# -------------------------------------------------------------------
+# Prepare job specifications irrespective of cache status
+# This ensures that variables such as `specs_h3b`, `all_jobs_h3b`, and
+# related helpers are available even when we load results from cache,
+# avoiding downstream errors (e.g., `all_jobs_h3b` not found).
 n_sims <- 500
 
 # Note: With two per-protocol models, this simulation will take approximately 
@@ -1052,40 +1035,85 @@ all_jobs_h3b <- specs_h3b |>
   crossing(sim = 1:n_sims) |> 
   mutate(job_id = row_number())
 
-message("Running ", nrow(all_jobs_h3b), " simulations across ", nbrOfWorkers(), " cores...")
+# Check if cache exists and parameters match
+cache_valid_h3b <- FALSE
+if (file.exists(cache_file_h3b) && file.exists(cache_summary_h3b) && file.exists(cache_params_h3b)) {
+  cached_params_h3b <- readRDS(cache_params_h3b)
+  cache_valid_h3b <- identical(current_params_h3b, cached_params_h3b)
+}
 
-# Run all simulations in parallel
-results_h3b <- future_map_dfr(1:nrow(all_jobs_h3b), function(job_idx) {
-  # Load required libraries in each worker
-  library(tidyverse)
-  library(nlme)
-  library(broom.mixed)
-  library(extraDistr)
-  library(rms)
+if (cache_valid_h3b) {
+  message("Loading cached H3b simulation results...")
+  results_h3b <- readRDS(cache_file_h3b)
+  sim_summary_h3b <- readRDS(cache_summary_h3b)
+  message("Cached H3b results loaded successfully!")
+} else {
+  message("No cached H3b results found or parameters changed. Running H3b simulations...")
   
-  # Get job parameters
-  job <- all_jobs_h3b[job_idx, ]
+  # Create cache directory if it doesn't exist
+  if (!dir.exists("cache")) {
+    dir.create("cache", recursive = TRUE)
+  }
   
-  tryCatch({
-    result <- sim_study(
-      model = job$model,
-      focal_term = job$focal_term,
-      n = 80,
-      n_days = 28,
-      # effect parameters
-      b = job$b, # effect in unstandardized units
-      mu = 78.5, # grand mean of the outcome
-      effect_shape = job$effect_shape,
-      k = .5,
-      # random effects parameters
-      tau_int = 9.7,   # Random intercept SD (between-person variance)
-      tau_slope = .8,  # Random slope SD 
-      within_person_sd = 11.8, # Within-person SD
-      # AR(1) parameters
-      phi = 0.7,     # Autocorrelation coefficient
-      mediated = TRUE
-    ) |> 
-      mutate(
+  # Start timing
+  tic("H3b simulation total time")
+  
+  # n_sims is already defined above
+
+  message("Running ", nrow(all_jobs_h3b), " simulations across ", nbrOfWorkers(), " cores...")
+
+  # Run all simulations in parallel
+  results_h3b <- future_map_dfr(1:nrow(all_jobs_h3b), function(job_idx) {
+    # Load required libraries in each worker
+    library(tidyverse)
+    library(nlme)
+    library(broom.mixed)
+    library(extraDistr)
+    library(rms)
+    
+    # Get job parameters
+    job <- all_jobs_h3b[job_idx, ]
+    
+    tryCatch({
+      result <- sim_study(
+        model = job$model,
+        focal_term = job$focal_term,
+        n = 80,
+        n_days = 28,
+        # effect parameters
+        b = job$b, # effect in unstandardized units
+        mu = 78.5, # grand mean of the outcome
+        effect_shape = job$effect_shape,
+        k = .5,
+        # random effects parameters
+        tau_int = 9.7,   # Random intercept SD (between-person variance)
+        tau_slope = .8,  # Random slope SD 
+        within_person_sd = 11.8, # Within-person SD
+        # AR(1) parameters
+        phi = 0.7,     # Autocorrelation coefficient
+        mediated = TRUE
+      ) |> 
+        mutate(
+          sim = job$sim,
+          row_id = job$row_id,
+          model = job$model,
+          b = job$b,
+          expected_effect = job$expected_effect,
+          effect_shape = job$effect_shape
+        )
+      
+      return(result)
+    }, error = function(e) {
+      # Only show debug messages if debug mode is enabled and in interactive mode
+      if (getOption("debug_mode", FALSE) && interactive()) {
+        message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
+      }
+      tibble(
+        term = NA_character_,
+        estimate = NA_real_,
+        std.error = NA_real_,
+        conf.low = NA_real_,
+        conf.high = NA_real_,
         sim = job$sim,
         row_id = job$row_id,
         model = job$model,
@@ -1093,63 +1121,43 @@ results_h3b <- future_map_dfr(1:nrow(all_jobs_h3b), function(job_idx) {
         expected_effect = job$expected_effect,
         effect_shape = job$effect_shape
       )
-    
-    return(result)
-  }, error = function(e) {
-    # Only show debug messages if debug mode is enabled and in interactive mode
-    if (getOption("debug_mode", FALSE) && interactive()) {
-      message("Job ", job_idx, " (spec row: ", job$i, ", sim: ", job$sim, ") failed: ", e$message)
-    }
-    tibble(
-      term = NA_character_,
-      estimate = NA_real_,
-      std.error = NA_real_,
-      conf.low = NA_real_,
-      conf.high = NA_real_,
-      sim = job$sim,
-      row_id = job$row_id,
-      model = job$model,
-      b = job$b,
-      expected_effect = job$expected_effect,
-      effect_shape = job$effect_shape
+    })
+  }, .progress = TRUE,
+  .options = furrr_options(
+    globals = c("all_jobs_h3b", "sim_study", "sim_data", "fit_mlm_reduction", "fit_mlm_reduction_robust",
+                "sim_dropout",
+                "fit_gam", "fit_gam_no_main", "fit_mlm", "fit_mlm_simple", 
+                "fit_gls", "fit_gls_simple", "fit_gls_spline", "extract_marginal_effect"),
+    seed = TRUE
+  ))
+
+  sim_summary_h3b <- results_h3b |> 
+    group_by(row_id) |> 
+    summarise(
+      model = first(model),
+      b = first(b),
+      expected_effect = first(expected_effect),
+      effect_shape = first(effect_shape),
+      mean_effect = mean(estimate, na.rm = TRUE),
+      mean_se = mean(std.error, na.rm = TRUE),
+      mean_conf.low = mean(conf.low, na.rm = TRUE),
+      mean_conf.high = mean(conf.high, na.rm = TRUE),
+      # Correct power calculation based on model type
+      power = if_else(
+        first(model) == "fit_mlm_reduction_robust",
+        sum(conf.high < 0, na.rm = TRUE) / sum(!is.na(conf.high)),  # Robust expects negative
+        sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))     # Change score expects positive
+      )
     )
-  })
-}, .progress = TRUE,
-.options = furrr_options(
-  globals = c("all_jobs_h3b", "sim_study", "sim_data", "fit_mlm_reduction", "fit_mlm_reduction_robust",
-              "sim_dropout",
-              "fit_gam", "fit_gam_no_main", "fit_mlm", "fit_mlm_simple", 
-              "fit_gls", "fit_gls_simple", "fit_gls_spline", "extract_marginal_effect"),
-  seed = TRUE
-))
 
-sim_summary_h3b <- results_h3b |> 
-  group_by(row_id) |> 
-  summarise(
-    model = first(model),
-    b = first(b),
-    expected_effect = first(expected_effect),
-    effect_shape = first(effect_shape),
-    mean_effect = mean(estimate, na.rm = TRUE),
-    mean_se = mean(std.error, na.rm = TRUE),
-    mean_conf.low = mean(conf.low, na.rm = TRUE),
-    mean_conf.high = mean(conf.high, na.rm = TRUE),
-    # Correct power calculation based on model type
-    power = if_else(
-      first(model) == "fit_mlm_reduction_robust",
-      sum(conf.high < 0, na.rm = TRUE) / sum(!is.na(conf.high)),  # Robust expects negative
-      sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))     # Change score expects positive
-    )
-  )
+  # Stop timing and display results
+  h3b_time <- toc()
 
-# Stop timing and display results
-h3b_time <- toc()
-
-# Save results to cache
-saveRDS(results_h3b, cache_file_h3b)
-saveRDS(sim_summary_h3b, cache_summary_h3b)
-saveRDS(current_params_h3b, cache_params_h3b)
-message("H3b simulation results saved to cache!")
+  # Save results to cache
+  saveRDS(results_h3b, cache_file_h3b)
+  saveRDS(sim_summary_h3b, cache_summary_h3b)
+  saveRDS(current_params_h3b, cache_params_h3b)
+  message("H3b simulation results saved to cache!")
 
 } # End of else block for cached results
 
