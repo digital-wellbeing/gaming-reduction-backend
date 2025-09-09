@@ -52,7 +52,7 @@ p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, bro
 if (interactive()) {
   plan(multisession, workers = parallel::detectCores()-8)
 } else {
-  plan(sequential)
+  plan(multisession, workers = parallel::detectCores()-8)
 }
 # Diagnostic information about parallel setup
 
@@ -523,8 +523,9 @@ To assess power/sensitivity, we run multiple simulations (controlled by `n_sims`
 
 As this is quite slow, we both use parallel processing with `furrr` cache the results.
 
-```{r, cache = TRUE}
+```{r}
 #| label: sim-study-h2a
+#| cache: true
 #' Simulation Study Orchestrator
 #'
 #' A higher-level function that ties together data simulation, dropout, and model fitting,
@@ -576,37 +577,94 @@ if (!require(tictoc, quietly = TRUE)) {
   library(tictoc)
 }
 
-# Start timing
-message("Starting H2a simulations at: ", Sys.time())
-tic("H2a simulation total time")
+# Check if cached results exist
+cache_file_h2a <- "cache/h2a_simulation_results.rds"
+cache_summary_h2a <- "cache/h2a_simulation_summary.rds"
+cache_params_h2a <- "cache/h2a_simulation_params.rds"
 
-n_sims <- 500
+# Define key parameters that would invalidate cache
+current_params_h2a <- list(
+  n_sims = 500,
+  n = 80,
+  n_days = 28,
+  tau_int = 2.5,
+  tau_slope = 0.8,
+  within_person_sd = 2.5,
+  phi = 0.7,
+  models = c("fit_gam", "fit_gam_no_main", "fit_mlm", "fit_mlm_simple", "fit_gls", "fit_gls_simple", "fit_gls_spline"),
+  effect_values = c(0.3, 0.6, 0.9, 1.2, 1.5),
+  effect_shapes = c("grow", "plateau"),
+  mediated = FALSE
+)
+
+# -------------------------------------------------------------------
+# Prepare job specifications irrespective of cache status
+# This ensures that variables such as `specs_h2a`, `all_jobs_h2a`, and
+# related helpers are available even when we load results from cache,
+# avoiding downstream errors (e.g., `all_jobs_h2a` not found).
+n_sims <- current_params_h2a$n_sims
 
 specs_h2a <- expand_grid(
-  model = c("fit_gam", "fit_gam_no_main", "fit_mlm", "fit_mlm_simple", "fit_gls", "fit_gls_simple", "fit_gls_spline"),  # model names as strings
-  b = c(0.3, 0.6, 0.9, 1.2, 1.5),  # scaled for 5-25 range
-  effect_shape = c("grow", "plateau")
-) |> 
+  model = current_params_h2a$models,
+  b = current_params_h2a$effect_values,
+  effect_shape = current_params_h2a$effect_shapes
+) |>
   mutate(
     focal_term = case_when(
       model %in% c("fit_mlm_simple","fit_gls_simple", "fit_gam_no_main") ~ "conditionintervention",
       model %in% c("fit_gam", "fit_mlm", "fit_gls", "fit_gls_spline") ~ "conditionintervention:intervention_period",
       TRUE ~ "conditionintervention:intervention_period"
     )
-  ) |> 
-  (function(d) { d$row_id <- pmap_chr(d, ~ paste0(names(list(...)), "=", c(...), collapse = "_")); d })() |> 
+  ) |>
+  (function(d) { d$row_id <- pmap_chr(d, ~ paste0(names(list(...)), "=", c(...), collapse = "_")); d })() |>
   mutate(i = row_number())
 
-# Create all spec-simulation combinations for better parallelization
-all_jobs_h2a <- specs_h2a |> 
-  crossing(sim = 1:n_sims) |> 
+all_jobs_h2a <- specs_h2a |>
+  crossing(sim = 1:n_sims) |>
   mutate(job_id = row_number())
+
+# Helper objects for progress tracking & reporting
+total_jobs_h2a <- nrow(all_jobs_h2a)
+progress_checkpoints_h2a <- seq(from = round(total_jobs_h2a * 0.1),
+                                  to   = total_jobs_h2a,
+                                  by   = round(total_jobs_h2a * 0.1))
+
+# Check if cache exists and parameters match
+cache_valid_h2a <- FALSE
+if (file.exists(cache_file_h2a) && file.exists(cache_summary_h2a) && file.exists(cache_params_h2a)) {
+  cached_params_h2a <- readRDS(cache_params_h2a)
+  cache_valid_h2a <- identical(current_params_h2a, cached_params_h2a)
+}
+
+if (cache_valid_h2a) {
+  message("Loading cached H2a simulation results...")
+  results_h2a <- readRDS(cache_file_h2a)
+  sim_summary_h2a <- readRDS(cache_summary_h2a)
+  message("Cached H2a results loaded successfully!")
+} else {
+  message("No cached H2a results found or parameters changed. Running H2a simulations...")
+  
+  # Create cache directory if it doesn't exist
+  if (!dir.exists("cache")) {
+    dir.create("cache", recursive = TRUE)
+  }
+
+  # Start timing
+  message("Starting H2a simulations at: ", Sys.time())
+  tic("H2a simulation total time")
+
+  # n_sims is already defined above based on `current_params_h2a`
+
+# Create all spec-simulation combinations for better parallelization
+# all_jobs_h2a <- specs_h2a |> 
+#   crossing(sim = 1:n_sims) |> 
+#   mutate(job_id = row_number())
 
 message("Running ", nrow(all_jobs_h2a), " simulations across ", nbrOfWorkers(), " cores...")
 
 # Set up progress tracking
-total_jobs_h2a <- nrow(all_jobs_h2a)
-progress_checkpoints_h2a <- seq(from = round(total_jobs_h2a * 0.1), to = total_jobs_h2a, by = round(total_jobs_h2a * 0.1))
+# total_jobs_h2a <- nrow(all_jobs_h2a)
+# progress_checkpoints_h2a <- seq(from = round(total_jobs_h2a * 0.1), to = total_jobs_h2a, by = round(total_jobs_h2a * 0.1))
 
 # Run all simulations in parallel
 results_h2a <- future_map_dfr(1:nrow(all_jobs_h2a), function(job_idx) {
@@ -672,7 +730,7 @@ results_h2a <- future_map_dfr(1:nrow(all_jobs_h2a), function(job_idx) {
       effect_shape = job$effect_shape
     )
   })
-}, .progress = FALSE,
+}, .progress = TRUE,
 .options = furrr_options(
   globals = c("all_jobs_h2a", "sim_study", "sim_data", 
               "fit_gam", "fit_gam_no_main",
@@ -700,6 +758,14 @@ sim_summary_h2a <- results_h2a |>
 # Stop timing and display results
 h2a_time <- toc()
 message("H2a simulations completed at: ", Sys.time())
+
+# Save results to cache
+saveRDS(results_h2a, cache_file_h2a)
+saveRDS(sim_summary_h2a, cache_summary_h2a)
+saveRDS(current_params_h2a, cache_params_h2a)
+message("H2a simulation results saved to cache!")
+
+} # End of else block for cached results
 
 # Also print some summary statistics about the simulation
 message("=== SIMULATION SUMMARY ===")
@@ -751,6 +817,7 @@ ggplot(sim_summary_h2a, aes(x = b, y = power, color = model, alpha = model == "f
 #              labeltext = term)
 
 ### Minimum Detectable Effect Sizes at 80% Power
+```
 
 ```{r}
 #| label: h2a-power-table
@@ -834,32 +901,6 @@ mde_table |>
     general_title = "Notes:"
   )
 
-# Summary statistics
-cat("\n=== SUMMARY OF MODEL PERFORMANCE ===\n")
-best_models <- mde_table |>
-  group_by(effect_shape) |>
-  slice_min(mde_80_standardized, na_rm = TRUE, n = 3) |>
-  ungroup()
-
-for (shape in unique(best_models$effect_shape)) {
-  cat(sprintf("\n%s effects - Top 3 most sensitive models:\n", str_to_title(shape)))
-  shape_models <- best_models |> filter(effect_shape == shape)
-  for (i in 1:nrow(shape_models)) {
-    cat(sprintf("  %d. %s: %.2f standardized effect\n", 
-                i, shape_models$model_clean[i], shape_models$mde_80_standardized[i]))
-  }
-}
-
-# Overall best model
-overall_best <- mde_table |>
-  filter(!is.na(mde_80_standardized)) |>
-  slice_min(mde_80_standardized, n = 1)
-
-cat(sprintf("\nOverall most sensitive model: %s (%s effects)\n", 
-            overall_best$model_clean, overall_best$effect_shape))
-cat(sprintf("MDE at 80%% power: %.2f standardized effect (%.1f unstandardized)\n",
-            overall_best$mde_80_standardized, overall_best$mde_80_unstandardized))
-cat("=====================================\n")
 
 ```
 
@@ -867,8 +908,9 @@ cat("=====================================\n")
 
 Same thing as above, but now looking at power for our per-protocol model.
 
-```{r, cache = TRUE}
+```{r}
 #| label: sim-study-h2b
+#| cache: true
 #' Simulation Study Orchestrator
 #'
 #' A higher-level function that ties together data simulation, dropout, and model fitting,
@@ -920,38 +962,96 @@ if (!require(tictoc, quietly = TRUE)) {
   library(tictoc)
 }
 
-# Start timing
-message("Starting H2b simulations at: ", Sys.time())
-tic("H2b simulation total time")
+# Check if cached results exist
+cache_file_h2b <- "cache/h2b_simulation_results.rds"
+cache_summary_h2b <- "cache/h2b_simulation_summary.rds"
+cache_params_h2b <- "cache/h2b_simulation_params.rds"
 
-n_sims <- 500
+# Define key parameters that would invalidate cache
+current_params_h2b <- list(
+  n_sims = 500,
+  n = 80,
+  n_days = 28,
+  tau_int = 2.5,
+  tau_slope = 0.8,
+  within_person_sd = 2.0,
+  phi = 0.7,
+  models = c("fit_mlm_reduction", "fit_mlm_reduction_robust"),
+  effect_values = c(0.5, 1.0, 1.5, 2.0, 2.5),
+  effect_shapes = c("grow", "plateau"),
+  mediated = TRUE
+)
 
-specs_h2b <- expand_grid(
-  model = c("fit_mlm_reduction", "fit_mlm_reduction_robust"),  # model names as strings
-  b = c(0.5, 1.0, 1.5, 2.0, 2.5),  # these seem reasonable for the mediated model
-  effect_shape = c("grow", "plateau")
-) |> 
-  # calculate the mean of the Kumaraswamy distribution - the expected effect size of the mediated version is b * average compliance
-  mutate(
-    focal_term = case_when(
-      model == "fit_mlm_reduction" ~ "intervention_activeTRUE:reduction",
-      model == "fit_mlm_reduction_robust" ~ "intervention_activeTRUE:playtime"
-    ),
-    expected_effect = b * .1*beta(1 + 1/.05, .1),
+# -------------------------------------------------------------------
+# Prepare job specifications irrespective of cache status
+# This guarantees objects like `specs_h2b`, `all_jobs_h2b`, etc. exist
+# even when cached results are loaded, preventing missing-object errors.
+
+  n_sims <- current_params_h2b$n_sims
+
+  specs_h2b <- expand_grid(
+    model = current_params_h2b$models,
+    b = current_params_h2b$effect_values,
+    effect_shape = current_params_h2b$effect_shapes
   ) |> 
-  (\(d) { d$row_id <- pmap_chr(d, ~ paste0(names(list(...)), "=", c(...), collapse = "_")); d })() |> 
-  mutate(i = row_number())
+    mutate(
+      # focal term depends on model
+      focal_term = case_when(
+        model == "fit_mlm_reduction" ~ "intervention_activeTRUE:reduction",
+        model == "fit_mlm_reduction_robust" ~ "intervention_activeTRUE:playtime"
+      ),
+      # expected mediated effect size (approximate)
+      expected_effect = b * .1*beta(1 + 1/.05, .1)
+    ) |> 
+    (function(d) { d$row_id <- pmap_chr(d, ~ paste0(names(list(...)), "=", c(...), collapse = "_")); d })() |> 
+    mutate(i = row_number())
+
+  all_jobs_h2b <- specs_h2b |>
+    crossing(sim = 1:n_sims) |>
+    mutate(job_id = row_number())
+
+  # Helper objects for progress
+  total_jobs_h2b <- nrow(all_jobs_h2b)
+  progress_checkpoints_h2b <- seq(from = round(total_jobs_h2b * 0.1),
+                                  to   = total_jobs_h2b,
+                                  by   = round(total_jobs_h2b * 0.1))
+
+# Check if cache exists and parameters match
+cache_valid_h2b <- FALSE
+if (file.exists(cache_file_h2b) && file.exists(cache_summary_h2b) && file.exists(cache_params_h2b)) {
+  cached_params_h2b <- readRDS(cache_params_h2b)
+  cache_valid_h2b <- identical(current_params_h2b, cached_params_h2b)
+}
+
+if (cache_valid_h2b) {
+  message("Loading cached H2b simulation results...")
+  results_h2b <- readRDS(cache_file_h2b)
+  sim_summary_h2b <- readRDS(cache_summary_h2b)
+  message("Cached H2b results loaded successfully!")
+} else {
+  message("No cached H2b results found or parameters changed. Running H2b simulations...")
+  
+  # Create cache directory if it doesn't exist
+  if (!dir.exists("cache")) {
+    dir.create("cache", recursive = TRUE)
+  }
+
+  # Start timing
+  message("Starting H2b simulations at: ", Sys.time())
+  tic("H2b simulation total time")
+
+  # n_sims is already defined above based on `current_params_h2b`
 
 # Create all spec-simulation combinations for better parallelization
-all_jobs_h2b <- specs_h2b |> 
-  crossing(sim = 1:n_sims) |> 
-  mutate(job_id = row_number())
+# all_jobs_h2b <- specs_h2b |> 
+#   crossing(sim = 1:n_sims) |> 
+#   mutate(job_id = row_number())
 
 message("Running ", nrow(all_jobs_h2b), " simulations across ", nbrOfWorkers(), " cores...")
 
 # Set up progress tracking
-total_jobs_h2b <- nrow(all_jobs_h2b)
-progress_checkpoints_h2b <- seq(from = round(total_jobs_h2b * 0.1), to = total_jobs_h2b, by = round(total_jobs_h2b * 0.1))
+# total_jobs_h2b <- nrow(all_jobs_h2b)
+# progress_checkpoints_h2b <- seq(from = round(total_jobs_h2b * 0.1), to = total_jobs_h2b, by = round(total_jobs_h2b * 0.1))
 
 # Run all simulations in parallel
 results_h2b <- future_map_dfr(1:nrow(all_jobs_h2b), function(job_idx) {
@@ -1047,6 +1147,14 @@ sim_summary_h2b <- results_h2b |>
 # Stop timing and display results
 h2b_time <- toc()
 message("H2b simulations completed at: ", Sys.time())
+
+# Save results to cache
+saveRDS(results_h2b, cache_file_h2b)
+saveRDS(sim_summary_h2b, cache_summary_h2b)
+saveRDS(current_params_h2b, cache_params_h2b)
+message("H2b simulation results saved to cache!")
+
+} # End of else block for cached results
 
 # Also print some summary statistics about the simulation
 message("=== H2B SIMULATION SUMMARY ===")
@@ -1178,24 +1286,6 @@ knitr::kable(
   digits = 3
 )
 
-# Print summary comparison
-cat("\n=== PER-PROTOCOL APPROACH COMPARISON ===\n")
-change_score_power <- mean(sim_summary_h2b$power[sim_summary_h2b$model == "fit_mlm_reduction"], na.rm = TRUE)
-robust_power <- mean(sim_summary_h2b$power[sim_summary_h2b$model == "fit_mlm_reduction_robust"], na.rm = TRUE)
-
-cat(sprintf("Change Score Approach - Mean Power: %.3f\n", change_score_power))
-cat(sprintf("Robust Approach - Mean Power: %.3f\n", robust_power))
-cat(sprintf("Difference: %.3f (robust approach is %.1f%% %s)\n", 
-            robust_power - change_score_power,
-            abs(robust_power - change_score_power) * 100,
-            ifelse(robust_power > change_score_power, "higher", "lower")))
-
-cat("\n=== IMPORTANT NOTE ON INTERPRETATION ===\n")
-cat("The two per-protocol models test subtly different hypotheses:\n")
-cat("- Change Score Model: Tests if reduction in playtime improves sleep (positive coefficient expected)\n")
-cat("- Robust Model: Tests if lower playtime is associated with better sleep during intervention (negative coefficient expected)\n")
-cat("Both approaches test the same underlying phenomenon but from different angles.\n")
-cat("=========================================\n")
 ```
 
 ## Timing Summary
@@ -1215,10 +1305,4 @@ if (exists("h2a_time") && exists("h2b_time")) {
 }
 ```
 
-## Planned Sensitivity Analyses
 
-We have preregistered several sensitivity analyses to test the robustness of any effects we find. These include:
-
-- *Day 21 only:* We will estimate the effect of the intervention on day 21 only, to see what the difference between groups is at the end of the intervention period
-- *Marginal means:* In h2a, we will use the `emmeans` package to calculate marginal means for each condition and produce a single parameter by integrating across the 14-day period
-- *Multilevel model:* We will fit the MLM as defined in Table 1 above, as the second-highest performing model in the simulations (having higher power for linear effects, but lower for non-linear)

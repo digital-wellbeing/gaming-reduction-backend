@@ -1382,15 +1382,15 @@ power_results_multi$effect_min_factor <- factor(
 # Convert from wide to long format to plot all power metrics
 power_results_long <- power_results_multi %>%
   pivot_longer(
-    cols = c("power_interaction", "power_protocol_change", "power_protocol_robust"),
+    cols = c("power_interaction", "power_protocol_robust"),
     names_to = "power_type",
     values_to = "power"
   ) %>%
   mutate(
     power_type = factor(
       power_type,
-      levels = c("power_interaction", "power_protocol_change", "power_protocol_robust"),
-      labels = c("Intention to Treat Effect", "Per-Protocol (Change)", "Per-Protocol (Robust)")
+      levels = c("power_interaction", "power_protocol_robust"),
+      labels = c("Intention to Treat Effect", "Per-Protocol (Robust)")
     )
   )
 
@@ -1455,20 +1455,6 @@ ggplot(power_summary_ribbon,
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2))
 
 
-power_protocol_change_heatmap <- power_results_multi %>%
-  ggplot(aes(x = s_within, y = s_between, fill = power_protocol_change)) +
-  geom_tile() +
-  facet_wrap(~ effect_min_factor) +
-  scale_fill_viridis_c(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
-  labs(title = "Power Heatmap for Per-Protocol Effect (Change Score)",
-       x = "Within-subject SD",
-       y = "Between-subject SD",
-       fill = "Power") +
-  theme_minimal() +
-  theme(legend.position = "right")
-
-# Display the heatmap
-power_protocol_change_heatmap
 
 power_protocol_robust_heatmap <- power_results_multi %>%
   ggplot(aes(x = s_within, y = s_between, fill = power_protocol_robust)) +
@@ -1477,7 +1463,7 @@ power_protocol_robust_heatmap <- power_results_multi %>%
   scale_fill_viridis_c(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
   labs(title = "Power Heatmap for Per-Protocol Effect (Robust)",
        x = "Within-subject SD",
-       y = "Within-subject SD",
+       y = "Between-subject SD",
        fill = "Power") +
   theme_minimal() +
   theme(legend.position = "right")
@@ -1535,23 +1521,6 @@ datatable(
 )
 ```
 
-::: {.callout-important}
-## Key Insight: Per-Protocol Approach Interpretation
-
-The two per-protocol approaches test subtly different hypotheses:
-
-1. **Change Score Approach** (`playtime_reduction`):
-   - Tests if *reducing* playtime improves outcomes
-   - Expects **positive** coefficient (more reduction → less sedentary behavior)
-   - Power calculation: `p < 0.05` ✓
-
-2. **Robust Approach** (`playtime`):
-   - Tests if *lower* playtime is associated with better outcomes during intervention
-   - Expects **negative** coefficient (less playtime → less sedentary behavior)
-   - Power calculation: `p < 0.05` ❌ (should check for negative coefficients)
-
-**Impact**: The robust approach's power is severely underestimated in these results. When correctly interpreted, it likely has similar or higher power than the change score approach, as it avoids potential regression-to-the-mean issues inherent in change scores.
-:::
 
 ## Minimum Detectable Effect Sizes at 80% Power
 
@@ -1609,7 +1578,7 @@ mde_table_itt <- power_results_multi %>%
 library(kableExtra)
 
 mde_table_itt %>%
-  select(
+  dplyr::select(
     `Between-Subject SD` = s_between,
     `Within-Subject SD` = s_within,
     `Variability Profile` = variability_profile,
@@ -1623,7 +1592,7 @@ mde_table_itt %>%
   ) %>%
   kable_styling(
     bootstrap_options = c("striped", "hover", "condensed"),
-    full_width = FALSE,
+    full_width = TRUE,
     position = "left"
   ) %>%
   pack_rows("Low Between-Subject Variability (0.10-0.15)", 1, sum(mde_table_itt$s_between <= 0.15)) %>%
@@ -1638,64 +1607,6 @@ mde_table_itt %>%
     general_title = "Notes:"
   )
 
-# Summary statistics for ITT
-cat("\n=== ITT EFFECT SENSITIVITY SUMMARY ===\n")
-
-# Find best performing configurations
-best_itt_configs <- mde_table_itt %>%
-  filter(!is.na(mde_80_itt)) %>%
-  arrange(mde_80_itt) %>%
-  head(5)
-
-if (nrow(best_itt_configs) > 0) {
-  cat("Top 5 most sensitive configurations (smallest MDE):\n")
-  for (i in 1:nrow(best_itt_configs)) {
-    row <- best_itt_configs[i, ]
-    cat(sprintf("  %d. MDE = %0.f min (s_between=%.2f, s_within=%.2f) - %s\n", 
-                i, row$mde_80_itt, row$s_between, row$s_within, row$variability_profile))
-  }
-} else {
-  cat("No configurations achieved 80% power within the tested effect size range.\n")
-  
-  # Find configurations with highest power instead
-  highest_power_configs <- mde_table_itt %>%
-    arrange(desc(max_power_itt)) %>%
-    head(5)
-  
-  cat("Top 5 configurations by maximum power achieved:\n")
-  for (i in 1:nrow(highest_power_configs)) {
-    row <- highest_power_configs[i, ]
-    cat(sprintf("  %d. Max Power = %.1f%% (s_between=%.2f, s_within=%.2f) - %s\n", 
-                i, row$max_power_itt * 100, row$s_between, row$s_within, row$variability_profile))
-  }
-}
-
-# Variability impact analysis
-cat("\n=== VARIABILITY IMPACT ON ITT DETECTION ===\n")
-variability_impact <- mde_table_itt %>%
-  group_by(variability_profile) %>%
-  summarise(
-    n_configs = n(),
-    mean_mde = mean(mde_80_itt, na.rm = TRUE),
-    mean_max_power = mean(max_power_itt, na.rm = TRUE),
-    configs_80_plus = sum(!is.na(mde_80_itt)),
-    .groups = "drop"
-  ) %>%
-  arrange(mean_mde)
-
-for (i in 1:nrow(variability_impact)) {
-  profile <- variability_impact[i, ]
-  cat(sprintf("%s:\n", profile$variability_profile))
-  if (profile$configs_80_plus > 0) {
-    cat(sprintf("  • Mean MDE: %.0f minutes\n", profile$mean_mde))
-    cat(sprintf("  • Configs reaching 80%% power: %d/%d\n", profile$configs_80_plus, profile$n_configs))
-  } else {
-    cat(sprintf("  • No configs reached 80%% power (mean max power: %.1f%%)\n", profile$mean_max_power * 100))
-  }
-  cat(sprintf("  • Mean maximum power: %.1f%%\n\n", profile$mean_max_power * 100))
-}
-
-cat("=======================================\n")
 ```
 
 ### Per-Protocol Effects - Minimum Detectable Effect Sizes
@@ -1757,7 +1668,7 @@ mde_table_protocol <- power_results_multi %>%
 
 # Create side-by-side comparison table for per-protocol approaches
 comparison_table <- mde_table_protocol %>%
-  select(
+  dplyr::select(
     `Between SD` = s_between,
     `Within SD` = s_within,
     `Profile` = variability_profile,
@@ -1790,175 +1701,4 @@ comparison_table %>%
     general_title = "Notes:"
   )
 
-# Per-protocol summary analysis
-cat("\n=== PER-PROTOCOL APPROACH COMPARISON ===\n")
-
-# Calculate approach performance
-change_score_performance <- mde_table_protocol %>%
-  filter(!is.na(mde_80_change)) %>%
-  summarise(
-    n_configs_80 = n(),
-    mean_mde = mean(mde_80_change, na.rm = TRUE),
-    min_mde = min(mde_80_change, na.rm = TRUE),
-    mean_max_power = mean(max_power_change, na.rm = TRUE)
-  )
-
-robust_performance <- mde_table_protocol %>%
-  filter(!is.na(mde_80_robust)) %>%
-  summarise(
-    n_configs_80 = n(),
-    mean_mde = mean(mde_80_robust, na.rm = TRUE),  
-    min_mde = min(mde_80_robust, na.rm = TRUE),
-    mean_max_power = mean(max_power_robust, na.rm = TRUE)
-  )
-
-total_configs <- nrow(mde_table_protocol)
-
-cat("CHANGE SCORE APPROACH:\n")
-if (change_score_performance$n_configs_80 > 0) {
-  cat(sprintf("  • Configs reaching 80%% power: %d/%d (%.1f%%)\n", 
-              change_score_performance$n_configs_80, total_configs, 
-              100 * change_score_performance$n_configs_80 / total_configs))
-  cat(sprintf("  • Mean MDE: %.0f minutes\n", change_score_performance$mean_mde))
-  cat(sprintf("  • Best MDE: %.0f minutes\n", change_score_performance$min_mde))
-} else {
-  overall_change_power <- mean(mde_table_protocol$max_power_change, na.rm = TRUE)
-  cat(sprintf("  • No configs reached 80%% power (mean max power: %.1f%%)\n", overall_change_power * 100))
-}
-
-cat("\nROBUST APPROACH:\n")
-if (robust_performance$n_configs_80 > 0) {
-  cat(sprintf("  • Configs reaching 80%% power: %d/%d (%.1f%%)\n", 
-              robust_performance$n_configs_80, total_configs,
-              100 * robust_performance$n_configs_80 / total_configs))
-  cat(sprintf("  • Mean MDE: %.0f minutes\n", robust_performance$mean_mde))
-  cat(sprintf("  • Best MDE: %.0f minutes\n", robust_performance$min_mde))
-} else {
-  overall_robust_power <- mean(mde_table_protocol$max_power_robust, na.rm = TRUE)
-  cat(sprintf("  • No configs reached 80%% power (mean max power: %.1f%%)\n", overall_robust_power * 100))
-}
-
-# Overall approach comparison
-if (change_score_performance$n_configs_80 > 0 && robust_performance$n_configs_80 > 0) {
-  if (change_score_performance$mean_mde < robust_performance$mean_mde) {
-    cat(sprintf("\n✓ Change Score approach more sensitive (%.0f vs %.0f min average MDE)\n", 
-                change_score_performance$mean_mde, robust_performance$mean_mde))
-  } else {
-    cat(sprintf("\n✓ Robust approach more sensitive (%.0f vs %.0f min average MDE)\n", 
-                robust_performance$mean_mde, change_score_performance$mean_mde))
-  }
-} else if (change_score_performance$n_configs_80 > robust_performance$n_configs_80) {
-  cat("\n✓ Change Score approach reaches 80% power in more configurations\n")
-} else if (robust_performance$n_configs_80 > change_score_performance$n_configs_80) {
-  cat("\n✓ Robust approach reaches 80% power in more configurations\n")
-} else {
-  cat("\n≈ Both approaches show similar performance patterns\n")
-}
-
-# Best performing configurations for each approach  
-cat("\n=== OPTIMAL CONFIGURATIONS ===\n")
-
-if (change_score_performance$n_configs_80 > 0) {
-  best_change <- mde_table_protocol %>%
-    filter(!is.na(mde_80_change)) %>%
-    arrange(mde_80_change) %>%
-    head(3)
-  
-  cat("TOP 3 CHANGE SCORE CONFIGURATIONS:\n")
-  for (i in 1:nrow(best_change)) {
-    row <- best_change[i, ]
-    cat(sprintf("  %d. MDE = %.0f min (s_between=%.2f, s_within=%.2f) - %s\n", 
-                i, row$mde_80_change, row$s_between, row$s_within, row$variability_profile))
-  }
-}
-
-if (robust_performance$n_configs_80 > 0) {
-  best_robust <- mde_table_protocol %>%
-    filter(!is.na(mde_80_robust)) %>%
-    arrange(mde_80_robust) %>%
-    head(3)
-  
-  cat("\nTOP 3 ROBUST CONFIGURATIONS:\n")
-  for (i in 1:nrow(best_robust)) {
-    row <- best_robust[i, ]
-    cat(sprintf("  %d. MDE = %.0f min (s_between=%.2f, s_within=%.2f) - %s\n", 
-                i, row$mde_80_robust, row$s_between, row$s_within, row$variability_profile))
-  }
-}
-
-cat("=======================================\n")
 ```
-
-### Study Design Recommendations
-
-```{r}
-#| label: design-recommendations
-#| code-summary: "Show code (study design recommendations)"
-
-cat("=== STUDY DESIGN RECOMMENDATIONS ===\n\n")
-
-# Find the overall best configurations across all approaches
-all_configs <- bind_rows(
-  mde_table_itt %>% 
-    filter(!is.na(mde_80_itt)) %>%
-    transmute(s_between, s_within, approach = "ITT", mde = mde_80_itt, max_power = max_power_itt),
-  mde_table_protocol %>% 
-    filter(!is.na(mde_80_change)) %>%
-    transmute(s_between, s_within, approach = "Per-Protocol (Change)", mde = mde_80_change, max_power = max_power_change),
-  mde_table_protocol %>% 
-    filter(!is.na(mde_80_robust)) %>%
-    transmute(s_between, s_within, approach = "Per-Protocol (Robust)", mde = mde_80_robust, max_power = max_power_robust)
-)
-
-if (nrow(all_configs) > 0) {
-  # Overall best configurations
-  overall_best <- all_configs %>%
-    arrange(mde) %>%
-    head(5)
-  
-  cat("🎯 TOP 5 OVERALL MOST SENSITIVE CONFIGURATIONS:\n")
-  for (i in 1:nrow(overall_best)) {
-    row <- overall_best[i, ]
-    cat(sprintf("  %d. %s: MDE = %.0f min (s_between=%.2f, s_within=%.2f, max_power=%.1f%%)\n", 
-                i, row$approach, row$mde, row$s_between, row$s_within, row$max_power * 100))
-  }
-  
-  # Recommendations by variability scenario
-  cat("\n📊 RECOMMENDATIONS BY EXPECTED STUDY VARIABILITY:\n\n")
-  
-  low_var_configs <- all_configs %>% filter(s_between <= 0.15 & s_within <= 0.20)
-  if (nrow(low_var_configs) > 0) {
-    best_low_var <- low_var_configs %>% arrange(mde) %>% head(1)
-    cat("LOW VARIABILITY STUDIES (consistent participants, stable daily patterns):\n")
-    cat(sprintf("  ✓ Best approach: %s (MDE = %.0f min)\n", best_low_var$approach, best_low_var$mde))
-    cat(sprintf("  ✓ Optimal parameters: s_between=%.2f, s_within=%.2f\n", best_low_var$s_between, best_low_var$s_within))
-  }
-  
-  high_var_configs <- all_configs %>% filter(s_between > 0.20 | s_within > 0.25)
-  if (nrow(high_var_configs) > 0) {
-    best_high_var <- high_var_configs %>% arrange(mde) %>% head(1)
-    cat("\nHIGH VARIABILITY STUDIES (diverse participants, variable daily patterns):\n")
-    cat(sprintf("  ✓ Best approach: %s (MDE = %.0f min)\n", best_high_var$approach, best_high_var$mde))
-    cat(sprintf("  ✓ Optimal parameters: s_between=%.2f, s_within=%.2f\n", best_high_var$s_between, best_high_var$s_within))
-  }
-  
-  # Effect size guidelines
-  cat("\n💡 EFFECT SIZE PLANNING GUIDELINES:\n")
-  cat(sprintf("  • For 80%% power, plan for interventions achieving ≥%.0f minutes sedentary reduction\n", min(all_configs$mde)))
-  cat(sprintf("  • Most configurations require ≥%.0f minutes for adequate power\n", median(all_configs$mde)))
-  cat(sprintf("  • Conservative planning should assume ≥%.0f minutes needed\n", quantile(all_configs$mde, 0.75)))
-  
-} else {
-  cat("⚠️  NO CONFIGURATIONS ACHIEVED 80% POWER within tested effect sizes.\n\n")
-  cat("RECOMMENDATIONS FOR FUTURE STUDIES:\n")
-  cat("  1. Test larger effect sizes (>120 minutes sedentary reduction)\n")
-  cat("  2. Increase sample size beyond n=40 per group\n")
-  cat("  3. Consider designs that reduce measurement variability\n")
-  cat("  4. Focus on populations with more consistent behavioral patterns\n")
-}
-
-cat("\n======================================\n")
-```
-
-
-

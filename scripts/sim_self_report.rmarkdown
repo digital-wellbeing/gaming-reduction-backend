@@ -52,9 +52,9 @@ p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, bro
 
 # Replace your current plan() line with:
 if (interactive()) {
-  plan(multisession, workers = parallel::detectCores()-8)
+  plan(multisession, workers = parallel::detectCores()-10)
 } else {
-  plan(multisession, workers = parallel::detectCores()-8)
+  plan(multisession, workers = parallel::detectCores()-10)
 }
 # Diagnostic information about parallel setup
 
@@ -638,6 +638,7 @@ As this is quite slow, we both use parallel processing with `furrr` cache the re
 ```{r}
 #| label: sim-study-h3a
 #| code-summary: "Show code (simulate power h3a)"
+#| cache: true
 
 # Load tictoc for timing if not already loaded
 if (!require(tictoc, quietly = TRUE)) {
@@ -645,10 +646,49 @@ if (!require(tictoc, quietly = TRUE)) {
   library(tictoc)
 }
 
-# Start timing
-tic("H3a simulation total time")
+# Check if cached results exist
+cache_file_h3a <- "cache/h3a_simulation_results.rds"
+cache_summary_h3a <- "cache/h3a_simulation_summary.rds"
+cache_params_h3a <- "cache/h3a_simulation_params.rds"
 
-# Set number of simulations
+# Define key parameters that would invalidate cache
+current_params_h3a <- list(
+  n_sims = 500,
+  n = 80,
+  n_days = 28,
+  tau_int = 9.7,
+  tau_slope = 0.8,
+  within_person_sd = 11.8,
+  phi = 0.7,
+  models = c("fit_gam", "fit_gam_no_main", "fit_mlm", "fit_mlm_simple", "fit_gls", "fit_gls_simple", "fit_gls_spline"),
+  effect_values = c(1.2, 2.4, 3.6, 4.8, 6),
+  effect_shapes = c("grow", "plateau")
+)
+
+# Check if cache exists and parameters match
+cache_valid_h3a <- FALSE
+if (file.exists(cache_file_h3a) && file.exists(cache_summary_h3a) && file.exists(cache_params_h3a)) {
+  cached_params_h3a <- readRDS(cache_params_h3a)
+  cache_valid_h3a <- identical(current_params_h3a, cached_params_h3a)
+}
+
+if (cache_valid_h3a) {
+  message("Loading cached H3a simulation results...")
+  results_h3a <- readRDS(cache_file_h3a)
+  sim_summary_h3a <- readRDS(cache_summary_h3a)
+  message("Cached results loaded successfully!")
+} else {
+  message("No cached results found. Running H3a simulations...")
+  
+  # Create cache directory if it doesn't exist
+  if (!dir.exists("cache")) {
+    dir.create("cache", recursive = TRUE)
+  }
+  
+  # Start timing
+  tic("H3a simulation total time")
+  
+  # Set number of simulations
 # Note: Reduce this number (e.g., to 50) for testing to avoid long runtimes
 # Enable debug mode to see convergence failure messages: options(debug_mode = TRUE)
 n_sims <- 500
@@ -759,6 +799,14 @@ sim_summary_h3a <- results_h3a |>
 
 # Stop timing and display results
 h3a_time <- toc()
+
+# Save results to cache
+saveRDS(results_h3a, cache_file_h3a)
+saveRDS(sim_summary_h3a, cache_summary_h3a)
+saveRDS(current_params_h3a, cache_params_h3a)
+message("H3a simulation results saved to cache!")
+
+} # End of else block for cached results
 
 # Also print some summary statistics about the simulation
 message("=== SIMULATION SUMMARY ===")
@@ -924,15 +972,56 @@ cat("=====================================\n")
 
 Same thing as above, but now looking at power for our per-protocol model.
 
-```{r, cache = TRUE}
+```{r}
 #| label: sim-study-h3b
 #| code-summary: "Show code (sim study h3b)"
+#| cache: true
 
 
-# Start timing
-tic("H3b simulation total time")
+# Check if cached results exist
+cache_file_h3b <- "cache/h3b_simulation_results.rds"
+cache_summary_h3b <- "cache/h3b_simulation_summary.rds"
+cache_params_h3b <- "cache/h3b_simulation_params.rds"
 
-# Set number of simulations  
+# Define key parameters that would invalidate cache
+current_params_h3b <- list(
+  n_sims = 500,
+  n = 80,
+  n_days = 28,
+  tau_int = 9.7,
+  tau_slope = 0.8,
+  within_person_sd = 11.8,
+  phi = 0.7,
+  models = c("fit_mlm_reduction", "fit_mlm_reduction_robust"),
+  effect_values = c(1.2, 2.4, 3.6, 4.8),
+  effect_shapes = c("grow", "plateau"),
+  mediated = TRUE
+)
+
+# Check if cache exists and parameters match
+cache_valid_h3b <- FALSE
+if (file.exists(cache_file_h3b) && file.exists(cache_summary_h3b) && file.exists(cache_params_h3b)) {
+  cached_params_h3b <- readRDS(cache_params_h3b)
+  cache_valid_h3b <- identical(current_params_h3b, cached_params_h3b)
+}
+
+if (cache_valid_h3b) {
+  message("Loading cached H3b simulation results...")
+  results_h3b <- readRDS(cache_file_h3b)
+  sim_summary_h3b <- readRDS(cache_summary_h3b)
+  message("Cached H3b results loaded successfully!")
+} else {
+  message("No cached H3b results found. Running H3b simulations...")
+  
+  # Create cache directory if it doesn't exist
+  if (!dir.exists("cache")) {
+    dir.create("cache", recursive = TRUE)
+  }
+  
+  # Start timing
+  tic("H3b simulation total time")
+  
+  # Set number of simulations  
 # Note: Reduce this number (e.g., to 50) for testing to avoid long runtimes
 # Enable debug mode to see convergence failure messages: options(debug_mode = TRUE)
 n_sims <- 500
@@ -1054,6 +1143,14 @@ sim_summary_h3b <- results_h3b |>
 
 # Stop timing and display results
 h3b_time <- toc()
+
+# Save results to cache
+saveRDS(results_h3b, cache_file_h3b)
+saveRDS(sim_summary_h3b, cache_summary_h3b)
+saveRDS(current_params_h3b, cache_params_h3b)
+message("H3b simulation results saved to cache!")
+
+} # End of else block for cached results
 
 # Also print some summary statistics about the simulation
 message("=== H3B SIMULATION SUMMARY ===")
@@ -1371,3 +1468,4 @@ We have preregistered several sensitivity analyses to test the robustness of any
 - *Day 21 only:* We will estimate the effect of the intervention on day 21 only, to see what the difference between groups is at the end of the intervention period
 - *Marginal means:* In H3a, we will use the `emmeans` package to calculate marginal means for each condition and produce a single parameter by integrating across the 14-day period
 - *Multilevel model:* We will fit the MLM as defined in Table 1 above, as the second-highest performing model in the simulations (having higher power for linear effects, but lower for non-linear)
+
