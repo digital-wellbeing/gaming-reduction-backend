@@ -38,6 +38,15 @@ Our simulations show that several models perform well at parameter recovery for 
 
 The MLM Reduction model performs very well, and has >95% power for standardized effects of approximately .2 or greater. The MLM Reduction Robust model provides an alternative approach that avoids potential issues with change scores by directly modeling the relationship between current playtime and outcomes while controlling for baseline differences.
 
+### Simulation Control
+
+To force rerun simulations (bypassing the cache), set the `FORCE_RERUN_H3A` and/or `FORCE_RERUN_H3B` parameters to `TRUE` in the "Load Libraries" section below. This is useful when you want to:
+
+- Test changes to the simulation code
+- Rerun with different random seeds  
+- Regenerate results after fixing issues
+- Bypass potentially corrupted cache files
+
 ### Load Libraries
 
 First we load packages with `pacman`, which is fully compatible with `renv`.
@@ -49,6 +58,17 @@ First we load packages with `pacman`, which is fully compatible with `renv`.
 library(pacman)
 
 p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr, extraDistr, kableExtra)
+
+# ====================================================================
+# SIMULATION CONTROL PARAMETERS
+# ====================================================================
+# Set these parameters to control simulation behavior:
+
+# Force rerun simulations (bypassing cache)
+FORCE_RERUN_H3A <- FALSE  # Set to TRUE to force rerun H3a simulations
+FORCE_RERUN_H3B <- FALSE  # Set to TRUE to force rerun H3b simulations
+
+# ====================================================================
 
 # Replace your current plan() line with:
 if (interactive()) {
@@ -651,6 +671,9 @@ cache_file_h3a <- "cache/h3a_simulation_results.rds"
 cache_summary_h3a <- "cache/h3a_simulation_summary.rds"
 cache_params_h3a <- "cache/h3a_simulation_params.rds"
 
+# Simulation control parameters (using global settings)
+force_rerun_h3a <- FORCE_RERUN_H3A
+
 # Define key parameters that would invalidate cache
 current_params_h3a <- list(
   n_sims = 500,
@@ -694,7 +717,7 @@ all_jobs_h3a <- specs_h3a |>
 
 # Check if cache exists and parameters match
 cache_valid_h3a <- FALSE
-if (file.exists(cache_file_h3a) && file.exists(cache_summary_h3a) && file.exists(cache_params_h3a)) {
+if (!force_rerun_h3a && file.exists(cache_file_h3a) && file.exists(cache_summary_h3a) && file.exists(cache_params_h3a)) {
   cached_params_h3a <- readRDS(cache_params_h3a)
   cache_valid_h3a <- identical(current_params_h3a, cached_params_h3a)
 }
@@ -705,7 +728,11 @@ if (cache_valid_h3a) {
   sim_summary_h3a <- readRDS(cache_summary_h3a)
   message("Cached H3a results loaded successfully!")
 } else {
-  message("No cached H3a results found or parameters changed. Running H3a simulations...")
+  if (force_rerun_h3a) {
+    message("Force rerun enabled. Running H3a simulations...")
+  } else {
+    message("No cached H3a results found or parameters changed. Running H3a simulations...")
+  }
   
   # Create cache directory if it doesn't exist
   if (!dir.exists("cache")) {
@@ -943,32 +970,7 @@ mde_table |>
     general_title = "Notes:"
   )
 
-# Summary statistics
-cat("\n=== SUMMARY OF MODEL PERFORMANCE ===\n")
-best_models <- mde_table |>
-  group_by(effect_shape) |>
-  slice_min(mde_80_standardized, na_rm = TRUE, n = 3) |>
-  ungroup()
 
-for (shape in unique(best_models$effect_shape)) {
-  cat(sprintf("\n%s effects - Top 3 most sensitive models:\n", str_to_title(shape)))
-  shape_models <- best_models |> filter(effect_shape == shape)
-  for (i in 1:nrow(shape_models)) {
-    cat(sprintf("  %d. %s: %.2f standardized effect\n", 
-                i, shape_models$model_clean[i], shape_models$mde_80_standardized[i]))
-  }
-}
-
-# Overall best model
-overall_best <- mde_table |>
-  filter(!is.na(mde_80_standardized)) |>
-  slice_min(mde_80_standardized, n = 1)
-
-cat(sprintf("\nOverall most sensitive model: %s (%s effects)\n", 
-            overall_best$model_clean, overall_best$effect_shape))
-cat(sprintf("MDE at 80%% power: %.2f standardized effect (%.1f unstandardized)\n",
-            overall_best$mde_80_standardized, overall_best$mde_80_unstandardized))
-cat("=====================================\n")
 
 ```
 
@@ -981,12 +983,13 @@ Same thing as above, but now looking at power for our per-protocol model.
 #| code-summary: "Show code (sim study h3b)"
 #| cache: true
 
-
-
 # Check if cached results exist
 cache_file_h3b <- "cache/h3b_simulation_results.rds"
 cache_summary_h3b <- "cache/h3b_simulation_summary.rds"
 cache_params_h3b <- "cache/h3b_simulation_params.rds"
+
+# Simulation control parameters (using global settings)
+force_rerun_h3b <- FORCE_RERUN_H3B
 
 # Define key parameters that would invalidate cache
 current_params_h3b <- list(
@@ -997,7 +1000,7 @@ current_params_h3b <- list(
   tau_slope = 0.8,
   within_person_sd = 11.8,
   phi = 0.7,
-  models = c("fit_mlm_reduction", "fit_mlm_reduction_robust"),
+  models = c("fit_mlm_reduction_robust"),
   effect_values = c(1.2, 2.4, 3.6, 4.8),
   effect_shapes = c("grow", "plateau"),
   mediated = TRUE
@@ -1008,25 +1011,20 @@ current_params_h3b <- list(
 # This ensures that variables such as `specs_h3b`, `all_jobs_h3b`, and
 # related helpers are available even when we load results from cache,
 # avoiding downstream errors (e.g., `all_jobs_h3b` not found).
-n_sims <- 500
+  n_sims <- current_params_h3b$n_sims
 
-# Note: With two per-protocol models, this simulation will take approximately 
-# twice as long as the original version with just the change score approach
-message("Note: Running two per-protocol models - simulation time will be longer")
-
-specs_h3b <- expand_grid(
-  model = c("fit_mlm_reduction", "fit_mlm_reduction_robust"),  # model names as strings
-  b = c(1.2, 2.4, 3.6, 4.8),
-  effect_shape = c("grow", "plateau")
-) |> 
+  specs_h3b <- expand_grid(
+    model = current_params_h3b$models,
+    b = current_params_h3b$effect_values,
+    effect_shape = current_params_h3b$effect_shapes
+  )|> 
   # calculate the mean of the Kumaraswamy distribution - the expected effect size of the mediated version is b * average compliance
   mutate(
-    focal_term = case_when(
-      model == "fit_mlm_reduction" ~ "intervention_activeTRUE:reduction",
-      model == "fit_mlm_reduction_robust" ~ "intervention_activeTRUE:playtime"
-    ),
-    expected_effect = b * .1*beta(1 + 1/.05, .1),
-  ) |> 
+      # focal term for robust model
+      focal_term = "intervention_activeTRUE:playtime",
+      # expected mediated effect size (approximate)
+      expected_effect = b * .1*beta(1 + 1/.05, .1)
+    )  |> 
   (\(d) { d$row_id <- pmap_chr(d, ~ paste0(names(list(...)), "=", c(...), collapse = "_")); d })() |> 
   mutate(i = row_number())
 
@@ -1037,7 +1035,7 @@ all_jobs_h3b <- specs_h3b |>
 
 # Check if cache exists and parameters match
 cache_valid_h3b <- FALSE
-if (file.exists(cache_file_h3b) && file.exists(cache_summary_h3b) && file.exists(cache_params_h3b)) {
+if (!force_rerun_h3b && file.exists(cache_file_h3b) && file.exists(cache_summary_h3b) && file.exists(cache_params_h3b)) {
   cached_params_h3b <- readRDS(cache_params_h3b)
   cache_valid_h3b <- identical(current_params_h3b, cached_params_h3b)
 }
@@ -1048,7 +1046,11 @@ if (cache_valid_h3b) {
   sim_summary_h3b <- readRDS(cache_summary_h3b)
   message("Cached H3b results loaded successfully!")
 } else {
-  message("No cached H3b results found or parameters changed. Running H3b simulations...")
+  if (force_rerun_h3b) {
+    message("Force rerun enabled. Running H3b simulations...")
+  } else {
+    message("No cached H3b results found or parameters changed. Running H3b simulations...")
+  }
   
   # Create cache directory if it doesn't exist
   if (!dir.exists("cache")) {
@@ -1070,6 +1072,98 @@ if (cache_valid_h3b) {
     library(broom.mixed)
     library(extraDistr)
     library(rms)
+    library(broom)
+    
+    # Define sim_data function in each worker to ensure availability
+    sim_data <- function(n = 80, n_days = 28, b = 0.8, mu = 78.5, tau_int = 9.7, tau_slope = .05, within_person_sd = 11.8, phi = 0.8, effect_shape = "grow", k = .5, mediated = FALSE, playtime_grand_mean = 1, playtime_grand_sd = .5, daily_play_sd = 0.5) {
+      dat <- tibble(
+        id = 1:n,
+        age = sample(18:36, n, replace = TRUE),
+        gender = sample(c("man","woman","non-binary"), n, prob = c(.45, .45, .1), replace = TRUE),
+        condition = factor(sample(c("control", "intervention"), n, replace = TRUE)),
+        experimental_condition = ifelse(condition == "intervention", 1, 0),
+        intercept_wb = rnorm(n, 0, tau_int),
+        slope_wb = rnorm(n, 0, tau_slope),
+        intercept_play = rlnorm(n, log(playtime_grand_mean), playtime_grand_sd),
+      ) |> 
+        crossing(day = 1:n_days) |> 
+        mutate(
+          intervention_period = as.numeric(day > 7 & day < 22),
+          intervention_active = intervention_period & condition == "intervention",
+          compliance = ifelse(intervention_active, rkumar(n*n_days, a = .05, b = .1), 0),
+          playtime = (1 - compliance) * rlnorm(n, log(intercept_play), daily_play_sd),
+          effect_time = case_when(
+            effect_shape == "plateau" ~ if_else(intervention_period == 1, (b + slope_wb) * (1-exp(-k * (day - 7))), 0),
+            effect_shape == "grow" ~ if_else(intervention_period == 1, (day - 7) * ((b + slope_wb)/7), 0),
+            TRUE ~ NA_real_
+          ),
+        ) |> 
+        group_by(id) |> 
+        mutate(
+          baseline_playtime = mean(playtime[day <= 7]),
+          reduction = baseline_playtime - playtime,
+          sigma = within_person_sd * sqrt(1-phi^2),
+          e = as.numeric(arima.sim(n = n_days, model = list(ar = phi), sd = sigma)),
+          wellbeing_raw = case_when(
+            mediated == TRUE ~ mu + intercept_wb + effect_time * reduction + .01*(age-18) + -.05*(gender %in% c("women","non-binary")) + e,
+            mediated == FALSE ~ mu + intercept_wb + effect_time * experimental_condition * intervention_period + .01*(age-18) + -.05*(gender %in% c("women","non-binary")) + e
+          ),
+          wellbeing = round(pmax(5, pmin(140, wellbeing_raw)))
+        ) |> 
+        ungroup() |> 
+        mutate(across(where(is.numeric), ~ round(., 3)))
+      return(dat)
+    }
+    
+    # Define required model functions
+    fit_mlm_reduction <- function(dat) {
+      ctrl <- lmeControl(maxIter = 500, msMaxIter = 500, tolerance = 1e-6, niterEM = 500, msMaxEval = 2000)
+      lme(
+        fixed = wellbeing ~ intervention_active*reduction + age + gender,
+        random = ~ 1 + intervention_active*reduction | id,
+        correlation = corCAR1(form = ~ day | id),
+        control = ctrl,
+        data = dat
+      )
+    }
+    
+    fit_mlm_reduction_robust <- function(dat) {
+      ctrl <- lmeControl(maxIter = 500, msMaxIter = 500, tolerance = 1e-6, niterEM = 500, msMaxEval = 2000)
+      lme(
+        fixed = wellbeing ~ intervention_active*playtime + baseline_playtime + age + gender,
+        random = ~ 1 | id,
+        correlation = corCAR1(form = ~ day | id),
+        control = ctrl,
+        data = dat
+      )
+    }
+    
+    # Define sim_study function
+    sim_study <- function(model = "fit_gam", focal_term = "intervention_activeTRUE:reduction", ...) {
+      args <- list(...)
+      dat <- do.call(sim_data, args)
+      model_function <- get(model)
+      
+      mod <- model_function(dat)
+      
+      # Use broom.mixed for lme models
+      if (model %in% c("fit_mlm_reduction", "fit_mlm_reduction_robust")) {
+        result <- broom.mixed::tidy(mod) |>
+          filter(term == focal_term) |> 
+          mutate(
+            conf.low = estimate - 1.96 * std.error,
+            conf.high = estimate + 1.96 * std.error
+          )
+      } else {
+        result <- broom::tidy(mod, parametric = TRUE) |>
+          filter(term == focal_term) |> 
+          mutate(
+            conf.low = estimate - 1.96 * std.error,
+            conf.high = estimate + 1.96 * std.error
+          )
+      }
+      result
+    }
     
     # Get job parameters
     job <- all_jobs_h3b[job_idx, ]
@@ -1176,103 +1270,101 @@ message("===============================")
 #| label: visualize-power-h3b
 #| code-summary: "Show code (visualize power h3b)"
 
-# Estimated effect vs. true effect (b)
-ggplot(sim_summary_h3b, aes(x = expected_effect, 
-                            y = ifelse(model == "fit_mlm_reduction_robust", 
-                                      -mean_effect, mean_effect), 
-                            color = model, shape = model)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = ifelse(model == "fit_mlm_reduction_robust", 
-                                  -mean_conf.high, mean_conf.low), 
-                    ymax = ifelse(model == "fit_mlm_reduction_robust", 
-                                  -mean_conf.low, mean_conf.high)), 
-                width = 0.01) +
-  facet_wrap(~ effect_shape) +
+# Check if sim_summary_h3b exists and has data
+if (!exists("sim_summary_h3b") || nrow(sim_summary_h3b) == 0) {
+  stop("sim_summary_h3b does not exist or is empty. Please run the H3b simulation first.")
+}
+
+# Print available models for debugging
+cat("Available models in sim_summary_h3b:", paste(unique(sim_summary_h3b$model), collapse = ", "), "\n")
+
+# Check if the robust model exists, if not use the available model
+available_models <- unique(sim_summary_h3b$model)
+if ("fit_mlm_reduction_robust" %in% available_models) {
+  sim_summary_h3b_robust <- sim_summary_h3b |> 
+    filter(model == "fit_mlm_reduction_robust")
+  model_name <- "Robust Per-Protocol Model"
+} else if ("fit_mlm_reduction" %in% available_models) {
+  sim_summary_h3b_robust <- sim_summary_h3b |> 
+    filter(model == "fit_mlm_reduction")
+  model_name <- "Change Score Per-Protocol Model"
+  cat("Note: Using fit_mlm_reduction model since fit_mlm_reduction_robust not found\n")
+} else {
+  # Use the first available model
+  sim_summary_h3b_robust <- sim_summary_h3b |> 
+    filter(model == available_models[1])
+  model_name <- paste("Per-Protocol Model:", available_models[1])
+  cat("Note: Using first available model:", available_models[1], "\n")
+}
+
+# Check if we have any data after filtering
+if (nrow(sim_summary_h3b_robust) == 0) {
+  stop("No data found after filtering. Available models: ", paste(available_models, collapse = ", "))
+}
+
+# Print diagnostic information
+cat("Number of robust model entries:", nrow(sim_summary_h3b_robust), "\n")
+cat("Effect shapes available:", unique(sim_summary_h3b_robust$effect_shape), "\n")
+cat("Number of unique effect shapes:", length(unique(sim_summary_h3b_robust$effect_shape)), "\n")
+
+# Estimated effect vs. true effect (b) - Robust approach only
+p1 <- ggplot(sim_summary_h3b_robust, aes(x = expected_effect, y = -mean_effect)) +
+  geom_point(size = 3, color = "#FF6347") +
+  geom_errorbar(aes(ymin = -mean_conf.high, ymax = -mean_conf.low), 
+                width = 0.01, color = "#FF6347") +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray") +
   labs(x = "True Effect Magnitude (expected effect)", 
        y = "Estimated Effect Magnitude",
-       title = "Estimated vs. True Effects by Per-Protocol Model and Effect Shape",
-       subtitle = "Effects shown as absolute magnitudes for comparison",
-       color = "Per-Protocol Model", shape = "Per-Protocol Model") +
+       title = paste("Estimated vs. True Effects -", model_name),
+       subtitle = "Effects shown as absolute magnitudes (negative coefficients converted to positive)") +
   scale_x_continuous(breaks = seq(0.1, 0.5, 0.1),
                      sec.axis = sec_axis(~ . / 12, name = "Standardized Effect")) +
-  scale_color_manual(values = c("fit_mlm_reduction" = "#2E8B57", 
-                                "fit_mlm_reduction_robust" = "#FF6347"),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach")) +
-  scale_shape_manual(values = c("fit_mlm_reduction" = 16, 
-                                "fit_mlm_reduction_robust" = 17),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach"))
+  theme_minimal()
 
-# Power vs. true effect (b)
-ggplot(sim_summary_h3b, aes(x = expected_effect, y = power, 
-                            color = model, shape = model, linetype = model)) +
-  geom_line(size = 1.2) +
-  geom_point(size = 3) +
-  facet_wrap(~ effect_shape) +
+# Add faceting only if we have multiple effect shapes
+if (length(unique(sim_summary_h3b_robust$effect_shape)) > 1) {
+  p1 <- p1 + facet_wrap(~ effect_shape)
+}
+
+print(p1)
+
+# Power vs. true effect (b) - Robust approach only
+p2 <- ggplot(sim_summary_h3b_robust, aes(x = expected_effect, y = power)) +
+  geom_line(size = 1.2, color = "#FF6347") +
+  geom_point(size = 3, color = "#FF6347") +
   labs(x = "True Effect (expected effect)", y = "Power",
-       title = "Power by Per-Protocol Model and Effect Shape",
-       color = "Per-Protocol Model", shape = "Per-Protocol Model", linetype = "Per-Protocol Model") +
+       title = paste("Power by Effect Shape -", model_name),
+       subtitle = paste("Model:", unique(sim_summary_h3b_robust$model)[1])) +
   scale_x_continuous(breaks = seq(0.1, 0.5, 0.1),
                      sec.axis = sec_axis(~ . / 12, name = "Standardized Effect")) +
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1)) +
-  scale_color_manual(values = c("fit_mlm_reduction" = "#2E8B57", 
-                                "fit_mlm_reduction_robust" = "#FF6347"),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach")) +
-  scale_shape_manual(values = c("fit_mlm_reduction" = 16, 
-                                "fit_mlm_reduction_robust" = 17),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach")) +
-  scale_linetype_manual(values = c("fit_mlm_reduction" = "solid", 
-                                   "fit_mlm_reduction_robust" = "dashed"),
-                        labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                   "fit_mlm_reduction_robust" = "Robust Approach"))
+  theme_minimal()
 
-# Summary statistics comparing the two per-protocol approaches
-protocol_comparison <- sim_summary_h3b |>
-  group_by(model, effect_shape) |>
+# Add faceting only if we have multiple effect shapes
+if (length(unique(sim_summary_h3b_robust$effect_shape)) > 1) {
+  p2 <- p2 + facet_wrap(~ effect_shape)
+}
+
+print(p2)
+
+# Summary statistics for robust approach only
+robust_summary <- sim_summary_h3b_robust |>
+  group_by(effect_shape) |>
   summarise(
     mean_power = mean(power, na.rm = TRUE),
     max_power = max(power, na.rm = TRUE),
     min_power = min(power, na.rm = TRUE),
     mean_bias = mean(abs(mean_effect - expected_effect), na.rm = TRUE),
     .groups = "drop"
-  ) |>
-  mutate(
-    model_name = case_when(
-      model == "fit_mlm_reduction" ~ "Change Score Approach",
-      model == "fit_mlm_reduction_robust" ~ "Robust Approach"
-    )
   )
 
-# Display comparison table
+# Display summary table for the selected approach
 knitr::kable(
-  protocol_comparison,
-  caption = "Comparison of Per-Protocol Approaches for Wellbeing Analysis",
-  col.names = c("Model", "Effect Shape", "Mean Power", "Max Power", "Min Power", "Mean Bias", "Model Name"),
+  robust_summary,
+  caption = paste(model_name, "Performance by Effect Shape"),
+  col.names = c("Effect Shape", "Mean Power", "Max Power", "Min Power", "Mean Bias"),
   digits = 3
 )
-
-# Print summary comparison
-cat("\n=== PER-PROTOCOL APPROACH COMPARISON ===\n")
-change_score_power <- mean(sim_summary_h3b$power[sim_summary_h3b$model == "fit_mlm_reduction"], na.rm = TRUE)
-robust_power <- mean(sim_summary_h3b$power[sim_summary_h3b$model == "fit_mlm_reduction_robust"], na.rm = TRUE)
-
-cat(sprintf("Change Score Approach - Mean Power: %.3f\n", change_score_power))
-cat(sprintf("Robust Approach - Mean Power: %.3f\n", robust_power))
-cat(sprintf("Difference: %.3f (robust approach is %.1f%% %s)\n", 
-            robust_power - change_score_power,
-            abs(robust_power - change_score_power) * 100,
-            ifelse(robust_power > change_score_power, "higher", "lower")))
-
-cat("\n=== IMPORTANT NOTE ON INTERPRETATION ===\n")
-cat("The two per-protocol models test subtly different hypotheses:\n")
-cat("- Change Score Model: Tests if reduction in playtime improves wellbeing (positive coefficient expected)\n")
-cat("- Robust Model: Tests if lower playtime is associated with better wellbeing during intervention (negative coefficient expected)\n")
-cat("Both approaches test the same underlying phenomenon but from different angles.\n")
-cat("=========================================\n")
 
 
 ```
@@ -1361,119 +1453,6 @@ mde_table_h3b |>
     general_title = "Notes:"
   )
 
-# Summary statistics for H3b
-cat("\n=== H3B MODEL SENSITIVITY COMPARISON ===\n")
 
-# Compare models within each effect shape
-for (shape in unique(mde_table_h3b$effect_shape)) {
-  cat(sprintf("\n%s effects:\n", str_to_title(shape)))
-  shape_models <- mde_table_h3b |> filter(effect_shape == shape)
-  for (i in 1:nrow(shape_models)) {
-    if (!is.na(shape_models$mde_80_standardized[i])) {
-      cat(sprintf("  %s: %.3f standardized effect (%.1f%% mean power)\n", 
-                  shape_models$model_clean[i], 
-                  shape_models$mde_80_standardized[i],
-                  shape_models$mean_power[i] * 100))
-    } else {
-      cat(sprintf("  %s: >0.042 standardized effect (%.1f%% max power achieved)\n", 
-                  shape_models$model_clean[i],
-                  shape_models$max_power[i] * 100))
-    }
-  }
-}
-
-# Overall comparison
-overall_best_h3b <- mde_table_h3b |>
-  filter(!is.na(mde_80_standardized)) |>
-  slice_min(mde_80_standardized, n = 1)
-
-if (nrow(overall_best_h3b) > 0) {
-  cat(sprintf("\nMost sensitive H3b model: %s (%s effects)\n", 
-              overall_best_h3b$model_clean, overall_best_h3b$effect_shape))
-  cat(sprintf("MDE at 80%% power: %.3f standardized effect (%.2f expected effect)\n",
-              overall_best_h3b$mde_80_standardized, overall_best_h3b$mde_80_expected))
-} else {
-  cat("\nNote: No H3b models achieved 80% power within the tested effect range.\n")
-  cat("All models have high sensitivity for detecting per-protocol effects.\n")
-}
-
-# Power comparison between approaches
-change_score_data <- mde_table_h3b |> filter(model == "fit_mlm_reduction")
-robust_data <- mde_table_h3b |> filter(model == "fit_mlm_reduction_robust")
-
-cat(sprintf("\nApproach Comparison (averaged across effect shapes):\n"))
-cat(sprintf("Change Score Approach - Mean Power: %.1f%%, Max Power: %.1f%%\n", 
-            mean(change_score_data$mean_power, na.rm = TRUE) * 100,
-            mean(change_score_data$max_power, na.rm = TRUE) * 100))
-cat(sprintf("Robust Approach - Mean Power: %.1f%%, Max Power: %.1f%%\n",
-            mean(robust_data$mean_power, na.rm = TRUE) * 100,
-            mean(robust_data$max_power, na.rm = TRUE) * 100))
-
-cat("==========================================\n")
 
 ```
-
-## Recalculating H3b Power with Corrected Interpretation
-
-If you have already run the simulations and need to recalculate the power with the correct interpretation:
-
-```{r}
-#| label: recalculate-h3b-power
-#| eval: false
-#| code-summary: "Recalculate H3b power with corrected interpretation"
-
-# If you already have results_h3b from a previous simulation run:
-if (exists("results_h3b")) {
-  sim_summary_h3b_corrected <- results_h3b |> 
-    group_by(row_id) |> 
-    summarise(
-      model = first(model),
-      b = first(b),
-      expected_effect = first(expected_effect),
-      effect_shape = first(effect_shape),
-      mean_effect = mean(estimate, na.rm = TRUE),
-      mean_se = mean(std.error, na.rm = TRUE),
-      mean_conf.low = mean(conf.low, na.rm = TRUE),
-      mean_conf.high = mean(conf.high, na.rm = TRUE),
-      # Correct power calculation based on model type
-      power = if_else(
-        first(model) == "fit_mlm_reduction_robust",
-        sum(conf.high < 0, na.rm = TRUE) / sum(!is.na(conf.high)),  # Robust expects negative
-        sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))     # Change score expects positive
-      )
-    )
-  
-  message("Recalculated H3b summary with corrected power calculation")
-  message("Change Score Approach - Mean Power: ", 
-          round(mean(sim_summary_h3b_corrected$power[sim_summary_h3b_corrected$model == "fit_mlm_reduction"], na.rm = TRUE), 3))
-  message("Robust Approach - Mean Power: ", 
-          round(mean(sim_summary_h3b_corrected$power[sim_summary_h3b_corrected$model == "fit_mlm_reduction_robust"], na.rm = TRUE), 3))
-}
-```
-
-## Timing Summary
-
-```{r}
-#| label: timing-summary
-#| eval: false
-#| code-summary: "Show code (timing summary)"
-
-# Print timing summary if timing objects exist from tictoc
-if (exists("h3a_time") && exists("h3b_time")) {
-  cat("=== SIMULATION TIMING SUMMARY ===\n")
-  cat(sprintf("H3a simulations took: %.2f minutes\n", (h3a_time$toc - h3a_time$tic) / 60))
-  cat(sprintf("H3b simulations took: %.2f minutes\n", (h3b_time$toc - h3b_time$tic) / 60))
-  cat(sprintf("Total simulation time: %.2f minutes\n", 
-              ((h3a_time$toc - h3a_time$tic) + (h3b_time$toc - h3b_time$tic)) / 60))
-  cat("================================\n")
-}
-
-```
-
-## Planned Sensitivity Analyses
-
-We have preregistered several sensitivity analyses to test the robustness of any effects we find. These include:
-
-- *Day 21 only:* We will estimate the effect of the intervention on day 21 only, to see what the difference between groups is at the end of the intervention period
-- *Marginal means:* In H3a, we will use the `emmeans` package to calculate marginal means for each condition and produce a single parameter by integrating across the 14-day period
-- *Multilevel model:* We will fit the MLM as defined in Table 1 above, as the second-highest performing model in the simulations (having higher power for linear effects, but lower for non-linear)

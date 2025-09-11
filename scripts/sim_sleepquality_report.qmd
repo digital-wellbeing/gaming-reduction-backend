@@ -14,7 +14,7 @@ date: today
 
 This document demonstrates a complete workflow for generating synthetic data, introducing dropout, and fitting models (a GAM or MLM) to the data. The main focus is on the `sim_study` function, which orchestrates the data simulation, dropout process, and model fitting.
 
-As an overview, we compare the following possible models for estimating the effect of gaming reduction, for both H2a (the intention-to-treat effect) and H2b (the per-protocol effect; i.e., the effect of actual gaming reduction relative to one's own baseline). For the per-protocol effect, we compare two approaches: a traditional change score approach and a robust approach that avoids potential issues with change scores by directly modeling the relationship between current playtime and outcomes while controlling for baseline differences. The models we compare are:
+As an overview, we compare the following possible models for estimating the effect of gaming reduction, for both H2a (the intention-to-treat effect) and H2b (the per-protocol effect; i.e., the effect of actual gaming reduction relative to one's own baseline). For the per-protocol effect, we use a robust approach that avoids potential issues with change scores by directly modeling the relationship between current playtime and outcomes while controlling for baseline differences. The models we compare are:
 
 | Model Name | Syntax | Target Effect | Notes |
 |------------|----------------------|------------|---------------------------|
@@ -25,7 +25,6 @@ As an overview, we compare the following possible models for estimating the effe
 | GLS (generalized least squares) | `gls(     sleep_quality ~ condition * intervention_period + age + gender,     correlation = corCAR1(form = ~ day | id),   )` | ITT |  |
 | GLS Simple | `gls(     sleep_quality ~ condition + baseline + age + gender,     correlation = corAR1(form = ~ day | id),   )` | ITT |  |
 | GLS Splines | `gls(     sleep_quality ~ ns(day, df = 4) * intervention_period * condition,     correlation = corCAR1(form = ~ day | id),     data = dat   )` | ITT | In this version, we fit a GLS but allow non-linearity in the trajectory of sleep_quality using splines |
-| MLM Reduction | `lme(     fixed = sleep_quality ~ intervention_active*reduction + age + gender,     random = ~ 1 + intervention_active*reduction | id,     correlation = corCAR1(form = ~ day | id)   )` | PP | Here we test our intended model for the per-protocol effect; `reduction` is the number of hours played relative to that person's mean playtime at baseline |
 | MLM Reduction Robust | `lme(     fixed = sleep_quality ~ intervention_active*playtime + baseline_playtime + age + gender,     random = ~ 1 | id,     correlation = corCAR1(form = ~ day | id)   )` | PP | Robust approach without change scores - tests if intervention effect varies by actual playtime levels, controlling for baseline playtime |
 
 : ITT = Intention-to-treat; PP = per-protocol
@@ -34,7 +33,16 @@ As an overview, we compare the following possible models for estimating the effe
 
 Our simulations show that several models perform well at parameter recovery for the ITT effect, but that the GAM model has the highest power for small effects---the type of effects we believe we are most likely to observed---and for non-linear trajectories over the 14 day period (e.g., an effect that slowly accumulates over a couple of days and then plateaus, or a temporary withdrawal followed by a later improvement). The GAM has approximately 50% power for a standardized effect of .2, and 80% power for a standardized effect of .3, but this varies based the shape of that effect over time. 
 
-The MLM Reduction model performs very well, and has >95% power for standardized effects of approximately .2 or greater. The MLM Reduction Robust model provides an alternative approach that avoids potential issues with change scores by directly modeling the relationship between current playtime and outcomes while controlling for baseline differences. 
+The MLM Reduction Robust model provides a robust approach that avoids potential issues with change scores by directly modeling the relationship between current playtime and outcomes while controlling for baseline differences, and performs very well with >95% power for standardized effects of approximately .2 or greater. 
+
+### Simulation Control
+
+To force rerun simulations (bypassing the cache), set the `FORCE_RERUN_H2A` and/or `FORCE_RERUN_H2B` parameters to `TRUE` in the "Load Libraries" section below. This is useful when you want to:
+
+- Test changes to the simulation code
+- Rerun with different random seeds  
+- Regenerate results after fixing issues
+- Bypass potentially corrupted cache files
 
 ### Load Libraries
 
@@ -47,6 +55,17 @@ First we load packages with `pacman`, which is fully compatible with `renv`.
 library(pacman)
 
 p_load(tidyverse, qualtRics, lme4, mgcv, marginaleffects, broom, forestplot, broom.mixed, nlme, rms, emmeans, splines, furrr, extraDistr, kableExtra)
+
+# ====================================================================
+# SIMULATION CONTROL PARAMETERS
+# ====================================================================
+# Set these parameters to control simulation behavior:
+
+# Force rerun simulations (bypassing cache)
+FORCE_RERUN_H2A <- FALSE  # Set to TRUE to force rerun H2a simulations
+FORCE_RERUN_H2B <- FALSE  # Set to TRUE to force rerun H2b simulations
+
+# ====================================================================
 
 # Replace your current plan() line with:
 if (interactive()) {
@@ -324,14 +343,6 @@ fit_gls_spline <- function(dat) {
   )
 }
 
-fit_mlm_reduction <- function(dat) {
-  lme(
-    fixed = sleep_quality ~ intervention_active*reduction + age + gender, # Renamed from wellbeing
-    random = ~ 1 | id,  # Simplified to random intercept only
-    correlation = corCAR1(form = ~ day | id),
-    data = dat
-  )
-}
 
 fit_mlm_reduction_robust <- function(dat) {
   lme(
@@ -503,7 +514,7 @@ names(means) <- summary(emm)$condition
 
 ### Test Fit (h2b - per-protocol)
 
-Another quick test of our `fit_mlm_reduction` model, to make sure the alternative simulation whereby the effect of the intervention is mediated by a reduction in playtime is also functioning properly.
+A quick test of our `fit_mlm_reduction_robust` model, to make sure the simulation whereby the effect of the intervention is mediated by a reduction in playtime is functioning properly.
 
 ```{r}
 #| label: test-fit-h2b
@@ -512,7 +523,6 @@ Another quick test of our `fit_mlm_reduction` model, to make sure the alternativ
 
 dat <- sim_data(mediated = TRUE)
 
-fit_mlm_reduction(dat) |> summary()
 fit_mlm_reduction_robust(dat) |> summary()
 
 ```
@@ -582,6 +592,9 @@ cache_file_h2a <- "cache/h2a_simulation_results.rds"
 cache_summary_h2a <- "cache/h2a_simulation_summary.rds"
 cache_params_h2a <- "cache/h2a_simulation_params.rds"
 
+# Simulation control parameters (using global settings)
+force_rerun_h2a <- FORCE_RERUN_H2A
+
 # Define key parameters that would invalidate cache
 current_params_h2a <- list(
   n_sims = 500,
@@ -631,7 +644,7 @@ progress_checkpoints_h2a <- seq(from = round(total_jobs_h2a * 0.1),
 
 # Check if cache exists and parameters match
 cache_valid_h2a <- FALSE
-if (file.exists(cache_file_h2a) && file.exists(cache_summary_h2a) && file.exists(cache_params_h2a)) {
+if (!force_rerun_h2a && file.exists(cache_file_h2a) && file.exists(cache_summary_h2a) && file.exists(cache_params_h2a)) {
   cached_params_h2a <- readRDS(cache_params_h2a)
   cache_valid_h2a <- identical(current_params_h2a, cached_params_h2a)
 }
@@ -642,7 +655,11 @@ if (cache_valid_h2a) {
   sim_summary_h2a <- readRDS(cache_summary_h2a)
   message("Cached H2a results loaded successfully!")
 } else {
-  message("No cached H2a results found or parameters changed. Running H2a simulations...")
+  if (force_rerun_h2a) {
+    message("Force rerun enabled. Running H2a simulations...")
+  } else {
+    message("No cached H2a results found or parameters changed. Running H2a simulations...")
+  }
   
   # Create cache directory if it doesn't exist
   if (!dir.exists("cache")) {
@@ -906,7 +923,7 @@ mde_table |>
 
 ## Simulated h2b power analysis
 
-Same thing as above, but now looking at power for our per-protocol model.
+Here we look at power for our robust per-protocol model that avoids change scores by directly modeling the relationship between current playtime and outcomes while controlling for baseline differences.
 
 ```{r}
 #| label: sim-study-h2b
@@ -918,12 +935,12 @@ Same thing as above, but now looking at power for our per-protocol model.
 #'
 #' @param model_function A function to fit the model. Defaults to \code{fit_gam}.
 #' @param n Number of participants passed to \code{sim_data()}. Uses sim_data default (80).
-#' @param n_days Number of time points per participant passed to \code{sim_data()}. Default is 28.
+#' @param n_days Number of time points per parameter passed to \code{sim_data()}. Default is 28.
 #' @param b Fixed effect for the intervention slope passed to \code{sim_data()}. Default is 0.01.
 #' @param phi AR(1) autocorrelation coefficient passed to \code{sim_data()}. Default is 0.7.
 #' @param sigma AR(1) residual standard deviation passed to \code{sim_data()}. Default is 0.6.
 #'
-#' @return A data frame (tibble) of model estimates from \code{broom::tidy(parametric = TRUE)}.
+#' @return A data frame (tibble) of model estimates from \code{broom.mixed::tidy()} for lme models.
 #'
 
 # Updated simulation orchestrator that handles GLS models separately.
@@ -941,17 +958,26 @@ sim_study <- function(model = "fit_gam", focal_term = "intervention_activeTRUE:r
                                                        focal_term = focal_term))
   } else {
     # For models that work with broom, extract the focal parameter.
-    # Adjust the filtering term as needed.
-    result <- broom::tidy(mod, parametric = TRUE) |>
-      filter(term == focal_term) |> 
-      # filter(
-      #   term == "conditionintervention:intervention_period" | 
-      #     (model %in% c("fit_mlm_simple","fit_gls_simple") & term == "conditionintervention")
-      # ) |> 
-      mutate(
-        conf.low = estimate - 1.96 * std.error,
-        conf.high = estimate + 1.96 * std.error
-      )
+    # Use broom.mixed for lme models, regular broom for others
+    if (model == "fit_mlm_reduction_robust") {
+      result <- broom.mixed::tidy(mod) |>
+        filter(term == focal_term) |> 
+        mutate(
+          conf.low = estimate - 1.96 * std.error,
+          conf.high = estimate + 1.96 * std.error
+        )
+    } else {
+      result <- broom::tidy(mod, parametric = TRUE) |>
+        filter(term == focal_term) |> 
+        # filter(
+        #   term == "conditionintervention:intervention_period" | 
+        #     (model %in% c("fit_mlm_simple","fit_gls_simple") & term == "conditionintervention")
+        # ) |> 
+        mutate(
+          conf.low = estimate - 1.96 * std.error,
+          conf.high = estimate + 1.96 * std.error
+        )
+    }
   }
   result
 }
@@ -967,6 +993,10 @@ cache_file_h2b <- "cache/h2b_simulation_results.rds"
 cache_summary_h2b <- "cache/h2b_simulation_summary.rds"
 cache_params_h2b <- "cache/h2b_simulation_params.rds"
 
+# Simulation control parameters (using global settings)
+force_rerun_h2b <- FORCE_RERUN_H2B
+
+
 # Define key parameters that would invalidate cache
 current_params_h2b <- list(
   n_sims = 500,
@@ -976,7 +1006,7 @@ current_params_h2b <- list(
   tau_slope = 0.8,
   within_person_sd = 2.0,
   phi = 0.7,
-  models = c("fit_mlm_reduction", "fit_mlm_reduction_robust"),
+  models = c("fit_mlm_reduction_robust"),
   effect_values = c(0.5, 1.0, 1.5, 2.0, 2.5),
   effect_shapes = c("grow", "plateau"),
   mediated = TRUE
@@ -995,11 +1025,8 @@ current_params_h2b <- list(
     effect_shape = current_params_h2b$effect_shapes
   ) |> 
     mutate(
-      # focal term depends on model
-      focal_term = case_when(
-        model == "fit_mlm_reduction" ~ "intervention_activeTRUE:reduction",
-        model == "fit_mlm_reduction_robust" ~ "intervention_activeTRUE:playtime"
-      ),
+      # focal term for robust model
+      focal_term = "intervention_activeTRUE:playtime",
       # expected mediated effect size (approximate)
       expected_effect = b * .1*beta(1 + 1/.05, .1)
     ) |> 
@@ -1017,8 +1044,8 @@ current_params_h2b <- list(
                                   by   = round(total_jobs_h2b * 0.1))
 
 # Check if cache exists and parameters match
-cache_valid_h2b <- FALSE
-if (file.exists(cache_file_h2b) && file.exists(cache_summary_h2b) && file.exists(cache_params_h2b)) {
+cache_valid_h2b <- TRUE
+if (!force_rerun_h2b && file.exists(cache_file_h2b) && file.exists(cache_summary_h2b) && file.exists(cache_params_h2b)) {
   cached_params_h2b <- readRDS(cache_params_h2b)
   cache_valid_h2b <- identical(current_params_h2b, cached_params_h2b)
 }
@@ -1029,7 +1056,11 @@ if (cache_valid_h2b) {
   sim_summary_h2b <- readRDS(cache_summary_h2b)
   message("Cached H2b results loaded successfully!")
 } else {
-  message("No cached H2b results found or parameters changed. Running H2b simulations...")
+  if (force_rerun_h2b) {
+    message("Force rerun enabled. Running H2b simulations...")
+  } else {
+    message("No cached H2b results found or parameters changed. Running H2b simulations...")
+  }
   
   # Create cache directory if it doesn't exist
   if (!dir.exists("cache")) {
@@ -1061,6 +1092,88 @@ results_h2b <- future_map_dfr(1:nrow(all_jobs_h2b), function(job_idx) {
   library(broom.mixed)
   library(extraDistr)
   library(rms)
+  library(broom)
+  
+  # Define sim_data function in each worker to ensure availability
+  sim_data <- function(n = 80, n_days = 28, b = 0.8, mu = 15, tau_int = 2.5, tau_slope = .05, within_person_sd = 2.0, phi = 0.8, effect_shape = "grow", k = .5, mediated = FALSE, playtime_grand_mean = 1, playtime_grand_sd = .5, daily_play_sd = 0.5) {
+    dat <- tibble(
+      id = 1:n,
+      age = sample(18:36, n, replace = TRUE),
+      gender = sample(c("man","woman","non-binary"), n, prob = c(.45, .45, .1), replace = TRUE),
+      condition = factor(sample(c("control", "intervention"), n, replace = TRUE)),
+      experimental_condition = ifelse(condition == "intervention", 1, 0),
+      intercept_sq = rnorm(n, 0, tau_int),
+      slope_sq = rnorm(n, 0, tau_slope),
+      intercept_play = rlnorm(n, log(playtime_grand_mean), playtime_grand_sd),
+    ) |> 
+      crossing(day = 1:n_days) |> 
+      mutate(
+        intervention_period = as.numeric(day > 7 & day < 22),
+        intervention_active = intervention_period & condition == "intervention",
+        compliance = ifelse(intervention_active, rkumar(n*n_days, a = .05, b = .1), 0),
+        playtime = (1 - compliance) * rlnorm(n, log(intercept_play), daily_play_sd),
+        effect_time = case_when(
+          effect_shape == "plateau" ~ if_else(intervention_period == 1, (b + slope_sq) * (1-exp(-k * (day - 7))), 0),
+          effect_shape == "grow" ~ if_else(intervention_period == 1, (day - 7) * ((b + slope_sq)/7), 0),
+          TRUE ~ NA_real_
+        ),
+      ) |> 
+      group_by(id) |> 
+      mutate(
+        baseline_playtime = mean(playtime[day <= 7]),
+        reduction = baseline_playtime - playtime,
+        sigma = within_person_sd * sqrt(1-phi^2),
+        e = as.numeric(arima.sim(n = n_days, model = list(ar = phi), sd = sigma)),
+        sleep_quality_raw = case_when(
+          mediated == TRUE ~ mu + intercept_sq + effect_time * reduction + .01*(age-18) + -.05*(gender %in% c("women","non-binary")) + e,
+          mediated == FALSE ~ mu + intercept_sq + effect_time * experimental_condition * intervention_period + .01*(age-18) + -.05*(gender %in% c("women","non-binary")) + e
+        ),
+        sleep_quality = round(pmax(5, pmin(25, sleep_quality_raw)))
+      ) |> 
+      ungroup() |> 
+      mutate(across(where(is.numeric), ~ round(., 3)))
+    return(dat)
+  }
+  
+  # Define other required functions
+  fit_mlm_reduction_robust <- function(dat) {
+    lme(
+      fixed = sleep_quality ~ intervention_active*playtime + baseline_playtime + age + gender,
+      random = ~ 1 | id,
+      correlation = corCAR1(form = ~ day | id),
+      data = dat
+    )
+  }
+  
+  # Define sim_study function
+  sim_study <- function(model = "fit_gam", focal_term = "intervention_activeTRUE:reduction", ...) {
+    args <- list(...)
+    dat <- do.call(sim_data, args)
+    model_function <- get(model)
+    
+    mod <- model_function(dat)
+    
+    if (model %in% c("fit_gam_no_main","fit_gls_spline")) {
+      result <- suppressMessages(extract_marginal_effect(mod, dat, focal_term = focal_term))
+    } else {
+      if (model == "fit_mlm_reduction_robust") {
+        result <- broom.mixed::tidy(mod) |>
+          filter(term == focal_term) |> 
+          mutate(
+            conf.low = estimate - 1.96 * std.error,
+            conf.high = estimate + 1.96 * std.error
+          )
+      } else {
+        result <- broom::tidy(mod, parametric = TRUE) |>
+          filter(term == focal_term) |> 
+          mutate(
+            conf.low = estimate - 1.96 * std.error,
+            conf.high = estimate + 1.96 * std.error
+          )
+      }
+    }
+    result
+  }
   
   # Get job parameters
   job <- all_jobs_h2b[job_idx, ]
@@ -1118,7 +1231,7 @@ results_h2b <- future_map_dfr(1:nrow(all_jobs_h2b), function(job_idx) {
   })
 }, .progress = TRUE,
 .options = furrr_options(
-  globals = c("all_jobs_h2b", "sim_study", "sim_data", "fit_mlm_reduction", "fit_mlm_reduction_robust",
+  globals = c("all_jobs_h2b", "sim_study", "sim_data", "fit_mlm_reduction_robust",
               "progress_checkpoints_h2b", "total_jobs_h2b", "sim_dropout",
               "fit_gam", "fit_gam_no_main", "fit_mlm", "fit_mlm_simple", 
               "fit_gls", "fit_gls_simple", "fit_gls_spline", "extract_marginal_effect"),
@@ -1136,12 +1249,8 @@ sim_summary_h2b <- results_h2b |>
     mean_se = mean(std.error, na.rm = TRUE),
     mean_conf.low = mean(conf.low, na.rm = TRUE),
     mean_conf.high = mean(conf.high, na.rm = TRUE),
-    # Correct power calculation based on model type
-    power = if_else(
-      first(model) == "fit_mlm_reduction_robust",
-      sum(conf.high < 0, na.rm = TRUE) / sum(!is.na(conf.high)),  # Robust expects negative
-      sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))     # Change score expects positive
-    )
+    # Power calculation for robust approach (expects negative coefficient)
+    power = sum(conf.high < 0, na.rm = TRUE) / sum(!is.na(conf.high))
   )
 
 # Stop timing and display results
@@ -1168,9 +1277,9 @@ message("===============================")
 
 ```{r}
 #| label: recalculate-h2b-summary
-#| code-summary: "Recalculate H2b summary with corrected power"
+#| code-summary: "Recalculate H2b summary with power calculation"
 
-# Recalculate summary with corrected power calculation
+# Recalculate summary with power calculation
 if (exists("results_h2b")) {
   sim_summary_h2b <- results_h2b |> 
     group_by(row_id) |> 
@@ -1183,17 +1292,11 @@ if (exists("results_h2b")) {
       mean_se = mean(std.error, na.rm = TRUE),
       mean_conf.low = mean(conf.low, na.rm = TRUE),
       mean_conf.high = mean(conf.high, na.rm = TRUE),
-      # Correct power calculation based on model type
-      power = if_else(
-        first(model) == "fit_mlm_reduction_robust",
-        sum(conf.high < 0, na.rm = TRUE) / sum(!is.na(conf.high)),  # Robust expects negative
-        sum(conf.low > 0, na.rm = TRUE) / sum(!is.na(conf.low))     # Change score expects positive
-      )
+      # Power calculation for robust approach (expects negative coefficient)
+      power = sum(conf.high < 0, na.rm = TRUE) / sum(!is.na(conf.high))
     )
   
-  message("Recalculated H2b summary with corrected power calculation")
-  message("Change Score Approach - Mean Power: ", 
-          round(mean(sim_summary_h2b$power[sim_summary_h2b$model == "fit_mlm_reduction"], na.rm = TRUE), 3))
+  message("Recalculated H2b summary with power calculation")
   message("Robust Approach - Mean Power: ", 
           round(mean(sim_summary_h2b$power[sim_summary_h2b$model == "fit_mlm_reduction_robust"], na.rm = TRUE), 3))
 }
@@ -1203,67 +1306,38 @@ if (exists("results_h2b")) {
 #| label: visualize-power-h2b
 #| code-summary: "Show code (visualize power h2b)"
 
-# Estimated effect vs. true effect (b)
-ggplot(sim_summary_h2b, aes(x = expected_effect, 
-                            y = ifelse(model == "fit_mlm_reduction_robust", 
-                                      -mean_effect, mean_effect), 
-                            color = model, shape = model)) +
-  geom_point(size = 3) +
-  geom_errorbar(aes(ymin = ifelse(model == "fit_mlm_reduction_robust", 
-                                  -mean_conf.high, mean_conf.low), 
-                    ymax = ifelse(model == "fit_mlm_reduction_robust", 
-                                  -mean_conf.low, mean_conf.high)), 
-                width = 0.01) +
+# Estimated effect vs. true effect (b) - Robust Approach Only
+ggplot(sim_summary_h2b, aes(x = expected_effect, y = -mean_effect)) +
+  geom_point(size = 3, color = "#FF6347") +
+  geom_errorbar(aes(ymin = -mean_conf.high, ymax = -mean_conf.low), 
+                width = 0.01, color = "#FF6347") +
   facet_wrap(~ effect_shape) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray") +
   labs(x = "True Effect Magnitude (expected effect)", 
        y = "Estimated Effect Magnitude",
-       title = "Estimated vs. True Effects by Per-Protocol Model and Effect Shape",
-       subtitle = "Effects shown as absolute magnitudes for comparison",
-       color = "Per-Protocol Model", shape = "Per-Protocol Model") +
+       title = "Estimated vs. True Effects for Robust Per-Protocol Model",
+       subtitle = "Effects shown as absolute magnitudes") +
   scale_x_continuous(breaks = c(0.05, 0.1, 0.15, 0.2, 0.25),
-                     sec.axis = sec_axis(~ . / 3, name = "Standardized Effect")) +
-  scale_color_manual(values = c("fit_mlm_reduction" = "#2E8B57", 
-                                "fit_mlm_reduction_robust" = "#FF6347"),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach")) +
-  scale_shape_manual(values = c("fit_mlm_reduction" = 16, 
-                                "fit_mlm_reduction_robust" = 17),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach"))
+                     sec.axis = sec_axis(~ . / 3, name = "Standardized Effect"))
 
 # ggsave("figures/estimated_vs_true_effects_h2b.png", width = 10, height = 6, dpi = 300)
 
-# Power vs. true effect (b)
-ggplot(sim_summary_h2b, aes(x = expected_effect, y = power, 
-                            color = model, shape = model, linetype = model)) +
-  geom_line(size = 1.2) +
-  geom_point(size = 3) +
+# Power vs. true effect (b) - Robust Approach Only
+ggplot(sim_summary_h2b, aes(x = expected_effect, y = power)) +
+  geom_line(size = 1.2, color = "#FF6347") +
+  geom_point(size = 3, color = "#FF6347") +
   facet_wrap(~ effect_shape) +
   labs(x = "True Effect (expected effect)", y = "Power",
-       title = "Power by Per-Protocol Model and Effect Shape",
-       color = "Per-Protocol Model", shape = "Per-Protocol Model", linetype = "Per-Protocol Model") +
+       title = "Power for Robust Per-Protocol Model by Effect Shape") +
   scale_x_continuous(breaks = c(0.05, 0.1, 0.15, 0.2, 0.25),
                      sec.axis = sec_axis(~ . / 3, name = "Standardized Effect")) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1)) +
-  scale_color_manual(values = c("fit_mlm_reduction" = "#2E8B57", 
-                                "fit_mlm_reduction_robust" = "#FF6347"),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach")) +
-  scale_shape_manual(values = c("fit_mlm_reduction" = 16, 
-                                "fit_mlm_reduction_robust" = 17),
-                     labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                "fit_mlm_reduction_robust" = "Robust Approach")) +
-  scale_linetype_manual(values = c("fit_mlm_reduction" = "solid", 
-                                   "fit_mlm_reduction_robust" = "dashed"),
-                        labels = c("fit_mlm_reduction" = "Change Score Approach", 
-                                   "fit_mlm_reduction_robust" = "Robust Approach"))
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0, 1), breaks = seq(0, 1, .1))
 
 # ggsave("figures/power_by_model_and_effect_shape_h2b.png", width = 10, height = 6, dpi = 300)  
 
-# Summary statistics comparing the two per-protocol approaches
-protocol_comparison <- sim_summary_h2b |>
-  group_by(model, effect_shape) |>
+# Summary statistics for the robust per-protocol approach
+protocol_summary <- sim_summary_h2b |>
+  group_by(effect_shape) |>
   summarise(
     mean_power = mean(power, na.rm = TRUE),
     max_power = max(power, na.rm = TRUE),
@@ -1272,37 +1346,96 @@ protocol_comparison <- sim_summary_h2b |>
     .groups = "drop"
   ) |>
   mutate(
-    model_name = case_when(
-      model == "fit_mlm_reduction" ~ "Change Score Approach",
-      model == "fit_mlm_reduction_robust" ~ "Robust Approach"
-    )
+    model_name = "Robust Approach"
   )
 
-# Display comparison table
+# Display summary table
 knitr::kable(
-  protocol_comparison,
-  caption = "Comparison of Per-Protocol Approaches for Sleep Quality Analysis",
-  col.names = c("Model", "Effect Shape", "Mean Power", "Max Power", "Min Power", "Mean Bias", "Model Name"),
+  protocol_summary,
+  caption = "Performance Summary for Robust Per-Protocol Approach",
+  col.names = c("Effect Shape", "Mean Power", "Max Power", "Min Power", "Mean Bias", "Model Name"),
   digits = 3
 )
 
 ```
 
-## Timing Summary
+### Minimum Detectable Effect Sizes for H2b
 
 ```{r}
-#| label: timing-summary
-#| code-summary: "Show code (timing summary)"
+#| label: h2b-power-table
+#| code-summary: "Show code (minimum detectable effects table for H2b)"
 
-# Print timing summary if timing objects exist
-if (exists("h2a_time") && exists("h2b_time")) {
-  cat("=== SIMULATION TIMING SUMMARY ===\n")
-  cat(sprintf("H2a simulations took: %.2f minutes\n", h2a_time$toc - h2a_time$tic))
-  cat(sprintf("H2b simulations took: %.2f minutes\n", h2b_time$toc - h2b_time$tic))
-  cat(sprintf("Total simulation time: %.2f minutes\n", 
-              (h2a_time$toc - h2a_time$tic) + (h2b_time$toc - h2b_time$tic)))
-  cat("================================\n")
+# Function to interpolate minimum detectable effect at 80% power (adapted for H2b)
+find_mde_80_h2b <- function(power_data) {
+  # If we already have 80% power or higher at the smallest effect, return that
+  if (min(power_data$power, na.rm = TRUE) >= 0.8) {
+    return(min(power_data$expected_effect, na.rm = TRUE))
+  }
+  
+  # If we never reach 80% power, return NA
+  if (max(power_data$power, na.rm = TRUE) < 0.8) {
+    return(NA_real_)
+  }
+  
+  # Linear interpolation to find effect size at 80% power
+  approx(x = power_data$power, y = power_data$expected_effect, xout = 0.8)$y
 }
+
+# Calculate minimum detectable effects for H2b (robust per-protocol approach)
+mde_table_h2b <- sim_summary_h2b |>
+  group_by(effect_shape) |>
+  summarise(
+    mde_80_unstandardized = find_mde_80_h2b(cur_data()),
+    mde_80_standardized = mde_80_unstandardized / 3,  # Convert to standardized units
+    max_power = max(power, na.rm = TRUE),
+    min_power = min(power, na.rm = TRUE),
+    mean_power = mean(power, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(mde_80_standardized) |>
+  mutate(
+    # Format effect sizes for display
+    mde_80_unstandardized_fmt = ifelse(is.na(mde_80_unstandardized), 
+                                     ">0.25", 
+                                     sprintf("%.3f", mde_80_unstandardized)),
+    mde_80_standardized_fmt = ifelse(is.na(mde_80_standardized), 
+                                   ">0.083", 
+                                   sprintf("%.3f", mde_80_standardized)),
+    max_power_fmt = sprintf("%.1f%%", max_power * 100),
+    min_power_fmt = sprintf("%.1f%%", min_power * 100),
+    mean_power_fmt = sprintf("%.1f%%", mean_power * 100)
+  )
+
+# Create formatted table for H2b
+mde_table_h2b |>
+  select(
+    `Effect Shape` = effect_shape,
+    `MDE (Unstandardized)` = mde_80_unstandardized_fmt,
+    `MDE (Standardized)` = mde_80_standardized_fmt,
+    `Mean Power` = mean_power_fmt,
+    `Min Power` = min_power_fmt,
+    `Max Power Achieved` = max_power_fmt
+  ) |>
+  kable(
+    caption = "Minimum Detectable Effect Sizes at 80% Power - H2b Robust Per-Protocol Model",
+    align = c("l", "r", "r", "r", "r", "r")
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "left"
+  ) |>
+  footnote(
+    general = c(
+      "MDE = Minimum Detectable Effect size at 80% power for the robust per-protocol approach",
+      "Standardized effects calculated as unstandardized effect / 3",
+      "This model tests the interaction between intervention status and actual playtime levels",
+      "Effects are for the intervention_activeTRUE:playtime interaction term",
+      "Power calculation expects negative coefficients (reduction in sleep quality with higher playtime during intervention)"
+    ),
+    general_title = "Notes:"
+  )
+
 ```
 
 
